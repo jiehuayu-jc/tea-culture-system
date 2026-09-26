@@ -140,7 +140,6 @@ public class AddressController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         AddressEntity address = addressService.selectById(id);
@@ -188,15 +187,6 @@ public class AddressController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        AddressEntity address = addressService.selectOne(new EntityWrapper<AddressEntity>().eq("", username));
-        return R.ok().put("data", address);
-    }
 
 
     /**
@@ -204,7 +194,6 @@ public class AddressController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody AddressEntity address, HttpServletRequest request){
         //ValidatorUtils.validateEntity(address);
         if(address.getIsdefault().equals("是")) {
@@ -243,7 +232,6 @@ public class AddressController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,AddressEntity address, HttpServletRequest request,String pre){
         EntityWrapper<AddressEntity> ew = new EntityWrapper<AddressEntity>();

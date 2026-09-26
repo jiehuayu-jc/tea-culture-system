@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.lang.reflect.InvocationTargetException;
 
@@ -145,12 +147,14 @@ public class ShangjiaEntity<T> implements Serializable {
 	/**
 	 * 设置：密码
 	 */
+	@JsonProperty
 	public void setMima(String mima) {
 		this.mima = mima;
 	}
 	/**
-	 * 获取：密码
+	 * 获取：密码（不随 JSON 返回，防止哈希泄露）
 	 */
+	@JsonIgnore
 	public String getMima() {
 		return mima;
 	}

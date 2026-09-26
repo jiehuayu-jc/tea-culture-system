@@ -1,8 +1,6 @@
 package com.interceptor;
 
 import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 
 import com.alibaba.fastjson.JSONObject;
 import javax.servlet.http.HttpServletRequest;
@@ -114,39 +112,6 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         return p;
     }
 
-    /** 兜底：任意容器/代理下只要路径里出现这些片段即放行 */
-    private static boolean isQuickOpenByUriContains(HttpServletRequest request) {
-        try {
-            String uri = request.getRequestURI();
-            if (StringUtils.isBlank(uri)) {
-                return false;
-            }
-            int q = uri.indexOf('?');
-            if (q >= 0) {
-                uri = uri.substring(0, q);
-            }
-            int semi = uri.indexOf(';');
-            if (semi >= 0) {
-                uri = uri.substring(0, semi);
-            }
-            try {
-                uri = URLDecoder.decode(uri, StandardCharsets.UTF_8.name());
-            } catch (Exception ignored) {
-                // ignore
-            }
-            return uri.contains("/yonghu/login")
-                    || uri.contains("/yonghu/register")
-                    || uri.contains("/yonghu/resetPass")
-                    || uri.contains("/shangjia/login")
-                    || uri.contains("/shangjia/register")
-                    || uri.contains("/users/login")
-                    || uri.contains("/users/register")
-                    || uri.contains("/file/upload");
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     private static boolean isOpenRelativePath(String path) {
         if (StringUtils.isBlank(path)) {
             return false;
@@ -164,12 +129,19 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		//支持跨域请求
+		//支持跨域请求：仅放行本机前端开发端口，不回显任意 Origin
+        String origin = request.getHeader("Origin");
+        java.util.List<String> allowedOrigins = java.util.Arrays.asList(
+                "http://localhost:8080", "http://127.0.0.1:8080",
+                "http://localhost:8081", "http://127.0.0.1:8081",
+                "http://localhost:8082", "http://127.0.0.1:8082");
+        if (origin != null && allowedOrigins.contains(origin)) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+        }
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with,request-source,Token, Origin,imgType, Content-Type, cache-control,postman-token,Cookie, Accept,authorization");
-        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 	// 跨域时会首先发送一个OPTIONS请求，这里我们给OPTIONS请求直接返回正常状态
 	if (request.getMethod().equals(RequestMethod.OPTIONS.name())) {
         	response.setStatus(HttpStatus.OK.value());
@@ -178,11 +150,6 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         // 错误页转发（如业务异常进入 /error）：若仍走拦截器，否则会误返回「请先登录」掩盖真实原因
         if (request.getAttribute("javax.servlet.error.status_code") != null) {
-            return true;
-        }
-
-        // 最优先：仅看 URI 字符串（解码后）是否包含公开接口路径，不依赖 Handler、UrlPathHelper
-        if (isQuickOpenByUriContains(request)) {
             return true;
         }
 

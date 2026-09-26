@@ -70,14 +70,20 @@ public class ShangjiaController {
 	/**
 	 * 登录
 	 */
-	@IgnoreAuth
 	@RequestMapping(value = "/login")
 	public R login(String username, String password, String captcha, HttpServletRequest request) {
 		ShangjiaEntity u = shangjiaService.selectOne(new EntityWrapper<ShangjiaEntity>().eq("shangjiazhanghao", username));
-        if(u==null || !u.getMima().equals(EncryptUtil.md5(password))) {
+        if(u==null || !EncryptUtil.matches(password, u.getMima())) {
 			return R.error("账号或密码不正确");
 		}
         if(!"是".equals(u.getSfsh())) return R.error("账号已锁定，请联系管理员审核。");
+		// 旧 MD5 密码在登录成功后透明升级为 BCrypt
+		if (!u.getMima().startsWith("$2")) {
+			ShangjiaEntity up = new ShangjiaEntity();
+			up.setId(u.getId());
+			up.setMima(EncryptUtil.bcrypt(password));
+			shangjiaService.updateById(up);
+		}
 		String token = tokenService.generateToken(u.getId(), username,"shangjia",  "茶商" );
 		return R.ok().put("token", token);
 	}
@@ -87,7 +93,6 @@ public class ShangjiaController {
 	/**
      * 注册
      */
-	@IgnoreAuth
     @RequestMapping("/register")
     public R register(@RequestBody ShangjiaEntity shangjia){
     	//ValidatorUtils.validateEntity(shangjia);
@@ -110,7 +115,7 @@ public class ShangjiaController {
 		if (StringUtils.isBlank(shangjia.getSfsh())) {
 			shangjia.setSfsh("待审核");
 		}
-        shangjia.setMima(EncryptUtil.md5(shangjia.getMima()));
+        shangjia.setMima(EncryptUtil.bcrypt(shangjia.getMima()));
         try {
         	shangjiaService.insert(shangjia);
         } catch (Exception e) {
@@ -143,14 +148,13 @@ public class ShangjiaController {
     /**
      * 密码重置
      */
-    @IgnoreAuth
 	@RequestMapping(value = "/resetPass")
     public R resetPass(String username, HttpServletRequest request){
     	ShangjiaEntity u = shangjiaService.selectOne(new EntityWrapper<ShangjiaEntity>().eq("shangjiazhanghao", username));
     	if(u==null) {
     		return R.error("账号不存在");
     	}
-        u.setMima(EncryptUtil.md5("123456"));
+        u.setMima(EncryptUtil.bcrypt("123456"));
         shangjiaService.updateById(u);
         return R.ok("密码已重置为：123456");
     }
@@ -176,7 +180,6 @@ public class ShangjiaController {
     /**
      * 前台列表
      */
-	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,ShangjiaEntity shangjia, 
 		HttpServletRequest request){
@@ -226,7 +229,6 @@ public class ShangjiaController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         ShangjiaEntity shangjia = shangjiaService.selectById(id);
@@ -254,7 +256,7 @@ public class ShangjiaController {
 			return R.error("用户已存在");
 		}
 		shangjia.setId(new Date().getTime());
-        shangjia.setMima(EncryptUtil.md5(shangjia.getMima()));
+        shangjia.setMima(EncryptUtil.bcrypt(shangjia.getMima()));
         shangjiaService.insert(shangjia);
         return R.ok();
     }
@@ -275,7 +277,7 @@ public class ShangjiaController {
 			return R.error("用户已存在");
 		}
 		shangjia.setId(new Date().getTime());
-        shangjia.setMima(EncryptUtil.md5(shangjia.getMima()));
+        shangjia.setMima(EncryptUtil.bcrypt(shangjia.getMima()));
         shangjiaService.insert(shangjia);
         return R.ok().put("data",shangjia.getId());
     }
@@ -297,7 +299,7 @@ public class ShangjiaController {
         }
 	ShangjiaEntity shangjiaEntity = shangjiaService.selectById(shangjia.getId());
         if(StringUtils.isNotBlank(shangjia.getMima()) && !shangjia.getMima().equals(shangjiaEntity.getMima())) {
-            shangjia.setMima(EncryptUtil.md5(shangjia.getMima()));
+            shangjia.setMima(EncryptUtil.bcrypt(shangjia.getMima()));
         }
         //全部更新
         shangjiaService.updateById(shangjia);

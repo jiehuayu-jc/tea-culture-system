@@ -46,12 +46,19 @@ public class FileController{
 	 * 上传文件
 	 */
 	@RequestMapping("/upload")
-    @IgnoreAuth
 	public R upload(@RequestParam("file") MultipartFile file,String type) throws Exception {
 		if (file.isEmpty()) {
 			throw new EIException("上传文件不能为空");
 		}
-		String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+		String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1).toLowerCase();
+		// 后缀白名单：只允许图片/文档/音视频等常规类型，杜绝任意文件上传
+		List<String> allowExt = Arrays.asList(
+				"jpg","jpeg","png","gif","bmp","webp","ico","svg",
+				"pdf","doc","docx","xls","xlsx","ppt","pptx","txt","md","zip","rar",
+				"mp3","wav","mp4","webm","avi","mov");
+		if(!allowExt.contains(fileExt)) {
+			throw new EIException("不允许上传该类型文件: " + fileExt);
+		}
 		File path = new File(ResourceUtils.getURL("classpath:static").getPath());
 		if(!path.exists()) {
 		    path = new File("");
@@ -94,6 +101,11 @@ public class FileController{
 	@RequestMapping("/download")
 	public ResponseEntity<byte[]> download(@RequestParam String fileName) {
 		try {
+			// 防路径穿越：只接受纯文件名，且规范化后必须仍位于 upload 目录内
+			if (StringUtils.isBlank(fileName) || fileName.contains("..")
+					|| fileName.contains("/") || fileName.contains("\\")) {
+				return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			}
 			File path = new File(ResourceUtils.getURL("classpath:static").getPath());
 			if(!path.exists()) {
 			    path = new File("");
@@ -103,6 +115,9 @@ public class FileController{
 			    upload.mkdirs();
 			}
 			File file = new File(upload.getAbsolutePath()+"/"+fileName);
+			if(!file.getCanonicalPath().startsWith(upload.getCanonicalPath())) {
+				return new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			}
 			if(file.exists()){
 				/*if(!fileService.canRead(file, SessionManager.getSessionUser())){
 					getResponse().sendError(403);

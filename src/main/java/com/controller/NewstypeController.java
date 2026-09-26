@@ -135,7 +135,6 @@ public class NewstypeController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         NewstypeEntity newstype = newstypeService.selectById(id);
@@ -171,15 +170,6 @@ public class NewstypeController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        NewstypeEntity newstype = newstypeService.selectOne(new EntityWrapper<NewstypeEntity>().eq("", username));
-        return R.ok().put("data", newstype);
-    }
 
 
     /**
@@ -187,7 +177,6 @@ public class NewstypeController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody NewstypeEntity newstype, HttpServletRequest request){
         //ValidatorUtils.validateEntity(newstype);
         //全部更新
@@ -214,7 +203,6 @@ public class NewstypeController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,NewstypeEntity newstype, HttpServletRequest request,String pre){
         EntityWrapper<NewstypeEntity> ew = new EntityWrapper<NewstypeEntity>();

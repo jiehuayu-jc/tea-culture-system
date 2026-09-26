@@ -147,7 +147,6 @@ public class MycouponController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         MycouponEntity mycoupon = mycouponService.selectById(id);
@@ -185,15 +184,6 @@ public class MycouponController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        MycouponEntity mycoupon = mycouponService.selectOne(new EntityWrapper<MycouponEntity>().eq("", username));
-        return R.ok().put("data", mycoupon);
-    }
 
 
     /**
@@ -201,7 +191,6 @@ public class MycouponController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody MycouponEntity mycoupon, HttpServletRequest request){
         //ValidatorUtils.validateEntity(mycoupon);
         //全部更新
@@ -228,7 +217,6 @@ public class MycouponController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,MycouponEntity mycoupon, HttpServletRequest request,String pre){
         EntityWrapper<MycouponEntity> ew = new EntityWrapper<MycouponEntity>();

@@ -197,15 +197,6 @@ public class NewsController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        NewsEntity news = newsService.selectOne(new EntityWrapper<NewsEntity>().eq("", username));
-        return R.ok().put("data", news);
-    }
 
 
     /**
@@ -213,7 +204,6 @@ public class NewsController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody NewsEntity news, HttpServletRequest request){
         //ValidatorUtils.validateEntity(news);
         //全部更新

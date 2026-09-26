@@ -69,7 +69,6 @@ public class FriendController {
      * 后台列表
      */
     @RequestMapping("/page2")
-    @IgnoreAuth
     public R page2(@RequestParam Map<String, Object> params, HttpServletRequest request){
         PageUtils page = friendService.queryFriendPage(params);
         Map<String, String> deSens = new HashMap<>();
@@ -96,7 +95,6 @@ public class FriendController {
     /**
      * 前台列表
      */
-	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,FriendEntity friend, 
 		HttpServletRequest request){
@@ -146,7 +144,6 @@ public class FriendController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         FriendEntity friend = friendService.selectById(id);
@@ -182,15 +179,6 @@ public class FriendController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        FriendEntity friend = friendService.selectOne(new EntityWrapper<FriendEntity>().eq("", username));
-        return R.ok().put("data", friend);
-    }
 
 
     /**
@@ -198,7 +186,6 @@ public class FriendController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody FriendEntity friend, HttpServletRequest request){
         //ValidatorUtils.validateEntity(friend);
         //全部更新
@@ -225,7 +212,6 @@ public class FriendController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,FriendEntity friend, HttpServletRequest request,String pre){
         EntityWrapper<FriendEntity> ew = new EntityWrapper<FriendEntity>();

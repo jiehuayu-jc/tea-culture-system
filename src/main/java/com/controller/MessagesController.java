@@ -88,7 +88,6 @@ public class MessagesController {
     /**
      * 前台列表
      */
-	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,MessagesEntity messages, 
 		HttpServletRequest request){
@@ -138,7 +137,6 @@ public class MessagesController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         MessagesEntity messages = messagesService.selectById(id);
@@ -174,15 +172,6 @@ public class MessagesController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        MessagesEntity messages = messagesService.selectOne(new EntityWrapper<MessagesEntity>().eq("", username));
-        return R.ok().put("data", messages);
-    }
 
 
     /**
@@ -190,7 +179,6 @@ public class MessagesController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody MessagesEntity messages, HttpServletRequest request){
         //ValidatorUtils.validateEntity(messages);
         //全部更新
@@ -217,7 +205,6 @@ public class MessagesController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,MessagesEntity messages, HttpServletRequest request,String pre){
         EntityWrapper<MessagesEntity> ew = new EntityWrapper<MessagesEntity>();

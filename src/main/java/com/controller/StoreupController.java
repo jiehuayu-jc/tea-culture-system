@@ -88,7 +88,6 @@ public class StoreupController {
     /**
      * 前台列表
      */
-	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,StoreupEntity storeup, 
 		HttpServletRequest request){
@@ -138,7 +137,6 @@ public class StoreupController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         StoreupEntity storeup = storeupService.selectById(id);
@@ -175,15 +173,6 @@ public class StoreupController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        StoreupEntity storeup = storeupService.selectOne(new EntityWrapper<StoreupEntity>().eq("", username));
-        return R.ok().put("data", storeup);
-    }
 
 
     /**
@@ -191,7 +180,6 @@ public class StoreupController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody StoreupEntity storeup, HttpServletRequest request){
         //ValidatorUtils.validateEntity(storeup);
         //全部更新
@@ -218,7 +206,6 @@ public class StoreupController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,StoreupEntity storeup, HttpServletRequest request,String pre){
         EntityWrapper<StoreupEntity> ew = new EntityWrapper<StoreupEntity>();

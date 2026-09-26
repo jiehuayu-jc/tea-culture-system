@@ -135,7 +135,6 @@ public class ForumtypeController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         ForumtypeEntity forumtype = forumtypeService.selectById(id);
@@ -171,15 +170,6 @@ public class ForumtypeController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        ForumtypeEntity forumtype = forumtypeService.selectOne(new EntityWrapper<ForumtypeEntity>().eq("", username));
-        return R.ok().put("data", forumtype);
-    }
 
 
     /**
@@ -187,7 +177,6 @@ public class ForumtypeController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody ForumtypeEntity forumtype, HttpServletRequest request){
         //ValidatorUtils.validateEntity(forumtype);
         //全部更新
@@ -214,7 +203,6 @@ public class ForumtypeController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,ForumtypeEntity forumtype, HttpServletRequest request,String pre){
         EntityWrapper<ForumtypeEntity> ew = new EntityWrapper<ForumtypeEntity>();

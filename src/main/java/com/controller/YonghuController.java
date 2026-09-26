@@ -70,15 +70,21 @@ public class YonghuController {
 	/**
 	 * 登录
 	 */
-	@IgnoreAuth
 	@RequestMapping(value = "/login")
 	public R login(String username, String password, String captcha, HttpServletRequest request) {
 		YonghuEntity u = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq("yonghuzhanghao", username));
         if(u!=null && u.getStatus()!=null && u.getStatus().intValue()==1) {
             return R.error("账号已锁定，请联系管理员。");
         }
-        if (u == null || u.getMima() == null || !u.getMima().equals(EncryptUtil.md5(password))) {
+        if (u == null || u.getMima() == null || !EncryptUtil.matches(password, u.getMima())) {
 			return R.error("账号或密码不正确");
+		}
+		// 旧 MD5 密码在登录成功后透明升级为 BCrypt
+		if (!u.getMima().startsWith("$2")) {
+			YonghuEntity up = new YonghuEntity();
+			up.setId(u.getId());
+			up.setMima(EncryptUtil.bcrypt(password));
+			yonghuService.updateById(up);
 		}
 		String token = tokenService.generateToken(u.getId(), username,"yonghu",  "用户" );
 		return R.ok().put("token", token);
@@ -89,7 +95,6 @@ public class YonghuController {
 	/**
      * 注册
      */
-	@IgnoreAuth
     @RequestMapping("/register")
     public R register(@RequestBody YonghuEntity yonghu){
     	//ValidatorUtils.validateEntity(yonghu);
@@ -112,7 +117,7 @@ public class YonghuController {
 		if (yonghu.getStatus() == null) {
 			yonghu.setStatus(0);
 		}
-        yonghu.setMima(EncryptUtil.md5(yonghu.getMima()));
+        yonghu.setMima(EncryptUtil.bcrypt(yonghu.getMima()));
         try {
         	yonghuService.insert(yonghu);
         } catch (Exception e) {
@@ -145,14 +150,13 @@ public class YonghuController {
     /**
      * 密码重置
      */
-    @IgnoreAuth
 	@RequestMapping(value = "/resetPass")
     public R resetPass(String username, HttpServletRequest request){
     	YonghuEntity u = yonghuService.selectOne(new EntityWrapper<YonghuEntity>().eq("yonghuzhanghao", username));
     	if(u==null) {
     		return R.error("账号不存在");
     	}
-        u.setMima(EncryptUtil.md5("123456"));
+        u.setMima(EncryptUtil.bcrypt("123456"));
         yonghuService.updateById(u);
         return R.ok("密码已重置为：123456");
     }
@@ -178,7 +182,6 @@ public class YonghuController {
     /**
      * 前台列表
      */
-	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,YonghuEntity yonghu, 
 		HttpServletRequest request){
@@ -228,7 +231,6 @@ public class YonghuController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         YonghuEntity yonghu = yonghuService.selectById(id);
@@ -256,7 +258,7 @@ public class YonghuController {
 			return R.error("用户已存在");
 		}
 		yonghu.setId(new Date().getTime());
-        yonghu.setMima(EncryptUtil.md5(yonghu.getMima()));
+        yonghu.setMima(EncryptUtil.bcrypt(yonghu.getMima()));
         yonghuService.insert(yonghu);
         return R.ok();
     }
@@ -277,7 +279,7 @@ public class YonghuController {
 			return R.error("用户已存在");
 		}
 		yonghu.setId(new Date().getTime());
-        yonghu.setMima(EncryptUtil.md5(yonghu.getMima()));
+        yonghu.setMima(EncryptUtil.bcrypt(yonghu.getMima()));
         yonghuService.insert(yonghu);
         return R.ok().put("data",yonghu.getId());
     }
@@ -299,7 +301,7 @@ public class YonghuController {
         }
 	YonghuEntity yonghuEntity = yonghuService.selectById(yonghu.getId());
         if(StringUtils.isNotBlank(yonghu.getMima()) && !yonghu.getMima().equals(yonghuEntity.getMima())) {
-            yonghu.setMima(EncryptUtil.md5(yonghu.getMima()));
+            yonghu.setMima(EncryptUtil.bcrypt(yonghu.getMima()));
         }
         //全部更新
         yonghuService.updateById(yonghu);

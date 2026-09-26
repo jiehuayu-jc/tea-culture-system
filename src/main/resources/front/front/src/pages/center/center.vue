@@ -767,13 +767,13 @@
 						}
 						if (this.userTableName == 'yonghu') {
 						}
-						var nowpassword = ''
-						await this.$http.get('encrypt/md5?text=' + this.passwordForm.password,).then(res=>{
+						var passOk = false
+						await this.$http.get('encrypt/check?text=' + encodeURIComponent(this.passwordForm.password || '') + '&hash=' + encodeURIComponent(password || '')).then(res=>{
 							if(res.data&&res.data.code==0){
-								nowpassword = res.data.data
+								passOk = !!res.data.data
 							}
 						})
-						if(nowpassword!=password){
+						if(!passOk){
 							this.$message.error("原密码错误");
 							return;
 						}

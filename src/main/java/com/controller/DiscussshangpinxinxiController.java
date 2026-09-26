@@ -135,7 +135,6 @@ public class DiscussshangpinxinxiController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         DiscussshangpinxinxiEntity discussshangpinxinxi = discussshangpinxinxiService.selectById(id);
@@ -171,15 +170,6 @@ public class DiscussshangpinxinxiController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        DiscussshangpinxinxiEntity discussshangpinxinxi = discussshangpinxinxiService.selectOne(new EntityWrapper<DiscussshangpinxinxiEntity>().eq("", username));
-        return R.ok().put("data", discussshangpinxinxi);
-    }
 
 
     /**
@@ -187,7 +177,6 @@ public class DiscussshangpinxinxiController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody DiscussshangpinxinxiEntity discussshangpinxinxi, HttpServletRequest request){
         //ValidatorUtils.validateEntity(discussshangpinxinxi);
         //全部更新
@@ -214,7 +203,6 @@ public class DiscussshangpinxinxiController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,DiscussshangpinxinxiEntity discussshangpinxinxi, HttpServletRequest request,String pre){
         EntityWrapper<DiscussshangpinxinxiEntity> ew = new EntityWrapper<DiscussshangpinxinxiEntity>();

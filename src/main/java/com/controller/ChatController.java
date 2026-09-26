@@ -148,7 +148,6 @@ public class ChatController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         ChatEntity chat = chatService.selectById(id);
@@ -203,15 +202,6 @@ public class ChatController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        ChatEntity chat = chatService.selectOne(new EntityWrapper<ChatEntity>().eq("", username));
-        return R.ok().put("data", chat);
-    }
 
 
     /**
@@ -219,7 +209,6 @@ public class ChatController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody ChatEntity chat, HttpServletRequest request){
         //ValidatorUtils.validateEntity(chat);
         //全部更新
@@ -246,7 +235,6 @@ public class ChatController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,ChatEntity chat, HttpServletRequest request,String pre){
         EntityWrapper<ChatEntity> ew = new EntityWrapper<ChatEntity>();

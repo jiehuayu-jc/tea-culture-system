@@ -201,15 +201,6 @@ public class CouponController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        CouponEntity coupon = couponService.selectOne(new EntityWrapper<CouponEntity>().eq("", username));
-        return R.ok().put("data", coupon);
-    }
 
 
     /**
@@ -217,7 +208,6 @@ public class CouponController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody CouponEntity coupon, HttpServletRequest request){
         //ValidatorUtils.validateEntity(coupon);
         //全部更新
@@ -244,7 +234,6 @@ public class CouponController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,CouponEntity coupon, HttpServletRequest request,String pre){
         EntityWrapper<CouponEntity> ew = new EntityWrapper<CouponEntity>();

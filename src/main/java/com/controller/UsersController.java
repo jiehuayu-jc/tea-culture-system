@@ -28,6 +28,7 @@ import com.entity.UsersEntity;
 import com.service.TokenService;
 import com.service.UsersService;
 import com.utils.CommonUtil;
+import com.utils.EncryptUtil;
 import com.utils.MPUtil;
 import com.utils.PageUtils;
 import com.utils.R;
@@ -57,8 +58,18 @@ public class UsersController{
 				return R.error("账号或密码不能为空");
 			}
 			UsersEntity user = userService.selectOne(new EntityWrapper<UsersEntity>().eq("username", username.trim()));
-			if (user == null || !StringUtils.equals(password, user.getPassword())) {
+			// 兼容历史明文/MD5，新密码一律 BCrypt
+			boolean ok = user != null && (EncryptUtil.matches(password, user.getPassword())
+					|| StringUtils.equals(password, user.getPassword()));
+			if (!ok) {
 				return R.error("账号或密码不正确");
+			}
+			// 旧明文/MD5 密码在登录成功后透明升级为 BCrypt
+			if (user.getPassword() == null || !user.getPassword().startsWith("$2")) {
+				UsersEntity up = new UsersEntity();
+				up.setId(user.getId());
+				up.setPassword(EncryptUtil.bcrypt(password));
+				userService.updateById(up);
 			}
 			if (user.getId() == null) {
 				return R.error("用户数据异常，请检查 users 表");
@@ -105,9 +116,9 @@ public class UsersController{
     	if(user==null) {
     		return R.error("账号不存在");
     	}
-    	user.setPassword("123456");
-        userService.update(user,null);
-        return R.ok("密码已重置为：123456");
+	    	user.setPassword(EncryptUtil.bcrypt("123456"));
+	        userService.update(user,null);
+	        return R.ok("密码已重置为：123456");
     }
 	
 	/**
@@ -158,6 +169,9 @@ public class UsersController{
     	if(userService.selectOne(new EntityWrapper<UsersEntity>().eq("username", user.getUsername())) !=null) {
     		return R.error("用户已存在");
     	}
+    	if(StringUtils.isNotBlank(user.getPassword())) {
+    		user.setPassword(EncryptUtil.bcrypt(user.getPassword()));
+    	}
         userService.insert(user);
         return R.ok();
     }
@@ -171,6 +185,12 @@ public class UsersController{
     	UsersEntity u = userService.selectOne(new EntityWrapper<UsersEntity>().eq("username", user.getUsername()));
     	if(u!=null && u.getId()!=user.getId() && u.getUsername().equals(user.getUsername())) {
     		return R.error("用户名已存在。");
+    	}
+    	// 密码有变化时以 BCrypt 落库；与库中一致则视为未改密，原样跳过
+    	if(StringUtils.isNotBlank(user.getPassword()) && u!=null && !StringUtils.equals(user.getPassword(), u.getPassword())) {
+    		user.setPassword(EncryptUtil.bcrypt(user.getPassword()));
+    	} else if (StringUtils.isNotBlank(user.getPassword()) && u==null) {
+    		user.setPassword(EncryptUtil.bcrypt(user.getPassword()));
     	}
         userService.updateById(user);//全部更新
         return R.ok();

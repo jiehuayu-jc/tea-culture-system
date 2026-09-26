@@ -22,6 +22,29 @@ import javax.crypto.spec.SecretKeySpec;
 import cn.hutool.crypto.digest.DigestUtil;
 
 public class EncryptUtil {
+
+	private static final org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder BCRYPT_ENCODER =
+			new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+
+	/**
+	 * BCrypt 加密（注册/修改密码时使用，自带随机盐）
+	 */
+	public static String bcrypt(String text) {
+		if (text == null) return null;
+		return BCRYPT_ENCODER.encode(text);
+	}
+
+	/**
+	 * 密码校验：库中为 BCrypt（$2 开头）时按 BCrypt 比对，否则兼容旧 MD5 数据
+	 */
+	public static boolean matches(String rawPassword, String storedHash) {
+		if (rawPassword == null || storedHash == null) return false;
+		if (storedHash.startsWith("$2")) {
+			return BCRYPT_ENCODER.matches(rawPassword, storedHash);
+		}
+		return storedHash.equals(md5(rawPassword));
+	}
+
     
 	/**
 	 * md5算法

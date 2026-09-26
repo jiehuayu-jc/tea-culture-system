@@ -117,16 +117,16 @@ export default {
 					}
 					if (this.$storage.get("sessionTable") == 'shangjia') {
 					}
-					var nowpassword = ''
+					var passOk = false
 					await this.$http({
-						url: '/encrypt/md5?text=' + this.ruleForm.password,
+						url: '/encrypt/check?text=' + encodeURIComponent(this.ruleForm.password || '') + '&hash=' + encodeURIComponent(password || ''),
 						method: 'get'
 					}).then(res=>{
 						if(res.data&&res.data.code==0){
-							nowpassword = res.data.data
+							passOk = !!res.data.data
 						}
 					})
-					if(nowpassword!=password){
+					if(!passOk){
 						this.$message.error("原密码错误");
 						return;
 					}

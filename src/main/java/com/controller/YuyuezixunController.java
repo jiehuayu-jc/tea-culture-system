@@ -64,7 +64,6 @@ public class YuyuezixunController {
     /**
      * 前台列表
      */
-	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,YuyuezixunEntity yuyuezixun, 
 		HttpServletRequest request){
@@ -118,7 +117,6 @@ public class YuyuezixunController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         YuyuezixunEntity yuyuezixun = yuyuezixunService.selectById(id);

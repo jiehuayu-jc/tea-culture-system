@@ -89,7 +89,6 @@ public class CommonController{
 	 * @param column
 	 * @return
 	 */
-	@IgnoreAuth
 	@RequestMapping("/follow/{tableName}/{columnName}")
 	public R getFollowByOption(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, @RequestParam String columnValue) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -132,7 +131,6 @@ public class CommonController{
 	 * @param map
 	 * @return
 	 */
-	@IgnoreAuth
 	@RequestMapping("/remind/{tableName}/{columnName}/{type}")
 	public R remindCount(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName, 
 						 @PathVariable("type") String type,@RequestParam Map<String, Object> map) {
@@ -168,7 +166,6 @@ public class CommonController{
 	/**
 	 * 单列求和
 	 */
-	@IgnoreAuth
 	@RequestMapping("/cal/{tableName}/{columnName}")
 	public R cal(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -181,7 +178,6 @@ public class CommonController{
 	/**
 	 * 分组统计
 	 */
-	@IgnoreAuth
 	@RequestMapping("/group/{tableName}/{columnName}")
 	public R group(@PathVariable("tableName") String tableName, @PathVariable("columnName") String columnName) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -202,7 +198,6 @@ public class CommonController{
 	/**
 	 * （按值统计）
 	 */
-	@IgnoreAuth
 	@RequestMapping("/value/{tableName}/{xColumnName}/{yColumnName}")
 	public R value(@PathVariable("tableName") String tableName, @PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -224,7 +219,6 @@ public class CommonController{
 	/**
  	 * （按值统计）时间统计类型
 	 */
-	@IgnoreAuth
 	@RequestMapping("/value/{tableName}/{xColumnName}/{yColumnName}/{timeStatType}")
 	public R valueDay(@PathVariable("tableName") String tableName, @PathVariable("yColumnName") String yColumnName, @PathVariable("xColumnName") String xColumnName, @PathVariable("timeStatType") String timeStatType) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -247,10 +241,21 @@ public class CommonController{
 
 
     /**
-    * MySQL数据库导出
+    * MySQL数据库导出（仅管理员可用）
     */
     @RequestMapping("/mysqldump")
-    public void exportDatabaseTool(HttpServletResponse response)throws InterruptedException {
+    public void exportDatabaseTool(HttpServletRequest request, HttpServletResponse response)throws InterruptedException {
+        Object role = request.getSession().getAttribute("role");
+        if (!"管理员".equals(role)) {
+            try {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setContentType("application/json; charset=utf-8");
+                response.getWriter().print(JSON.toJSONString(R.error(403, "仅管理员可导出数据库")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         String fileName = "mysql.dmp";
         try {
             Runtime runtime = Runtime.getRuntime();
@@ -283,6 +288,14 @@ public class CommonController{
     public R encryptMd5(@RequestParam String text) {
         return R.ok().put("data", EncryptUtil.md5(text));
     }
+
+	/**
+	 * 原密码校验（改密流程用，需登录）：text=待校验明文，hash=库中现有密文
+	 */
+	@RequestMapping("/encrypt/check")
+	public R encryptCheck(@RequestParam String text, @RequestParam String hash) {
+		return R.ok().put("data", EncryptUtil.matches(text, hash) || StringUtils.equals(text, hash));
+	}
 	/*
 	 * 百度千帆
 	 */

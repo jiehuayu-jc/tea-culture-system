@@ -88,7 +88,6 @@ public class CartController {
     /**
      * 前台列表
      */
-	@IgnoreAuth
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params,CartEntity cart, 
 		HttpServletRequest request){
@@ -138,7 +137,6 @@ public class CartController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         CartEntity cart = cartService.selectById(id);
@@ -175,15 +173,6 @@ public class CartController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        CartEntity cart = cartService.selectOne(new EntityWrapper<CartEntity>().eq("", username));
-        return R.ok().put("data", cart);
-    }
 
 
     /**
@@ -191,7 +180,6 @@ public class CartController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody CartEntity cart, HttpServletRequest request){
         //ValidatorUtils.validateEntity(cart);
         //全部更新
@@ -218,7 +206,6 @@ public class CartController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,CartEntity cart, HttpServletRequest request,String pre){
         EntityWrapper<CartEntity> ew = new EntityWrapper<CartEntity>();

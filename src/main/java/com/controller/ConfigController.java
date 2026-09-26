@@ -65,7 +65,6 @@ public class ConfigController{
     /**
      * 详情
      */
-    @IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") String id){
         ConfigEntity config = configService.selectById(id);

@@ -202,15 +202,6 @@ public class ForumController {
 
 
 
-     /**
-     * 获取用户密保
-     */
-    @RequestMapping("/security")
-    @IgnoreAuth
-    public R security(@RequestParam String username){
-        ForumEntity forum = forumService.selectOne(new EntityWrapper<ForumEntity>().eq("", username));
-        return R.ok().put("data", forum);
-    }
 
 
     /**
@@ -218,7 +209,6 @@ public class ForumController {
      */
     @RequestMapping("/update")
     @Transactional
-    @IgnoreAuth
     public R update(@RequestBody ForumEntity forum, HttpServletRequest request){
         //ValidatorUtils.validateEntity(forum);
         //全部更新
@@ -245,7 +235,6 @@ public class ForumController {
 	/**
      * 前台智能排序
      */
-	@IgnoreAuth
     @RequestMapping("/autoSort")
     public R autoSort(@RequestParam Map<String, Object> params,ForumEntity forum, HttpServletRequest request,String pre){
         EntityWrapper<ForumEntity> ew = new EntityWrapper<ForumEntity>();

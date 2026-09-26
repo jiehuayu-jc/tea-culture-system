@@ -135,7 +135,6 @@ public class ShangpinfenleiController {
     /**
      * 前台详情
      */
-	@IgnoreAuth
     @RequestMapping("/detail/{id}")
     public R detail(@PathVariable("id") Long id){
         ShangpinfenleiEntity shangpinfenlei = shangpinfenleiService.selectById(id);
