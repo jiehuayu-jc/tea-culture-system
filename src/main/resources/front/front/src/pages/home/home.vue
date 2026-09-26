@@ -1,20 +1,6 @@
 <template>
 	<div class="home-preview">
 
-		<!-- 顶部轮播 Banner -->
-		<div class="tea-banner">
-			<el-carousel height="380px" :interval="4500" arrow="hover">
-				<el-carousel-item v-for="(b, i) in banners" :key="i">
-					<div class="banner-item" :style="{ backgroundImage: 'url(' + baseUrl + b.img + ')' }">
-						<div class="banner-mask">
-							<div class="banner-seal">茶</div>
-							<h2 class="banner-title">{{ b.title }}</h2>
-							<p class="banner-sub">{{ b.sub }}</p>
-						</div>
-					</div>
-				</el-carousel-item>
-			</el-carousel>
-		</div>
 
 		<!-- 栏目入口 -->
 		<div class="tea-entries">
@@ -216,12 +202,7 @@ import Swiper from "swiper";
 				newsList: [],
 				shangpinxinxiRecommend: [],
 
-				// 新中式茶美学：首页轮播与栏目入口
-				banners: [
-					{ img: 'upload/picture1.jpg', title: '一叶知春 · 好茶集市', sub: '头采龙井、武夷岩茶，从茶山到茶杯' },
-					{ img: 'upload/picture2.jpg', title: '茶事美学 · 茶文化', sub: '六大茶类、冲泡技艺与茶席之道' },
-					{ img: 'upload/picture3.jpg', title: '以茶会友 · 茶友圈', sub: '分享你与茶的一盏时光' },
-				],
+				// 新中式茶美学：栏目入口
 				entries: [
 					{ icon: '集', name: '好茶集市', desc: '源头好茶 · 直购价', url: '/index/shangpinxinxi', bg: '#3E6B4F' },
 					{ icon: '文', name: '茶文化', desc: '茶史茶艺 · 视频课堂', url: '/index/jiaoxueshipin', bg: '#7A5C43' },
@@ -1369,55 +1350,7 @@ import Swiper from "swiper";
 		}
 	}
 
-	/* ===== 新中式茶美学：Banner 与栏目入口 ===== */
-	.tea-banner {
-		margin: 0 0 28px;
-		border-radius: 10px;
-		overflow: hidden;
-		box-shadow: 0 6px 24px rgba(46, 82, 60, .12);
-	}
-	.tea-banner .banner-item {
-		height: 100%;
-		background-size: cover;
-		background-position: center;
-		position: relative;
-	}
-	.tea-banner .banner-mask {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(90deg, rgba(35, 48, 38, .78) 0%, rgba(35, 48, 38, .45) 46%, rgba(35, 48, 38, .05) 100%);
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding-left: 8%;
-	}
-	.tea-banner .banner-seal {
-		width: 46px;
-		height: 46px;
-		line-height: 46px;
-		text-align: center;
-		background: #A63D2F;
-		color: #F6F3EC;
-		font-family: var(--tea-serif);
-		font-size: 26px;
-		border-radius: 6px;
-		margin-bottom: 18px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
-	}
-	.tea-banner .banner-title {
-		margin: 0 0 10px;
-		color: #F6F3EC;
-		font-family: var(--tea-serif);
-		font-size: 38px;
-		font-weight: 600;
-		letter-spacing: 4px;
-	}
-	.tea-banner .banner-sub {
-		margin: 0;
-		color: rgba(246, 243, 236, .82);
-		font-size: 16px;
-		letter-spacing: 2px;
-	}
+	/* ===== 新中式茶美学：栏目入口 ===== */
 	.tea-entries {
 		display: flex;
 		gap: 20px;

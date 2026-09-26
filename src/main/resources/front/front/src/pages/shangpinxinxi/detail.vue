@@ -1241,7 +1241,7 @@
 					padding: 0 10px;
 					margin: 0 5px 0 0;
 					color: #fff;
-					background: #37c9e9;
+					background: #A63D2F;
 					width: auto;
 					font-size: inherit;
 					line-height: 40px;

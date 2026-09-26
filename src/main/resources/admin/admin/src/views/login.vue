@@ -158,7 +158,7 @@
 	min-height: 100vh;
 	justify-content: center;
 	align-items: center;
-	background-image: url(https://pic1.imgdb.cn/item/6787458cd0e0a243d4f46756.png);
+	background-image: url(~@/assets/img/login-bg.png);
 	background-position: center center;
 
 	.login_form {
@@ -171,7 +171,7 @@
 		border-radius: 0;
 		box-shadow: inset 0px 0px 0px 0px #000;
 		flex-direction: column;
-		background: url(https://pic1.imgdb.cn/item/669fc4b4d9c307b7e9358d4c.webp) left center/35% 100% no-repeat #fff;
+		background: url(~@/assets/img/login-side.webp) left center/35% 100% no-repeat #fff;
 		width: 70%;
 		align-items: flex-start;
 		position: statics;
@@ -182,7 +182,7 @@
 		.title-container {
 			padding: 0 ;
 			margin: 0 0 80px -120px;
-			color: #253B80;
+			color: #2E523C;
 			background: none;
 			font-weight: 600;
 			width: calc(100% + 240px);
@@ -276,9 +276,9 @@
 				border-color: #666;
 			}
 			/deep/ .el-radio__input.is-checked .el-radio__inner {
-				background: #0d6efd;
+				background: #3E6B4F;
 				display: none;
-				border-color: #0d6efd;
+				border-color: #3E6B4F;
 			}
 			/deep/ .el-radio__label {
 				border: 1px solid #D8D8D8;
@@ -291,9 +291,9 @@
 				height: 40px;
 			}
 			/deep/ .el-radio__input.is-checked+.el-radio__label {
-				border: 1px solid #38A9DC;
+				border: 1px solid #3E6B4F;
 				padding: 0 20px;
-				color: #38A9DC;
+				color: #3E6B4F;
 				display: inline-block;
 				font-size: 18px;
 				border-width: 0 0 2px;
@@ -332,7 +332,7 @@
 				padding: 0 10px;
 				margin: 0 0 10px;
 				color: #fff;
-				background: #38A9DC;
+				background: #3E6B4F;
 				font-weight: 600;
 				width: 100%;
 				font-size: 26px;

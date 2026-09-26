@@ -1,8 +1,8 @@
 <template>
 	<div style="height: 100%;">
-		<el-main :style='"vertical" == "vertical" ? (2 == 1 ? {"minHeight":"100%","padding":"0","margin":"0 0 0 210px","position":"relative","display":"block"} : (2 == 2 ? (isCollapse ? {"minHeight":"100%","padding":"0px 0 0 177px","margin":"0","position":"relative","background":"linear-gradient( 180deg, #4FC8FF 0%, rgba(255,255,255,0) 100%)","display":"block"} : {"minHeight":"100%","padding":"0px 0 0 177px","margin":"0","position":"relative","background":"linear-gradient( 180deg, #4FC8FF 0%, rgba(255,255,255,0) 100%)","display":"block"}) : "")) : {"minHeight":"100%","margin":"0","position":"relative"}'>
+		<el-main :style='"vertical" == "vertical" ? (2 == 1 ? {"minHeight":"100%","padding":"0","margin":"0 0 0 210px","position":"relative","display":"block"} : (2 == 2 ? (isCollapse ? {"minHeight":"100%","padding":"0px 0 0 177px","margin":"0","position":"relative","background":"linear-gradient( 180deg, #93B29B 0%, rgba(255,255,255,0) 100%)","display":"block"} : {"minHeight":"100%","padding":"0px 0 0 177px","margin":"0","position":"relative","background":"linear-gradient( 180deg, #93B29B 0%, rgba(255,255,255,0) 100%)","display":"block"}) : "")) : {"minHeight":"100%","margin":"0","position":"relative"}'>
 			<!-- top -->
-			<index-header :style='{"boxShadow":"0 0px 0px rgba(0, 0, 0, .3)","padding":"0 20px 0","alignItems":"center","color":"#fff","display":"flex","justifyContent":"flex-end","top":"15px","borderRadius":"10px","left":"40px","background":"#179BD7","width":"calc(100% - 40px)","fontSize":"16px","position":"inherit","zIndex":"1001","height":"70px"}'></index-header>
+			<index-header :style='{"boxShadow":"0 0px 0px rgba(0, 0, 0, .3)","padding":"0 20px 0","alignItems":"center","color":"#fff","display":"flex","justifyContent":"flex-end","top":"15px","borderRadius":"10px","left":"40px","background":"#3E6B4F","width":"calc(100% - 40px)","fontSize":"16px","position":"inherit","zIndex":"1001","height":"70px"}'></index-header>
 			
 			<!-- menu -->
 			<template v-if="'vertical' == 'vertical'">

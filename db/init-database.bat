@@ -23,7 +23,7 @@ echo ============================================
 echo 一键初始化数据库（与 application.yml 一致）
 echo 库名: %DB%用户: %MYSQL_USER%
 echo 将执行: DROP 库 -^> CREATE 库 -^> 导入完整 springbootj8kskvkr.sql
-echo 成功后约有 33 张表（含 yonghu 用户表）
+echo 成功后约有 29 张表，含茶叶主题演示数据
 echo.
 echo 若你的 root 密码不是 123456，请右键编辑本 bat 修改 MYSQL_PWD
 echo 使用的 mysql.exe: %MYSQL_BIN%
