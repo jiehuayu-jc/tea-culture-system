@@ -323,7 +323,7 @@
 								.detail-title {
 										padding: 10px 0;
 										color: #fff;
-										background: #0674fc;
+										background: #3E6B4F;
 										font-weight: 500;
 										font-size: 22px;
 										border-color: #fcbb78;
@@ -458,7 +458,7 @@
 												border-radius: 4px;
 												padding: 0 10px;
 												margin: 0 10px 0 0;
-												background: #0674fc;
+												background: #3E6B4F;
 												display: inline-block;
 												line-height: 34px;
 												height: 34px;
@@ -536,7 +536,7 @@
 										border-radius: 4px;
 										padding: 5px 10px;
 										margin: 0 20px 0 0;
-										background: #0674fc;
+										background: #3E6B4F;
 										text-align: center;
 										.text {
 												color: inherit;

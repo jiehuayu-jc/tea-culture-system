@@ -591,7 +591,7 @@
 					padding: 0 10px;
 					margin: 0 5px 0 0;
 					color: #fff;
-					background: #0674fc;
+					background: #3E6B4F;
 					width: auto;
 					font-size: inherit;
 					line-height: 40px;
@@ -722,7 +722,7 @@
 				padding: 30px 0;
 				margin: 0 20px 0 0;
 				flex-direction: column;
-				background: url(http://codegen.caihongy.cn/20241024/176524c842534fc0b6506adc35bf293d.png) repeat-y right top / 100% auto,#e7f3ff;
+				background: url(http://codegen.caihongy.cn/20241024/176524c842534fc0b6506adc35bf293d.png) repeat-y right top / 100% auto,#EAF0E7;
 				display: flex;
 				width: 200px;
 				border-color: #d1060230;

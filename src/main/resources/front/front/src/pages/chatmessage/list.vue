@@ -504,7 +504,7 @@
 						.name {
 							padding: 0 10px;
 							overflow: hidden;
-							color: #0674fc;
+							color: #3E6B4F;
 							white-space: nowrap;
 							width: 100%;
 							font-size: 16px;

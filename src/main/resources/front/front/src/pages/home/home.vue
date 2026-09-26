@@ -1,7 +1,29 @@
 <template>
 	<div class="home-preview">
 
+		<!-- 顶部轮播 Banner -->
+		<div class="tea-banner">
+			<el-carousel height="380px" :interval="4500" arrow="hover">
+				<el-carousel-item v-for="(b, i) in banners" :key="i">
+					<div class="banner-item" :style="{ backgroundImage: 'url(' + baseUrl + b.img + ')' }">
+						<div class="banner-mask">
+							<div class="banner-seal">茶</div>
+							<h2 class="banner-title">{{ b.title }}</h2>
+							<p class="banner-sub">{{ b.sub }}</p>
+						</div>
+					</div>
+				</el-carousel-item>
+			</el-carousel>
+		</div>
 
+		<!-- 栏目入口 -->
+		<div class="tea-entries">
+			<div class="entry-card" v-for="(e, i) in entries" :key="i" @click="goMenu(e.url)">
+				<div class="entry-icon" :style="{ background: e.bg }">{{ e.icon }}</div>
+				<div class="entry-name">{{ e.name }}</div>
+				<div class="entry-desc">{{ e.desc }}</div>
+			</div>
+		</div>
 
 
 		<!-- 新闻资讯 -->
@@ -194,6 +216,19 @@ import Swiper from "swiper";
 				newsList: [],
 				shangpinxinxiRecommend: [],
 
+				// 新中式茶美学：首页轮播与栏目入口
+				banners: [
+					{ img: 'upload/picture1.jpg', title: '一叶知春 · 好茶集市', sub: '头采龙井、武夷岩茶，从茶山到茶杯' },
+					{ img: 'upload/picture2.jpg', title: '茶事美学 · 茶文化', sub: '六大茶类、冲泡技艺与茶席之道' },
+					{ img: 'upload/picture3.jpg', title: '以茶会友 · 茶友圈', sub: '分享你与茶的一盏时光' },
+				],
+				entries: [
+					{ icon: '集', name: '好茶集市', desc: '源头好茶 · 直购价', url: '/index/shangpinxinxi', bg: '#3E6B4F' },
+					{ icon: '文', name: '茶文化', desc: '茶史茶艺 · 视频课堂', url: '/index/jiaoxueshipin', bg: '#7A5C43' },
+					{ icon: '讲', name: '线上讲座', desc: '名师开讲 · 周周上新', url: '/index/xinlizixun', bg: '#A63D2F' },
+					{ icon: '友', name: '茶友圈', desc: '晒茶问答 · 以茶会友', url: '/index/forum', bg: '#57706B' },
+				],
+
 
 
 				recommendListSwiper18shangpinxinxi: null,
@@ -219,6 +254,9 @@ import Swiper from "swiper";
 		},
 		//方法集合
 		methods: {
+			goMenu(url) {
+				this.$router.push(url)
+			},
 			swiperChanges() {
 				if (this['recommendListSwiper18shangpinxinxi']) this['recommendListSwiper18shangpinxinxi'].destroy()
 				setTimeout(()=>{
@@ -308,7 +346,7 @@ import Swiper from "swiper";
 		.news {
 			padding: 0;
 			margin: 0;
-			background: #e7f3ff;
+			background: #EAF0E7;
 			width: 100%;
 			position: relative;
 			order: 7;
@@ -324,7 +362,7 @@ import Swiper from "swiper";
 					padding: 0 20px 0 103px;
 					margin: 0;
 					color: #fff;
-					background: url(http://codegen.caihongy.cn/20241021/83b76ba643c24f378a5bfd58e665e1f9.png) no-repeat left center,#0674fc;
+					background: url(http://codegen.caihongy.cn/20241021/83b76ba643c24f378a5bfd58e665e1f9.png) no-repeat left center,#3E6B4F;
 					font-weight: 600;
 					display: inline-block;
 					letter-spacing: 4px;
@@ -368,7 +406,7 @@ import Swiper from "swiper";
 				height: auto;
 				.list-item {
 					cursor: pointer;
-					border: 2px solid #0674fc;
+					border: 2px solid #3E6B4F;
 					border-radius: 8px;
 					padding: 80px 20px 20px;
 					margin: 0 0 60px;
@@ -404,7 +442,7 @@ import Swiper from "swiper";
 						.infoBox-left {
 							padding: 0;
 							margin: 0;
-							color: #0674fc;
+							color: #3E6B4F;
 							width: 100%;
 							font-size: 14px;
 							order: 2;
@@ -426,7 +464,7 @@ import Swiper from "swiper";
 								top: -20px;
 								color: #fff;
 								left: -2px;
-								background: #0674fc;
+								background: #3E6B4F;
 								display: inline-block;
 								position: absolute;
 								.icon {
@@ -510,7 +548,7 @@ import Swiper from "swiper";
 					
 				}
 				.list-item:hover {
-					box-shadow: 1px 2px 6px #0674fc;
+					box-shadow: 1px 2px 6px #3E6B4F;
 					.infoBox {
 						.infoBox-left {
 							.name {
@@ -596,7 +634,7 @@ import Swiper from "swiper";
 			.recommend_title_box {
 				padding: 20px 0 63px;
 				margin: 0;
-				background: url(http://codegen.caihongy.cn/20241021/84fcb60c88f446dd90bb6c22d0baf026.png) no-repeat center 102%,#0674fc;
+				background: url(http://codegen.caihongy.cn/20241021/84fcb60c88f446dd90bb6c22d0baf026.png) no-repeat center 102%,#3E6B4F;
 				display: flex;
 				width: 100px;
 				min-height: 300px;
@@ -696,7 +734,7 @@ import Swiper from "swiper";
 							transition: all 0s;
 							.infoBox {
 								padding: 20px;
-								color: #0674fc;
+								color: #3E6B4F;
 								align-content: center;
 								display: flex;
 								width: 50%;
@@ -921,7 +959,7 @@ import Swiper from "swiper";
 							}
 							.infoBox {
 								padding: 20px;
-								color: #0674fc;
+								color: #3E6B4F;
 								align-content: center;
 								display: flex;
 								width: 50%;
@@ -1131,7 +1169,7 @@ import Swiper from "swiper";
 							}
 							.infoBox {
 								padding: 10px 10px 30px;
-								color: #0674fc;
+								color: #3E6B4F;
 								left: 0;
 								bottom: 0;
 								background: rgba(0, 0, 0, .3);
@@ -1299,10 +1337,10 @@ import Swiper from "swiper";
 								height: 8px;
 							}
 							.swiper-pagination-bullet:hover {
-								background: #0674fc;
+								background: #3E6B4F;
 							}
 							.swiper-pagination-bullet.swiper-pagination-bullet-active {
-								background: #0674fc;
+								background: #3E6B4F;
 							}
 						}
 					}
@@ -1329,5 +1367,118 @@ import Swiper from "swiper";
 				}
 			}
 		}
+	}
+
+	/* ===== 新中式茶美学：Banner 与栏目入口 ===== */
+	.tea-banner {
+		margin: 0 0 28px;
+		border-radius: 10px;
+		overflow: hidden;
+		box-shadow: 0 6px 24px rgba(46, 82, 60, .12);
+	}
+	.tea-banner .banner-item {
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+		position: relative;
+	}
+	.tea-banner .banner-mask {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(90deg, rgba(35, 48, 38, .78) 0%, rgba(35, 48, 38, .45) 46%, rgba(35, 48, 38, .05) 100%);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-left: 8%;
+	}
+	.tea-banner .banner-seal {
+		width: 46px;
+		height: 46px;
+		line-height: 46px;
+		text-align: center;
+		background: #A63D2F;
+		color: #F6F3EC;
+		font-family: var(--tea-serif);
+		font-size: 26px;
+		border-radius: 6px;
+		margin-bottom: 18px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+	}
+	.tea-banner .banner-title {
+		margin: 0 0 10px;
+		color: #F6F3EC;
+		font-family: var(--tea-serif);
+		font-size: 38px;
+		font-weight: 600;
+		letter-spacing: 4px;
+	}
+	.tea-banner .banner-sub {
+		margin: 0;
+		color: rgba(246, 243, 236, .82);
+		font-size: 16px;
+		letter-spacing: 2px;
+	}
+	.tea-entries {
+		display: flex;
+		gap: 20px;
+		margin-bottom: 40px;
+	}
+	.tea-entries .entry-card {
+		flex: 1;
+		background: #FFFFFF;
+		border-radius: 10px;
+		padding: 26px 20px;
+		text-align: center;
+		cursor: pointer;
+		border: 1px solid #E7E2D6;
+		transition: all .25s ease;
+	}
+	.tea-entries .entry-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 10px 24px rgba(46, 82, 60, .14);
+		border-color: var(--tea-green);
+	}
+	.tea-entries .entry-icon {
+		width: 52px;
+		height: 52px;
+		line-height: 52px;
+		margin: 0 auto 14px;
+		border-radius: 8px;
+		color: #F6F3EC;
+		font-family: var(--tea-serif);
+		font-size: 26px;
+	}
+	.tea-entries .entry-name {
+		font-family: var(--tea-serif);
+		font-size: 19px;
+		color: #2B2B28;
+		font-weight: 600;
+		letter-spacing: 2px;
+		margin-bottom: 6px;
+	}
+	.tea-entries .entry-desc {
+		font-size: 13px;
+		color: #8C8578;
+	}
+	.home-preview .news_title,
+	.home-preview .recommend_title {
+		border-left: none !important;
+		padding-left: 0 !important;
+	}
+	.home-preview .news_title::before,
+	.home-preview .recommend_title::before {
+		content: '茶';
+		display: inline-block;
+		width: 28px;
+		height: 28px;
+		line-height: 28px;
+		text-align: center;
+		background: #A63D2F;
+		color: #F6F3EC;
+		font-family: var(--tea-serif);
+		border-radius: 5px;
+		font-size: 17px;
+		margin-right: 10px;
+		vertical-align: 2px;
 	}
 </style>

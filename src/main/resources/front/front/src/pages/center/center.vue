@@ -1120,7 +1120,7 @@
 				border-radius: 20px 20px 0 0;
 				padding: 0px 40px;
 				margin: 0 0 20px;
-				background: #0674FC;
+				background: #3E6B4F;
 				width: 100%;
 				clear: both;
 				border-color: #d10602;
@@ -1146,12 +1146,12 @@
 			}
 			/deep/ .el-tabs__header .el-tabs__item:hover {
 				border: 0;
-				color: #0674fc;
+				color: #3E6B4F;
 				background: #fff;
 			}
 			/deep/ .el-tabs__header .el-tabs__item.is-active {
 				border: 0;
-				color: #0674fc;
+				color: #3E6B4F;
 				background: #fff;
 				font-size: inherit;
 				line-height: 60px;
@@ -1415,7 +1415,7 @@
 						font-size: 16px;
 						line-height: 44px;
 						border-radius: 4px;
-						background: #0674fc;
+						background: #3E6B4F;
 						width: auto;
 						text-align: center;
 						min-width: 120px;
@@ -1626,7 +1626,7 @@
 					padding: 0px 10px;
 					margin: 0 10px 0 0;
 					color: #fff;
-					background: #0674fc;
+					background: #3E6B4F;
 					text-decoration: none;
 					width: 80px;
 					font-size: 12px;

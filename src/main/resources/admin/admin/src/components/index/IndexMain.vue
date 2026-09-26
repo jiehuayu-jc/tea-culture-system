@@ -115,7 +115,7 @@
 	}
 
 	a:hover {
-		background: #00c292;
+		background: #3E6B4F;
 	}
 	
 	.el-main {

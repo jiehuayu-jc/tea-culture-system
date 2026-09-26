@@ -52,7 +52,7 @@
 				</editor>
 			</el-form-item>
 			<el-form-item :style='{"padding":"0","margin":"20px 0"}'>
-				<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 20px 0 0","textAlign":"center","display":"inline-block","minWidth":"120px","borderRadius":"4px","background":"#0674fc","width":"auto","lineHeight":"44px","fontSize":"16px","height":"44px"}' type="primary" @click="submitForm('form')">
+				<el-button :style='{"border":"0","cursor":"pointer","padding":"0 24px","margin":"0 20px 0 0","textAlign":"center","display":"inline-block","minWidth":"120px","borderRadius":"4px","background":"#3E6B4F","width":"auto","lineHeight":"44px","fontSize":"16px","height":"44px"}' type="primary" @click="submitForm('form')">
 					<span class="icon iconfont " :style='{"color":"#fff"}'></span>
 					<span class="text" :style='{"color":"#fff"}'>{{this.isEdit ? '修改' : '发布帖子'}}</span>
 				</el-button>

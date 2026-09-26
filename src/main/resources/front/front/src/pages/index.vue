@@ -721,7 +721,7 @@ export default {
 					display: block;
 					span {
 						padding: 0;
-						color: #0674fc;
+						color: #3E6B4F;
 						font-weight: 600;
 						font-size: 20px;
 						line-height: 44px;
@@ -857,14 +857,14 @@ export default {
 						.title {
 							color: #000;
 							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
-							border-color: #0674fc;
+							border-color: #3E6B4F;
 						}
 					}
 					.menu-home.menu-active {
 						.title {
 							color: #000;
 							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
-							border-color: #0674fc;
+							border-color: #3E6B4F;
 						}
 					}
 					// 其他盒子
@@ -916,7 +916,7 @@ export default {
 								line-height: 40px;
 							}
 							.child-item:hover {
-								color: #0674fc;
+								color: #3E6B4F;
 								background: none;
 							}
 						}
@@ -925,14 +925,14 @@ export default {
 						.title {
 							color: #000;
 							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
-							border-color: #0674fc;
+							border-color: #3E6B4F;
 						}
 					}
 					.menu-item.menu-active {
 						.title {
 							color: #000;
 							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
-							border-color: #0674fc;
+							border-color: #3E6B4F;
 						}
 					}
 					// 购物车
@@ -971,14 +971,14 @@ export default {
 						.title {
 							color: #000;
 							background: none;
-							border-color: #0674fc;
+							border-color: #3E6B4F;
 						}
 					}
 					.menu-shop.menu-active {
 						.title {
 							color: #000;
 							background: none;
-							border-color: #0674fc;
+							border-color: #3E6B4F;
 						}
 					}
 					// 客服

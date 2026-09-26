@@ -469,7 +469,7 @@
 					padding: 0 20px;
 					margin: 0;
 					color: #fff;
-					background: #0674fc60;
+					background: #3E6B4F60;
 					display: inline-block;
 					width: auto;
 					font-size: 14px;
@@ -508,7 +508,7 @@
 					font-size: 16px;
 					line-height: 44px;
 					border-radius: 4px;
-					background: #0674fc;
+					background: #3E6B4F;
 					width: auto;
 					text-align: center;
 					min-width: 120px;

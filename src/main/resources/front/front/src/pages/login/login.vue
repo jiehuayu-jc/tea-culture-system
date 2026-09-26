@@ -398,15 +398,15 @@ export default {
 						border-color: #666666;
 					}
 					/deep/ .el-radio__input.is-checked .el-radio__inner {
-						background: #0674fc;
-						border-color: #0674fc;
+						background: #3E6B4F;
+						border-color: #3E6B4F;
 					}
 					/deep/ .el-radio__label {
 						color: #666666;
 						font-size: 16px;
 					}
 					/deep/ .el-radio__input.is-checked+.el-radio__label {
-						color: #0674fc;
+						color: #3E6B4F;
 						font-size: 16px;
 					}
 				}
@@ -423,7 +423,7 @@ export default {
 						padding: 0 30px;
 						margin: 0 0px;
 						color: #fff;
-						background: #0674fc;
+						background: #3E6B4F;
 						letter-spacing: 4px;
 						width: 100%;
 						font-size: 20px;

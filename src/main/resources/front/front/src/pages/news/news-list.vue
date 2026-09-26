@@ -232,7 +232,7 @@
 								padding: 0px 20px;
 								margin: 0 10px 0 0;
 								color: #fff;
-								background: #0674fc;
+								background: #3E6B4F;
 								width: auto;
 								font-size: inherit;
 								line-height: 42px;
@@ -457,9 +457,9 @@
 			}
 			.list-item1:hover {
 								cursor: pointer;
-								box-shadow: 1px 2px 9px #0674fc;
+								box-shadow: 1px 2px 9px #3E6B4F;
 								background: #fff;
-								border-color: #0674fc;
+								border-color: #3E6B4F;
 								.img {
 					img {
 												transform: scale(1.05);
@@ -468,58 +468,58 @@
 				.infoBox {
 										.name {
 												border: 0px solid #ffffff50;
-												color: #0674fc;
+												color: #3E6B4F;
 												background: none;
 											}
 					.name::after {
 												width: 0px;
 											}
 					.desc {
-												color: #0674fc;
+												color: #3E6B4F;
 											}
 					.infoCenter {
 						.publisher_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 						.like_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 						.collect_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 						.view_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 					}
@@ -718,9 +718,9 @@
 			}
 			.list-item2:hover {
 								cursor: pointer;
-								box-shadow: 1px 2px 9px #0674fc;
+								box-shadow: 1px 2px 9px #3E6B4F;
 								background: #fff;
-								border-color: #0674fc;
+								border-color: #3E6B4F;
 								.img {
 					img {
 												transform: scale(1.05);
@@ -729,58 +729,58 @@
 				.infoBox {
 										.name {
 												border: 0px solid #ffffff50;
-												color: #0674fc;
+												color: #3E6B4F;
 												background: none;
 											}
 					.name::after {
 												width: 0px;
 											}
 					.desc {
-												color: #0674fc;
+												color: #3E6B4F;
 											}
 					.infoCenter {
 						.publisher_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 						.like_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 						.collect_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 						.view_item {
 							.icon {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.label {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 							.text {
-																color: #0674fc;
+																color: #3E6B4F;
 															}
 						}
 					}

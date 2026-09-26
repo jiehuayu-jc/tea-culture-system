@@ -14,3 +14,7 @@ maven.zip
 
 # 运行时生成
 static/upload/temp/
+
+# 静态托管的构建产物（由两端 dist 复制而来，不入库）
+/src/main/resources/static/admin/
+/src/main/resources/static/front/

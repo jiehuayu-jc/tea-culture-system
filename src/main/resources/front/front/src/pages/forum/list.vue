@@ -201,7 +201,7 @@
 										padding: 0px 20px;
 										margin: 0 10px 0 10px;
 										color: #fff;
-										background: #0674fc;
+										background: #3E6B4F;
 										width: auto;
 										font-size: inherit;
 										line-height: 40px;
@@ -222,7 +222,7 @@
 										padding: 0px 15px;
 										margin: 0 10px 0 0;
 										color: #fff;
-										background: #0674fc;
+										background: #3E6B4F;
 										width: auto;
 										font-size: inherit;
 										line-height: 40px;
@@ -285,12 +285,12 @@
 						.section-content {
 								cursor: pointer;
 								padding: 10px;
-								box-shadow: inset 0px 0px 6px 0px #0674fc50;
+								box-shadow: inset 0px 0px 6px 0px #3E6B4F50;
 								margin: 0 0 30px;
 								background: #d8e9ff;
 								display: flex;
 								width: 49%;
-								border-color: #0674fc80;
+								border-color: #3E6B4F80;
 								border-width: 1px;
 								align-items: flex-start;
 								position: relative;

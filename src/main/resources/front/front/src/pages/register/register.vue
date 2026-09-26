@@ -626,7 +626,7 @@ export default {
 							padding: 0 10px;
 							margin: 0;
 							color: #fff;
-							background: #0674fc;
+							background: #3E6B4F;
 							width: 110px;
 							font-size: 15px;
 							border-width: 0px 0px 0px 0;
@@ -677,7 +677,7 @@ export default {
 					padding: 0 30px;
 					margin: 0 0 20px;
 					color: #fff;
-					background: #0674fc;
+					background: #3E6B4F;
 					letter-spacing: 4px;
 					width: 100%;
 					font-size: 20px;

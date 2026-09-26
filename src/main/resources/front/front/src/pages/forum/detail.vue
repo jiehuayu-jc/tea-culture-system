@@ -784,7 +784,7 @@
 												padding: 0 20px 0 26px;
 												margin: 0 10px 0 0;
 												color: #fff;
-												background: #0674fc;
+												background: #3E6B4F;
 												width: auto;
 												font-size: 14px;
 												line-height: 44px;
@@ -866,7 +866,7 @@
 																line-height: 32px;
 																border-radius: 0px;
 																outline: none;
-																background: #0674fc;
+																background: #3E6B4F;
 																width: auto;
 																min-width: 80px;
 																height: 32px;

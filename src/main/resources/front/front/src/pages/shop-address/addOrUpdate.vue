@@ -230,7 +230,7 @@
 		font-size: 16px;
 		line-height: 44px;
 		border-radius: 4px;
-		background: #0674fc;
+		background: #3E6B4F;
 		width: auto;
 		text-align: center;
 		min-width: 120px;

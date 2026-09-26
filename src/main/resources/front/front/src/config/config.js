@@ -1,5 +1,6 @@
 export default {
-	baseUrl: 'http://121.41.237.212/springbootj8kskvkr/',
+	// 图片等静态资源拼接前缀：走同源代理（vue.config.js 中 /springbootj8kskvkr → 8080），不再指向外部 IP
+	baseUrl: '/springbootj8kskvkr/',
 	name: '/springbootj8kskvkr',
 	indexNav: [
 		{

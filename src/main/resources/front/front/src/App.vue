@@ -165,7 +165,7 @@
 		display: inline-block;
 	}
 	.breadcrumb-preview .el-breadcrumb .item3 .el-breadcrumb__inner a {
-		color: #0674fc;
+		color: #3E6B4F;
 		display: inline-block;
 	}
 	.back_box {
@@ -184,7 +184,7 @@
 		padding: 0 20px;
 		margin: 0;
 		color: #fff;
-		background: #0674fc;
+		background: #3E6B4F;
 		width: auto;
 		font-size: 14px;
 		line-height: 36px;
@@ -325,7 +325,7 @@
 		font-size: 16px;
 		line-height: 28px;
 		border-radius: 2px;
-		background: #0674fc;
+		background: #3E6B4F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -341,7 +341,7 @@
 		font-size: 16px;
 		line-height: 28px;
 		border-radius: 2px;
-		background: #0674fc;
+		background: #3E6B4F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -430,5 +430,69 @@
 		width: 100%;
 		text-align: center;
 		height: 26px;
+	}
+
+	/* ===== 新中式茶美学主题（2026-09 整改） =====
+	   设计令牌：宣纸米白底 + 墨黑正文 + 茶绿主色 + 朱砂点缀，标题衬线字 */
+	:root {
+		--tea-bg: #F6F3EC;        /* 宣纸米白 */
+		--tea-green: #3E6B4F;     /* 茶绿主色 */
+		--tea-green-deep: #2E523C;/* 深茶绿 hover */
+		--tea-ink: #2B2B28;       /* 墨黑 */
+		--tea-cinnabar: #A63D2F;  /* 朱砂印章色 */
+		--tea-brown: #7A5C43;     /* 茶褐 */
+		--tea-serif: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+	}
+
+	body {
+		background: var(--tea-bg);
+	}
+
+	/* ElementUI 主色统一为茶绿 */
+	.el-button--primary {
+		background-color: var(--tea-green);
+		border-color: var(--tea-green);
+	}
+	.el-button--primary:hover,
+	.el-button--primary:focus {
+		background-color: var(--tea-green-deep);
+		border-color: var(--tea-green-deep);
+	}
+	.el-button--text {
+		color: var(--tea-green);
+	}
+	.el-link.el-link--primary {
+		color: var(--tea-green);
+	}
+	.el-link.el-link--primary:hover {
+		color: var(--tea-green-deep);
+	}
+	.el-radio__input.is-checked .el-radio__inner,
+	.el-checkbox__input.is-checked .el-checkbox__inner {
+		border-color: var(--tea-green);
+		background: var(--tea-green);
+	}
+	.el-radio__input.is-checked + .el-radio__label,
+	.el-checkbox__input.is-checked + .el-checkbox__label {
+		color: var(--tea-green);
+	}
+	.el-pagination.is-background .el-pager li:not(.disabled).active {
+		background-color: var(--tea-green);
+	}
+	.el-loading-spinner .el-loading-text,
+	.el-loading-spinner .path {
+		color: var(--tea-green) !important;
+		stroke: var(--tea-green) !important;
+	}
+	.el-input__inner:focus,
+	.el-textarea__inner:focus {
+		border-color: var(--tea-green) !important;
+	}
+	/* 标题衬线字 + 留白 */
+	.home-preview .news_title,
+	.home-preview .recommend_title,
+	.top_title span {
+		font-family: var(--tea-serif);
+		letter-spacing: 2px;
 	}
 </style>
