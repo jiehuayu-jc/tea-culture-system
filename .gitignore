@@ -1,0 +1,16 @@
+# 构建产物与依赖
+target/
+node_modules/
+*/dist/
+package-lock.json.bak
+
+# 大文件与本地工具
+maven.zip
+*.log
+
+# IDE
+.idea/
+*.iml
+
+# 运行时生成
+static/upload/temp/

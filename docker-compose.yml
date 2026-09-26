@@ -1,0 +1,29 @@
+# 一劳永逸初始化数据库（首次启动自动执行 db/springbootj8kskvkr.sql）
+# 用法：
+#   1) 若本机已有 MySQL 占用了 3306，请先关掉本机 MySQL或把下面 ports 改成 "3307:3306" 并同步改 application.yml 的 url 端口
+#   2) 在项目根目录执行：docker compose up -d
+#   3) 仅当需要「清空数据重新导入」时：docker compose down -v  再 docker compose up -d
+#
+# 说明：初始化脚本只在 MySQL 数据卷第一次创建时运行；换 SQL 文件后必须用 down -v 删掉卷才会重新导入。
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: springbootj8kskvkr-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: springbootj8kskvkr
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/springbootj8kskvkr.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+
+volumes:
+  mysql_data:
