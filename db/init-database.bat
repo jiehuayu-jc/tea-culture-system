@@ -1,5 +1,4 @@
 @echo off
-chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
 
@@ -9,7 +8,7 @@ set MYSQL_USER=root
 set MYSQL_PWD=123456
 
 if not exist "%SQLFILE%" (
-  echo æ‰¾ä¸åˆ° SQL æ–‡ä»¶: %SQLFILE%
+  echo ÕÒ²»µ½ SQL ÎÄ¼þ: %SQLFILE%
   pause
   exit /b 1
 )
@@ -20,20 +19,20 @@ if exist "C:\Program Files\MySQL\MySQL Server 5.7\bin\mysql.exe" set "MYSQL_BIN=
 if "%MYSQL_BIN%"=="" set "MYSQL_BIN=mysql"
 
 echo ============================================
-echo ä¸€é”®åˆå§‹åŒ–æ•°æ®åº“ï¼ˆä¸Ž application.yml ä¸€è‡´ï¼‰
-echo åº“å: %DB%ç”¨æˆ·: %MYSQL_USER%
-echo å°†æ‰§è¡Œ: DROP åº“ -^> CREATE åº“ -^> å¯¼å…¥å®Œæ•´ springbootj8kskvkr.sql
-echo æˆåŠŸåŽçº¦æœ‰ 29 å¼ è¡¨ï¼Œå«èŒ¶å¶ä¸»é¢˜æ¼”ç¤ºæ•°æ®
+echo Ò»¼ü³õÊ¼»¯Êý¾Ý¿â£¨Óë application.yml Ò»ÖÂ£©
+echo ¿âÃû: %DB%ÓÃ»§: %MYSQL_USER%
+echo ½«Ö´ÐÐ: DROP ¿â -^> CREATE ¿â -^> µ¼ÈëÍêÕû springbootj8kskvkr.sql
+echo ³É¹¦ºóÔ¼ÓÐ 29 ÕÅ±í£¬º¬²èÒ¶Ö÷ÌâÑÝÊ¾Êý¾Ý
 echo.
-echo è‹¥ä½ çš„ root å¯†ç ä¸æ˜¯ 123456ï¼Œè¯·å³é”®ç¼–è¾‘æœ¬ bat ä¿®æ”¹ MYSQL_PWD
-echo ä½¿ç”¨çš„ mysql.exe: %MYSQL_BIN%
+echo ÈôÄãµÄ root ÃÜÂë²»ÊÇ 123456£¬ÇëÓÒ¼ü±à¼­±¾ bat ÐÞ¸Ä MYSQL_PWD
+echo Ê¹ÓÃµÄ mysql.exe: %MYSQL_BIN%
 echo ============================================
 pause
 
 "%MYSQL_BIN%" -u%MYSQL_USER% -p%MYSQL_PWD% -e "DROP DATABASE IF EXISTS %DB%; CREATE DATABASE %DB% CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 if errorlevel 1 (
   echo.
-  echo [å¤±è´¥] æ— æ³•è¿žæŽ¥ MySQLã€‚è¯·ç¡®è®¤ï¼šæœåŠ¡å·²å¯åŠ¨ã€å¯†ç æ­£ç¡®ã€æˆ–å·²å°† mysql.exe åŠ å…¥ PATHã€‚
+  echo [Ê§°Ü] ÎÞ·¨Á¬½Ó MySQL¡£ÇëÈ·ÈÏ£º·þÎñÒÑÆô¶¯¡¢ÃÜÂëÕýÈ·¡¢»òÒÑ½« mysql.exe ¼ÓÈë PATH¡£
   pause
   exit /b 1
 )
@@ -41,12 +40,12 @@ if errorlevel 1 (
 "%MYSQL_BIN%" -u%MYSQL_USER% -p%MYSQL_PWD% --default-character-set=utf8mb4 %DB% < "%SQLFILE%"
 if errorlevel 1 (
   echo.
-  echo [å¤±è´¥]å¯¼å…¥ SQL å‡ºé”™ã€‚è¯·æŠŠ Navicat/å‘½ä»¤è¡Œé‡Œçš„ç¬¬ä¸€æ¡æŠ¥é”™å¤åˆ¶ä¸‹æ¥æŽ’æŸ¥ã€‚
+  echo [Ê§°Ü]µ¼Èë SQL ³ö´í¡£Çë°Ñ Navicat/ÃüÁîÐÐÀïµÄµÚÒ»Ìõ±¨´í¸´ÖÆÏÂÀ´ÅÅ²é¡£
   pause
   exit /b 1
 )
 
 echo.
-echo [æˆåŠŸ] å·²å¯¼å…¥ã€‚è¯·åœ¨ Navicat ä¸­å¯¹åº“ %DB% åˆ·æ–°ã€Œè¡¨ã€ï¼Œåº”èƒ½çœ‹åˆ° yonghuã€‚
+echo [³É¹¦] ÒÑµ¼Èë¡£ÇëÔÚ Navicat ÖÐ¶Ô¿â %DB% Ë¢ÐÂ¡¸±í¡¹£¬Ó¦ÄÜ¿´µ½ yonghu¡£
 pause
 endlocal

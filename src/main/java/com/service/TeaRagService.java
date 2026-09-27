@@ -22,13 +22,17 @@ public class TeaRagService {
     /** 启动时知识库为空则自动建库，保证开箱可演示 */
     @org.springframework.context.event.EventListener(org.springframework.boot.context.event.ApplicationReadyEvent.class)
     public void autoSeed() {
+        org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TeaRagService.class);
         try {
             if (count() == 0) {
                 Map<String, Object> r = rebuild();
-                System.out.println("[茶道AI] 知识库自动建库完成，共 " + r.get("knowledge_count") + " 条");
+                log.info("[茶道AI] 知识库自动建库完成，共 {} 条", r.get("knowledge_count"));
+            } else {
+                log.info("[茶道AI] 知识库已有 {} 条内容，跳过自动建库", count());
             }
         } catch (Exception e) {
-            System.out.println("[茶道AI] 知识库初始化跳过：" + e.getMessage());
+            log.error("[茶道AI] 知识库初始化失败：ai_knowledge 表不存在或不可写。"
+                    + "请先执行 db/springbootj8kskvkr.sql（文件末尾包含 ai_knowledge 建表语句）后重启服务。", e);
         }
     }
 

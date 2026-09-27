@@ -821,3 +821,21 @@ INSERT INTO `yuyuezixun` VALUES (3, '2026-09-25 09:40:00', '亲子茶艺：给�
 -- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for ai_knowledge（茶道AI知识库）
+-- ----------------------------
+DROP TABLE IF EXISTS `ai_knowledge`;
+CREATE TABLE `ai_knowledge` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `source_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '来源类型: tea/news/article/lecture',
+  `source_id` bigint NOT NULL COMMENT '来源表主键',
+  `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_type` (`source_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='茶道AI知识库';
+
+-- ----------------------------
+-- Records of ai_knowledge（启动时由 TeaRagService.autoSeed 自动重建，无需手工数据）
+-- ----------------------------
