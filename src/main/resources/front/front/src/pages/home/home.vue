@@ -244,12 +244,6 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-	@font-face {
-		font-family: 'TeaSerif';
-		src: url('~@/assets/fonts/SourceHanSerifCN-Heavy.otf') format('opentype');
-		font-display: swap;
-	}
-
 	$ink: #0c1b14;
 	$panel: #10221a;
 	$card: #152a20;

@@ -490,17 +490,10 @@
 		border-color: var(--tea-green) !important;
 	}
 
-	/* 自托管思源宋体（Heavy）：夜茶主题大标题专用 */
+	/* 自托管思源宋体（Heavy）子集 woff2：夜茶主题大标题专用（P1-2：11.31MB -> 0.91MB） */
 	@font-face {
 		font-family: 'TeaSerif';
-		src: url('~@/assets/fonts/SourceHanSerifCN-Heavy.otf') format('opentype');
-		font-display: swap;
-	}
-
-	/* 自托管思源宋体（Heavy）：夜茶主题大标题专用 */
-	@font-face {
-		font-family: 'TeaSerif';
-		src: url('~@/assets/fonts/SourceHanSerifCN-Heavy.otf') format('opentype');
+		src: url('~@/assets/fonts/SourceHanSerifCN-Heavy-subset.woff2') format('woff2');
 		font-display: swap;
 	}
 
