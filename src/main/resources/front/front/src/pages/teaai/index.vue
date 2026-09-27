@@ -1,6 +1,14 @@
 <template>
 	<div class="teaai-page">
-		<div class="ai-shell">
+		<div class="login-guide" v-if="needLogin">
+			<div class="lg-card">
+				<div class="lg-seal">茶</div>
+				<div class="lg-t1">茶道AI 需要登录后使用</div>
+				<div class="lg-t2">登录后可享：个性化荐茶 · 订单查询 · 一键加购</div>
+				<button class="lg-btn" @click="goMenu('/login')">去登录</button>
+			</div>
+		</div>
+		<div class="ai-shell" v-else>
 			<aside class="ai-side">
 				<div class="side-brand">
 					<span class="seal">道</span>
@@ -92,6 +100,8 @@
 			return {
 				baseUrl: '',
 				draft: '',
+				needLogin: false,
+				typeTimer: null,
 				streaming: false,
 				knowledgeCount: 0,
 				llmOk: false,
@@ -107,7 +117,17 @@
 		},
 		created() {
 			this.baseUrl = this.$config.baseUrl;
+			if (!localStorage.getItem('frontToken')) {
+				this.needLogin = true;
+				return;
+			}
 			this.loadStatus();
+		},
+		mounted() {
+			this.typeTimer = setInterval(() => this.flushTyping(), 16);
+		},
+		beforeDestroy() {
+			clearInterval(this.typeTimer);
 		},
 		methods: {
 			goMenu(url) {
@@ -159,7 +179,7 @@
 				this.draft = '';
 				this.streaming = true;
 				this.messages.push({ role: 'user', text: this.esc(q) });
-				const aiMsg = { role: 'ai', text: '', steps: [], sources: [], cards: [], lectures: [] };
+				const aiMsg = { role: 'ai', raw: '', shown: 0, text: '', steps: [], sources: [], cards: [], lectures: [], done: false };
 				this.messages.push(aiMsg);
 				this.scrollToBottom();
 
@@ -171,6 +191,16 @@
 					},
 					body: JSON.stringify({ query: q })
 				}).then(resp => {
+					if (!resp.ok) {
+						// 429 限流 / 400 参数错误：响应体是 JSON 而非 SSE，读出 msg 展示到气泡
+						return resp.text().then(t => {
+							let msg = '请求失败（HTTP ' + resp.status + '）';
+							try { const j = JSON.parse(t); if (j && j.msg) msg = j.msg; } catch (e) { }
+							aiMsg.text += '<br>[系统] ' + this.esc(msg);
+							this.streaming = false;
+							this.scrollToBottom();
+						});
+					}
 					const reader = resp.body.getReader();
 					const decoder = new TextDecoder('utf-8');
 					let buf = '';
@@ -226,8 +256,20 @@
 						if (arr.length && !m.cards.length) m.cards = arr;
 					} catch (e) { }
 				} else if (t === 'error') {
-					m.text += '<br>[系统] ' + this.esc(d);
+					m.raw += '\n[系统] ' + d;
 				} else if (t === 'done') {
+					m.done = true;
+				}
+			},
+			// 打字机渲染：每 16ms 从 raw 推进若干字符到 text，纯前端动画，不占后端线程
+			flushTyping() {
+				const m = this.messages[this.messages.length - 1];
+				if (!m || m.role !== 'ai') return;
+				if (m.shown < m.raw.length) {
+					m.shown = Math.min(m.raw.length, m.shown + 3);
+					m.text = this.esc(m.raw.slice(0, m.shown)).replace(/\n/g, '<br>');
+					this.scrollToBottom();
+				} else if (m.done && this.streaming) {
 					this.streaming = false;
 					this.loadStatus();
 				}
@@ -457,5 +499,46 @@
 	@media (max-width: 900px) {
 		.ai-side { display: none; }
 		.cards { grid-template-columns: 1fr; }
+	}
+
+	.login-guide {
+		min-height: calc(100vh - 120px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.lg-card {
+		width: 420px;
+		background: rgba(21, 42, 32, .75);
+		border: 1px solid rgba(212, 175, 55, .2);
+		border-radius: 10px;
+		padding: 44px 40px;
+		text-align: center;
+	}
+	.lg-seal {
+		display: inline-block;
+		width: 52px;
+		height: 52px;
+		line-height: 52px;
+		background: #a63d2f;
+		border-radius: 10px;
+		color: #f6f3ec;
+		font-family: 'TeaSerif', serif;
+		font-size: 28px;
+		margin-bottom: 18px;
+	}
+	.lg-t1 { color: #ede6d6; font-family: 'TeaSerif', serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 10px; }
+	.lg-t2 { color: #93a396; font-size: 13px; margin-bottom: 26px; }
+	.lg-btn {
+		width: 100%;
+		height: 46px;
+		border: 0;
+		border-radius: 4px;
+		background: linear-gradient(160deg, #e6ce9a, #d4af37);
+		color: #14251a;
+		font-family: 'TeaSerif', serif;
+		font-size: 16px;
+		letter-spacing: 6px;
+		cursor: pointer;
 	}
 </style>

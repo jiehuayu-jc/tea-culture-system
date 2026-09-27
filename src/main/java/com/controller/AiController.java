@@ -35,6 +35,9 @@ public class AiController {
     private TeaAgentService agentService;
 
     @Autowired
+    private com.utils.AiRateLimiter rateLimiter;
+
+    @Autowired
     private TeaRagService ragService;
 
     @Value("${ai.deepseek.api-key:}")
@@ -46,15 +49,37 @@ public class AiController {
     @Value("${ai.deepseek.model:deepseek-chat}")
     private String model;
 
-    /** Agent 流式对话（SSE），游客可用；登录用户可查订单 */
-    @IgnoreAuth
+    /** Agent 流式对话（SSE）。必须登录：拦截器校验 Token 并写入 session，get_my_orders 依赖 userId */
     @RequestMapping("/chat/stream")
-    public SseEmitter chatStream(@RequestBody JSONObject body, HttpServletRequest request) {
+    public SseEmitter chatStream(@RequestBody JSONObject body, HttpServletRequest request,
+                                 HttpServletResponse response) throws java.io.IOException {
+        String ip = request.getRemoteAddr();
+        if (!rateLimiter.tryAcquire(ip)) {
+            com.utils.AiMetrics.rateLimited.incrementAndGet();
+            response.setStatus(429);
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().print(JSON.toJSONString(
+                    R.error(429, "请求过于频繁，请稍后再试（每分钟10次/每天200次）")));
+            return null; // 限流命中：不创建 SSE，不发起任何大模型调用
+        }
+        com.utils.AiMetrics.totalRequests.incrementAndGet();
         String query = body.getString("query");
+        if (query == null || query.trim().isEmpty()) {
+            response.setStatus(400);
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().print(JSON.toJSONString(R.error(400, "问题不能为空")));
+            return null;
+        }
+        if (query.length() > 500) {
+            response.setStatus(400);
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().print(JSON.toJSONString(R.error(400, "问题过长（上限500字）")));
+            return null;
+        }
         Object uid = request.getSession().getAttribute("userId");
         Long userId = uid instanceof Long ? (Long) uid : uid instanceof Integer ? ((Integer) uid).longValue() : null;
         SseEmitter emitter = new SseEmitter(180000L);
-        agentService.streamChat(query == null ? "" : query, userId, emitter);
+        agentService.streamChat(query, userId, emitter);
         return emitter;
     }
 
@@ -75,6 +100,7 @@ public class AiController {
         r.put("llm_configured", apiKey != null && !apiKey.trim().isEmpty());
         r.put("model", model);
         r.put("knowledge_count", ragService.count());
+        r.put("metrics", rateLimiter.snapshot());
         return R.ok().put("data", r);
     }
 
@@ -148,7 +174,7 @@ public class AiController {
         String keywords = body.getString("keywords");
         DeepSeekClient client = new DeepSeekClient(baseUrl, apiKey, model);
         if (!client.isConfigured()) {
-            return R.error(500, "未配置 DeepSeek API Key，AI 写手不可用（请填写 application.yml 的 ai.deepseek.api-key）");
+            return R.error(500, "未配置 DeepSeek API Key，AI 写手不可用（请设置环境变量 DEEPSEEK_API_KEY，或复制 config/application.yml.example 为 config/application.yml 并填入 Key）");
         }
         String prompt = "tea".equals(kind)
                 ? "你是茶行业文案专家。为商品「" + name + "」写一段电商介绍，要点：" + keywords

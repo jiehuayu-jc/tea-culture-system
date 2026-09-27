@@ -103,23 +103,29 @@ public class TeaAgentService {
                         send(emitter, "tool_call", name + " " + argsStr);
                         JSONObject result = executeTool(name, args, userId, sources, cards);
                         send(emitter, "tool_result", result.toJSONString());
-                        Map<String, Object> toolMsg = new HashMap<>();
+                        // tool 消息必须是顶层带 tool_call_id 的对象，不能把整个对象塞进 content
+                        JSONObject toolMsg = new JSONObject();
                         toolMsg.put("role", "tool");
                         toolMsg.put("tool_call_id", call.getString("id"));
                         toolMsg.put("content", result.toJSONString());
-                        messages.add(msg("tool", JSON.toJSONString(toolMsg)));
+                        messages.add(toolMsg);
                     }
                     round++;
                 }
             } catch (Exception e) {
                 offline = !client.isConfigured() || isNetworkError(e);
-                if (client.isConfigured() && !isNetworkError(e)) throw e;
+                if (offline) {
+                    System.out.println("[茶道AI] Agent 规划轮降级为离线模式：" + e.getMessage());
+                } else {
+                    throw e;
+                }
             }
 
             // ---- 降级：离线演示模式 ----
             if (offline) {
                 send(emitter, "mode", "offline");
                 offlineAnswer(query, emitter, sources, cards);
+                emitter.complete();
                 return;
             }
 
@@ -131,19 +137,24 @@ public class TeaAgentService {
                     send(emitter, "sources", JSON.toJSONString(fSources));
                     send(emitter, "cards", JSON.toJSONString(fCards));
                     send(emitter, "done", "ok");
+                    emitter.complete();
                 }
             });
         } catch (Exception e) {
             try {
                 send(emitter, "error", String.valueOf(e.getMessage()));
                 send(emitter, "done", "error");
+                emitter.complete();
             } catch (Exception ignore) { }
         }
     }
 
+    /** 仅把网络层异常视为可降级的故障；HTTP 4xx/5xx 是服务端明确响应，必须暴露而非静默降级 */
     private boolean isNetworkError(Throwable e) {
-        String m = String.valueOf(e.getMessage()).toLowerCase();
-        return m.contains("connect") || m.contains("timeout") || m.contains("http") || m.contains("network");
+        if (e == null) return false;
+        if (e instanceof java.io.IOException) return true;
+        Throwable cause = e.getCause();
+        return cause != null && cause != e && isNetworkError(cause);
     }
 
     /** 工具执行器 */
@@ -268,10 +279,8 @@ public class TeaAgentService {
             executeTool("recommend_teas", new JSONObject(), null, sources, cards);
         }
         String text = sb.toString();
-        for (int i = 0; i < text.length(); i += 3) {
-            send(emitter, "delta", text.substring(i, Math.min(i + 3, text.length())));
-            try { Thread.sleep(18); } catch (InterruptedException ignore) { }
-        }
+        // P0-4：一次性发送完整文本，不在 Web 线程里 sleep 伪造流式；打字机动画由前端渲染层完成
+        send(emitter, "delta", text);
         send(emitter, "sources", JSON.toJSONString(sources));
         send(emitter, "cards", JSON.toJSONString(cards));
         send(emitter, "done", "ok");

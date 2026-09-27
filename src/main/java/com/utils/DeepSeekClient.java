@@ -25,6 +25,9 @@ public class DeepSeekClient {
         void onEvent(String deltaText, String finishReason, JSONArray toolCalls);
     }
 
+    /** 单请求生成 token 预算上限（P0-3 配额） */
+    public static final int MAX_TOKENS = 1024;
+
     private final String baseUrl;
     private final String apiKey;
     private final String model;
@@ -44,10 +47,12 @@ public class DeepSeekClient {
         JSONObject body = new JSONObject();
         body.put("model", model);
         body.put("messages", messages);
+        body.put("max_tokens", MAX_TOKENS);
         if (tools != null && !tools.isEmpty()) {
             body.put("tools", tools);
             body.put("tool_choice", "auto");
         }
+        AiMetrics.llmCalls.incrementAndGet();
         JSONObject resp = post("/chat/completions", body.toJSONString());
         return resp.getJSONArray("choices").getJSONObject(0).getJSONObject("message");
     }
@@ -57,7 +62,9 @@ public class DeepSeekClient {
         JSONObject body = new JSONObject();
         body.put("model", model);
         body.put("messages", messages);
+        body.put("max_tokens", MAX_TOKENS);
         body.put("stream", true);
+        AiMetrics.llmCalls.incrementAndGet();
         HttpURLConnection conn = open("/chat/completions", body.toJSONString());
         try (InputStream is = conn.getInputStream();
              BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
