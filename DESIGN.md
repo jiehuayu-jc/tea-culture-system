@@ -63,6 +63,8 @@
 
 ## 5. 已知坑
 
-- `src/main/resources/front/front/dist/` 与 `src/main/resources/static/front/` 是构建产物，已 gitignore。改源码后需 `npm run build` 再复制到 `static/front` 才生效。
+- **部署必须双写。** `application.yml` 的 `static-locations` 是 `classpath:static/,file:static/`，**classpath 优先** —— Spring Boot 实际读的是 `target/classes/static/front`，而不是 `src/main/resources/static/front`。只往源码目录部署时，运行中的服务会一直返回旧 hash 的资源，而且**不报任何错**（这是本项目踩过最久的坑：多轮前端改动全部没生效）。统一用 `pwsh -File deploy-front.ps1`，它一次写两处。
+- `index.html` 没有内容 hash，改版后浏览器可能命中缓存，需要 Ctrl+Shift+R 强刷。
+- 构建产物目录（`front/front/dist/`、`static/front/`）已 gitignore，改源码后必须重新构建并部署才生效。
 - 构建用系统 Node（`npm.cmd`，PowerShell 执行策略会挡 `npm.ps1`）。工具链已从 `node-sass` 迁到 Dart Sass，源码中禁止再出现 `/deep/`，用 `::v-deep`。
 - 页面文案与数据来自数据库，字体子集必须覆盖常用字（当前含 GB2312 一级字库）。新增大量生僻字内容时需重新子集化。
