@@ -19,13 +19,17 @@
 2. **后端**：双击 `run.bat`（或 IDE 直接运行 `com.SpringBootTestSchemaApplication`），端口 8080，context-path `/springbootj8kskvkr`
 3. **前端**（开发模式）：`src/main/resources/admin/admin` 下先 `1-install.bat` 再 `2-run.bat`；客户端在 `src/main/resources/front/front` 下执行 `run.bat`
 
-## 演示账号（密码均为 `123456`）
+## 演示账号
 
-| 角色 | 账号 | 说明 |
-|---|---|---|
-| 管理员 | admin | 后台管理 |
-| 用户 | 用户账号1 ~ 用户账号8 | 前台演示 |
-| 茶商 | 商家账号1 ~ 商家账号8 | 商品维护 |
+| 角色 | 账号 | 密码 | 说明 |
+|---|---|---|---|
+| 管理员 | `admin` | `admin` | 后台管理 |
+| 用户 | `用户账号1` ~ `用户账号8` | `123456` | 前台演示 |
+| 茶商 | `商家账号1` ~ `商家账号8` | `123456` | 商品维护 |
+
+> **管理员密码是 `admin`，不是 `123456`**（`users` 表中该字段为明文 `admin`，已实测登录通过）。
+> 用户与茶商的密码以 BCrypt 存储，明文均为 `123456`。
+> 登录接口 `/<角色>/login` 接收 **form 参数**（`username` / `password`），不接受 JSON body —— 用 JSON 调用只会返回"账号或密码不能为空"。
 
 > 老库中历史密码为 MD5 时依然可登录，登录成功后自动升级为 BCrypt 存储。
 
