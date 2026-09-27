@@ -1,49 +1,45 @@
 <template>
-	<div>
-		<div class="login-container">
-			<el-form class="login_form animate__animated animate__lightSpeedInLeft">
-				<div class="login_form2">
-					<div class="title-container">茶文化管理系统</div>
-					<div v-if="loginType==1" class="list-item">
-						<div class="lable">
-							账号：
-						</div>
-						<input placeholder="请输入账号：" name="username" type="text" v-model="rulesForm.username">
-					</div>
-					<div v-if="loginType==1" class="list-item">
-						<div class="lable">
-							密码：
-						</div>
-						<div class="password-box">
-							<input placeholder="请输入密码：" name="password" :type="showPassword?'text':'password'" v-model="rulesForm.password">
-							<span class="icon iconfont" :class="showPassword?'icon-liulan13':'icon-liulan17'" @click="showPassword=!showPassword"></span>
-						</div>
-					</div>
-
-					<div class="list-item " v-if="roles.length>1">
-						<div class="lable">
-							
-						</div>
-						<div prop="loginInRole" class="list-type">
-							<el-radio v-if="loginType==1||(loginType==2&&item.roleName!='管理员')" v-for="item in roles" v-bind:key="item.roleName" v-model="rulesForm.role" :label="item.roleName">{{item.roleName}}</el-radio>
-						</div>
-					</div>
-
-		
-					<div class="login-btn">
-						<div class="login-btn1">
-							<el-button v-if="loginType==1" type="primary" @click="login()" class="loginInBt">登录</el-button>
-						</div>
-						<div class="login-btn2">
-							<el-button type="primary" @click="register('shangjia')" class="register">
-								注册茶商							</el-button>
-						</div>
-						<div class="login-btn3">
-						</div>
+	<div class="login-page">
+		<div class="login-left">
+			<div class="ll-grain"></div>
+			<i class="ll-leaf ll-leaf1"></i>
+			<i class="ll-leaf ll-leaf2"></i>
+			<div class="ll-char">茶</div>
+			<div class="ll-vertical">夜茶一盏 · 半席山河</div>
+			<div class="ll-bottom">
+				<span class="ll-seal">陆羽茶经</span>
+				<div class="ll-slogan">六大茶类 · 源头直采 · 以盏见心</div>
+			</div>
+		</div>
+		<div class="login-right">
+			<el-form class="login_form animate__animated animate__fadeInUp">
+				<div class="lr-head">
+					<div class="lr-title">茶文化管理系统</div>
+					<div class="lr-sub">MANAGE CONSOLE</div>
+					<div class="lr-line"></div>
+				</div>
+				<div v-if="loginType==1" class="lr-field">
+					<label>账&nbsp;号</label>
+					<input placeholder="请输入账号：" name="username" type="text" v-model="rulesForm.username">
+				</div>
+				<div v-if="loginType==1" class="lr-field">
+					<label>密&nbsp;码</label>
+					<div class="lr-password">
+						<input placeholder="请输入密码：" name="password" :type="showPassword?'text':'password'" v-model="rulesForm.password">
+						<span class="icon iconfont" :class="showPassword?'icon-liulan13':'icon-liulan17'" @click="showPassword=!showPassword"></span>
 					</div>
 				</div>
-				<div class="idea-box1"></div>
-				<div class="idea-box2">Welcome</div>
+				<div class="lr-field" v-if="roles.length>1">
+					<label>角&nbsp;色</label>
+					<div prop="loginInRole" class="list-type">
+						<el-radio v-if="loginType==1||(loginType==2&&item.roleName!='管理员')" v-for="item in roles" v-bind:key="item.roleName" v-model="rulesForm.role" :label="item.roleName">{{item.roleName}}</el-radio>
+					</div>
+				</div>
+				<el-button v-if="loginType==1" type="primary" @click="login()" class="loginInBt">登&nbsp;录</el-button>
+				<div class="lr-foot">
+					<span class="lr-tip">还没有商户账号？</span>
+					<span class="register" @click="register('shangjia')">注册茶商 →</span>
+				</div>
 			</el-form>
 		</div>
 	</div>

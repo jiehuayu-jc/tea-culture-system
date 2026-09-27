@@ -883,7 +883,7 @@
 			padding: 0;
 			margin: 0 auto;
 			color: #fff;
-			background: url(http://codegen.caihongy.cn/20241026/0662ab9288ed4b258f2abbdfec5cc101.png) no-repeat center 12px;
+			background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px;
 			font-weight: 500;
 			width: 101%;
 			font-size: 26px;
@@ -904,7 +904,7 @@
 			box-shadow: none;
 			overflow: hidden;
 			align-content: flex-start;
-			background: url(http://codegen.caihongy.cn/20241026/6862e5282b0241c4ad58379c4d145c18.png) no-repeat center top;
+			background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center top;
 			width: 100%;
 			justify-content: flex-start;
 			align-items: flex-start;
@@ -1110,7 +1110,7 @@
 			}
 		}
 		.center-tabs.el-tabs {
-			border: 0px solid #fcbb78;
+			border: 0px solid #E9D9B8;
 			border-radius: 20px;
 			margin: 30px auto;
 			background: #fff;

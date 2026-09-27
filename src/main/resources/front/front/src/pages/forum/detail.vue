@@ -508,7 +508,7 @@
 				.forumdetail-title {
 						padding: 0;
 						margin: 0 0 20px;
-						background: url(http://codegen.caihongy.cn/20241015/ea7fe1e5231245138e075e6ad8dfb3e6.png) no-repeat center 12px;
+						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px;
 						font-weight: 600;
 						display: none;
 						width: 100%;
@@ -619,7 +619,7 @@
 			}
 		}
 		.section-content {
-						border: 0px solid #fcbb78;
+						border: 0px solid #E9D9B8;
 						padding: 0;
 						margin: 20px auto;
 						background: rgb(255, 255, 255);
@@ -767,7 +767,7 @@
 										padding: 5px 5px 5px 15px;
 										display: flex;
 										width: 100%;
-										border-color: #fcbb78;
+										border-color: #E9D9B8;
 										border-width: 0px;
 										justify-content: space-between;
 										align-items: center;
@@ -810,7 +810,7 @@
 				.comment-list {
 										width: 100%;
 										.comment-item {
-												border: 0px solid #fcbb78;
+												border: 0px solid #E9D9B8;
 												border-radius: 10px;
 												padding: 20px;
 												margin: 20px 0;

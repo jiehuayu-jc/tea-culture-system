@@ -315,7 +315,7 @@
 									}
 			}
 			.news-detail {
-								border: 0px solid #fcbb78;
+								border: 0px solid #E9D9B8;
 								padding: 0;
 								background: #fff;
 								width: 100%;
@@ -326,7 +326,7 @@
 										background: #3E6B4F;
 										font-weight: 500;
 										font-size: 22px;
-										border-color: #fcbb78;
+										border-color: #E9D9B8;
 										border-width: 0 0 0px;
 										line-height: 1.8;
 										border-style: solid;
@@ -526,13 +526,13 @@
 								background: #fff;
 								display: flex;
 								width: 100%;
-								border-color: #fcbb78;
+								border-color: #E9D9B8;
 								border-width: 0px;
 								justify-content: center;
 								border-style: solid;
 								height: auto;
 								.prev-btn {
-										border: 0px solid #fcbb78;
+										border: 0px solid #E9D9B8;
 										border-radius: 4px;
 										padding: 5px 10px;
 										margin: 0 20px 0 0;
@@ -555,7 +555,7 @@
 											}
 				}
 				.next-btn {
-										border: 0px solid #fcbb78;
+										border: 0px solid #E9D9B8;
 										border-radius: 4px;
 										padding: 5px 10px;
 										background: #9eb3cd;
@@ -589,7 +589,7 @@
 										padding: 0;
 										margin: 0;
 										color: #fff;
-										background: url(http://codegen.caihongy.cn/20241026/0662ab9288ed4b258f2abbdfec5cc101.png) no-repeat center top / 100% 100%;
+										background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center top / 100% 100%;
 										font-weight: 600;
 										width: 100%;
 										font-size: 26px;

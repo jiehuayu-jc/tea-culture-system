@@ -1,13 +1,13 @@
 <template>
 <div>
-	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"url(http://codegen.caihongy.cn/20240120/d40775f482fb4eaa8a715212bf1ab10f.png)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}' class="breadcrumb-preview">
+	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}' class="breadcrumb-preview">
 		<el-breadcrumb :separator="'Ξ'" :style='{"fontSize":"14px","lineHeight":"1"}'>
 			<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
 			<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index" to="/index/jiaoxueshipin"><a>{{item.name}}</a></el-breadcrumb-item>
 			<el-breadcrumb-item class="item3"><a href="javascript:void(0);">详情</a></el-breadcrumb-item>
 		</el-breadcrumb>
 	</div>
-	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"url(http://codegen.caihongy.cn/20240120/d40775f482fb4eaa8a715212bf1ab10f.png)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}'>
+	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}'>
 		<el-button size="mini" @click="backClick">返回</el-button>
 	</div>
 	<div class="detail-preview" :style='{"padding":"30px 22px","margin":"10px auto","flexWrap":"wrap","background":"#fff","display":"flex","width":"60%","position":"relative"}'>
@@ -18,8 +18,8 @@
 					<div :style='{"color":"#000","fontSize":"18px","fontWeight":"bold"}'>
                     {{detail.biaoti}}
                     </div>
-					<div @click="storeup(1)" v-show="!isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#FE6917"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-off"></i><span :style='{"color":"#fff","fontSize":"14px"}'>点我收藏({{detail.storeupnum}})</span></div>
-					<div @click="storeup(-1)" v-show="isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#FE6917"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-on"></i><span :style='{"color":"#fff","fontSize":"14px"}'>取消收藏({{detail.storeupnum}})</span></div>
+					<div @click="storeup(1)" v-show="!isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#A63D2F"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-off"></i><span :style='{"color":"#fff","fontSize":"14px"}'>点我收藏({{detail.storeupnum}})</span></div>
+					<div @click="storeup(-1)" v-show="isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#A63D2F"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-on"></i><span :style='{"color":"#fff","fontSize":"14px"}'>取消收藏({{detail.storeupnum}})</span></div>
 				</div>
 				
 				
@@ -32,7 +32,7 @@
 					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#3B2626","flex":"1"}'>{{detail.clicknum}}</div>
 				</div>
 				<div class="btn" :style='{"padding":"10px 0","flexWrap":"wrap","display":"flex"}'>
-					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 auto 10px","outline":"none","color":"#fff","borderRadius":"10px","background":"#3554A4","width":"40%","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="btnAuth('jiaoxueshipin','修改')" @click="editClick">修改</el-button>
+					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 auto 10px","outline":"none","color":"#fff","borderRadius":"10px","background":"#0F2419","width":"40%","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="btnAuth('jiaoxueshipin','修改')" @click="editClick">修改</el-button>
 					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 auto 10px","outline":"none","color":"#000","borderRadius":"10px","background":"#FFC174","width":"40%","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="btnAuth('jiaoxueshipin','删除')" @click="delClick">删除</el-button>
 					<!-- hasChat 无 -->
 				</div>
@@ -68,7 +68,7 @@
 						</editor>
 					</el-form-item>
 					<el-form-item class="btn" :style='{"width":"100%","padding":"0 0 0 80px","margin":"10px 0 0","height":"auto"}'>
-						<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#FE6917","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="submitForm('form')">立即提交</el-button>
+						<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#A63D2F","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="submitForm('form')">立即提交</el-button>
 						<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#9E9E9E","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' @click="resetForm('form')">重置</el-button>
 					</el-form-item>
 				</el-form>
@@ -84,7 +84,7 @@
 						<div :style='{"padding":"8px","boxShadow":"none","margin":"10px 0px 0px","color":"#333","borderRadius":"4px","background":"none","wordWrap":"break-word","lineHeight":"30px","fontSize":"14px"}' class="content-block-ask">
 							<div v-html="item.content"></div>
 							<div class="btn" :style='{"width":"100%","margin":"8px 0 0 0","alignItems":"center","justifyContent":"flex-end","display":"flex","height":"30px"}'>
-							  <!-- <el-button :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#FE6917","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>回复</el-button> -->
+							  <!-- <el-button :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#A63D2F","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>回复</el-button> -->
 							  <el-button v-if="showIndex==item.id&&userid==item.userid" @click="discussDel(item.id)" :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#9E9E9E","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>删除</el-button>
 							</div>
 						</div>
@@ -493,7 +493,7 @@
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left:hover {
-		background: #FE6917;
+		background: #A63D2F;
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right {
@@ -503,7 +503,7 @@
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right:hover {
-		background: #FE6917;
+		background: #A63D2F;
 	}
 
 	.attr .el-carousel ::v-deep .el-carousel__indicators {
@@ -528,7 +528,7 @@
 	.attr .el-carousel /deep/ .el-carousel__indicators li:hover {
 		padding: 0;
 		margin: 0 4px;
-		background: #FE6917;
+		background: #A63D2F;
 		display: inline-block;
 		width: 24px;
 		opacity: 0.7;
@@ -538,7 +538,7 @@
 	.attr .el-carousel /deep/ .el-carousel__indicators li.is-active {
 		padding: 0;
 		margin: 0 4px;
-		background: #FE6917;
+		background: #A63D2F;
 		display: inline-block;
 		width: 24px;
 		opacity: 1;
@@ -611,7 +611,7 @@
 	.detail-preview .detail.el-tabs /deep/ .el-tabs__header {
 		margin: 0;
 		background: none;
-		border-color: #FE6917;
+		border-color: #A63D2F;
 		border-width: 20px 0 0;
 		border-style: solid;
 	}
@@ -637,7 +637,7 @@
 		border-radius: 0 0 20px 20px;
 		margin: 0 10px;
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 	}
 	
 	.detail-preview .detail.el-tabs /deep/ .el-tabs__header .el-tabs__item.is-active {
@@ -645,7 +645,7 @@
 		border-radius: 0 0 20px 20px;
 		margin: 0 10px;
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 	}
 	
 	.detail-preview .detail.el-tabs /deep/ .el-tabs__content {
@@ -702,7 +702,7 @@
 		padding: 0;
 		margin: 0 5px;
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;
@@ -717,7 +717,7 @@
 		padding: 0;
 		margin: 0 5px;
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;
@@ -789,7 +789,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #FE6917;
+		background: #A63D2F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -805,7 +805,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #FE6917;
+		background: #A63D2F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;

@@ -6,7 +6,7 @@
 				<span class="text">返回</span>
 			</el-button>
 		</div>
-		<div v-if="storeupType==1" class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"url(http://codegen.caihongy.cn/20241026/0662ab9288ed4b258f2abbdfec5cc101.png) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>我的收藏</div>
+		<div v-if="storeupType==1" class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>我的收藏</div>
 		<el-form :inline="true" :model="formSearch" class="formSearch">
 			<el-form-item>
 				<el-input v-model="formSearch.name" placeholder="名称"></el-input>

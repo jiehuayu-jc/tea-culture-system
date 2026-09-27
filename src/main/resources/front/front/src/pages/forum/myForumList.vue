@@ -6,7 +6,7 @@
 				<span class="text">返回</span>
 			</el-button>
 		</div>
-	<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"url(http://codegen.caihongy.cn/20241026/0662ab9288ed4b258f2abbdfec5cc101.png) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>我的发布</div>
+	<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>我的发布</div>
 	<el-table :stripe='false'
 		:style='{"padding":"0","borderColor":"#eee","borderWidth":"1px 0 0 1px","background":"none","width":"100%","fontSize":"inherit","borderStyle":"solid"}' 
 		:border='true'

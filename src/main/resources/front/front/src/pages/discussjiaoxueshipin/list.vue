@@ -1,12 +1,12 @@
 <template>
 <div>
-	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"url(http://codegen.caihongy.cn/20240120/d40775f482fb4eaa8a715212bf1ab10f.png)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}' class="breadcrumb-preview">
+	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}' class="breadcrumb-preview">
 		<el-breadcrumb :separator="'Ξ'" :style='{"fontSize":"14px","lineHeight":"1"}'>
 			<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
 			<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index"><a>{{item.name}}</a></el-breadcrumb-item>
 		</el-breadcrumb>
 	</div>
-	<div v-if="centerType" :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"url(http://codegen.caihongy.cn/20240120/d40775f482fb4eaa8a715212bf1ab10f.png)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}'>
+	<div v-if="centerType" :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}'>
 		<el-button size="mini" @click="backClick">返回</el-button>
 	</div>
 	<div class="list-preview" :style='{"width":"100%","padding":"0","margin":"10px auto","position":"relative","background":"none"}'>
@@ -22,8 +22,8 @@
 	    <div class="lable" v-if="false" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>评论内容：</div>
         <el-input v-model="formSearch.content" placeholder="评论内容" @keydown.enter.native="getList(1, curFenlei)" clearable></el-input>
       </el-form-item>
-	  <el-button v-if=" true " :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"430px","background":"#FE6917","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="getList(1, curFenlei)"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-search"></i>查询</el-button>
-	  <el-button v-if="btnAuth('discussjiaoxueshipin','新增')" :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"30px","background":"#3554A4","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="add('/index/discussjiaoxueshipinAdd')"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-circle-plus-outline"></i>添加</el-button>
+	  <el-button v-if=" true " :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"430px","background":"#A63D2F","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="getList(1, curFenlei)"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-search"></i>查询</el-button>
+	  <el-button v-if="btnAuth('discussjiaoxueshipin','新增')" :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"30px","background":"#0F2419","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="add('/index/discussjiaoxueshipinAdd')"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-circle-plus-outline"></i>添加</el-button>
     </el-form>
 	<div class="select2" :style='{"width":"83%","padding":"20px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","background":"#fff","height":"auto"}'>
 	  <div :style='{"width":"100%","padding":"0 0 0 20px","margin":"0 0 10px","position":"relative","background":"none","height":"auto"}' class="list" v-for="(item,index) in selectOptionsList" :key="item">
@@ -34,7 +34,7 @@
 	    </div>
 	  </div>
 	</div>
-	<div class="sort_view" :style='{"margin":"10px auto 0","borderRadius":"30px 30px 0 0","background":"#3554A4","display":"flex","width":"83.5%","position":"relative","justifyContent":"center","zIndex":"111"}'>
+	<div class="sort_view" :style='{"margin":"10px auto 0","borderRadius":"30px 30px 0 0","background":"#0F2419","display":"flex","width":"83.5%","position":"relative","justifyContent":"center","zIndex":"111"}'>
 		<el-button :style='{"border":"0","padding":"0 15px","margin":"0 5px","borderRadius":"8px","background":"none"}' @click="sortClick('clicknum')">
 			<span :style='{"margin":"0 5px 0 0","lineHeight":"50px","fontSize":"15px","color":"#fff"}' class="icon iconfont icon-liulan13" v-if="sortType!='clicknum'"></span>
 			<span :style='{"margin":"0 5px 0 0","lineHeight":"50px","fontSize":"15px","color":"#fff"}' class="icon iconfont icon-jiantou06" v-else-if="sortType=='clicknum'&&sortOrder=='desc'"></span>
@@ -42,13 +42,13 @@
 			<span :style='{"color":"#fff","lineHeight":"50px","fontSize":"15px"}'>点击量</span>
 		</el-button>
 	</div>
-	<div class="list" :style='{"width":"100%","padding":"30px 10% 230px","margin":"0px 0 10px","background":"url(http://codegen.caihongy.cn/20240219/48efb4be31ee443597196e704f0766c2.png) center bottom / 100% auto no-repeat,url(http://codegen.caihongy.cn/20240219/e541597a8bf34224a765175ed4cb8569.png) repeat-y center top / 100% auto"}'>
+	<div class="list" :style='{"width":"100%","padding":"30px 10% 230px","margin":"0px 0 10px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) center bottom / 100% auto no-repeat,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-y center top / 100% auto"}'>
 		
 		<!-- 样式二 -->
 		<div class="list2 index-pv1" :style='{"padding":"0px","flexWrap":"wrap","background":"none","display":"flex","width":"100%","justifyContent":"space-between","height":"auto"}'>
 			<div :style='{"border":"2px solid #fff","padding":"20px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"0 0 30px","alignItems":"center","color":"#000","background":"#fff","display":"flex","width":"49%","fontSize":"0","position":"relative","height":"auto"}' v-for="(item, index) in dataList" :key="index" @click.stop="toDetail(item)" class="list-item animation-box">
 				<div class="item-info" :style='{"padding":"10px","overflow":"hidden","flexWrap":"wrap","flex":"1","display":"flex","height":"auto"}'>
-					<div v-if="item.price" :style='{"padding":"0 40px","margin":"20px 10px","color":"#fff","borderRadius":"5px","background":"#FE6917","lineHeight":"46px","fontSize":"18px","order":"7"}' class="price"><span :style='{"fontSize":"12px"}'>￥</span>{{item.price}}</div>
+					<div v-if="item.price" :style='{"padding":"0 40px","margin":"20px 10px","color":"#fff","borderRadius":"5px","background":"#A63D2F","lineHeight":"46px","fontSize":"18px","order":"7"}' class="price"><span :style='{"fontSize":"12px"}'>￥</span>{{item.price}}</div>
 					<div :style='{"width":"100%","padding":"0 10px","order":"6"}'>
 					  <span class="icon iconfont icon-shijian21" :style='{"margin":"0 5px 0 0","lineHeight":"40px","fontSize":"14px","color":"inherit"}'></span>
 					  <span :style='{"color":"inherit","lineHeight":"40px","fontSize":"14px"}'>{{item.addtime}}</span>
@@ -320,7 +320,7 @@
 		border-radius: 4px;
 		padding:  10px;
 		margin: 0 10px 0 0;
-		color: #3554A4;
+		color: #0F2419;
 		background: #fff;
 		display: flex;
 		width: auto;
@@ -329,13 +329,13 @@
 	
 	.category-3 .item:hover {
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 		width: auto;
 	}
 	
 	.category-3 .item.active {
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 		width: auto;
 	}
 	
@@ -374,10 +374,10 @@
 	}
 	
 	.list .index-pv1 .animation-box:hover {
-		border: 2px solid #3554A4 !important;
+		border: 2px solid #0F2419 !important;
 		transform: rotate(0deg) scale(1.02) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
 		-webkit-perspective: 1000px;
-		color: #3554A4 !important;
+		color: #0F2419 !important;
 		perspective: 1000px;
 		transition: 0.3s;
 		z-index: 1;
@@ -411,7 +411,7 @@
 		padding: 0;
 		margin: 0 5px;
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;
@@ -426,7 +426,7 @@
 		padding: 0;
 		margin: 0 5px;
 		color: #fff;
-		background: #3554A4;
+		background: #0F2419;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;
@@ -498,7 +498,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #FE6917;
+		background: #A63D2F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -514,7 +514,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #FE6917;
+		background: #A63D2F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -618,10 +618,10 @@
 			}
 	.select2 .list .item-body .item:hover {
 				color: #fff;
-				background: #FE6917;
+				background: #A63D2F;
 			}
 	.select2 .list .item-body .item.active {
 				color: #fff;
-				background: #FE6917;
+				background: #A63D2F;
 			}
 </style>

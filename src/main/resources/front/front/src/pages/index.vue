@@ -4,7 +4,7 @@
 			<div class="top-container">
 				<!-- info -->
 				<div class="top_title">
-					<span @click="goMenu('/index/home')">茶文化管理系统</span>
+					<span class="brand-serif" @click="goMenu('/index/home')">茶文化管理系统</span>
 				</div>
 				<div class="top_tel"></div>
 			
@@ -84,7 +84,7 @@
 				</div>
 			</div>
 
-			<div class="banner-preview" v-if="carouselChange()">
+			<div class="banner-preview" v-if="carouselChange() && $route.path != '/index/home'">
 				<div class="swiper-container mySwiper3">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide" v-for="item in carouselList" :key="item.id">
@@ -711,7 +711,7 @@ export default {
 				box-shadow: 0 0px 0px rgba(64, 158, 255, .3);
 				top: 0;
 				left: 0;
-				background: url(http://codegen.caihongy.cn/20241020/cb33215631154d3aa6ae66e402a92212.png) repeat-x center bottom,#fff;
+				background: #fff;
 				width: 100%;
 				justify-content: flex-start;
 				align-items: center;
@@ -768,11 +768,11 @@ export default {
 							font-size: 14px;
 						}
 						.login-item {
-							border: 0;
-							padding: 0 8px;
+							border: 1px solid rgba(212,175,55,.4);
+							padding: 0 16px;
 							margin: 0 0px;
-							color: inherit;
-							background: #fff;
+							color: #e6ce9a;
+							background: rgba(212,175,55,.08);
 							width: auto;
 							font-size: inherit;
 							line-height: 32px;
@@ -783,8 +783,8 @@ export default {
 							}
 						}
 						.login-item:hover {
-							color: #333;
-							background: #475a8330;
+							color: #d4af37;
+							background: rgba(212,175,55,.16);
 						}
 					}
 				}
@@ -829,9 +829,8 @@ export default {
 							cursor: pointer;
 							padding: 0 20px;
 							color: #000;
-							background: url(http://codegen.caihongy.cn/20241020/f6ec381f79b5437caf38b4b5d2b4d8f6.png) no-repeat right center;
 							display: flex;
-							border-color: #e7e7e7;
+							border-color: rgba(212,175,55,.18);
 							border-width: 0 0 4px 0;
 							border-style: solid;
 							.icon {
@@ -856,14 +855,12 @@ export default {
 					.menu-home:hover {
 						.title {
 							color: #000;
-							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
 							border-color: #3E6B4F;
 						}
 					}
 					.menu-home.menu-active {
 						.title {
 							color: #000;
-							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
 							border-color: #3E6B4F;
 						}
 					}
@@ -875,9 +872,8 @@ export default {
 							cursor: pointer;
 							padding: 0 20px;
 							color: #000;
-							background: url(http://codegen.caihongy.cn/20241020/f6ec381f79b5437caf38b4b5d2b4d8f6.png) no-repeat right center;
 							display: flex;
-							border-color: #e7e7e7;
+							border-color: rgba(212,175,55,.18);
 							border-width: 0 0 4px 0;
 							border-style: solid;
 							span {
@@ -924,14 +920,12 @@ export default {
 					.menu-item:hover {
 						.title {
 							color: #000;
-							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
 							border-color: #3E6B4F;
 						}
 					}
 					.menu-item.menu-active {
 						.title {
-							color: #000;
-							background: url(http://codegen.caihongy.cn/20241020/bf82d971651a448e9cdef155b1b9477b.png) no-repeat right center;
+							color: #d4af37;
 							border-color: #3E6B4F;
 						}
 					}
@@ -945,7 +939,7 @@ export default {
 							color: #000;
 							background: none;
 							display: flex;
-							border-color: #e7e7e7;
+							border-color: rgba(212,175,55,.18);
 							border-width: 0 0 4px 0;
 							border-style: solid;
 							.icon {
@@ -1050,13 +1044,13 @@ export default {
 					}
 					.menu-user:hover {
 						.title {
-							color: #fcbb78;
+							color: #E9D9B8;
 							background: none;
 						}
 					}
 					.menu-user.menu-active {
 						.title {
-							color: #fcbb78;
+							color: #E9D9B8;
 							background: none;
 						}
 					}
@@ -1192,4 +1186,36 @@ export default {
 		border-radius: 5px;
 		background: #fff;
 	}
+
+	/* ===== 夜茶·墨绿金顶栏（2026-09 二次整改） ===== */
+	.top-container {
+		background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%) !important;
+		color: #ede6d6 !important;
+		box-shadow: 0 2px 16px rgba(0, 0, 0, .4) !important;
+		padding-bottom: 0 !important;
+	}
+	.top-container .top_title span {
+		color: #e6ce9a !important;
+		font-family: 'TeaSerif', 'STSong', 'SimSun', serif;
+		font-size: 22px !important;
+		letter-spacing: 4px;
+	}
+	.top-container .menu-item .title .text,
+	.top-container .menu-shop .title .text,
+	.top-container .menu-service .title .text,
+	.top-container .menu-user .title .text {
+		color: #ede6d6 !important;
+	}
+	.top-container .menu-item .title .iconfont,
+	.top-container .login-item {
+		color: #e6ce9a !important;
+	}
+	.top-container .menu-item.menu-active .title .text {
+		color: #d4af37 !important;
+	}
+	.top-container .menu-item.menu-active {
+		border-bottom: 2px solid #d4af37 !important;
+	}
+	.top-container .top_nickname2 { color: #ede6d6 !important; }
+	.top-container ::v-deep .el-dropdown-menu { background: #12241b; }
 </style>

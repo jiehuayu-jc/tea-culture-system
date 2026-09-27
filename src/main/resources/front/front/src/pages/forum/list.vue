@@ -145,7 +145,7 @@
 				.forum-title {
 						padding: 0;
 						margin: 0;
-						background: url(http://codegen.caihongy.cn/20241026/0662ab9288ed4b258f2abbdfec5cc101.png) no-repeat center 12px;
+						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px;
 						font-weight: 600;
 						width: 100%;
 						font-size: 26px;
@@ -217,7 +217,7 @@
 				
 				.pubBtn {
 										cursor: pointer;
-										border: 0px solid #fcbb78;
+										border: 0px solid #E9D9B8;
 										border-radius: 4px;
 										padding: 0px 15px;
 										margin: 0 10px 0 0;
@@ -256,7 +256,7 @@
 								display: flex;
 								font-size: 16px;
 								flex-wrap: wrap;
-								background: url(http://codegen.caihongy.cn/20241023/7db6e8651c02480da7ccfb89283730fc.png) no-repeat left center / auto 100%,url(http://codegen.caihongy.cn/20241023/08826ed48d7145f4ade6f18536695d1f.png) no-repeat right center / auto 100%,url(http://codegen.caihongy.cn/20241023/b103608cb25c49ef9a7c76e34d0e59b9.png) repeat-x center center / auto 100%;
+								background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
 								justify-content: center;
 								align-items: center;
 								min-width: 120px;
@@ -265,12 +265,12 @@
 			
 			.item:hover {
 								color: #fff;
-								background: url(http://codegen.caihongy.cn/20241023/0a71fbf90ea34e2f97b9250a2940579e.png) no-repeat left center / auto 100%,url(http://codegen.caihongy.cn/20241023/00f7d5b077674c4ea859eebae391a686.png) no-repeat right center / auto 100%,url(http://codegen.caihongy.cn/20241023/9f6dc91dedbf49c0aebbb2b503633f89.png) repeat-x center center / auto 100%;
+								background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
 							}
 			
 			.item.active {
 								color: #fff;
-								background: url(http://codegen.caihongy.cn/20241023/0a71fbf90ea34e2f97b9250a2940579e.png) no-repeat left center / auto 100%,url(http://codegen.caihongy.cn/20241023/00f7d5b077674c4ea859eebae391a686.png) no-repeat right center / auto 100%,url(http://codegen.caihongy.cn/20241023/9f6dc91dedbf49c0aebbb2b503633f89.png) repeat-x center center / auto 100%;
+								background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
 							}
 		}
 		.z-box {

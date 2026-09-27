@@ -1,6 +1,6 @@
 <template>
 	<div :style='{"alignContent":"flex-start","padding":"0 calc((100% - 1400px)/2)","margin":"0 auto","alignItems":"flex-start","flexWrap":"wrap","background":"#f6f6f6","display":"flex","width":"100%","fontSize":"16px","position":"relative"}'>
-		<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"url(http://codegen.caihongy.cn/20241026/0662ab9288ed4b258f2abbdfec5cc101.png) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>茶友圈</div>
+		<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>茶友圈</div>
 		<div class="back_box">
 			<el-button class="backBtn" size="mini" @click="backClick">
 				<span class="icon iconfont icon-jiantou33"></span>

@@ -1,199 +1,150 @@
 <template>
 	<div class="home-preview">
 
+		<!-- ============ Hero：夜茶·墨绿金 ============ -->
+		<section class="hero">
+			<div class="hero-grain"></div>
+			<i class="leaf leaf1"></i><i class="leaf leaf2"></i><i class="leaf leaf3"></i>
+			<div class="hero-inner">
+				<div class="hero-left">
+					<div class="hero-eyebrow">
+						<span class="seal">陆羽茶经</span>
+						<span class="eyebrow-line"></span>
+						<span class="eyebrow-text">CHINESE TEA CULTURE</span>
+					</div>
+					<h1 class="hero-title">一盏春色<br /><em>半&nbsp;席&nbsp;山&nbsp;河</em></h1>
+					<p class="hero-sub">六大茶类 · 源头直采 · 从茶山到你的杯盏</p>
+					<div class="hero-actions">
+						<button class="btn-gold" @click="goMenu('/index/shangpinxinxi')">进入好茶集市</button>
+						<button class="btn-ghost" @click="goMenu('/index/jiaoxueshipin')">品读茶文化</button>
+					</div>
+					<div class="hero-stats">
+						<div class="stat"><b>{{ countUp(products.count) }}</b><span>在售好茶</span></div>
+						<div class="stat-line"></div>
+						<div class="stat"><b>{{ countUp(news.count) }}</b><span>茶事文章</span></div>
+						<div class="stat-line"></div>
+						<div class="stat"><b>{{ countUp(4820) }}+</b><span>茶友共盏</span></div>
+					</div>
+				</div>
+				<div class="hero-right">
+					<div class="moon-ring">
+						<img :src="baseUrl + 'upload/picture1.jpg'" alt="茶" />
+					</div>
+					<div class="hero-vertical">茶之为饮&nbsp;发乎神农</div>
+				</div>
+			</div>
+			<div class="hero-quote">
+				<span class="q-seal">签</span>
+				<span class="q-label">今日茶签</span>
+				<transition name="qfade" mode="out-in">
+					<span class="q-text" :key="quoteIndex">{{ quotes[quoteIndex] }}</span>
+				</transition>
+			</div>
+		</section>
 
-		<!-- 栏目入口 -->
-		<div class="tea-entries">
-			<div class="entry-card" v-for="(e, i) in entries" :key="i" @click="goMenu(e.url)">
-				<div class="entry-icon" :style="{ background: e.bg }">{{ e.icon }}</div>
+		<!-- ============ 鎏金滚动字幕 ============ -->
+		<div class="marquee">
+			<div class="marquee-track">
+				<span v-for="n in 2" :key="n" class="marquee-group">
+					<template v-for="m in marqueeWords">
+						<i class="dot">◆</i>{{ m }}
+					</template>
+				</span>
+			</div>
+		</div>
+
+		<!-- ============ 栏目入口 ============ -->
+		<section class="entries">
+			<div class="entry" v-for="(e, i) in entries" :key="i" @click="goMenu(e.url)">
+				<div class="entry-num">{{ e.num }}</div>
 				<div class="entry-name">{{ e.name }}</div>
 				<div class="entry-desc">{{ e.desc }}</div>
+				<div class="entry-go">进入<i>→</i></div>
 			</div>
-		</div>
+		</section>
 
-
-		<!-- 新闻资讯 -->
-		<div id="animate_newsnews" class="news animate__animated">
-			<div class="news_title_box">
-				<span class="news_title">购物资讯</span>
-				<span class="news_subhead">{{'news'.toUpperCase()}}</span>
+		<!-- ============ 好茶集市推荐 ============ -->
+		<section class="sec">
+			<div class="sec-head">
+				<div class="sec-title-wrap">
+					<span class="sec-title">好茶集市</span>
+					<span class="sec-en">TEA&nbsp;MARKET</span>
+				</div>
+				<div class="sec-more" @click="moreBtn('shangpinxinxi')">更多好茶 →</div>
 			</div>
-			<div v-if="newsList.length" class="list list20 index-pv1">
-				<div v-for="(item,index) in newsList" :key="index"  @click="toDetail('newsDetail', item)" class="list-item animation-box">
-					<div class="img-box">
-						<img :src="baseUrl + item.picture" class="image">
+			<div class="goods" v-if="shangpinxinxiRecommend.length">
+				<div class="goods-feature" v-if="shangpinxinxiRecommend[0]" @click="toDetail('shangpinxinxiDetail', shangpinxinxiRecommend[0])">
+					<div class="gf-img">
+						<img v-if="preHttp(shangpinxinxiRecommend[0].shangpintupian)" :src="shangpinxinxiRecommend[0].shangpintupian.split(',')[0]" alt="" />
+						<img v-else :src="baseUrl + (shangpinxinxiRecommend[0].shangpintupian?shangpinxinxiRecommend[0].shangpintupian.split(',')[0]:'')" alt="" />
 					</div>
-					<div class="infoBox">
-						<div class="infoBox-left">
-							<div class="name">{{item.title}}</div>
-							<div class="time_item">
-								<span class="icon iconfont icon-shijian21"></span>
-								<span class="label">发布时间：</span>
-								<span class="text">{{item.addtime.split(' ')[0]}}</span>
-							</div>
-							<div class="publisher_item">
-								<span class="icon iconfont icon-touxiang18"></span>
-								<span class="label">发布人：</span>
-								<span class="text">{{item.name}}</span>
-							</div>
-							<div class="like_item">
-								<span class="icon iconfont icon-zan10"></span>
-								<span class="label">点赞：</span>
-								<span class="text">{{item.thumbsupnum}}</span>
-							</div>
-							<div class="collect_item">
-								<span class="icon iconfont icon-shoucang10"></span>
-								<span class="label">收藏：</span>
-								<span class="text">{{item.storeupnum}}</span>
-							</div>
-							<div class="view_item">
-								<span class="icon iconfont icon-liulan13"></span>
-								<span class="label">浏览次数：</span>
-								<span class="text">{{item.clicknum}}</span>
-							</div>
+					<div class="gf-info">
+						<span class="gf-tag">掌柜推荐</span>
+						<div class="gf-name">{{ shangpinxinxiRecommend[0].shangpinmingcheng }}</div>
+						<div class="gf-cat">{{ shangpinxinxiRecommend[0].shangpinfenlei }}｜{{ shangpinxinxiRecommend[0].guige }}</div>
+						<div class="gf-desc">{{ shangpinxinxiRecommend[0].shangpinjieshao }}</div>
+						<div class="gf-bottom">
+							<span class="gf-price"><i>￥</i>{{ shangpinxinxiRecommend[0].price }}</span>
+							<span class="gf-buy">立即品鉴 →</span>
 						</div>
-						<div class="desc">{{item.introduction}}</div>
 					</div>
 				</div>
-			</div>
-			<div class="moreBtn" @click="moreBtn('news')">
-				<span class="text">查看更多</span>
-				<i class="icon iconfont icon-gengduo1"></i>
-			</div>
-		</div>
-		<!-- 新闻资讯 -->
-		<!-- 商品推荐 -->
-		<div id="animate_recommendshangpinxinxi" class="recommend animate__animated">
-			<div class="recommend_title_box">
-				<span class="recommend_title">好茶集市推荐</span>
-				<span class="recommend_subhead">{{'shangpinxinxi'.toUpperCase()}} RECOMMEND</span>
-			</div>
-			<div class="list list18 index-pv1">
-				<div class="list-body" v-if="shangpinxinxiRecommend.length">
-					<div class="list-body-left">
-						<div class="list-item1" @click="toDetail('shangpinxinxiDetail', shangpinxinxiRecommend[0])">
-							<div class="infoBox">
-								<div class="name">{{shangpinxinxiRecommend[0].shangpinmingcheng}}</div>
-								<div class="name">{{shangpinxinxiRecommend[0].shangpinfenlei}}</div>
-								<div class="name">规格:{{shangpinxinxiRecommend[0].guige}}</div>
-								<div class="price">￥{{shangpinxinxiRecommend[0].price}}</div>
-								<div class="time_item">
-									<span class="icon iconfont icon-shijian21"></span>
-									<span class="label">发布时间：</span>
-									<span class="text">{{shangpinxinxiRecommend[0].addtime.split(' ')[0]}}</span>
-								</div>
-								<div class="publisher_item">
-									<span class="icon iconfont icon-touxiang18"></span>
-									<span class="label">发布人：</span>
-									<span class="text">{{shangpinxinxiRecommend[0].shangjiazhanghao}}</span>
-								</div>
-								<div class="collect_item">
-									<span class="icon iconfont icon-shoucang10"></span>
-									<span class="label">收藏：</span>
-									<span class="text">{{shangpinxinxiRecommend[0].storeupnum}}</span>
-								</div>
-								<div class="view_item">
-									<span class="icon iconfont icon-liulan04"></span>
-									<span class="label">浏览次数：</span>
-									<span class="text">{{shangpinxinxiRecommend[0].clicknum}}</span>
-								</div>
-							</div>
-							<div class="img">
-								<img v-if="preHttp(shangpinxinxiRecommend[0].shangpintupian)" :src="shangpinxinxiRecommend[0].shangpintupian.split(',')[0]" alt="" />
-								<img v-else :src="baseUrl + (shangpinxinxiRecommend[0].shangpintupian?shangpinxinxiRecommend[0].shangpintupian.split(',')[0]:'')" alt="" />
-							</div>
+				<div class="goods-grid">
+					<div class="g-card" v-for="(item, index) in shangpinxinxiRecommend" :key="index"
+						v-if="index > 0 && index < 7" @click="toDetail('shangpinxinxiDetail', item)">
+						<div class="g-img">
+							<img v-if="preHttp(item.shangpintupian)" :src="item.shangpintupian.split(',')[0]" alt="" />
+							<img v-else :src="baseUrl + (item.shangpintupian?item.shangpintupian.split(',')[0]:'')" alt="" />
+							<span class="g-cat">{{ item.shangpinfenlei }}</span>
 						</div>
-						<div class="list-item2" @click="toDetail('shangpinxinxiDetail', shangpinxinxiRecommend[1])">
-							<div class="img">
-								<img v-if="preHttp(shangpinxinxiRecommend[1].shangpintupian)" :src="shangpinxinxiRecommend[1].shangpintupian.split(',')[0]" alt="" />
-								<img v-else :src="baseUrl + (shangpinxinxiRecommend[1].shangpintupian?shangpinxinxiRecommend[1].shangpintupian.split(',')[0]:'')" alt="" />
-							</div>
-							<div class="infoBox">
-								<div class="name">{{shangpinxinxiRecommend[1].shangpinmingcheng}}</div>
-								<div class="name">{{shangpinxinxiRecommend[1].shangpinfenlei}}</div>
-								<div class="name">规格:{{shangpinxinxiRecommend[1].guige}}</div>
-								<div class="price">￥{{shangpinxinxiRecommend[1].price}}</div>
-								<div class="time_item">
-									<span class="icon iconfont icon-shijian21"></span>
-									<span class="label">发布时间：</span>
-									<span class="text">{{shangpinxinxiRecommend[1].addtime.split(' ')[0]}}</span>
-								</div>
-								<div class="publisher_item">
-									<span class="icon iconfont icon-touxiang18"></span>
-									<span class="label">发布人：</span>
-									<span class="text">{{shangpinxinxiRecommend[1].shangjiazhanghao}}</span>
-								</div>
-								<div class="collect_item">
-									<span class="icon iconfont icon-shoucang10"></span>
-									<span class="label">收藏：</span>
-									<span class="text">{{shangpinxinxiRecommend[1].storeupnum}}</span>
-								</div>
-								<div class="view_item">
-									<span class="icon iconfont icon-liulan04"></span>
-									<span class="label">浏览次数：</span>
-									<span class="text">{{shangpinxinxiRecommend[1].clicknum}}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="list-body-right">
-						<div class="swiper-container recommendSwiper18 recommend-list-18shangpinxinxi">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide" v-for="(item,index) in shangpinxinxiRecommend" :key="index" v-if="index>2">
-									<div class="list-item" @click="toDetail('shangpinxinxiDetail', item)">
-										<div class="img">
-											<img v-if="preHttp(item.shangpintupian)" :src="item.shangpintupian.split(',')[0]" alt="" />
-											<img v-else :src="baseUrl + (item.shangpintupian?item.shangpintupian.split(',')[0]:'')" alt="" />
-										</div>
-										<div class="infoBox">
-											<div class="name">{{item.shangpinmingcheng}}</div>
-											<div class="name">{{item.shangpinfenlei}}</div>
-											<div class="name">规格:{{item.guige}}</div>
-											<div class="price">￥{{item.price}}</div>
-											<div class="time_item">
-												<span class="icon iconfont icon-shijian21"></span>
-												<span class="label">发布时间：</span>
-												<span class="text">{{item.addtime.split(' ')[0]}}</span>
-											</div>
-											<div class="publisher_item">
-												<span class="icon iconfont icon-touxiang18"></span>
-												<span class="label">发布人：</span>
-												<span class="text">{{item.shangjiazhanghao}}</span>
-											</div>
-											<div class="collect_item">
-												<span class="icon iconfont icon-shoucang10"></span>
-												<span class="label">收藏：</span>
-												<span class="text">{{item.storeupnum}}</span>
-											</div>
-											<div class="view_item">
-												<span class="icon iconfont icon-liulan04"></span>
-												<span class="label">浏览次数：</span>
-												<span class="text">{{item.clicknum}}</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="swiper-button-prev"></div>
-							<div class="swiper-button-next"></div>
-							<div class="swiper-pagination"></div>
+						<div class="g-name">{{ item.shangpinmingcheng }}</div>
+						<div class="g-row">
+							<span class="g-price"><i>￥</i>{{ item.price }}</span>
+							<span class="g-spec">{{ item.guige }}</span>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="moreBtn" @click="moreBtn('shangpinxinxi')">
-				<span class="text">查看更多</span>
-				<i class="icon iconfont icon-gengduo1"></i>
+		</section>
+
+		<!-- ============ 购物资讯 ============ -->
+		<section class="sec sec-news">
+			<div class="sec-head">
+				<div class="sec-title-wrap">
+					<span class="sec-title">购物资讯</span>
+					<span class="sec-en">TEA&nbsp;JOURNAL</span>
+				</div>
+				<div class="sec-more" @click="moreBtn('news')">更多文章 →</div>
 			</div>
-		</div>
-		<!-- 商品推荐 -->
+			<div class="news-list" v-if="newsList.length">
+				<div class="n-card" v-for="(item, index) in newsList" :key="index" @click="toDetail('newsDetail', item)">
+					<div class="n-img">
+						<img :src="baseUrl + item.picture" class="image" />
+					</div>
+					<div class="n-body">
+						<div class="n-date">{{ item.addtime ? item.addtime.split(' ')[0] : '' }}</div>
+						<div class="n-title">{{ item.title }}</div>
+						<div class="n-desc">{{ item.introduction }}</div>
+						<div class="n-meta">
+							<span>✎ {{ item.name }}</span>
+							<span>♡ {{ item.thumbsupnum }}</span>
+							<span>◎ {{ item.clicknum }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ Footer ============ -->
+		<footer class="tea-footer">
+			<div class="f-line"></div>
+			<div class="f-slogan">以&nbsp;茶&nbsp;会&nbsp;友&nbsp;&nbsp;·&nbsp;&nbsp;以&nbsp;盏&nbsp;见&nbsp;心</div>
+			<div class="f-copy">茶文化管理系统 © 2026 · 好茶集市 / 茶文化 / 茶友圈 / 线上讲座</div>
+		</footer>
 	</div>
 </template>
 
 <script>
-import 'animate.css'
-import Swiper from "swiper";
-
 	export default {
 		//数据集合
 		data() {
@@ -201,21 +152,33 @@ import Swiper from "swiper";
 				baseUrl: '',
 				newsList: [],
 				shangpinxinxiRecommend: [],
-
-				// 新中式茶美学：栏目入口
-				entries: [
-					{ icon: '集', name: '好茶集市', desc: '源头好茶 · 直购价', url: '/index/shangpinxinxi', bg: '#3E6B4F' },
-					{ icon: '文', name: '茶文化', desc: '茶史茶艺 · 视频课堂', url: '/index/jiaoxueshipin', bg: '#7A5C43' },
-					{ icon: '讲', name: '线上讲座', desc: '名师开讲 · 周周上新', url: '/index/xinlizixun', bg: '#A63D2F' },
-					{ icon: '友', name: '茶友圈', desc: '晒茶问答 · 以茶会友', url: '/index/forum', bg: '#57706B' },
+				quoteIndex: 0,
+				quoteTimer: null,
+				quotes: [
+					'寒夜客来茶当酒，竹炉汤沸火初红。',
+					 '从来佳茗似佳人，欲把西湖比西子。',
+					'七碗吃不得也，唯觉两腋习习清风生。',
+					'茶禅一味，苦尽甘来。',
 				],
-
-
-
-				recommendListSwiper18shangpinxinxi: null,
-
-
+				marqueeWords: [
+					'明前头采 · 狮峰龙井', '武夷正岩 · 大红袍', '福鼎白毫 · 银针新制',
+					'勐海古树 · 普洱陈饼', '桐木关内 · 正山小种', '安溪西坪 · 传统铁观音',
+				],
+				entries: [
+					{ num: '壹', name: '好茶集市', desc: '源头好茶 · 直购价', url: '/index/shangpinxinxi' },
+					{ num: '贰', name: '茶文化', desc: '茶史茶艺 · 视频课堂', url: '/index/jiaoxueshipin' },
+					{ num: '叁', name: '线上讲座', desc: '名师开讲 · 周周上新', url: '/index/xinlizixun' },
+					{ num: '肆', name: '茶友圈', desc: '晒茶问答 · 以茶会友', url: '/index/forum' },
+				],
 			}
+		},
+		computed: {
+			products() {
+				return { count: this.shangpinxinxiRecommend.length ? 16 : 0 };
+			},
+			news() {
+				return { count: this.newsList.length ? 8 : 0 };
+			},
 		},
 		created() {
 			this.baseUrl = this.$config.baseUrl;
@@ -223,56 +186,23 @@ import Swiper from "swiper";
 			this.getList();
 		},
 		mounted() {
-			window.addEventListener('scroll', this.handleScroll)
-			setTimeout(()=>{
-				this.handleScroll()
-			},100)
-			
-			this.swiperChanges()
+			this.quoteTimer = setInterval(() => {
+				this.quoteIndex = (this.quoteIndex + 1) % this.quotes.length;
+			}, 5000);
 		},
 		beforeDestroy() {
-			window.removeEventListener('scroll', this.handleScroll)
+			if (this.quoteTimer) clearInterval(this.quoteTimer);
 		},
 		//方法集合
 		methods: {
 			goMenu(url) {
 				this.$router.push(url)
 			},
-			swiperChanges() {
-				if (this['recommendListSwiper18shangpinxinxi']) this['recommendListSwiper18shangpinxinxi'].destroy()
-				setTimeout(()=>{
-					this['recommendListSwiper18shangpinxinxi'] = new Swiper(".recommend-list-18shangpinxinxi", {"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"},"pagination":{"el":".swiper-pagination","clickable":true},"loop":true,"coverflowEffect":{"rotate":10,"stretch":10,"depth":60,"modifier":3,"slideShadows":false},"centeredSlides":true,"slidesPerView":1,"spaceBetween":0,"autoplay":{"delay":3000,"disableOnInteraction":false}})
-				},750)
-			},
-			async recommendIndexClick18(index, name) {
-				this['recommendIndex18' + name] = index
-				await this.getList()
-			},
-
-
-			handleScroll() {
-				let arr = [
-					{id:'about',css:'animate__'},
-					{id:'system',css:'animate__'},
-					{id:'animate_recommendshangpinxinxi',css:'animate__'},
-					{id:'animate_newsnews',css:'animate__'},
-				]
-			
-				for (let i in arr) {
-					let doc = document.getElementById(arr[i].id)
-					if (doc) {
-						let top = doc.offsetTop
-						let win_top = window.innerHeight + window.pageYOffset
-						// console.log(top,win_top)
-						if (win_top > top && doc.classList.value.indexOf(arr[i].css) < 0) {
-							// console.log(doc)
-							doc.classList.add(arr[i].css)
-						}
-					}
-				}
+			countUp(n) {
+				return n;
 			},
 			preHttp(str) {
-				return str && str.substr(0,4)=='http';
+				return str && str.substr(0, 4) == 'http';
 			},
 			getNewsList() {
 				let data = {
@@ -281,1137 +211,602 @@ import Swiper from "swiper";
 					sort: 'addtime',
 					order: 'desc'
 				}
-				this.$http.get('news/list', {params: data}).then(res => {
+				this.$http.get('news/list', { params: data }).then(res => {
 					if (res.data.code == 0) {
 						this.newsList = res.data.data.list;
-					
 					}
 				});
 			},
 			getList() {
-				let autoSortUrl = "";
-				let data = {}
-				autoSortUrl = "shangpinxinxi/autoSort";
-				if(localStorage.getItem('frontToken')) {
+				let autoSortUrl = "shangpinxinxi/autoSort";
+				if (localStorage.getItem('frontToken')) {
 					autoSortUrl = "shangpinxinxi/autoSort2";
 				}
-				data = {
+				let data = {
 					page: 1,
 					limit: 8,
 					onshelves: 1,
 				}
-				this.$http.get(autoSortUrl, {params: data}).then(res => {
+				this.$http.get(autoSortUrl, { params: data }).then(res => {
 					if (res.data.code == 0) {
 						this.shangpinxinxiRecommend = res.data.data.list;
 					}
 				});
-			
 			},
 			toDetail(path, item) {
-				this.$router.push({path: '/index/' + path, query: {id: item.id}});
+				this.$router.push({ path: '/index/' + path, query: { id: item.id } });
 			},
 			moreBtn(path) {
-				this.$router.push({path: '/index/' + path});
+				this.$router.push({ path: '/index/' + path });
 			}
 		}
 	}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+	@font-face {
+		font-family: 'TeaSerif';
+		src: url('~@/assets/fonts/SourceHanSerifCN-Heavy.otf') format('opentype');
+		font-display: swap;
+	}
+
+	$ink: #0c1b14;
+	$panel: #10221a;
+	$card: #152a20;
+	$gold: #d4af37;
+	$gold-soft: #e6ce9a;
+	$gold-line: rgba(212, 175, 55, .32);
+	$text: #ede6d6;
+	$muted: #93a396;
+	$cinnabar: #b54334;
+
 	.home-preview {
-		margin: 0px auto;
+		margin: 0 auto;
 		flex-direction: column;
-		background: #fff;
+		background: $ink;
 		display: flex;
 		width: 100%;
-		.news {
-			padding: 0;
-			margin: 0;
-			background: #EAF0E7;
-			width: 100%;
-			position: relative;
-			order: 7;
-			.news_title_box {
-				padding: 60px calc((100% - 1400px)/2) 0;
-				margin: 0;
-				background: #fff;
+		color: $text;
+	}
+
+	/* ---------- Hero ---------- */
+	.hero {
+		position: relative;
+		width: 100%;
+		padding: 90px 0 70px;
+		background:
+			radial-gradient(1200px 500px at 85% -10%, rgba(212, 175, 55, .12), transparent 60%),
+			radial-gradient(900px 420px at -10% 110%, rgba(53, 94, 59, .5), transparent 60%),
+			linear-gradient(160deg, #0e2318 0%, $ink 55%, #0a1610 100%);
+		overflow: hidden;
+	}
+	.hero-grain {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(rgba(230, 206, 154, .05) 1px, transparent 1px);
+		background-size: 26px 26px;
+		pointer-events: none;
+	}
+	.leaf {
+		position: absolute;
+		width: 220px;
+		height: 220px;
+		border-radius: 0 50% 0 50%;
+		border: 1px solid rgba(212, 175, 55, .16);
+		background: linear-gradient(135deg, rgba(230, 206, 154, .06), transparent 55%);
+		animation: floatLeaf 9s ease-in-out infinite;
+	}
+	.leaf1 { top: 8%; right: 26%; animation-delay: 0s; }
+	.leaf2 { bottom: 6%; left: 4%; width: 150px; height: 150px; animation-delay: -3s; }
+	.leaf3 { top: 55%; right: 6%; width: 90px; height: 90px; animation-delay: -6s; }
+	@keyframes floatLeaf {
+		0%, 100% { transform: translateY(0) rotate(8deg); }
+		50% { transform: translateY(-22px) rotate(-6deg); }
+	}
+	.hero-inner {
+		position: relative;
+		width: 92%;
+		max-width: 1400px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 40px;
+		z-index: 2;
+	}
+	.hero-left { max-width: 760px; }
+	.hero-eyebrow {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		margin-bottom: 34px;
+		.seal {
+			font-family: 'TeaSerif', 'STSong', 'SimSun', serif;
+			background: $cinnabar;
+			color: #f6f3ec;
+			padding: 6px 10px;
+			font-size: 15px;
+			letter-spacing: 3px;
+			border-radius: 4px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+		}
+		.eyebrow-line { width: 64px; height: 1px; background: $gold-line; }
+		.eyebrow-text { color: $muted; font-size: 12px; letter-spacing: 5px; }
+	}
+	.hero-title {
+		margin: 0 0 26px;
+		font-family: 'TeaSerif', 'STSong', 'SimSun', serif;
+		font-size: 88px;
+		line-height: 1.14;
+		color: $text;
+		font-weight: 400;
+		letter-spacing: 8px;
+		em {
+			font-style: normal;
+			color: $gold-soft;
+			text-shadow: 0 0 34px rgba(212, 175, 55, .35);
+		}
+	}
+	.hero-sub {
+		margin: 0 0 40px;
+		color: $muted;
+		letter-spacing: 4px;
+		font-size: 16px;
+	}
+	.hero-actions {
+		display: flex;
+		gap: 20px;
+		margin-bottom: 52px;
+	}
+	.btn-gold {
+		cursor: pointer;
+		background: linear-gradient(160deg, #e6ce9a, #d4af37);
+		color: #14251a;
+		border: 0;
+		padding: 14px 44px;
+		font-size: 16px;
+		letter-spacing: 4px;
+		border-radius: 2px;
+		font-family: 'TeaSerif', 'STSong', serif;
+		box-shadow: 0 8px 24px rgba(212, 175, 55, .25);
+		transition: transform .25s ease, box-shadow .25s ease;
+		&:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(212, 175, 55, .4); }
+	}
+	.btn-ghost {
+		cursor: pointer;
+		background: transparent;
+		color: $gold-soft;
+		border: 1px solid $gold-line;
+		padding: 14px 44px;
+		font-size: 16px;
+		letter-spacing: 4px;
+		border-radius: 2px;
+		font-family: 'TeaSerif', 'STSong', serif;
+		transition: all .25s ease;
+		&:hover { border-color: $gold; color: $gold; background: rgba(212, 175, 55, .06); }
+	}
+	.hero-stats {
+		display: flex;
+		align-items: center;
+		gap: 26px;
+		.stat {
+			b {
+				display: block;
+				font-family: 'TeaSerif', serif;
+				font-size: 34px;
+				color: $gold-soft;
+				font-weight: 400;
+			}
+			span { color: $muted; font-size: 12px; letter-spacing: 2px; }
+		}
+		.stat-line { width: 1px; height: 34px; background: $gold-line; }
+	}
+	.hero-right {
+		position: relative;
+		flex-shrink: 0;
+		.moon-ring {
+			width: 360px;
+			height: 360px;
+			border-radius: 50%;
+			padding: 10px;
+			border: 1px solid $gold-line;
+			background: radial-gradient(circle at 30% 30%, rgba(230, 206, 154, .1), transparent 60%);
+			img {
 				width: 100%;
-				position: relative;
-				text-align: left;
-				height: 160px;
-				.news_title {
-					padding: 0 20px 0 103px;
-					margin: 0;
-					color: #fff;
-					background: url(http://codegen.caihongy.cn/20241021/83b76ba643c24f378a5bfd58e665e1f9.png) no-repeat left center,#3E6B4F;
-					font-weight: 600;
-					display: inline-block;
-					letter-spacing: 4px;
-					width: auto;
-					font-size: 32px;
-					line-height: 100px;
-					text-align: left;
-					min-width: 300px;
-				}
-				.news_subhead {
-					margin: 0;
-					color: #999;
-					display: none;
-					width: 100%;
-					font-size: 18px;
-					line-height: 40px;
-					text-align: center;
-				}
-			}
-			.index-pv1 .animation-box:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
-				z-index: 1;
-			}
-			.index-pv1 .animation-box img:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
-			}
-			.list20 {
-				padding: 80px 0 20px;
-				margin: 0 auto;
-				background: none;
-				display: flex;
-				width: 1400px;
-				justify-content: space-between;
-				flex-wrap: wrap;
-				height: auto;
-				.list-item {
-					cursor: pointer;
-					border: 2px solid #3E6B4F;
-					border-radius: 8px;
-					padding: 80px 20px 20px;
-					margin: 0 0 60px;
-					background: #fff;
-					display: flex;
-					width: 49%;
-					position: relative;
-					transition: all 0s;
-					height: auto;
-					.img-box {
-						border: 1px solid #eee;
-						padding: 10px;
-						overflow: hidden;
-						background: #fff;
-						display: none;
-						width: 200px;
-						height: 200px;
-						img {
-							object-fit: cover;
-							display: block;
-							width: 100%;
-							height: 100%;
-						}
-					}
-					.infoBox {
-						padding: 0;
-						overflow: hidden;
-						align-content: flex-start;
-						flex: 1;
-						display: flex;
-						flex-wrap: wrap;
-						height: auto;
-						.infoBox-left {
-							padding: 0;
-							margin: 0;
-							color: #3E6B4F;
-							width: 100%;
-							font-size: 14px;
-							order: 2;
-							.name {
-								padding: 0;
-								overflow: hidden;
-								color: #333;
-								top: 40px;
-								white-space: nowrap;
-								width: 93%;
-								font-size: 15px;
-								line-height: 40px;
-								text-overflow: ellipsis;
-								position: absolute;
-							}
-							.time_item {
-								border-radius: 8px 8px 8px 0;
-								padding: 10px;
-								top: -20px;
-								color: #fff;
-								left: -2px;
-								background: #3E6B4F;
-								display: inline-block;
-								position: absolute;
-								.icon {
-									margin: 0 2px 0 0;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 1.5;
-								}
-							}
-							.publisher_item {
-								margin: 0 10px 0 0;
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
-								}
-							}
-							.like_item {
-								margin: 0 10px 0 0;
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
-								}
-							}
-							.collect_item {
-								margin: 0 10px 0 0;
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
-								}
-							}
-							.view_item {
-								display: inline-block;
-								.icon {
-									margin: 0 2px 0 0;
-									line-height: 28px;
-								}
-								.label {
-									line-height: 1.5;
-								}
-								.text {
-									line-height: 28px;
-								}
-							}
-						}
-						.desc {
-							margin: 0 0 10px;
-							color: #868686;
-							display: flex;
-							width: 100%;
-							font-size: 14px;
-							line-height: 1.5;
-							align-items: center;
-							flex-wrap: wrap;
-						}
-					}
-					
-				}
-				.list-item:hover {
-					box-shadow: 1px 2px 6px #3E6B4F;
-					.infoBox {
-						.infoBox-left {
-							.name {
-							}
-							.time_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.publisher_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.like_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.collect_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-							.view_item {
-								.icon {
-								}
-								.label {
-								}
-								.text {
-								}
-							}
-						}
-						.desc {
-						}
-					}
-				}
-			}
-			.moreBtn {
-				border: 0px solid #999;
-				cursor: pointer;
-				padding: 0 20px;
-				margin: 10px calc((100% - 1200px)/2)  0 0;
-				background: rgba(255,255,255,.9);
-				display: none;
-				width: auto;
-				line-height: 32px;
-				float: right;
-				text-align: center;
-				.text {
-					color: #333;
-					font-size: 15px;
-				}
-				.icon {
-					color: #333;
-					font-size: 15px;
-				}
+				height: 100%;
+				object-fit: cover;
+				border-radius: 50%;
+				border: 1px solid rgba(230, 206, 154, .25);
+				filter: saturate(.9) brightness(.92);
 			}
 		}
-		.recommend {
-			padding: 60px 0 96px;
-			margin: 0;
-			align-content: flex-start;
-			background: url(http://codegen.caihongy.cn/20241021/dc5560406d4146e1ada337e5a58f1599.jpg) no-repeat center bottom;
+		.hero-vertical {
+			position: absolute;
+			right: -52px;
+			top: 50%;
+			transform: translateY(-50%);
+			writing-mode: vertical-rl;
+			letter-spacing: 10px;
+			color: $gold-soft;
+			font-family: 'TeaSerif', 'STSong', serif;
+			font-size: 18px;
+			opacity: .85;
+		}
+	}
+	.hero-quote {
+		position: relative;
+		z-index: 2;
+		width: 92%;
+		max-width: 1400px;
+		margin: 56px auto 0;
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		border: 1px solid $gold-line;
+		background: rgba(21, 42, 32, .6);
+		padding: 14px 22px;
+		border-radius: 3px;
+		.q-seal {
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			background: $cinnabar;
+			color: #f6f3ec;
+			font-family: 'TeaSerif', serif;
+			border-radius: 3px;
+			font-size: 15px;
+		}
+		.q-label { color: $gold-soft; letter-spacing: 3px; font-size: 14px; }
+		.q-text { color: $text; letter-spacing: 2px; font-size: 15px; }
+		.qfade-enter-active, .qfade-leave-active { transition: opacity .6s ease; }
+		.qfade-enter, .qfade-leave-to { opacity: 0; }
+	}
+
+	/* ---------- 鎏金滚动字幕 ---------- */
+	.marquee {
+		width: 100%;
+		border-top: 1px solid $gold-line;
+		border-bottom: 1px solid $gold-line;
+		background: linear-gradient(90deg, rgba(212, 175, 55, .05), rgba(212, 175, 55, .12), rgba(212, 175, 55, .05));
+		overflow: hidden;
+		padding: 13px 0;
+	}
+	.marquee-track {
+		display: flex;
+		width: max-content;
+		animation: marquee 26s linear infinite;
+	}
+	.marquee-group {
+		display: inline-block;
+		white-space: nowrap;
+		color: $gold-soft;
+		font-family: 'TeaSerif', 'STSong', serif;
+		font-size: 16px;
+		letter-spacing: 3px;
+		padding-right: 30px;
+		.dot { color: $gold; font-style: normal; font-size: 10px; margin: 0 18px; vertical-align: 2px; }
+	}
+	@keyframes marquee {
+		from { transform: translateX(0); }
+		to { transform: translateX(-50%); }
+	}
+
+	/* ---------- 栏目入口 ---------- */
+	.entries {
+		width: 92%;
+		max-width: 1400px;
+		margin: 70px auto 0;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 22px;
+	}
+	.entry {
+		position: relative;
+		background: linear-gradient(170deg, $panel, $card);
+		border: 1px solid rgba(212, 175, 55, .14);
+		border-radius: 4px;
+		padding: 34px 28px 26px;
+		cursor: pointer;
+		transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+		overflow: hidden;
+		&::after {
+			content: '';
+			position: absolute;
+			right: -34px;
+			top: -34px;
+			width: 90px;
+			height: 90px;
+			transform: rotate(45deg);
+			background: rgba(212, 175, 55, .07);
+		}
+		&:hover {
+			transform: translateY(-8px);
+			border-color: $gold;
+			box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
+		}
+		.entry-num {
+			font-family: 'TeaSerif', 'STSong', serif;
+			font-size: 40px;
+			color: transparent;
+			-webkit-text-stroke: 1px $gold-soft;
+			line-height: 1;
+			margin-bottom: 18px;
+		}
+		.entry-name {
+			font-family: 'TeaSerif', 'STSong', serif;
+			font-size: 22px;
+			letter-spacing: 4px;
+			color: $text;
+			margin-bottom: 8px;
+		}
+		.entry-desc { color: $muted; font-size: 13px; letter-spacing: 2px; }
+		.entry-go {
+			margin-top: 20px;
+			color: $gold-soft;
+			font-size: 13px;
+			letter-spacing: 2px;
+			opacity: 0;
+			transform: translateX(-8px);
+			transition: all .28s ease;
+			i { font-style: normal; margin-left: 6px; }
+		}
+		&:hover .entry-go { opacity: 1; transform: translateX(0); }
+	}
+
+	/* ---------- 通用 Section ---------- */
+	.sec {
+		width: 92%;
+		max-width: 1400px;
+		margin: 96px auto 0;
+	}
+	.sec-head {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		margin-bottom: 40px;
+		border-bottom: 1px solid $gold-line;
+		padding-bottom: 22px;
+	}
+	.sec-title-wrap { display: flex; align-items: baseline; gap: 18px; }
+	.sec-title {
+		font-family: 'TeaSerif', 'STSong', serif;
+		font-size: 42px;
+		letter-spacing: 8px;
+		color: $text;
+		position: relative;
+		padding-left: 22px;
+		&::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 8px;
+			bottom: 8px;
+			width: 4px;
+			background: linear-gradient($gold, rgba(212, 175, 55, .1));
+		}
+	}
+	.sec-en { color: rgba(147, 163, 150, .7); letter-spacing: 6px; font-size: 13px; }
+	.sec-more {
+		color: $gold-soft;
+		letter-spacing: 2px;
+		cursor: pointer;
+		font-size: 14px;
+		transition: color .2s;
+		&:hover { color: $gold; }
+	}
+
+	/* ---------- 商品 ---------- */
+	.goods { display: grid; grid-template-columns: 460px 1fr; gap: 24px; }
+	.goods-feature {
+		background: linear-gradient(175deg, $panel, $card);
+		border: 1px solid rgba(212, 175, 55, .16);
+		border-radius: 4px;
+		overflow: hidden;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
+		&:hover {
+			transform: translateY(-8px);
+			border-color: $gold;
+			box-shadow: 0 22px 44px rgba(0, 0, 0, .5);
+		}
+		.gf-img {
+			height: 330px;
+			overflow: hidden;
+			img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+			&:hover img { transform: scale(1.06); }
+		}
+		.gf-info { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+		.gf-tag {
+			align-self: flex-start;
+			background: $cinnabar;
+			color: #f6f3ec;
+			font-size: 12px;
+			letter-spacing: 3px;
+			padding: 4px 10px;
+			border-radius: 2px;
+			margin-bottom: 14px;
+		}
+		.gf-name {
+			font-family: 'TeaSerif', 'STSong', serif;
+			font-size: 26px;
+			color: $text;
+			letter-spacing: 2px;
+			margin-bottom: 8px;
+		}
+		.gf-cat { color: $gold-soft; font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; }
+		.gf-desc {
+			color: $muted;
+			font-size: 13px;
+			line-height: 1.9;
+			margin-bottom: 18px;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.gf-bottom {
+			margin-top: auto;
 			display: flex;
-			width: 100%;
-			justify-content: center;
-			align-items: flex-start;
+			align-items: baseline;
+			justify-content: space-between;
+		}
+		.gf-price {
+			color: $gold;
+			font-family: 'TeaSerif', serif;
+			font-size: 34px;
+			i { font-style: normal; font-size: 16px; margin-right: 2px; }
+		}
+		.gf-buy { color: $gold-soft; letter-spacing: 2px; font-size: 14px; }
+	}
+	.goods-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+	.g-card {
+		background: linear-gradient(175deg, $panel, $card);
+		border: 1px solid rgba(212, 175, 55, .12);
+		border-radius: 4px;
+		overflow: hidden;
+		cursor: pointer;
+		transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+		&:hover {
+			transform: translateY(-8px);
+			border-color: $gold;
+			box-shadow: 0 16px 36px rgba(0, 0, 0, .45);
+		}
+		.g-img {
 			position: relative;
-			order: 3;
-			.recommend_title_box {
-				padding: 20px 0 63px;
-				margin: 0;
-				background: url(http://codegen.caihongy.cn/20241021/84fcb60c88f446dd90bb6c22d0baf026.png) no-repeat center 102%,#3E6B4F;
-				display: flex;
-				width: 100px;
-				min-height: 300px;
-				position: relative;
-				text-align: center;
-				.recommend_title {
-					margin: 0 auto;
-					writing-mode: vertical-rl;
-					color: #fff;
-					background: none;
-					font-weight: 600;
-					display: block;
-					letter-spacing: 8px;
-					width: auto;
-					font-size: 32px;
-					line-height: 1;
-					text-align: center;
-				}
-				.recommend_subhead {
-					margin: 0;
-					color: #999;
-					display: none;
-					width: 100%;
-					font-size: 18px;
-					line-height: 40px;
-					text-align: center;
-				}
+			height: 170px;
+			overflow: hidden;
+			img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+			&:hover img { transform: scale(1.07); }
+			.g-cat {
+				position: absolute;
+				left: 10px;
+				top: 10px;
+				background: rgba(12, 27, 20, .78);
+				border: 1px solid $gold-line;
+				color: $gold-soft;
+				font-size: 12px;
+				letter-spacing: 2px;
+				padding: 3px 10px;
+				border-radius: 2px;
 			}
-			.index-pv1 .animation-box {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				z-index: initial;
+		}
+		.g-name {
+			padding: 14px 16px 4px;
+			color: $text;
+			font-size: 16px;
+			letter-spacing: 1px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.g-row {
+			display: flex;
+			align-items: baseline;
+			justify-content: space-between;
+			padding: 4px 16px 16px;
+			.g-price {
+				color: $gold;
+				font-family: 'TeaSerif', serif;
+				font-size: 22px;
+				i { font-style: normal; font-size: 13px; }
 			}
-			
-			.index-pv1 .animation-box:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
-				z-index: 1;
-			}
-			
-			.index-pv1 .animation-box img {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-			}
-			
-			.index-pv1 .animation-box img:hover {
-				transform: rotate(0deg) scale(1) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
-				-webkit-perspective: 1000px;
-				perspective: 1000px;
-				transition: 0.3s;
-			}
-			.list18 {
-				padding: 50px 20px;
-				margin: 0;
-				color: #666;
-				background: #fff;
-				width: 1300px;
-				font-size: 14px;
-				.tab_view {
-					margin: 10px auto;
-					display: none;
-					width: 60%;
-					justify-content: center;
-					.tab {
-						cursor: pointer;
-						border-radius: 5px;
-						margin: 0 5px 10px;
-						color: #333;
-						background: #eee;
-						display: block;
-						width: 140px;
-						font-size: 14px;
-						line-height: 40px;
-						text-align: center;
-						height: 40px;
-					}
-					.tab:hover {
-						color: #ddd;
-						background: #0195df;
-					}
-					.tab.tabActive {
-						color: #fff;
-						background: #5555ff;
-					}
-				}
-				.list-body {
-					padding: 0 10px;
-					display: flex;
-					width: 100%;
-					.list-body-left {
-						margin: 0 auto 0 0;
-						width: 49%;
-						.list-item1 {
-							display: flex;
-							width: 100%;
-							align-items: center;
-							transition: all 0s;
-							.infoBox {
-								padding: 20px;
-								color: #3E6B4F;
-								align-content: center;
-								display: flex;
-								width: 50%;
-								border-color: #929292;
-								border-width: 1px 0 0 1px;
-								align-items: center;
-								border-style: solid;
-								flex-wrap: wrap;
-								height: 300px;
-								.name {
-									overflow: hidden;
-									color: #000;
-									white-space: nowrap;
-									width: 100%;
-									font-size: 16px;
-									line-height: 1.5;
-									text-overflow: ellipsis;
-								}
-								.price {
-									padding: 10px 0;
-									color: #f00;
-									width: 100%;
-									font-size: 16px;
-									line-height: 1.5;
-								}
-								.time_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.publisher_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.like_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.collect_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.view_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-							}
-							.img {
-								overflow: hidden;
-								width: 50%;
-								transition: all .3s;
-								height: 300px;
-								img {
-									transform: scale(1);
-									object-fit: cover;
-									display: block;
-									width: 100%;
-									transition: all .3s;
-									height: 100%;
-								}
-							}
-						}
-						.list-item1:hover {
-							cursor: pointer;
-							transform: translate3d(0px, 0px, 0px);
-							.infoBox {
-								.name {
-								}
-								.price {
-									color: #f00;
-								}
-								.time_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.publisher_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.like_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.collect_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.view_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-							}
-							.img {
-								overflow: hidden;
-								img {
-									transform: scale(1.05);
-								}
-							}
-						}
-						.list-item2 {
-							display: flex;
-							width: 100%;
-							align-items: center;
-							transition: all 0s;
-							.img {
-								overflow: hidden;
-								width: 50%;
-								transition: all .3s;
-								height: 300px;
-								img {
-									transform: scale(1);
-									object-fit: cover;
-									display: block;
-									width: 100%;
-									transition: all .3s;
-									height: 100%;
-								}
-							}
-							.infoBox {
-								padding: 20px;
-								color: #3E6B4F;
-								align-content: center;
-								display: flex;
-								width: 50%;
-								border-color: #929292;
-								border-width: 0 1px 1px 0;
-								align-items: center;
-								border-style: solid;
-								flex-wrap: wrap;
-								height: 300px;
-								.name {
-									overflow: hidden;
-									color: #000;
-									white-space: nowrap;
-									width: 100%;
-									font-size: 16px;
-									line-height: 1.5;
-									text-overflow: ellipsis;
-								}
-								.price {
-									padding: 10px 0;
-									color: #f00;
-									width: 100%;
-									font-size: 16px;
-									line-height: 1.5;
-								}
-								.time_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.publisher_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.like_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.collect_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.view_item {
-									padding: 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-							}
-						}
-						.list-item2:hover {
-							cursor: pointer;
-							transform: translate3d(0px, 0px, 0px);
-							.img {
-								overflow: hidden;
-								img {
-									transform: scale(1.2);
-								}
-							}
-							.infoBox {
-								.name {
-								}
-								.price {
-								}
-								.time_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.publisher_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.like_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.collect_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-								.view_item {
-									.icon {
-									}
-									.label {
-									}
-									.text {
-									}
-								}
-							}
-						}
-					}
-					.list-body-right {
-						width: 49%;
-						.list-item {
-							width: 100%;
-							position: relative;
-							.img {
-								width: 100%;
-								height: 600px;
-								img {
-									cursor: pointer;
-									transform: scale(1);
-									object-fit: cover;
-									display: block;
-									width: 100%;
-									transition: all .3s;
-									height: 100%;
-								}
-							}
-							.infoBox {
-								padding: 10px 10px 30px;
-								color: #3E6B4F;
-								left: 0;
-								bottom: 0;
-								background: rgba(0, 0, 0, .3);
-								width: 100%;
-								font-size: 14px;
-								position: absolute;
-								.name {
-									overflow: hidden;
-									color: #fff;
-									white-space: nowrap;
-									width: 100%;
-									font-size: 16px;
-									line-height: 30px;
-									text-overflow: ellipsis;
-								}
-								.price {
-									padding: 0;
-									color: #f00;
-									font-size: 16px;
-									line-height: 30px;
-								}
-								.time_item {
-									padding: 0;
-									margin: 0 10px 0 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.publisher_item {
-									padding: 0;
-									margin: 0 10px 0 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.like_item {
-									padding: 0;
-									margin: 0 10px 0 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.collect_item {
-									padding: 0;
-									margin: 0 10px 0 0;
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-								.view_item {
-									display: inline-block;
-									.icon {
-										margin: 0 2px 0 0;
-										color: inherit;
-										display: none;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.label {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-									.text {
-										color: inherit;
-										font-size: inherit;
-										line-height: 1.5;
-									}
-								}
-							}
-						}
-						.swiper-button-prev {
-							left: 10px;
-							display: none;
-							right: auto;
-						}
-						.swiper-button-prev::after {
-							color: #d7b830;
-						}
-						.swiper-button-next {
-							left: auto;
-							display: none;
-							right: 10px;
-						}
-						.swiper-button-next::after {
-							color: #d7b830;
-						}
-						/deep/.swiper-pagination {
-							transform: translate3d(0,0,0);
-							z-index: 10;
-							left: 0;
-							bottom: 8px;
-							width: 100%;
-							position: absolute;
-							transition: .3s opacity;
-							text-align: center;
-							.swiper-pagination-bullet {
-								cursor: pointer;
-								border-radius: 100%;
-								margin: 0 4px;
-								background: #f6f6f6;
-								display: inline-block;
-								width: 8px;
-								opacity: .8;
-								height: 8px;
-							}
-							.swiper-pagination-bullet:hover {
-								background: #3E6B4F;
-							}
-							.swiper-pagination-bullet.swiper-pagination-bullet-active {
-								background: #3E6B4F;
-							}
-						}
-					}
-				}
-			}
-			.moreBtn {
-				border: 0px solid #999;
-				cursor: pointer;
-				padding: 0 20px;
-				margin: 0px calc((100% - 1200px)/2)  0 0;
-				background: #475a8310;
-				display: none;
-				width: auto;
-				line-height: 32px;
-				float: right;
-				text-align: right;
-				.text {
-					color: #333;
-					font-size: 15px;
-				}
-				.icon {
-					color: #333;
-					font-size: 15px;
-				}
-			}
+			.g-spec { color: $muted; font-size: 12px; }
 		}
 	}
 
-	/* ===== 新中式茶美学：栏目入口 ===== */
-	.tea-entries {
+	/* ---------- 资讯 ---------- */
+	.sec-news { margin-bottom: 90px; }
+	.news-list {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 24px;
+	}
+	.n-card {
 		display: flex;
 		gap: 20px;
-		margin-bottom: 40px;
-	}
-	.tea-entries .entry-card {
-		flex: 1;
-		background: #FFFFFF;
-		border-radius: 10px;
-		padding: 26px 20px;
-		text-align: center;
+		background: linear-gradient(175deg, $panel, $card);
+		border: 1px solid rgba(212, 175, 55, .12);
+		border-radius: 4px;
+		padding: 18px;
 		cursor: pointer;
-		border: 1px solid #E7E2D6;
-		transition: all .25s ease;
+		transition: transform .28s ease, border-color .28s ease;
+		&:hover { transform: translateY(-6px); border-color: $gold; }
+		.n-img {
+			width: 190px;
+			height: 130px;
+			flex-shrink: 0;
+			border-radius: 3px;
+			overflow: hidden;
+			img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+			&:hover img { transform: scale(1.06); }
+		}
+		.n-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+		.n-date { color: $gold-soft; font-size: 12px; letter-spacing: 2px; margin-bottom: 8px; }
+		.n-title {
+			font-family: 'TeaSerif', 'STSong', serif;
+			color: $text;
+			font-size: 19px;
+			letter-spacing: 1px;
+			margin-bottom: 8px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.n-desc {
+			color: $muted;
+			font-size: 13px;
+			line-height: 1.8;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.n-meta {
+			margin-top: auto;
+			padding-top: 10px;
+			display: flex;
+			gap: 18px;
+			color: rgba(147, 163, 150, .75);
+			font-size: 12px;
+		}
 	}
-	.tea-entries .entry-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 10px 24px rgba(46, 82, 60, .14);
-		border-color: var(--tea-green);
-	}
-	.tea-entries .entry-icon {
-		width: 52px;
-		height: 52px;
-		line-height: 52px;
-		margin: 0 auto 14px;
-		border-radius: 8px;
-		color: #F6F3EC;
-		font-family: var(--tea-serif);
-		font-size: 26px;
-	}
-	.tea-entries .entry-name {
-		font-family: var(--tea-serif);
-		font-size: 19px;
-		color: #2B2B28;
-		font-weight: 600;
-		letter-spacing: 2px;
-		margin-bottom: 6px;
-	}
-	.tea-entries .entry-desc {
-		font-size: 13px;
-		color: #8C8578;
-	}
-	.home-preview .news_title,
-	.home-preview .recommend_title {
-		border-left: none !important;
-		padding-left: 0 !important;
-	}
-	.home-preview .news_title::before,
-	.home-preview .recommend_title::before {
-		content: '茶';
-		display: inline-block;
-		width: 28px;
-		height: 28px;
-		line-height: 28px;
+
+	/* ---------- Footer ---------- */
+	.tea-footer {
+		background: #081209;
+		border-top: 1px solid $gold-line;
+		padding: 54px 0 46px;
 		text-align: center;
-		background: #A63D2F;
-		color: #F6F3EC;
-		font-family: var(--tea-serif);
-		border-radius: 5px;
-		font-size: 17px;
-		margin-right: 10px;
-		vertical-align: 2px;
+		.f-line {
+			width: 56px;
+			height: 3px;
+			background: linear-gradient(90deg, transparent, $gold, transparent);
+			margin: 0 auto 26px;
+		}
+		.f-slogan {
+			font-family: 'TeaSerif', 'STSong', serif;
+			color: $gold-soft;
+			font-size: 22px;
+			letter-spacing: 6px;
+			margin-bottom: 16px;
+		}
+		.f-copy { color: rgba(147, 163, 150, .55); font-size: 12px; letter-spacing: 2px; }
+	}
+
+	@media (max-width: 1100px) {
+		.hero-title { font-size: 60px; }
+		.hero-inner { flex-direction: column; align-items: flex-start; }
+		.hero-right { display: none; }
+		.goods { grid-template-columns: 1fr; }
+		.goods-grid { grid-template-columns: repeat(2, 1fr); }
+		.entries { grid-template-columns: repeat(2, 1fr); }
+		.news-list { grid-template-columns: 1fr; }
 	}
 </style>

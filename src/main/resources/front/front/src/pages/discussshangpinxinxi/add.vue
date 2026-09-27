@@ -334,7 +334,7 @@
 		font-size: 16px;
 		position: relative;
 		.add-update-form {
-			border: 0px solid #fcbb78;
+			border: 0px solid #E9D9B8;
 			padding: 20px;
 			margin: 20px 0;
 			background: #fff;

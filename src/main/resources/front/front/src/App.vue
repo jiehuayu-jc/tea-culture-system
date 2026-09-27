@@ -488,11 +488,37 @@
 	.el-textarea__inner:focus {
 		border-color: var(--tea-green) !important;
 	}
-	/* 标题衬线字 + 留白 */
-	.home-preview .news_title,
-	.home-preview .recommend_title,
-	.top_title span {
-		font-family: var(--tea-serif);
-		letter-spacing: 2px;
+
+	/* 自托管思源宋体（Heavy）：夜茶主题大标题专用 */
+	@font-face {
+		font-family: 'TeaSerif';
+		src: url('~@/assets/fonts/SourceHanSerifCN-Heavy.otf') format('opentype');
+		font-display: swap;
+	}
+
+	/* 自托管思源宋体（Heavy）：夜茶主题大标题专用 */
+	@font-face {
+		font-family: 'TeaSerif';
+		src: url('~@/assets/fonts/SourceHanSerifCN-Heavy.otf') format('opentype');
+		font-display: swap;
+	}
+
+	/* 组件级补色：下拉选中 / 轮播箭头 */
+	.el-select-dropdown__item.selected {
+		color: #3E6B4F !important;
+		font-weight: 600;
+	}
+	.swiper-button-next,
+	.swiper-button-prev {
+		color: #d4af37 !important;
+	}
+
+	/* 分类条/标签条文字对比度 */
+	.item-body .item {
+		color: #E6CE9A !important;
+	}
+	.item-body .item.active {
+		color: #F6F3EC !important;
+		background: #2E523C !important;
 	}
 </style>

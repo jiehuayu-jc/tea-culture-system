@@ -390,7 +390,7 @@
 					padding: 0 10px;
 					margin: 0 5px 0 0;
 					color: #fff;
-					background: #2301bb;
+					background: #2E523C;
 					width: auto;
 					font-size: inherit;
 					line-height: 40px;
@@ -406,7 +406,7 @@
 					margin: 0 5px 0 0;
 					outline: none;
 					color: #fff;
-					background: #97bdff;
+					background: #DFE8DC;
 					width: auto;
 					font-size: inherit;
 					line-height: 40px;
@@ -520,7 +520,7 @@
 			}
 		}
 		.detail-tabs {
-			border: 0px solid #fcbb78;
+			border: 0px solid #E9D9B8;
 			border-radius: 10px;
 			box-shadow: none;
 			padding: 0;
@@ -537,7 +537,7 @@
 				padding: 30px 0;
 				margin: 0 20px 0 0;
 				flex-direction: column;
-				background: url(http://codegen.caihongy.cn/20241024/176524c842534fc0b6506adc35bf293d.png) repeat-y right top / 100% auto,#EAF0E7;
+				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-y right top / 100% auto,#EAF0E7;
 				display: flex;
 				width: 200px;
 				border-color: #d1060230;
@@ -567,7 +567,7 @@
 			/deep/ .el-tabs__header .el-tabs__item:hover {
 				border: 0;
 				color: #fff;
-				background: url(http://codegen.caihongy.cn/20241024/7b16d86b2d1b40f5991ee1175d76cf3e.png) no-repeat right top / 98% 100%;
+				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right top / 98% 100%;
 				width: 200px;
 				font-size: 16px;
 				line-height: 40px;
@@ -578,7 +578,7 @@
 			/deep/ .el-tabs__header .el-tabs__item.is-active {
 				border: 0;
 				color: #fff;
-				background: url(http://codegen.caihongy.cn/20241024/7b16d86b2d1b40f5991ee1175d76cf3e.png) no-repeat right top / 98% 100%;
+				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right top / 98% 100%;
 				width: 200px;
 				font-size: 16px;
 				line-height: 40px;

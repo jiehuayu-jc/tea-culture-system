@@ -4,7 +4,6 @@
 			<el-form ref="loginForm" :model="loginForm" :rules="rules" class="login_form animate__animated animate__">
 				<div class="login_form2">
 					<div class="login-title">茶文化管理系统</div>
-					<p class="login-tip">此处为<strong>用户前台</strong>登录，请用用户账号（示例：<code>用户账号1</code> / <code>123456</code>）。<strong>管理员</strong>请打开管理后台 <code>{{ adminFrontUrl }}</code>，使用 <code>admin</code> / <code>admin</code>。</p>
 					<div v-if="loginType==1" class="list-item" prop="username">
 						<input v-model="loginForm.username" placeholder="请输入完整账号，示例：用户账号1">
 					</div>
@@ -104,14 +103,6 @@ export default {
 		if (this.roles.length === 1) {
 			this.loginForm.tableName = this.roles[0].tableName;
 			this.role = this.roles[0].roleName;
-		}
-	},
-	computed: {
-		adminFrontUrl() {
-			if (typeof window !== 'undefined') {
-				return `${window.location.origin}/admin/`;
-			}
-			return '/admin/';
 		}
 	},
 	//方法集合
@@ -271,7 +262,7 @@ export default {
 		background-repeat: no-repeat;
 		background-size: 100% 100% !important;
 		background-position: center center;
-		background: url(https://pic1.imgdb.cn/item/6787458cd0e0a243d4f46756.png);
+		background: url('~@/assets/img/login-bg.png');
 		display: flex;
 		width: 100%;
 		min-height: 100vh;
@@ -295,23 +286,6 @@ export default {
 					font-size: 22px;
 					line-height: 44px;
 					text-align: center;
-				}
-				.login-tip {
-					margin: -16px auto 20px;
-					padding: 10px 12px;
-					width: 86%;
-					font-size: 12px;
-					line-height: 1.55;
-					color: rgba(255, 255, 255, 0.92);
-					background: rgba(0, 0, 0, 0.35);
-					border-radius: 8px;
-					text-align: left;
-				}
-				.login-tip code {
-					font-size: 12px;
-					padding: 0 4px;
-					background: rgba(255, 255, 255, 0.15);
-					border-radius: 4px;
 				}
 				.list-item {
 					border: 0px solid #b0b0b0;

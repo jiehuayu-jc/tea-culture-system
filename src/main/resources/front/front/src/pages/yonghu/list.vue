@@ -317,7 +317,7 @@
 				padding: 0px 15px;
 				margin: 0 10px 0 10px;
 				color: #fff;
-				background: #1547ea;
+				background: #3E6B4F;
 				width: auto;
 				font-size: inherit;
 				line-height: 40px;
@@ -335,7 +335,7 @@
 				padding: 0px 15px;
 				margin: 0 10px 0 0;
 				color: #fff;
-				background: #5a95db;
+				background: #7C9B84;
 				width: auto;
 				font-size: inherit;
 				line-height: 40px;
@@ -359,7 +359,7 @@
 			.select2-list {
 				padding: 0 20px;
 				margin: 0 0 10px;
-				background: url(http://codegen.caihongy.cn/20241023/98a588f51ab348ef8235791bab1732b1.png) repeat-x center center / auto 100%;
+				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
 				width: 100%;
 				min-height: 80px;
 				height: auto;
@@ -390,12 +390,12 @@
 					.item:hover {
 						cursor: pointer;
 						color: #fff;
-						background: url(http://codegen.caihongy.cn/20241023/01e4dfdb2dfb41fe9b73dd5a59b60c41.png) no-repeat center center / 100% 100%;
+						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center center / 100% 100%;
 					}
 					.item.active {
 						cursor: pointer;
 						color: #fff;
-						background: url(http://codegen.caihongy.cn/20241023/01e4dfdb2dfb41fe9b73dd5a59b60c41.png) no-repeat center center / 100% 100%;
+						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center center / 100% 100%;
 						display: inline-block;
 						min-width: 80px;
 						text-align: center;
@@ -453,7 +453,7 @@
 					position: relative;
 					height: auto;
 					.img {
-						border: 1px solid #0a34bc;
+						border: 1px solid #2E523C;
 						padding: 10px;
 						overflow: hidden;
 						width: 290px;
@@ -493,7 +493,7 @@
 						}
 						.time_item {
 							padding: 0 10px;
-							color: #00ddff;
+							color: #D4AF37;
 							.icon {
 								margin: 0 2px 0 0;
 								color: inherit;
@@ -513,7 +513,7 @@
 						}
 						.publisher_item {
 							padding: 0 10px;
-							color: #0058bb;
+							color: #2E523C;
 							display: inline-block;
 							.icon {
 								margin: 0 2px 0 0;
@@ -534,7 +534,7 @@
 						}
 						.like_item {
 							padding: 0 10px;
-							color: #0071fc;
+							color: #3E6B4F;
 							display: inline-block;
 							.icon {
 								margin: 0 2px 0 0;
@@ -555,7 +555,7 @@
 						}
 						.collect_item {
 							padding: 0 10px;
-							color: #ffb41d;
+							color: #D4AF37;
 							display: inline-block;
 							.icon {
 								margin: 0 2px 0 0;
@@ -576,7 +576,7 @@
 						}
 						.view_item {
 							padding: 0 10px;
-							color: #25b8b3;
+							color: #3E6B4F;
 							display: inline-block;
 							.icon {
 								margin: 0 2px 0 0;
@@ -606,7 +606,7 @@
 							transition: all .4s ease;
 							border-radius: 0;
 							left: 296px;
-							background: url(http://codegen.caihongy.cn/20241025/1ce93313a09c40e192d02f162aac65f6.png) no-repeat left center / 100% 100%;
+							background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / 100% 100%;
 							width: 150px;
 							position: absolute;
 							text-align: center;
@@ -615,7 +615,7 @@
 					}
 				}
 				.list-item::before {
-					border: 5px solid #2e89ff;
+					border: 5px solid #3E6B4F;
 					transform: scale3d(0, 1, 1);
 					top: 0;
 					left: 0;
@@ -628,7 +628,7 @@
 					height: 100%;
 				}
 				.list-item::after {
-					border: 5px solid #2e89ff;
+					border: 5px solid #3E6B4F;
 					transform: scale3d(1, 0, 1);
 					top: 0;
 					left: 0;
@@ -641,7 +641,7 @@
 					height: 100%;
 				}
 				.list-item:hover {
-					background: #2e89ff10;
+					background: #3E6B4F10;
 					.img {
 						.image {
 							transform: scale(1.05);
@@ -649,10 +649,10 @@
 					}
 					.item-info {
 						.name {
-							color: #2e89ff;
+							color: #3E6B4F;
 						}
 						.more_btn {
-							background: url(http://codegen.caihongy.cn/20241025/1ce93313a09c40e192d02f162aac65f6.png) no-repeat left center / 100% 100%;
+							background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / 100% 100%;
 						}
 					}
 				}

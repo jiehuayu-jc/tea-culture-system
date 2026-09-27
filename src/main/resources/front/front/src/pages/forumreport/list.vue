@@ -327,7 +327,7 @@
 				padding: 0px 15px;
 				margin: 0 10px 0 10px;
 				color: #fff;
-				background: #1547ea;
+				background: #3E6B4F;
 				width: auto;
 				font-size: inherit;
 				line-height: 40px;
@@ -345,7 +345,7 @@
 				padding: 0px 15px;
 				margin: 0 10px 0 0;
 				color: #fff;
-				background: #5a95db;
+				background: #7C9B84;
 				width: auto;
 				font-size: inherit;
 				line-height: 40px;
@@ -369,7 +369,7 @@
 			.select2-list {
 				padding: 0 20px;
 				margin: 0 0 10px;
-				background: url(http://codegen.caihongy.cn/20241023/98a588f51ab348ef8235791bab1732b1.png) repeat-x center center / auto 100%;
+				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
 				width: 100%;
 				min-height: 80px;
 				height: auto;
@@ -400,12 +400,12 @@
 					.item:hover {
 						cursor: pointer;
 						color: #fff;
-						background: url(http://codegen.caihongy.cn/20241023/01e4dfdb2dfb41fe9b73dd5a59b60c41.png) no-repeat center center / 100% 100%;
+						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center center / 100% 100%;
 					}
 					.item.active {
 						cursor: pointer;
 						color: #fff;
-						background: url(http://codegen.caihongy.cn/20241023/01e4dfdb2dfb41fe9b73dd5a59b60c41.png) no-repeat center center / 100% 100%;
+						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center center / 100% 100%;
 						display: inline-block;
 						min-width: 80px;
 						text-align: center;
@@ -417,7 +417,7 @@
 			padding: 10px 20px 30px;
 			margin: 20px auto 0;
 			color: #fff;
-			background: url(http://codegen.caihongy.cn/20241023/7db1994ffb974c54b83ec308d30bb751.png) no-repeat center top / 100% 100%;
+			background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center top / 100% 100%;
 			width: 100%;
 			font-size: inherit;
 			border-color: #eee;
