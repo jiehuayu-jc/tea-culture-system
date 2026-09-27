@@ -209,6 +209,7 @@ export default {
 		return {
 			activeIndex: '0',
 			baseUrl: '',
+			swiperInstance: null,
 			carouselList: [],
 			carouselForm: {
 				inHome: true,
@@ -290,13 +291,13 @@ export default {
 	},
 	mounted() {
 		this.activeIndex = localStorage.getItem('keyPath') || '0';
-
-
-		// banner
-		setTimeout(()=>{
-			new Swiper(".mySwiper3", {"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"},"pagination":{"el":".swiper-pagination","clickable":true},"autoplay":{"delay":2500,"disableOnInteraction":false},"effect":"fade"})
-		}, 500)
-
+		// P1-5：banner 改由 getCarousel 数据到达后初始化，不再用 setTimeout 赌时序
+	},
+	beforeDestroy() {
+		if (this.swiperInstance) {
+			this.swiperInstance.destroy(true, true);
+			this.swiperInstance = null;
+		}
 	},
 	computed: {
 		activeMenu() {
@@ -387,7 +388,25 @@ export default {
 			this.$http.get('config/list', {params: { page: 1, limit: 3 }}).then(res => {
 				if (res.data.code == 0) {
 					this.carouselList = res.data.data.list;
+					// P1-5：数据到位后再初始化 Swiper，避免在空容器上初始化导致布局塌陷
+					this.initSwiper();
 				}
+			});
+		},
+		initSwiper() {
+			this.$nextTick(() => {
+				if (!this.carouselList || !this.carouselList.length) return;
+				if (!document.querySelector('.mySwiper3')) return;
+				if (this.swiperInstance) {
+					this.swiperInstance.destroy(true, true);
+					this.swiperInstance = null;
+				}
+				this.swiperInstance = new Swiper('.mySwiper3', {
+					navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+					pagination: { el: '.swiper-pagination', clickable: true },
+					autoplay: { delay: 2500, disableOnInteraction: false },
+					effect: 'fade'
+				});
 			});
 		},
 		// 轮播图跳转
@@ -1075,9 +1094,9 @@ export default {
 						width: 100%;
 						height: auto;
 						.el-image {
-							object-fit: cover;
 							width: 100%;
 							height: 600px;
+							/* object-fit 由 <el-image fit="cover"> 作用于内部 <img>，此处不重复声明 */
 						}
 					}
 				}

@@ -550,6 +550,7 @@
 			}
 		}
 		.list {
+			/* 有意与上方 .sort_view 的 30px 底部内边距重叠 22px，形成卡片压住背景条的视觉层次 */
 			margin: -22px 0 0;
 			overflow: hidden;
 			background: none;
@@ -602,6 +603,7 @@
 						border: 1px solid #2E523C;
 						padding: 10px;
 						overflow: hidden;
+						/* 图片区固定 290px，与下方 .item-info 的 290px 等高，保证卡片左右对齐 */
 						width: 290px;
 						height: 290px;
 						.image {
@@ -751,7 +753,7 @@
 							line-height: 34px;
 							transition: all .4s ease;
 							border-radius: 0;
-							left: 296px;
+							left: 296px; /* 图片区宽 290px + 间隙的像素偏移；改卡片结构时需同步调整 */
 							background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / 100% 100%;
 							width: 150px;
 							position: absolute;

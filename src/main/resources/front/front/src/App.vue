@@ -155,6 +155,8 @@
 		margin: 0 30px;
 		color: #666;
 		font-weight: 500;
+		/* P1-6：显式指定字体栈，避免继承 TeaSerif 导致 '≡' 缺字形渲染成豆腐块 */
+		font-family: "SimSun", "STSong", "Songti SC", serif;
 	}
 	.breadcrumb-preview .el-breadcrumb .item1 .el-breadcrumb__inner a {
 		color: #000;
