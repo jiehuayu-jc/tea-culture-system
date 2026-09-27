@@ -839,3 +839,13 @@ CREATE TABLE `ai_knowledge` (
 -- ----------------------------
 -- Records of ai_knowledge（启动时由 TeaRagService.autoSeed 自动重建，无需手工数据）
 -- ----------------------------
+
+-- ----------------------------
+-- 内容配图改用真实茶摄影（6 张轮换）
+-- 实体位置：src/main/resources/static/upload/photo_1..6.jpg
+-- 说明：原 art_*.jpg 为金线线稿风插画，此处统一替换为实拍照片
+-- ----------------------------
+UPDATE `jiaoxueshipin` SET `fengmian`       = CONCAT('upload/photo_', ((id-1)%6)+1, '.jpg');
+UPDATE `shangpinxinxi` SET `shangpintupian` = CONCAT('upload/photo_', ((id-1)%6)+1, '.jpg');
+UPDATE `xinlizixun`    SET `fengmiantupian` = CONCAT('upload/photo_', ((id-1)%6)+1, '.jpg');
+UPDATE `news`          SET `picture`        = CONCAT('upload/photo_', ((id-1)%6)+1, '.jpg');
