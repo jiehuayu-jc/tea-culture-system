@@ -58,7 +58,7 @@
 			:hide-on-single-page="false"
 			:layout='["total","prev","pager","next","sizes","jumper"].join()'
 			:total="total"
-			:style='{"padding":"0 calc((100% - 1400px)/2)","margin":"20px auto","whiteSpace":"nowrap","overflow":"hidden","color":"#333","textAlign":"center","width":"100%","clear":"both","fontSize":"16px","fontWeight":"500","order":"50"}'
+			:style='{"padding":"0","margin":"20px auto","maxWidth":"1400px","whiteSpace":"nowrap","overflow":"hidden","color":"#333","textAlign":"center","width":"100%","clear":"both","fontSize":"16px","fontWeight":"500","order":"50"}'
 			@current-change="curChange"
 			@prev-click="prevClick"
 			@next-click="nextClick"

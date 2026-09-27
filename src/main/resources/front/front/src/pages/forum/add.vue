@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"alignContent":"flex-start","padding":"0 calc((100% - 1400px)/2)","margin":"0 auto","alignItems":"flex-start","flexWrap":"wrap","background":"#f6f6f6","display":"flex","width":"100%","fontSize":"16px","position":"relative"}'>
+	<div :style='{"alignContent":"flex-start","padding":"0","margin":"0 auto","maxWidth":"1400px","alignItems":"flex-start","flexWrap":"wrap","background":"#f6f6f6","display":"flex","width":"100%","fontSize":"16px","position":"relative"}'>
 		<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>茶友圈</div>
 		<div class="back_box">
 			<el-button class="backBtn" size="mini" @click="backClick">

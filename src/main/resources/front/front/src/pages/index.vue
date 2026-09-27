@@ -808,13 +808,13 @@ export default {
 						}
 					}
 				}
-				margin: 0px auto 0;
+				/* P1-1：菜单回归文档流，用内容令牌居中，去掉绝对定位 + calc 偏移 */
+				margin: 0 auto;
 				z-index: 1003;
-				top: 0;
-				left: calc((100% - 1200px)/2);
 				background: none;
-				width: 1200px;
-				position: absolute;
+				width: 100%;
+				max-width: var(--tea-content);
+				position: relative;
 				height: 100px;
 				.menu-list {
 					padding: 0 10px;
@@ -1106,7 +1106,8 @@ export default {
 					}
 				}
 				.swiper-button-next {
-					margin: -12px calc((100% - 1200px)/2) 0 0;
+					margin: -12px auto 0 0;
+					max-width: 1200px;
 					top: 50%;
 					display: none;
 					width: 24px;
@@ -1119,7 +1120,8 @@ export default {
 					}
 				}
 				.swiper-button-prev {
-					margin: -12px 0 0 calc((100% - 1200px)/2);
+					margin: -12px 0 0 auto;
+					max-width: 1200px;
 					top: 50%;
 					display: none;
 					width: 24px;
@@ -1136,7 +1138,7 @@ export default {
 				width: 100%;
 				height: auto;
 				.footer {
-					padding: 20px calc((100% - 1200px)/2);
+					padding: 20px 0; /* P1-1 内容令牌收敛 */ max-width: 1200px; margin-left: auto; margin-right: auto;
 					margin: 0 auto;
 					overflow: hidden;
 					color: #fff;

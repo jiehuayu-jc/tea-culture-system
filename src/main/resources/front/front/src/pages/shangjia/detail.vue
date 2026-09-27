@@ -337,7 +337,7 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.detail-preview {
-		padding: 20px calc((100% - 1400px)/2);
+		padding: 20px 0; /* P1-1 内容令牌收敛 */ max-width: 1400px; margin-left: auto; margin-right: auto;
 		margin: 0px auto;
 		color: #666;
 		align-content: flex-start;

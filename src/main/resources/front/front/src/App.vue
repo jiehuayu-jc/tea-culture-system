@@ -170,7 +170,7 @@
 	}
 	.back_box {
 		border-radius: 0px;
-		padding: 10px calc((100% - 1400px)/2);
+		padding: 10px 0; /* P1-1 内容令牌收敛 */ max-width: 1400px; margin-left: auto; margin-right: auto;
 		margin: 0 auto;
 		background: #fff;
 		display: flex;
@@ -209,7 +209,7 @@
 	}
 	/* 分页样式 */
 	#pagination {
-		padding: 0 calc((100% - 1400px)/2);
+		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: 1400px; margin-left: auto; margin-right: auto;
 		margin: 20px auto;
 		overflow: hidden;
 		color: #333;
