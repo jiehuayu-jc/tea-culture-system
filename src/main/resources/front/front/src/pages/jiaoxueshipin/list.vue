@@ -1,7 +1,7 @@
 <template>
 <div>
-	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}' class="breadcrumb-preview">
-		<el-breadcrumb :separator="'Ξ'" :style='{"fontSize":"14px","lineHeight":"1"}'>
+	<div :style='{"padding":"16px 24px","margin":"16px auto 0","borderRadius":"8px","background":"rgba(21,42,32,.55)","border":"1px solid rgba(212,175,55,.18)","width":"80%"}' class="breadcrumb-preview">
+		<el-breadcrumb :separator="'/'" :style='{"fontSize":"14px","lineHeight":"1"}'>
 			<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
 			<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index"><a>{{item.name}}</a></el-breadcrumb-item>
 		</el-breadcrumb>
@@ -13,13 +13,13 @@
 		
 
 	
-    <el-form :inline="true" :model="formSearch" class="list-form-pv" :style='{"padding":"10px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","alignItems":"center","borderRadius":"30px","flexWrap":"wrap","background":"#fff","display":"flex","width":"83%","height":"auto"}'>
+    <el-form :inline="true" :model="formSearch" class="list-form-pv" :style='{"padding":"12px 16px","boxShadow":"0 6px 24px rgba(0,0,0,.35)","margin":"16px auto","alignItems":"center","borderRadius":"10px","flexWrap":"wrap","background":"rgba(21,42,32,.85)","border":"1px solid rgba(212,175,55,.16)","display":"flex","width":"83%","height":"auto"}'>
       <el-form-item :style='{"border":"1px solid #000","margin":"0","flex":"1","borderWidth":"0 0px 0 0"}'>
 	    <div class="lable" v-if="false" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>标题：</div>
         <el-input v-model="formSearch.biaoti" placeholder="标题" @keydown.enter.native="getList(1, curFenlei)" clearable></el-input>
       </el-form-item>
       
-	  <el-button v-if=" true " :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"430px","background":"#A63D2F","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="getList(1, curFenlei)"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-search"></i>查询</el-button>
+	  <el-button v-if=" true " :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"6px","background":"#3E6B4F","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="getList(1, curFenlei)"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-search"></i>查询</el-button>
 	  <el-button v-if="btnAuth('jiaoxueshipin','新增')" :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"30px","background":"#0F2419","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="add('/index/jiaoxueshipinAdd')"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-circle-plus-outline"></i>添加</el-button>
     </el-form>
 	<div class="select2" :style='{"width":"83%","padding":"20px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","background":"#fff","height":"auto"}'>

@@ -690,4 +690,40 @@
 		border: 1px solid rgba(212, 175, 55, .3) !important;
 		color: #EDE6D6 !important;
 	}
+
+	/* ===== 深色主题校正层 =====
+	   模板生成的页面使用内联样式 + 浅底深字，主题改为「夜茶·墨绿金」后统一校正。
+	   此处必须用 !important：内联 style 优先级高于外部样式表，部分组件还带 scoped 属性。
+	   色板：底 #0c1b14 ／ 面板 rgba(21,42,32,·) ／ 主文字 #EDE6D6 ／ 次要 #93A396 ／ 金 #D4AF37 */
+	.breadcrumb-preview {
+		background: rgba(21, 42, 32, .55) !important;
+		border: 1px solid rgba(212, 175, 55, .18) !important;
+		border-radius: 8px !important;
+		box-shadow: none !important;
+	}
+	.breadcrumb-preview .el-breadcrumb__inner,
+	.breadcrumb-preview .el-breadcrumb__inner a,
+	.breadcrumb-preview .el-breadcrumb__inner a:hover,
+	.breadcrumb-preview .el-breadcrumb__separator {
+		color: #E6CE9A !important;
+	}
+
+	/* 搜索面板与筛选面板：白底 → 深色面板 */
+	.list-form-pv,
+	.select2 {
+		background: rgba(21, 42, 32, .85) !important;
+		border: 1px solid rgba(212, 175, 55, .16) !important;
+		border-radius: 10px !important;
+		box-shadow: 0 6px 24px rgba(0, 0, 0, .35) !important;
+	}
+	.list-form-pv .lable,
+	.list-form-pv .label,
+	.select2 .label {
+		color: #93A396 !important;
+	}
+
+	/* 模板内联的朱砂红按钮统一为主题绿（内联样式只能用属性选择器覆盖） */
+	[style*="#A63D2F"] {
+		background: #3E6B4F !important;
+	}
 </style>

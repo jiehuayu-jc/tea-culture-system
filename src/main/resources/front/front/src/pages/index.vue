@@ -727,7 +727,7 @@ export default {
 			.top-container {
 				padding: 0 20px 44px;
 				z-index: 1002;
-				color: #000;
+				color: #ede6d6;
 				display: flex;
 				font-size: 16px;
 				box-shadow: 0 0px 0px rgba(64, 158, 255, .3);
@@ -752,7 +752,7 @@ export default {
 				}
 				.top_tel {
 					margin: 0 10px;
-					color: #000;
+					color: #ede6d6;
 					font-size: 16px;
 				}
 				.dropdown-box {
@@ -850,7 +850,7 @@ export default {
 						.title {
 							cursor: pointer;
 							padding: 0 20px;
-							color: #000;
+							color: #ede6d6;
 							display: flex;
 							border-color: rgba(212,175,55,.18);
 							border-width: 0 0 4px 0;
@@ -876,24 +876,24 @@ export default {
 					}
 					.menu-home:hover {
 						.title {
-							color: #000;
+							color: #ede6d6;
 							border-color: #3E6B4F;
 						}
 					}
 					.menu-home.menu-active {
 						.title {
-							color: #000;
+							color: #ede6d6;
 							border-color: #3E6B4F;
 						}
 					}
 					// 其他盒子
 					.menu-item {
-						color: #000;
+						color: #ede6d6;
 						background: none;
 						.title {
 							cursor: pointer;
 							padding: 0 20px;
-							color: #000;
+							color: #ede6d6;
 							display: flex;
 							border-color: rgba(212,175,55,.18);
 							border-width: 0 0 4px 0;
@@ -941,7 +941,7 @@ export default {
 					}
 					.menu-item:hover {
 						.title {
-							color: #000;
+							color: #ede6d6;
 							border-color: #3E6B4F;
 						}
 					}
@@ -953,12 +953,12 @@ export default {
 					}
 					// 购物车
 					.menu-shop {
-						color: #000;
+						color: #ede6d6;
 						background: none;
 						.title {
 							cursor: pointer;
 							padding: 0 20px;
-							color: #000;
+							color: #ede6d6;
 							background: none;
 							display: flex;
 							border-color: rgba(212,175,55,.18);
@@ -985,14 +985,14 @@ export default {
 					}
 					.menu-shop:hover {
 						.title {
-							color: #000;
+							color: #ede6d6;
 							background: none;
 							border-color: #3E6B4F;
 						}
 					}
 					.menu-shop.menu-active {
 						.title {
-							color: #000;
+							color: #ede6d6;
 							background: none;
 							border-color: #3E6B4F;
 						}
@@ -1043,7 +1043,7 @@ export default {
 						display: none;
 						.title {
 							padding: 0 20px;
-							color: #000;
+							color: #ede6d6;
 							display: flex;
 							height: 42px;
 							.icon {
@@ -1224,13 +1224,7 @@ export default {
 		font-size: 22px !important;
 		letter-spacing: 4px;
 	}
-	.top-container .menu-item .title .text,
-	.top-container .menu-shop .title .text,
-	.top-container .menu-service .title .text,
-	.top-container .menu-user .title .text {
-		color: #ede6d6 !important;
-	}
-	.top-container .menu-item .title .iconfont,
+	/* 菜单文字色已直接落在 .menu-* 本体上；原 `.top-container .menu-item …` 选择器层级写错（.menu-item 在 .menu-preview 内，非 .top-container 后代）而从未生效，已移除 */
 	.top-container .login-item {
 		color: #e6ce9a !important;
 	}

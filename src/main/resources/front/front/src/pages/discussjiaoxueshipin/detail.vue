@@ -1,7 +1,7 @@
 <template>
 <div>
 	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}' class="breadcrumb-preview">
-		<el-breadcrumb :separator="'Ξ'" :style='{"fontSize":"14px","lineHeight":"1"}'>
+		<el-breadcrumb :separator="'/'" :style='{"fontSize":"14px","lineHeight":"1"}'>
 			<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
 			<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index" to="/index/discussjiaoxueshipin"><a>{{item.name}}</a></el-breadcrumb-item>
 			<el-breadcrumb-item class="item3"><a href="javascript:void(0);">详情</a></el-breadcrumb-item>
