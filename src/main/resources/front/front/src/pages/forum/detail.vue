@@ -500,7 +500,7 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.forumdetail-preview {
-				padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: 1400px; margin-left: auto; margin-right: auto;
+				padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 				margin: 10px auto;
 				background: rgb(255, 255, 255);
 				width: 100%;

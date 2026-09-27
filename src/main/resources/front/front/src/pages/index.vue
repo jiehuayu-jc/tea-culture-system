@@ -1107,7 +1107,7 @@ export default {
 				}
 				.swiper-button-next {
 					margin: -12px auto 0 0;
-					max-width: 1200px;
+					max-width: var(--tea-content);
 					top: 50%;
 					display: none;
 					width: 24px;
@@ -1121,7 +1121,7 @@ export default {
 				}
 				.swiper-button-prev {
 					margin: -12px 0 0 auto;
-					max-width: 1200px;
+					max-width: var(--tea-content);
 					top: 50%;
 					display: none;
 					width: 24px;
@@ -1138,7 +1138,7 @@ export default {
 				width: 100%;
 				height: auto;
 				.footer {
-					padding: 20px 0; /* P1-1 内容令牌收敛 */ max-width: 1200px; margin-left: auto; margin-right: auto;
+					padding: 20px 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 					margin: 0 auto;
 					overflow: hidden;
 					color: #fff;

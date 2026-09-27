@@ -260,7 +260,7 @@
 		margin: 0px auto;
 		color: #666;
 		display: flex;
-		width: 1200px;
+		max-width: var(--tea-content);
 		font-size: 16px;
 		justify-content: flex-start;
 		align-items: flex-start;

@@ -293,7 +293,7 @@
 	}
 	.ai-shell {
 		width: 94%;
-		max-width: 1200px;
+		max-width: var(--tea-content);
 		margin: 0 auto;
 		display: flex;
 		gap: 22px;
@@ -466,7 +466,7 @@
 
 	.ai-input {
 		width: 94%;
-		max-width: 1200px;
+		max-width: var(--tea-content);
 		margin: 18px auto 0;
 		display: flex;
 		gap: 12px;

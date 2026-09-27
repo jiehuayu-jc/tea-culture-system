@@ -306,7 +306,7 @@
 	.hero-inner {
 		position: relative;
 		width: 92%;
-		max-width: 1400px;
+		max-width: var(--tea-content);
 		margin: 0 auto;
 		display: flex;
 		align-items: center;
@@ -437,7 +437,7 @@
 		position: relative;
 		z-index: 2;
 		width: 92%;
-		max-width: 1400px;
+		max-width: var(--tea-content);
 		margin: 56px auto 0;
 		display: flex;
 		align-items: center;
@@ -495,7 +495,7 @@
 	/* ---------- 栏目入口 ---------- */
 	.entries {
 		width: 92%;
-		max-width: 1400px;
+		max-width: var(--tea-content);
 		margin: 70px auto 0;
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
@@ -557,7 +557,7 @@
 	/* ---------- 通用 Section ---------- */
 	.sec {
 		width: 92%;
-		max-width: 1400px;
+		max-width: var(--tea-content);
 		margin: 96px auto 0;
 	}
 	.sec-head {

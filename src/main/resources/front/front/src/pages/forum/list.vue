@@ -132,7 +132,7 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.forum-preview {
-				padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: 1400px; margin-left: auto; margin-right: auto;
+				padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 				margin: 0 auto;
 				align-content: flex-start;
 				background: #f6f6f6;
@@ -164,7 +164,7 @@
 						margin: 0 auto;
 						background: #fff;
 						display: flex;
-						width: 1400px;
+						max-width: var(--tea-content);
 						justify-content: center;
 						align-items: center;
 						flex-wrap: wrap;

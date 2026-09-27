@@ -869,7 +869,7 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.center-preview {
-		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: 1200px; margin-left: auto; margin-right: auto;
+		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 10px auto;
 		color: #666;
 		background: #f6f6f6;

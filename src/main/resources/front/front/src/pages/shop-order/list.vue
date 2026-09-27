@@ -384,7 +384,7 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.section {
-		width: 1000px;
+		max-width: var(--tea-content);
 		margin: 0 auto;
 	}
 

@@ -25,7 +25,7 @@
 
 <style lang='css' scoped>
   .breadcrumb {
-    width: 1000px;
+    max-width: var(--tea-content);
     height: 60px;
     line-height: 60px;
     margin: 15px auto 50px;

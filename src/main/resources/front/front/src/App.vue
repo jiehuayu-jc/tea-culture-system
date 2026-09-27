@@ -146,7 +146,7 @@
 		padding: 0 20px;
 		margin: 0 auto;
 		background: none;
-		width: 1400px;
+		max-width: var(--tea-content);
 		font-size: 16px;
 		line-height: 50px;
 		
@@ -170,7 +170,7 @@
 	}
 	.back_box {
 		border-radius: 0px;
-		padding: 10px 0; /* P1-1 内容令牌收敛 */ max-width: 1400px; margin-left: auto; margin-right: auto;
+		padding: 10px 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 0 auto;
 		background: #fff;
 		display: flex;
@@ -209,7 +209,7 @@
 	}
 	/* 分页样式 */
 	#pagination {
-		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: 1400px; margin-left: auto; margin-right: auto;
+		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 20px auto;
 		overflow: hidden;
 		color: #333;
@@ -442,6 +442,7 @@
 		--tea-cinnabar: #A63D2F;  /* 朱砂印章色 */
 		--tea-brown: #7A5C43;     /* 茶褐 */
 		--tea-serif: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+		--tea-content: 1400px;    /* P1-1 内容区统一宽度：所有区块唯一的宽度基准 */
 	}
 
 	body {

@@ -277,7 +277,7 @@
 		margin: 0px auto;
 		color: #666;
 		background: #f6f6f6;
-		width: 1400px;
+		max-width: var(--tea-content);
 		font-size: 16px;
 		position: relative;
 		.add-update-form {
