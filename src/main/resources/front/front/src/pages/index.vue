@@ -1,5 +1,8 @@
 <template>
 	<div class="main-containers">
+		<div class="ai-float" v-if="$route.path != '/index/teaai'" @click="$router.push('/index/teaai')" title="茶道AI">
+			<span>道</span>
+		</div>
 		<div class="body-containers">
 			<div class="top-container">
 				<!-- info -->
@@ -1218,4 +1221,25 @@ export default {
 	}
 	.top-container .top_nickname2 { color: #ede6d6 !important; }
 	.top-container ::v-deep .el-dropdown-menu { background: #12241b; }
+
+	.ai-float {
+		position: fixed;
+		right: 26px;
+		bottom: 30px;
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		background: linear-gradient(160deg, #e6ce9a, #d4af37);
+		color: #14251a;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: 'TeaSerif', 'STSong', serif;
+		font-size: 26px;
+		cursor: pointer;
+		z-index: 3000;
+		box-shadow: 0 8px 24px rgba(212, 175, 55, .45);
+		transition: transform .25s ease;
+	}
+	.ai-float:hover { transform: translateY(-4px) scale(1.05); }
 </style>

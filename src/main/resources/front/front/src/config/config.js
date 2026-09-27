@@ -25,6 +25,10 @@ export default {
 			url: '/index/forum',
 		},
 		{
+			name: '茶道AI',
+			url: '/index/teaai',
+		},
+		{
 			name: '留言板',
 			url: '/index/messages'
 		},

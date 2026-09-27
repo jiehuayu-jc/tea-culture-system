@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 //引入组件
 import Index from '../pages'
 import Home from '../pages/home/home'
+import TeaAi from '../pages/teaai/index'
 import Login from '../pages/login/login'
 import Register from '../pages/register/register'
 import Center from '../pages/center/center'
@@ -93,6 +94,10 @@ export default new VueRouter({
 				{
 					path: 'home',
 					component: Home
+				},
+				{
+					path: 'teaai',
+					component: TeaAi
 				},
 				{
 					path: 'center',

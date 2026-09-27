@@ -145,6 +145,16 @@ const menu = {
                 "menu": "系统管理"
             }, {
                 "child": [{
+                    "allButtons": ["查看", "重建知识库", "自然语言查数据", "AI写手"],
+                    "appFrontIcon": "cuIcon-lightauto",
+                    "buttons": ["查看"],
+                    "menu": "AI控制台",
+                    "menuJump": "列表",
+                    "tableName": "ai"
+                }],
+                "menu": "茶道AI"
+            }, {
+                "child": [{
                     "allButtons": ["新增", "查看", "修改", "删除", "导出", "日销量", "月销量", "年销量", "品销量", "类销量", "日销额", "月销额", "年销额", "品销额", "类销额"],
                     "appFrontIcon": "cuIcon-list",
                     "buttons": ["查看", "删除"],

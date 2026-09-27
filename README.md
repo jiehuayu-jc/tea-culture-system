@@ -63,3 +63,18 @@
 - 管理员"忘记密码"（`users/resetPass`）为匿名接口，可被调用将任意管理员密码重置为 123456，正式部署前应加验证机制
 - 支付为模拟流程，无真实支付网关
 - AI 问答依赖百度千帆 API Key（`BaiduUtil`），未配置时该功能不可用
+
+## 传智杯「AI Web 应用」赛项能力对照
+
+赛项要求"AI 深度应用而非简单 API 调用"。本系统的 AI 能力：
+
+| 评审能力 | 对应功能 | 代码位置 |
+|---|---|---|
+| AI 技术集成（大模型 API） | DeepSeek（OpenAI 兼容协议）自研轻量客户端：多轮对话 / Function Calling / SSE 流式 | `com/utils/DeepSeekClient.java` |
+| RAG 领域知识问答 | 站内茶文化文章/资讯/商品/讲座自动建库，BM25 检索增强生成，回答附引用来源并可跳原文 | `com/service/TeaRagService.java`、`ai_knowledge` 表 |
+| AI Agent（方向 1） | ReAct 工具调用循环（最多 4 轮）：推荐商品/检索知识/泡茶指南/查订单/推荐讲座；前端时间线可视化"思考→调用→结果" | `com/service/TeaAgentService.java`、前端 `pages/teaai` |
+| AI 数据分析与可视化（方向 8） | 管理端自然语言查数据：意图解析 → 统计 SQL → ECharts 图表 | `AiController#nlq`、管理端"茶道AI控制台" |
+| 多模态内容生成 | 管理端 AI 写手：商品介绍/茶文化文章草稿一键生成 | `AiController#writer` |
+| 用户体验设计 | 流式打字机、Agent 时间线、引用溯源卡、商品卡直连加购（业务闭环）、离线演示降级 | 前端 `pages/teaai/index.vue` |
+
+启动要求：在 `application.yml` 的 `ai.deepseek.api-key` 填入 DeepSeek API Key；未配置时系统自动进入"离线演示模式"（BM25 检索 + 本地推荐），功能链路不中断。

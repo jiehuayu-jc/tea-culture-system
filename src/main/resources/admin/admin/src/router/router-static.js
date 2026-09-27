@@ -10,6 +10,7 @@ import NotFound from '@/views/404'
 import UpdatePassword from '@/views/update-password'
 import pay from '@/views/pay'
 import register from '@/views/register'
+	import ai from '@/views/modules/ai/index'
 import center from '@/views/center'
 	import news from '@/views/modules/news/list'
 	import coupon from '@/views/modules/coupon/list'
@@ -153,6 +154,11 @@ export const routes = [{
 		path: '/newstype',
 		name: '购物资讯分类',
 		component: newstype
+	}
+	,{
+		path: '/ai',
+		name: '茶道AI控制台',
+		component: ai
 	}
 	]
 	},

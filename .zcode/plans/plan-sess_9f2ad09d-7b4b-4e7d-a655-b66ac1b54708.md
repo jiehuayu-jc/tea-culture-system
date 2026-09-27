@@ -1,47 +1,39 @@
-# 茶文化管理系统整改计划（修订版：高星参考 + 赛事级 UI）
+# 「茶道 AI」升级计划——对齐传智杯 AI Web 应用赛项
 
-## 全程红线（保护健身房小程序项目）
-- 只改 `C:\Users\14483\Desktop\springbootj8kskvkr` 目录；只操作 MySQL 中 `springbootj8kskvkr` 一个库
-- 绝不触碰：`Desktop/gym-system`、`Desktop/mini-program`、`gym_system` 库、8001 端口、MySQL root 密码与全局配置
-- 保留端口 8080；每阶段结束项目保持可编译、可启动
+## 对标定位
+主打赛项推荐方向 1（AI Agent 智能助手）+ 2（RAG 知识问答），兼顾 6（健康生活·体质荐茶）、8（AI 数据分析）。核心叙事：茶文化内容多、选茶难 → AI 从"问答玩具"升级为"会查库、会调工具、会给结论"的茶顾问，且 AI 结果全部闭环到业务（加购/预约/跳转）。
 
-## 阶段 0：回滚保障
-- 项目内 `git init` + `.gitignore`（排除 node_modules/target/maven.zip/.idea/dist）+ 初始提交（仅本地）
-- mysqldump 仅导出 springbootj8kskvkr 库 → `db/backup/initial.sql`
+## 技术选型
+- **LLM：DeepSeek**（`deepseek-chat`，OpenAI 兼容协议，支持流式 SSE + Function Calling）。自研轻量客户端（Java 8 HttpURLConnection + SSE 行解析，约 250 行，零新依赖风险）；不引 langchain4j（需 Java 17）/deepseek4j（依赖 Reactor）只作协议参考
+- **密钥**：`application.yml` 新增 `ai.deepseek.api-key` 配置位（你提供 key 填入即可，绝不碰健身房项目文件）。**无 key 或断网时自动降级"离线演示模式"**（内置规则回复 + 固定 RAG 答案），答辩现场永不冷场
+- **RAG 检索**：内置 BM25（中文二字分词，纯 Java）为主路，可选千帆 Embedding 双路召回；知识库 = 站内茶文化文章 + 资讯 + 商品介绍 + 讲座，新表 `ai_knowledge` 存储
+- **UI**：遵循已装高星设计 skill（frontend-design 等）标准，夜茶主题"茶道 AI"全屏页 + 全站右下角悬浮入口
 
-## 阶段 1：后端安全与 bug 修复
-1. 修复 `ChatController.security` 空列名 bug
-2. 收紧 `@IgnoreAuth`（移除 update/detail/query 上的匿名放行）
-3. 拦截器去掉"URI 包含即放行"宽松兜底；CORS Origin 改本机白名单
-4. `/common/mysqldump` 加管理员校验；fastjson 1.2.8 → 1.2.83（仅 3 处引用）
-5. 密码：注册/改密用 BCrypt（spring-security-crypto），登录兼容旧 MD5
+## 实施阶段
 
-## 阶段 2：代码瘦身与文档
-- 删零引用依赖（shiro-spring、commons-math3、unirest-java，删前逐一 grep 确认）；清理死代码；补 README
+### P1 RAG 知识问答（后端）
+- 新表 `ai_knowledge`；建库脚本把站内 4 类内容自动入库分块
+- `KnowledgeRetriever`（BM25 检索 TOP3）+ `DeepSeekClient`（chat/chatStream/tools）
+- API：`POST /ai/rag`（问答 + 引用来源数组）
 
-## 阶段 3：数据真实化（茶叶主题）
-- 表结构不动，只重写种子数据：真实茶叶商品 12~16 个（龙井/碧螺春/铁观音/大红袍/普洱+茶具）、茶文化栏目、购物资讯、茶友圈帖子、茶艺讲座、优惠券示例
-- 图片沿用现有占位图保证离线可演示；SQL 规范参照 litemall（20.4k★）的 db 组织方式
+### P2 前端"茶道 AI"页 + 流式（前端）
+- 新页面：对话流、**打字机流式渲染**（SSE）、引用来源卡片（点击跳原文）、右下角悬浮球入口
+- 夜茶暗色主题 + 思源宋体，高星 skill 标准执行
 
-## 阶段 4：前端 UI 美化（对标设计赛事获奖作品，新中式茶美学）
-**风格定位**（依据 NCDA 未来设计师大赛获奖作品《让年轻人着迷的新中式茶空间》、A' Design Award 铜奖 Chillwild 茶品牌、霸王茶姬"极简国际化东方美学"品牌体系）：
-- 配色 tokens：宣纸米色底（#F5F1E8 系）+ 墨黑正文 + 茶绿/茶褐主色 + 朱砂红印章色点缀（替换现在突兀的荧光绿 #00c292）
-- 字体：标题宋体衬线 + 正文无衬线的层级体系；留白加大、卡片化
-- 传统元素意象：印章式标签、圆窗/满月形轮播（呼应 G-Mark 获奖茶壶的满月提梁意象）
-**落点**：
-- 管理端：element-variables.scss 一处改主题色 + 品牌文案统一
-- 客户端：config.js 去掉写死的外网 IP 121.41.237.212；home.vue 首页重排（轮播 Banner + 栏目入口卡片化 + 新配色字体）；好茶集市/茶文化关键列表页统一视觉
-- 不升级 Vue2/ElementUI，不做全站 40 页换肤
+### P3 Agent 工具调用（后端 + 前端，闭环核心）
+- 5 个工具：`recommend_teas`（查商品库）、`search_knowledge`、`get_brewing_guide`、`get_my_orders`、`recommend_lectures`；ReAct 循环最多 4 轮
+- 前端 **Agent 思考时间线**：思考→调用工具→结果→回答 全程可视化
+- **闭环**：推荐商品卡片带"加入购物车/立即购买"直连订单接口；引用卡片跳详情；讲座卡片跳预约
 
-## 阶段 5：验证与交付
-- 后端 mvnw 编译+启动冒烟；SQL 一键导入验证；两端 npm run build 通过
-- 浏览器实测截图验收；交付整改报告 + 演示账号卡
+### P4 管理端两件套（演示加分）
+- 自然语言查数据："上个月哪种茶卖最好"→ 意图解析 → 统计接口 → ECharts 图表（方向 8）
+- AI 写手：生成商品介绍/茶文化文章草稿 → 一键入库
 
-## 参考名单（只取高星，只抄设计不搬全家桶）
-- macrozheng/mall（84.8k★）：BCrypt 认证、优惠券模块设计
-- linlinjava/litemall（20.4k★）：双前端工程组织、SQL 种子规范
-- newbee-ltd/newbee-mall（11.6k★）：订单状态机、模拟支付流程
-- 不再参考 638★ 及以下仓库（yshopmall 及各茶毕设仓已移出名单）
+### P5 演示与交付
+- 一键连通性自测脚本；演示话术脚本（"送长辈什么茶"完整链路 demo）
+- README 增"赛项能力对照表"：每条评审要求 ↔ 对应功能与代码位置
 
-## 执行顺序
-0→1→2→3→4→5；后端与数据先行，UI 最后承载新数据。预计后端约 8 个文件、SQL 1 个、前端约 10 个文件。
+## 依赖与红线
+- 需要你提供：DeepSeek API key（填入 application.yml，不碰健身房项目）
+- 红线延续：只动本项目，内页暗色体系与既有 git 基线延续
+- 新增文件预估：后端 6 个（DeepSeekClient/RagService/AgentService/AiController/知识库脚本/配置），前端 4 个（茶道AI页/Agent时间线组件/悬浮球/管理端AI面板），SQL 1 份迁移
