@@ -566,6 +566,9 @@
 		border: 1px solid rgba(212, 175, 55, .16) !important;
 		border-radius: 8px !important;
 		box-shadow: 0 4px 16px rgba(0, 0, 0, .25) !important;
+		/* 模板卡片内联的是 color:#000（白底黑字设计），深色主题下必须在此收口，
+		   否则卡内无类名的 span（发布时间/教师/收藏/点击）会继承黑色而不可读 */
+		color: #EDE6D6 !important;
 		transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease !important;
 	}
 	.list-preview .list-item:hover,
@@ -730,5 +733,27 @@
 	/* 模板内联的朱砂红按钮统一为主题绿（内联样式只能用属性选择器覆盖） */
 	[style*="#A63D2F"] {
 		background: #3E6B4F !important;
+	}
+
+	/* 讲座页（xinlizixun / yuyuezixun）卡片：
+	   这两个布局类的容器不是 .list-preview，上面的规则匹配不到；
+	   且模板 .list-item2 的 .name 自带白底深字，深色主题下会显出一条突兀白带 */
+	.list-item1 .infoBox,
+	.list-item2 .infoBox,
+	.list-item1 .name,
+	.list-item2 .name,
+	.list-item1 .time_item,
+	.list-item2 .time_item,
+	.list-item1 .more_btn,
+	.list-item2 .more_btn {
+		color: #EDE6D6 !important;
+	}
+	.list-item1 .name,
+	.list-item2 .name {
+		background: transparent !important;
+	}
+	.list-item1 .label,
+	.list-item2 .label {
+		color: #93A396 !important;
 	}
 </style>
