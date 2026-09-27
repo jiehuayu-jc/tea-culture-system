@@ -521,4 +521,181 @@
 		color: #F6F3EC !important;
 		background: #2E523C !important;
 	}
+
+	/* ===== 夜茶·墨绿金：内页全局换肤（压过模板内联样式） ===== */
+	.body-containers {
+		background: linear-gradient(180deg, #0e2318 0%, #0c1b14 26%, #0c1b14 100%) !important;
+		min-height: 100vh;
+	}
+
+	/* 面包屑条 */
+	.breadcrumb-preview {
+		background: transparent !important;
+		border-bottom: 1px solid rgba(212, 175, 55, .18) !important;
+		box-shadow: none !important;
+	}
+	.breadcrumb-preview a,
+	.breadcrumb-preview .item1,
+	.breadcrumb-preview .item2 {
+		color: #E6CE9A !important;
+	}
+	.breadcrumb-preview .el-breadcrumb { line-height: 56px !important; }
+
+	/* 分类标签条 */
+	.item-body .item {
+		color: #E6CE9A !important;
+		background: rgba(21, 42, 32, .8) !important;
+		border: 1px solid rgba(212, 175, 55, .22) !important;
+		border-radius: 4px;
+	}
+	.item-body .item.active {
+		color: #F6F3EC !important;
+		background: #2E523C !important;
+		border-color: #D4AF37 !important;
+	}
+
+	/* 排序条 */
+	.sort_view {
+		background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) !important;
+		border-radius: 6px !important;
+	}
+	.sort_view * {
+		color: #F6F3EC !important;
+	}
+
+	/* 列表卡片 */
+	.list-preview {
+		background: transparent !important;
+	}
+	.list-preview .list-item,
+	.list-preview .list-item1,
+	.list-preview .list-item2 {
+		background: linear-gradient(175deg, #16291f, #122219) !important;
+		border: 1px solid rgba(212, 175, 55, .16) !important;
+		border-radius: 8px !important;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, .25) !important;
+		transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease !important;
+	}
+	.list-preview .list-item:hover,
+	.list-preview .list-item1:hover,
+	.list-preview .list-item2:hover {
+		transform: translateY(-6px) !important;
+		border-color: #D4AF37 !important;
+		box-shadow: 0 16px 36px rgba(0, 0, 0, .45) !important;
+	}
+	.list-preview .name,
+	.list-preview .title {
+		color: #EDE6D6 !important;
+		font-family: 'TeaSerif', 'STSong', serif;
+		letter-spacing: 1px;
+	}
+	.list-preview .price {
+		color: #D4AF37 !important;
+		font-family: 'TeaSerif', serif;
+	}
+	.list-preview .label,
+	.list-preview .text,
+	.list-preview .desc,
+	.list-preview .time_item,
+	.list-preview .publisher_item,
+	.list-preview .collect_item,
+	.list-preview .view_item,
+	.list-preview .like_item {
+		color: #93A396 !important;
+	}
+
+	/* 详情页 */
+	.detail-preview {
+		background: linear-gradient(175deg, #16291f, #10201900) !important;
+		background-color: #14271d !important;
+		border: 1px solid rgba(212, 175, 55, .16) !important;
+		border-radius: 10px !important;
+	}
+	.detail-preview .item .lable,
+	.detail-preview .label {
+		color: #93A396 !important;
+	}
+	.detail-preview .item .text,
+	.detail-preview .name,
+	.detail-preview .text {
+		color: #EDE6D6 !important;
+	}
+	.detail-preview .text.price,
+	.detail-preview .price {
+		color: #D4AF37 !important;
+		font-family: 'TeaSerif', serif;
+	}
+	.detail-preview .ql-editor,
+	.detail-preview .ql-snow {
+		color: #C9C4B4 !important;
+	}
+
+	/* 表单页 */
+	.el-form-item__label {
+		color: #93A396 !important;
+	}
+	.el-input__inner,
+	.el-textarea__inner {
+		background-color: #152A20 !important;
+		border: 1px solid rgba(212, 175, 55, .25) !important;
+		color: #EDE6D6 !important;
+	}
+	.el-input__inner::placeholder {
+		color: rgba(147, 163, 150, .55) !important;
+	}
+
+	/* 分页 */
+	#pagination.el-pagination .el-pager li,
+	#pagination.el-pagination button {
+		background: #152A20 !important;
+		color: #C9C4B4 !important;
+	}
+	#pagination.el-pagination .el-pager li.active {
+		color: #D4AF37 !important;
+		border-color: #D4AF37 !important;
+	}
+
+	/* 表格类列表页 */
+	.el-table {
+		background: transparent !important;
+		color: #C9C4B4 !important;
+	}
+	.el-table th,
+	.el-table tr,
+	.el-table td {
+		background-color: transparent !important;
+		color: #C9C4B4 !important;
+		border-bottom: 1px solid rgba(212, 175, 55, .14) !important;
+	}
+	.el-table th {
+		color: #E6CE9A !important;
+	}
+	.el-table--enable-row-hover .el-table__body tr:hover > td {
+		background-color: rgba(212, 175, 55, .07) !important;
+	}
+	.el-table::before,
+	.el-table::after {
+		background-color: rgba(212, 175, 55, .2) !important;
+	}
+
+	/* 选项卡 */
+	.el-tabs__item {
+		color: #93A396 !important;
+	}
+	.el-tabs__item.is-active {
+		color: #D4AF37 !important;
+	}
+
+	/* 单选/复选文字 */
+	.el-radio__label,
+	.el-checkbox__label {
+		color: #C9C4B4 !important;
+	}
+
+	/* 消息弹窗 */
+	.el-message {
+		background: #152A20 !important;
+		border: 1px solid rgba(212, 175, 55, .3) !important;
+		color: #EDE6D6 !important;
+	}
 </style>
