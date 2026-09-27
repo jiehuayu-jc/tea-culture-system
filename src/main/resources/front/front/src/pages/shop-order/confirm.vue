@@ -546,7 +546,7 @@ export default {
 			.date1 {
 				font-size: 12px;
 				line-height: 1.5;
-				color: #FF0800;
+				color: #D4AF37;
 			}
 		}
   
@@ -556,7 +556,7 @@ export default {
 			align-items: center;
   
 			.price {
-				color: #FF0800;
+				color: #D4AF37;
 				font-size: 20px;
 				padding: 0 0 10px;
   
@@ -570,7 +570,7 @@ export default {
 				height: 30px;
 				line-height: 30px;
 				border-radius: 30px;
-				background: #FF0800;
+				background: #D4AF37;
 				text-align: center;
 				color: #fff;
 				font-size: 18px;

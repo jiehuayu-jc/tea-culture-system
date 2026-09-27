@@ -18,8 +18,8 @@
 					<div :style='{"color":"#000","fontSize":"18px","fontWeight":"bold"}'>
                     {{detail.biaoti}}
                     </div>
-					<div @click="storeup(1)" v-show="!isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#A63D2F"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-off"></i><span :style='{"color":"#fff","fontSize":"14px"}'>点我收藏({{detail.storeupnum}})</span></div>
-					<div @click="storeup(-1)" v-show="isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#A63D2F"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-on"></i><span :style='{"color":"#fff","fontSize":"14px"}'>取消收藏({{detail.storeupnum}})</span></div>
+					<div @click="storeup(1)" v-show="!isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#3E6B4F"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-off"></i><span :style='{"color":"#fff","fontSize":"14px"}'>点我收藏({{detail.storeupnum}})</span></div>
+					<div @click="storeup(-1)" v-show="isStoreup" :style='{"borderRadius":"20px","padding":"20px","background":"#3E6B4F"}'><i v-if="true" :style='{"color":"#fff","fontSize":"14px"}' class="el-icon-star-on"></i><span :style='{"color":"#fff","fontSize":"14px"}'>取消收藏({{detail.storeupnum}})</span></div>
 				</div>
 				
 				
@@ -68,7 +68,7 @@
 						</editor>
 					</el-form-item>
 					<el-form-item class="btn" :style='{"width":"100%","padding":"0 0 0 80px","margin":"10px 0 0","height":"auto"}'>
-						<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#A63D2F","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="submitForm('form')">立即提交</el-button>
+						<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#3E6B4F","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' type="primary" @click="submitForm('form')">立即提交</el-button>
 						<el-button :style='{"border":"0","cursor":"pointer","padding":"0","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#9E9E9E","width":"128px","lineHeight":"40px","fontSize":"14px","height":"40px"}' @click="resetForm('form')">重置</el-button>
 					</el-form-item>
 				</el-form>
@@ -84,7 +84,7 @@
 						<div :style='{"padding":"8px","boxShadow":"none","margin":"10px 0px 0px","color":"#333","borderRadius":"4px","background":"none","wordWrap":"break-word","lineHeight":"30px","fontSize":"14px"}' class="content-block-ask">
 							<div v-html="item.content"></div>
 							<div class="btn" :style='{"width":"100%","margin":"8px 0 0 0","alignItems":"center","justifyContent":"flex-end","display":"flex","height":"30px"}'>
-							  <!-- <el-button :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#A63D2F","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>回复</el-button> -->
+							  <!-- <el-button :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#3E6B4F","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>回复</el-button> -->
 							  <el-button v-if="showIndex==item.id&&userid==item.userid" @click="discussDel(item.id)" :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#9E9E9E","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>删除</el-button>
 							</div>
 						</div>
@@ -493,7 +493,7 @@
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--left:hover {
-		background: #A63D2F;
+		background: #3E6B4F;
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right {
@@ -503,7 +503,7 @@
 	}
 	
 	.attr .el-carousel ::v-deep .el-carousel__container .el-carousel__arrow--right:hover {
-		background: #A63D2F;
+		background: #3E6B4F;
 	}
 
 	.attr .el-carousel ::v-deep .el-carousel__indicators {
@@ -528,7 +528,7 @@
 	.attr .el-carousel ::v-deep .el-carousel__indicators li:hover {
 		padding: 0;
 		margin: 0 4px;
-		background: #A63D2F;
+		background: #3E6B4F;
 		display: inline-block;
 		width: 24px;
 		opacity: 0.7;
@@ -538,7 +538,7 @@
 	.attr .el-carousel ::v-deep .el-carousel__indicators li.is-active {
 		padding: 0;
 		margin: 0 4px;
-		background: #A63D2F;
+		background: #3E6B4F;
 		display: inline-block;
 		width: 24px;
 		opacity: 1;
@@ -611,7 +611,7 @@
 	.detail-preview .detail.el-tabs ::v-deep .el-tabs__header {
 		margin: 0;
 		background: none;
-		border-color: #A63D2F;
+		border-color: #3E6B4F;
 		border-width: 20px 0 0;
 		border-style: solid;
 	}
@@ -789,7 +789,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #A63D2F;
+		background: #3E6B4F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -805,7 +805,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #A63D2F;
+		background: #3E6B4F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;

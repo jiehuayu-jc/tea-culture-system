@@ -51,7 +51,7 @@
 				<div class="item-info" :style='{"padding":"10px","overflow":"hidden","flexWrap":"wrap","flex":"1","display":"flex","height":"auto"}'>
 					<div :style='{"padding":"0 10px","color":"inherit","width":"100%","lineHeight":"50px","fontSize":"20px","fontWeight":"bold","order":"1"}' class="name ">{{item.biaoti}}</div>
 					<div :style='{"padding":"0 10px","color":"inherit","width":"100%","lineHeight":"50px","fontSize":"20px","fontWeight":"bold","order":"1"}' class="name ">{{item.kechengleibie}}</div>
-					<div v-if="item.price" :style='{"padding":"0 40px","margin":"20px 10px","color":"#fff","borderRadius":"5px","background":"#A63D2F","lineHeight":"46px","fontSize":"18px","order":"7"}' class="price"><span :style='{"fontSize":"12px"}'>￥</span>{{item.price}}</div>
+					<div v-if="item.price" :style='{"padding":"0 40px","margin":"20px 10px","color":"#fff","borderRadius":"5px","background":"#D4AF37","lineHeight":"46px","fontSize":"18px","order":"7"}' class="price"><span :style='{"fontSize":"12px"}'>￥</span>{{item.price}}</div>
 					<div :style='{"width":"100%","padding":"0 10px","order":"6"}'>
 					  <span class="icon iconfont icon-shijian21" :style='{"margin":"0 5px 0 0","lineHeight":"40px","fontSize":"14px","color":"inherit"}'></span>
 					  <span :style='{"color":"inherit","lineHeight":"40px","fontSize":"14px"}'>{{item.addtime}}</span>
@@ -522,7 +522,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #A63D2F;
+		background: #3E6B4F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -538,7 +538,7 @@
 		font-size: 13px;
 		line-height: 28px;
 		border-radius: 30px;
-		background: #A63D2F;
+		background: #3E6B4F;
 		text-align: center;
 		min-width: 30px;
 		height: 28px;
@@ -642,10 +642,10 @@
 			}
 	.select2 .list .item-body .item:hover {
 				color: #fff;
-				background: #A63D2F;
+				background: #3E6B4F;
 			}
 	.select2 .list .item-body .item.active {
 				color: #fff;
-				background: #A63D2F;
+				background: #3E6B4F;
 			}
 </style>

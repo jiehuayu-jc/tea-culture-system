@@ -768,7 +768,7 @@
 				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-y right top / 100% auto,#EAF0E7;
 				display: flex;
 				width: 200px;
-				border-color: #d1060230;
+				border-color: #D4AF3730;
 				border-width: 0 0 0px 0;
 				border-style: solid;
 				flex-wrap: wrap;
@@ -884,7 +884,7 @@
 						padding: 0 20px 0 25px;
 						margin: 0 20px 0 0;
 						color: #333;
-						background: #c5c5c5;
+						background: #93A396;
 						width: auto;
 						font-size: 15px;
 						line-height: 40px;
@@ -908,7 +908,7 @@
 					padding: 0;
 					margin: 0 0 20px;
 					width: 100%;
-					border-color: #d1060220;
+					border-color: #D4AF3720;
 					border-width: 0px;
 					align-items: center;
 					border-style: solid;
@@ -976,29 +976,29 @@
 							.zan-item.active {
 								background: none;
 								.icon {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 								.label {
-								color: #ff0000;
+								color: #D4AF37;
 								display: none;
 								font-size: 14px;
 								}
 								.num {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 							}
 							.zan-item:hover {
 								opacity: 0.8;
 								.icon {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.label {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.num {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 							}
 							.cai-item {
@@ -1018,29 +1018,29 @@
 							.cai-item.active {
 								background: none;
 								.icon {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 								.label {
-								color: #ff0000;
+								color: #D4AF37;
 								display: none;
 								font-size: 14px;
 								}
 								.num {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 							}
 							.cai-item:hover {
 								opacity: 0.8;
 								.icon {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.label {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.num {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 							}
 						}
@@ -1061,7 +1061,7 @@
 								line-height: 32px;
 								border-radius: 0px;
 								outline: none;
-								background: #c5c5c5;
+								background: #93A396;
 								width: auto;
 								min-width: 90px;
 								height: 32px;

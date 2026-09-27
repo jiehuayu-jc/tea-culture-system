@@ -708,7 +708,12 @@
 		color: #E6CE9A !important;
 	}
 
-	/* 搜索面板与筛选面板：白底 → 深色面板 */
+	/* 搜索面板、筛选面板与表单/详情/社区容器：模板白底与浅灰底 → 深色面板 */
+	.add-update-preview,
+	.detail-preview,
+	.forum-preview,
+	.center-preview,
+	.messages-preview,
 	.list-form-pv,
 	.select2 {
 		background: rgba(21, 42, 32, .85) !important;

@@ -176,7 +176,7 @@
 								:show-text='false'
 								:texts='["极差", "失望", "一般", "满意", "惊喜"]'
 								text-color='#1F2D3D'
-								:colors='["#F7BA2A", "#F7BA2A", "#F7BA2A"]'
+								:colors='["#D4AF37", "#D4AF37", "#D4AF37"]'
 								void-color='#C6D1DE'
 								disabled-void-color='#EFF2F7'
 								:icon-classes='["el-icon-star-on", "el-icon-star-on","el-icon-star-on"]'
@@ -215,7 +215,7 @@
 									:show-text='false'
 									:texts='["极差", "失望", "一般", "满意", "惊喜"]'
 									text-color='#1F2D3D'
-									:colors='["#F7BA2A", "#F7BA2A", "#F7BA2A"]'
+									:colors='["#D4AF37", "#D4AF37", "#D4AF37"]'
 									void-color='#C6D1DE'
 									disabled-void-color='#EFF2F7'
 									:icon-classes='["el-icon-star-on", "el-icon-star-on","el-icon-star-on"]'
@@ -325,7 +325,7 @@
 				},
 				showIndex: -1,
 				infoList: [],
-				colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+				colors: ['#99A9BF', '#D4AF37', '#FF9900'],
 				rules: {
 					content: [
 						{ required: true, message: '请输入内容', trigger: 'blur' }
@@ -1022,36 +1022,36 @@
 						}
 					}
 					.colectBtnActive {
-						border: 0px solid #fcbc78;
-						color: #fc8108;
+						border: 0px solid #D4AF37;
+						color: #D4AF37;
 						background: none;
 						.icon {
-							color: #fc8108;
+							color: #D4AF37;
 						}
 						.text {
-							color: #fc8108;
+							color: #D4AF37;
 						}
 					}
 					.colectBtn:hover {
-						border: 0px solid #fcbc78;
-						color: #fc8108;
+						border: 0px solid #D4AF37;
+						color: #D4AF37;
 						background: none;
 						.icon {
-							color: #fc8108;
+							color: #D4AF37;
 						}
 						.text {
-							color: #fc8108;
+							color: #D4AF37;
 						}
 					}
 					.colectBtnActive:hover {
-						border: 0px solid #fcbc78;
-						color: #fc8108;
+						border: 0px solid #D4AF37;
+						color: #D4AF37;
 						background: none;
 						.icon {
-							color: #fc8108;
+							color: #D4AF37;
 						}
 						.text {
-							color: #fc8108;
+							color: #D4AF37;
 						}
 					}
 				}
@@ -1241,7 +1241,7 @@
 					padding: 0 10px;
 					margin: 0 5px 0 0;
 					color: #fff;
-					background: #A63D2F;
+					background: #3E6B4F;
 					width: auto;
 					font-size: inherit;
 					line-height: 40px;
@@ -1406,7 +1406,7 @@
 				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-y right top / 100% auto,#EAF0E7;
 				display: flex;
 				width: 200px;
-				border-color: #d1060230;
+				border-color: #D4AF3730;
 				border-width: 0 0 0px 0;
 				border-style: solid;
 				flex-wrap: wrap;
@@ -1522,7 +1522,7 @@
 						padding: 0 20px 0 25px;
 						margin: 0 20px 0 0;
 						color: #333;
-						background: #c5c5c5;
+						background: #93A396;
 						width: auto;
 						font-size: 15px;
 						line-height: 40px;
@@ -1546,7 +1546,7 @@
 					padding: 0;
 					margin: 0 0 20px;
 					width: 100%;
-					border-color: #d1060220;
+					border-color: #D4AF3720;
 					border-width: 0px;
 					align-items: center;
 					border-style: solid;
@@ -1614,29 +1614,29 @@
 							.zan-item.active {
 								background: none;
 								.icon {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 								.label {
-								color: #ff0000;
+								color: #D4AF37;
 								display: none;
 								font-size: 14px;
 								}
 								.num {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 							}
 							.zan-item:hover {
 								opacity: 0.8;
 								.icon {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.label {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.num {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 							}
 							.cai-item {
@@ -1656,29 +1656,29 @@
 							.cai-item.active {
 								background: none;
 								.icon {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 								.label {
-								color: #ff0000;
+								color: #D4AF37;
 								display: none;
 								font-size: 14px;
 								}
 								.num {
-								color: #ff0000;
+								color: #D4AF37;
 								font-size: 14px;
 								}
 							}
 							.cai-item:hover {
 								opacity: 0.8;
 								.icon {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.label {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 								.num {
-								color: #ff000030;
+								color: #D4AF3730;
 								}
 							}
 						}
@@ -1699,7 +1699,7 @@
 								line-height: 32px;
 								border-radius: 0px;
 								outline: none;
-								background: #c5c5c5;
+								background: #93A396;
 								width: auto;
 								min-width: 90px;
 								height: 32px;
@@ -1785,7 +1785,7 @@
 				.date1 {
 					font-size: 12px;
 					line-height: 1.5;
-					color: #FF0800;
+					color: #D4AF37;
 				}
 			}
 	
@@ -1795,7 +1795,7 @@
 				align-items: center;
 	
 				.price {
-					color: #FF0800;
+					color: #D4AF37;
 					font-size: 20px;
 					padding: 0 0 10px;
 	
@@ -1809,7 +1809,7 @@
 					height: 30px;
 					line-height: 30px;
 					border-radius: 30px;
-					background: #FF0800;
+					background: #D4AF37;
 					text-align: center;
 					color: #fff;
 					font-size: 18px;

@@ -316,7 +316,7 @@
 			height: 42px;
 			line-height: 42px;
 			text-align: center;
-			background: #a63d2f;
+			background: #3E6B4F;
 			border-radius: 8px;
 			color: #f6f3ec;
 			font-family: 'TeaSerif', serif;
@@ -520,7 +520,7 @@
 		width: 52px;
 		height: 52px;
 		line-height: 52px;
-		background: #a63d2f;
+		background: #3E6B4F;
 		border-radius: 10px;
 		color: #f6f3ec;
 		font-family: 'TeaSerif', serif;
