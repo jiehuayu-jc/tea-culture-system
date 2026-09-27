@@ -617,7 +617,7 @@
 				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-y right top / 100% auto,#EAF0E7;
 				display: flex;
 				width: 200px;
-				border-color: #d1060230;
+				border-color: #D4AF3730;
 				border-width: 0 0 0px 0;
 				border-style: solid;
 				flex-wrap: wrap;

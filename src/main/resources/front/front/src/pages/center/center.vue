@@ -1123,7 +1123,7 @@
 				background: #3E6B4F;
 				width: 100%;
 				clear: both;
-				border-color: #d10602;
+				border-color: #D4AF37;
 				border-width: 0px;
 				position: relative;
 				border-style: inset;
