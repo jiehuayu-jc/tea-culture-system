@@ -1605,7 +1605,7 @@
 							padding: 0 5px;
 							margin: 0 2px 0 0;
 							color: #fff;
-							background: #f00;
+							background: #A63D2F;
 							width: auto;
 							font-size: 12px;
 							line-height: 16px;

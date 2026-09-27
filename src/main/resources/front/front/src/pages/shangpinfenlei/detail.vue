@@ -342,7 +342,7 @@
 						height: auto;
 					}
 					.price {
-						color: #f00;
+						color: var(--tea-gold);
 					}
 					.bold {
 						font-weight: bold;

@@ -306,10 +306,10 @@
 			width: 100%;
 			position: relative;
 			.add-item.el-form-item {
-				border: 2px inset #f7db6150;
+				border: 2px inset #D4AF3750;
 				padding: 10px;
 				margin: 0 0 10px;
-				background: #f7db6110;
+				background: #D4AF3710;
 				::v-deep .el-form-item__label {
 					padding: 0 10px 0 0;
 					color: #666;
@@ -537,7 +537,7 @@
 					padding: 0 20px;
 					margin: 0;
 					color: #333;
-					background: #f7db61;
+					background: #D4AF37;
 					display: inline-block;
 					width: auto;
 					font-size: 14px;
@@ -545,7 +545,7 @@
 					height: 34px;
 				}
 				.viewBtn:hover {
-					background: #f7db6199;
+					background: #D4AF3799;
 				}
 				.unviewBtn {
 					border: 0;
@@ -578,7 +578,7 @@
 					font-size: 16px;
 					line-height: 40px;
 					border-radius: 2px;
-					background: #f7db61;
+					background: #D4AF37;
 					width: auto;
 					text-align: center;
 					min-width: 110px;
@@ -621,8 +621,8 @@
 					}
 				}
 				.closeBtn:hover {
-					background: #f7db61;
-					border-color: #f7db61;
+					background: #D4AF37;
+					border-color: #D4AF37;
 					.icon {
 						color: #fff;
 					}

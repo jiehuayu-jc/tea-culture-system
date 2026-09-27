@@ -513,7 +513,7 @@
 						}
 						.price {
 							padding: 0 10px;
-							color: #f00;
+							color: var(--tea-gold);
 							font-size: 22px;
 							line-height: 40px;
 							order: 10;

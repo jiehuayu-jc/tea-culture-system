@@ -326,7 +326,7 @@
 				padding: 0px 15px;
 				margin: 0 10px 0 10px;
 				color: #000;
-				background: #f7db6190;
+				background: #D4AF3790;
 				width: auto;
 				font-size: inherit;
 				line-height: 40px;
@@ -344,7 +344,7 @@
 				padding: 0px 15px;
 				margin: 0 10px 0 0;
 				color: #000;
-				background: #f7db6190;
+				background: #D4AF3790;
 				width: auto;
 				font-size: inherit;
 				line-height: 40px;
@@ -366,7 +366,7 @@
 			.select2-list {
 				padding: 5px 5px;
 				margin: 0 0 10px;
-				background: #f7db6130;
+				background: #D4AF3730;
 				width: 100%;
 				height: auto;
 				.label {
@@ -394,12 +394,12 @@
 					.item:hover {
 						cursor: pointer;
 						color: #000;
-						background: #f7db61;
+						background: #D4AF37;
 					}
 					.item.active {
 						cursor: pointer;
 						color: #000;
-						background: #f7db61;
+						background: #D4AF37;
 						display: inline-block;
 					}
 				}
@@ -482,7 +482,7 @@
 						}
 						.price {
 							margin: 30px 0 0;
-							color: #f00;
+							color: var(--tea-gold);
 							width: 100%;
 							font-size: 16px;
 							line-height: 1.8;
@@ -623,7 +623,7 @@
 				}
 				.list-item1:hover {
 					cursor: pointer;
-					background: #f7db61;
+					background: #D4AF37;
 					.imgbox {
 						.image {
 							transform: scale(1.05);
@@ -636,7 +636,7 @@
 							background: none;
 						}
 						.price {
-							color: #f00;
+							color: var(--tea-gold);
 							.price_text {
 							}
 						}
@@ -754,7 +754,7 @@
 						}
 						.price {
 							margin: 30px 0 0;
-							color: #f00;
+							color: var(--tea-gold);
 							width: 100%;
 							font-size: 16px;
 							line-height: 1.8;
@@ -900,7 +900,7 @@
 				}
 				.list-item2:hover {
 					cursor: pointer;
-					background: #f7db61;
+					background: #D4AF37;
 					.imgbox {
 						.image {
 							transform: scale(1.05);
@@ -913,7 +913,7 @@
 							background: none;
 						}
 						.price {
-							color: #f00;
+							color: var(--tea-gold);
 							.price_text {
 							}
 						}

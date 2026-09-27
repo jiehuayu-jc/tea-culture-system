@@ -1138,11 +1138,11 @@ export default {
 				width: 100%;
 				height: auto;
 				.footer {
-					padding: 20px 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
+					padding: 20px 0;
 					margin: 0 auto;
 					overflow: hidden;
 					color: #fff;
-					background: #000;
+					background: var(--tea-ink-deep);
 					width: 100%;
 					min-height: 120px;
 					text-align: center;

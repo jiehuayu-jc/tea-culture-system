@@ -287,7 +287,7 @@
 								padding: 10px;
 								box-shadow: inset 0px 0px 6px 0px #3E6B4F50;
 								margin: 0 0 30px;
-								background: #d8e9ff;
+								background: #16291f;
 								display: flex;
 								width: 49%;
 								border-color: #3E6B4F80;

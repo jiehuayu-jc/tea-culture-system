@@ -432,21 +432,17 @@
 		height: 26px;
 	}
 
-	/* ===== 新中式茶美学主题（2026-09 整改） =====
-	   设计令牌：宣纸米白底 + 墨黑正文 + 茶绿主色 + 朱砂点缀，标题衬线字 */
+	/* ===== 夜茶·墨绿金主题令牌（P1-3：移除废弃的宣纸米白体系与 5 个零引用死令牌） ===== */
 	:root {
-		--tea-bg: #F6F3EC;        /* 宣纸米白 */
-		--tea-green: #3E6B4F;     /* 茶绿主色 */
-		--tea-green-deep: #2E523C;/* 深茶绿 hover */
-		--tea-ink: #2B2B28;       /* 墨黑 */
-		--tea-cinnabar: #A63D2F;  /* 朱砂印章色 */
-		--tea-brown: #7A5C43;     /* 茶褐 */
-		--tea-serif: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
-		--tea-content: 1400px;    /* P1-1 内容区统一宽度：所有区块唯一的宽度基准 */
+		--tea-ink-deep: #0c1b14;   /* 主题底色（页面背景） */
+		--tea-green: #3E6B4F;      /* 茶绿主色 */
+		--tea-green-deep: #2E523C; /* 深茶绿 hover */
+		--tea-gold: #D4AF37;       /* 主题金：价格、强调、边框 */
+		--tea-content: 1400px;     /* P1-1 内容区统一宽度：所有区块唯一的宽度基准 */
 	}
 
 	body {
-		background: var(--tea-bg);
+		background: var(--tea-ink-deep);
 	}
 
 	/* ElementUI 主色统一为茶绿 */

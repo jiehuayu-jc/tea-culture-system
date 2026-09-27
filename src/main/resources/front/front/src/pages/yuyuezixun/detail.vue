@@ -284,7 +284,7 @@
 					margin: 0 auto 3px;
 					background: #fff;
 					display: flex;
-					border-color: #eee #f7db61;
+					border-color: #eee #D4AF37;
 					line-height: 40px;
 					justify-content: space-between;
 					align-items: center;
@@ -300,7 +300,7 @@
 					margin: 0 0 3px 0;
 					background: none;
 					display: flex;
-					border-color: #eee #f7db61;
+					border-color: #eee #D4AF37;
 					justify-content: spaceBetween;
 					.lable {
 						padding: 0 20px;
@@ -323,7 +323,7 @@
 						height: auto;
 					}
 					.price {
-						color: #f00;
+						color: var(--tea-gold);
 					}
 					.bold {
 						font-weight: bold;
@@ -478,7 +478,7 @@
 			::v-deep .el-tabs__header {
 				padding: 5px 5px 0;
 				margin: 0;
-				background: #f7db61;
+				background: #D4AF37;
 				border-color: #1f292f;
 				border-width: 0 0 1px 0;
 				border-style: solid;

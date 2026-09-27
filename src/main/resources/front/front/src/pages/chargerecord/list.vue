@@ -517,7 +517,7 @@
 			.el-table ::v-deep .el-table__body-wrapper tbody tr:hover td {
 				padding: 12px 0;
 				color: #333;
-				background: #f7db6110;
+				background: #D4AF3710;
 				border-color: #eee;
 				border-width: 0 1px 1px 0;
 				border-style: solid;
