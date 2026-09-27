@@ -53,9 +53,16 @@ mybatis-plus:
     jdbc-type-for-null: 'null' 
 
 # AI 大模型配置（DeepSeek，OpenAI 兼容协议）
-# api-key 请填入你自己的 DeepSeek API Key；留空时系统自动进入"离线演示模式"
+# api-key 不写入版本库。两种注入方式（任选其一，后者优先级更高）：
+#   1) 环境变量 DEEPSEEK_API_KEY
+#   2) 项目根目录 config/application.yml（已被 .gitignore 排除），模板见 config/application.yml.example
+# 两者都未配置时，系统自动进入"离线演示模式"
 ai:
     deepseek:
-        api-key: ""
+        api-key: "${DEEPSEEK_API_KEY:}"
         base-url: "https://api.deepseek.com"
         model: "deepseek-chat"
+    # 接口配额：per-IP 滑动窗口限流（命中返回 429，不计入大模型调用）
+    rate-limit:
+        minute: 10
+        day: 200

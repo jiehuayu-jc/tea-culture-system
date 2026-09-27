@@ -1,7 +1,7 @@
 # 构建产物与依赖
 target/
 node_modules/
-*/dist/
+dist/
 package-lock.json.bak
 
 # 大文件与本地工具
@@ -18,3 +18,11 @@ static/upload/temp/
 # 静态托管的构建产物（由两端 dist 复制而来，不入库）
 /src/main/resources/static/admin/
 /src/main/resources/static/front/
+
+# 本地私有配置（含密钥，禁止入库；模板 config/application.yml.example 需要保留）
+/config/application.yml
+/config/application-local.yml
+**/application-local.yml
+
+# ZCode 工作区数据
+.zcode/

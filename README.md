@@ -77,4 +77,4 @@
 | 多模态内容生成 | 管理端 AI 写手：商品介绍/茶文化文章草稿一键生成 | `AiController#writer` |
 | 用户体验设计 | 流式打字机、Agent 时间线、引用溯源卡、商品卡直连加购（业务闭环）、离线演示降级 | 前端 `pages/teaai/index.vue` |
 
-启动要求：在 `application.yml` 的 `ai.deepseek.api-key` 填入 DeepSeek API Key；未配置时系统自动进入"离线演示模式"（BM25 检索 + 本地推荐），功能链路不中断。
+启动要求：通过环境变量 `DEEPSEEK_API_KEY` 注入 DeepSeek API Key，或复制 `config/application.yml.example` 为 `config/application.yml` 并填入 Key（该目录已被 .gitignore 排除，密钥不入库）；未配置时系统自动进入"离线演示模式"（BM25 检索 + 本地推荐），功能链路不中断。

@@ -1,0 +1,15 @@
+# 本地私有配置模板
+# 用法：复制本文件为同目录下的 application.yml，填入真实 Key
+#   Windows:  copy config\application.yml.example config\application.yml
+#   macOS/Linux:  cp config/application.yml.example config/application.yml
+#
+# 也支持改用环境变量 DEEPSEEK_API_KEY 注入，此时不需要本文件。
+#
+# 获取 Key: https://platform.deepseek.com/api_keys
+ai:
+    deepseek:
+        api-key: "sk-在这里填入你的DeepSeek密钥"
+    # 可选：接口配额（默认每分钟10次/每天200次，命中返回429）
+    # rate-limit:
+    #     minute: 10
+    #     day: 200
