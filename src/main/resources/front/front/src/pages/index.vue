@@ -796,11 +796,11 @@ export default {
 				.el-scrollbar {
 					height: 100%;
 			  
-					& /deep/ .scrollbar-wrapper-vertical {
+					&::v-deep .scrollbar-wrapper-vertical {
 						overflow-x: hidden;
 					}
 			  
-					& /deep/ .scrollbar-wrapper-horizontal {
+					&::v-deep .scrollbar-wrapper-horizontal {
 						overflow-y: hidden;
 			  
 						.el-scrollbar__view {
@@ -1087,7 +1087,7 @@ export default {
 					left: 0;
 					bottom: 10px;
 					width: 100%;
-					/deep/ span.swiper-pagination-bullet {
+					::v-deep span.swiper-pagination-bullet {
 						border-radius: 100%;
 						margin: 0 4px;
 						background: #000;
@@ -1096,11 +1096,11 @@ export default {
 						opacity: .2;
 						height: 8px;
 					}
-					/deep/ span.swiper-pagination-bullet:hover {
+					::v-deep span.swiper-pagination-bullet:hover {
 						background: #fff;
 						opacity: 1;
 					}
-					/deep/ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+					::v-deep span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 						background: #fff;
 						opacity: 1;
 					}

@@ -367,19 +367,19 @@ export default {
 					line-height: 40px;
 					align-items: center;
 					height: 40px;
-					/deep/ .el-radio__input .el-radio__inner {
+					::v-deep .el-radio__input .el-radio__inner {
 						background: rgba(53, 53, 53, 0);
 						border-color: #666666;
 					}
-					/deep/ .el-radio__input.is-checked .el-radio__inner {
+					::v-deep .el-radio__input.is-checked .el-radio__inner {
 						background: #3E6B4F;
 						border-color: #3E6B4F;
 					}
-					/deep/ .el-radio__label {
+					::v-deep .el-radio__label {
 						color: #666666;
 						font-size: 16px;
 					}
-					/deep/ .el-radio__input.is-checked+.el-radio__label {
+					::v-deep .el-radio__input.is-checked+.el-radio__label {
 						color: #3E6B4F;
 						font-size: 16px;
 					}

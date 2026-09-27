@@ -426,7 +426,7 @@ export default {
 					margin: 0 auto 20px;
 					background: #fff;
 					width: 80%;
-					/deep/.el-form-item__content {
+					::v-deep.el-form-item__content {
 						padding: 0 0 0 120px;
 						display: block;
 						width: calc(100% - 0px);
@@ -480,7 +480,7 @@ export default {
 							flex: 1;
 							width: 100%;
 						}
-						.el-input-number /deep/ .el-input__inner {
+						.el-input-number ::v-deep .el-input__inner {
 							text-align: left;
 							border: 0px solid #b0b0b0;
 							border-radius: 8px;
@@ -491,10 +491,10 @@ export default {
 							font-size: 15px;
 							height: 40px;
 						}
-						.el-input-number /deep/ .el-input-number__decrease {
+						.el-input-number ::v-deep .el-input-number__decrease {
 							display: none;
 						}
-						.el-input-number /deep/ .el-input-number__increase {
+						.el-input-number ::v-deep .el-input-number__increase {
 							display: none;
 						}
 						.el-select {

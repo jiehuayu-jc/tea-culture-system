@@ -1155,7 +1155,7 @@
 					.el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
 					  border-color: none;
 					}
-					/deep/ .el-input-number__decrease {
+					::v-deep .el-input-number__decrease {
 						cursor: pointer;
 						z-index: 1;
 						display: flex;
@@ -1174,12 +1174,12 @@
 						height: 38px;
 					}
 					
-					/deep/ .el-input-number__decrease i {
+					::v-deep .el-input-number__decrease i {
 						color: #666;
 						font-size: 14px;
 					}
 				
-					/deep/ .el-input-number__increase {
+					::v-deep .el-input-number__increase {
 						cursor: pointer;
 						z-index: 1;
 						display: flex;
@@ -1198,12 +1198,12 @@
 						height: 38px;
 					}
 					
-					/deep/ .el-input-number__increase i {
+					::v-deep .el-input-number__increase i {
 						color: #666;
 						font-size: 14px;
 					}
 					
-					/deep/ .el-input .el-input__inner {
+					::v-deep .el-input .el-input__inner {
 						border: 1px solid #DCDFE6;
 						border-radius: 4px;
 						padding: 0 40px;
@@ -1396,10 +1396,10 @@
 			display: flex;
 			width: 100%;
 			order: 21;
-			& /deep/ .el-tabs__header .el-tabs__nav-wrap {
+			&::v-deep .el-tabs__header .el-tabs__nav-wrap {
 				margin-bottom: 0;
 			}
-			/deep/ .el-tabs__header {
+			::v-deep .el-tabs__header {
 				padding: 30px 0;
 				margin: 0 20px 0 0;
 				flex-direction: column;
@@ -1412,7 +1412,7 @@
 				flex-wrap: wrap;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item {
+			::v-deep .el-tabs__header .el-tabs__item {
 				border: 0;
 				padding: 0 20px;
 				margin: 0 2px;
@@ -1430,7 +1430,7 @@
 				height: 50px;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item:hover {
+			::v-deep .el-tabs__header .el-tabs__item:hover {
 				border: 0;
 				color: #fff;
 				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right top / 98% 100%;
@@ -1441,7 +1441,7 @@
 				height: 50px;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item.is-active {
+			::v-deep .el-tabs__header .el-tabs__item.is-active {
 				border: 0;
 				color: #fff;
 				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right top / 98% 100%;
@@ -1452,7 +1452,7 @@
 				height: 50px;
 			}
 			
-			/deep/ .el-tabs__content {
+			::v-deep .el-tabs__content {
 				padding: 15px;
 				width: 100%;
 			}
@@ -1466,7 +1466,7 @@
 					display: flex;
 					width: 100%;
 					height: auto;
-					/deep/ .el-form-item__label {
+					::v-deep .el-form-item__label {
 						padding: 0 10px 0 0;
 						color: #666;
 						white-space: nowrap;
@@ -1486,7 +1486,7 @@
 						font-size: 14px;
 						min-height: 350px;
 						line-height: 32px;
-						/deep/ .avatar-uploader {
+						::v-deep .avatar-uploader {
 							height: 0;
 							line-height: 0;
 						}
@@ -1715,7 +1715,7 @@
 				width: 100%;
 				line-height: 40px;
 				height: 40px;
-				/deep/ .el-rate__item {
+				::v-deep .el-rate__item {
 					cursor: pointer;
 					display: inline-block;
 					vertical-align: middle;
@@ -1723,7 +1723,7 @@
 					position: relative;
 				}
 				
-				/deep/ .el-rate__item .el-rate__icon {
+				::v-deep .el-rate__item .el-rate__icon {
 					margin: 0 3px;
 					display: block;
 					font-size: 18px;

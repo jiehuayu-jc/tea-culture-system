@@ -172,14 +172,14 @@
 						order: 2;
 						.search-item {
 								margin: 0;
-								/deep/ .el-form-item__content {
+								::v-deep .el-form-item__content {
 										display: flex;
 										align-items: center;
 									}
 				.el-input {
 										width: 100%;
 									}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner {
 										border: 1px solid #ddd;
 										border-radius: 4px;
 										padding: 0 10px;

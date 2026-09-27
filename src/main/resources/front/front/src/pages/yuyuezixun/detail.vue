@@ -396,12 +396,12 @@
 			width: calc(50% - 40px);
 			height: 480px;
 			order: -2;
-			/deep/ .el-carousel__indicator button {
+			::v-deep .el-carousel__indicator button {
 				width: 0;
 				height: 0;
 				display: none;
 			}
-			/deep/ .el-carousel__container {
+			::v-deep .el-carousel__container {
 				.el-carousel__arrow--left {
 					width: 36px;
 					font-size: 12px;
@@ -430,7 +430,7 @@
 				}
 			}
 		
-			/deep/ .el-carousel__indicators {
+			::v-deep .el-carousel__indicators {
 				padding: 0;
 				margin: 0;
 				z-index: 2;
@@ -472,10 +472,10 @@
 			margin: 20px auto;
 			background: #FFF;
 			width: 100%;
-			& /deep/ .el-tabs__header .el-tabs__nav-wrap {
+			&::v-deep .el-tabs__header .el-tabs__nav-wrap {
 				margin-bottom: 0;
 			}
-			/deep/ .el-tabs__header {
+			::v-deep .el-tabs__header {
 				padding: 5px 5px 0;
 				margin: 0;
 				background: #f7db61;
@@ -484,7 +484,7 @@
 				border-style: solid;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item {
+			::v-deep .el-tabs__header .el-tabs__item {
 				border: 0;
 				padding: 0 20px;
 				margin: 0 5px;
@@ -499,14 +499,14 @@
 				height: auto;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item:hover {
+			::v-deep .el-tabs__header .el-tabs__item:hover {
 				border: 0;
 				border-radius: 20px 20px 0 0;
 				color: #333;
 				background: #fff;
 			}
 			
-			/deep/ .el-tabs__header .el-tabs__item.is-active {
+			::v-deep .el-tabs__header .el-tabs__item.is-active {
 				border: 0;
 				border-radius: 20px 20px 0 0;
 				margin: 0 5px;
@@ -515,7 +515,7 @@
 				font-size: inherit;
 			}
 			
-			/deep/ .el-tabs__content {
+			::v-deep .el-tabs__content {
 				padding: 15px;
 			}
 		}

@@ -295,7 +295,7 @@
 				border-color: #475a8310;
 				border-width:  0 0 0px;
 				border-style: solid;
-				/deep/ .el-form-item__label {
+				::v-deep .el-form-item__label {
 					padding: 0 10px 0 0;
 					color: #666;
 					font-weight: 500;
@@ -304,13 +304,13 @@
 					line-height: 40px;
 					text-align: right;
 				}
-				/deep/ .el-form-item__content {
+				::v-deep .el-form-item__content {
 					margin-left: 180px;
 				}
 				.el-input {
 					width: auto;
 				}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner {
 					border: 1px solid #ddd;
 					border-radius: 4px;
 					padding: 0 12px;
@@ -320,7 +320,7 @@
 					font-size: 16px;
 					height: 40px;
 				}
-				.el-input /deep/ .el-input__inner[readonly="readonly"] {
+				.el-input ::v-deep .el-input__inner[readonly="readonly"] {
 					border: 0;
 					cursor: not-allowed;
 					border-radius: 0px;
@@ -332,7 +332,7 @@
 					font-size: 16px;
 					height: 40px;
 				}
-				.el-input-number /deep/ .el-input__inner {
+				.el-input-number ::v-deep .el-input__inner {
 					text-align: left;
 					border: 1px solid #ddd;
 					border-radius: 4px;
@@ -343,7 +343,7 @@
 					font-size: 16px;
 					height: 40px;
 				}
-				.el-input-number /deep/ .is-disabled .el-input__inner {
+				.el-input-number ::v-deep .is-disabled .el-input__inner {
 					text-align: left;
 					border: 0;
 					cursor: not-allowed;
@@ -356,16 +356,16 @@
 					font-size: 16px;
 					height: 40px;
 				}
-				.el-input-number /deep/ .el-input-number__decrease {
+				.el-input-number ::v-deep .el-input-number__decrease {
 					display: none;
 				}
-				.el-input-number /deep/ .el-input-number__increase {
+				.el-input-number ::v-deep .el-input-number__increase {
 					display: none;
 				}
 				.el-select {
 					width: auto;
 				}
-				.el-select /deep/ .el-input__inner {
+				.el-select ::v-deep .el-input__inner {
 					border: 1px solid #ddd;
 					border-radius: 4px;
 					padding: 0 10px;
@@ -375,7 +375,7 @@
 					min-width: inherit !important;
 					height: 40px;
 				}
-				.el-select /deep/ .is-disabled .el-input__inner {
+				.el-select ::v-deep .is-disabled .el-input__inner {
 					border: 0;
 					cursor: not-allowed;
 					border-radius: 0px;
@@ -390,7 +390,7 @@
 				.el-date-editor {
 					width: auto;
 				}
-				.el-date-editor /deep/ .el-input__inner {
+				.el-date-editor ::v-deep .el-input__inner {
 					border: 1px solid #ddd;
 					border-radius: 4px;
 					padding: 0 10px 0 30px;
@@ -400,7 +400,7 @@
 					font-size: 16px;
 					height: 40px;
 				}
-				.el-date-editor /deep/ .el-input__inner[readonly="readonly"] {
+				.el-date-editor ::v-deep .el-input__inner[readonly="readonly"] {
 					border: 0;
 					cursor: not-allowed;
 					border-radius: 0px;
@@ -412,7 +412,7 @@
 					font-size: 16px;
 					height: 40px;
 				}
-				/deep/ .el-upload--picture-card {
+				::v-deep .el-upload--picture-card {
 					background: transparent;
 					border: 0;
 					border-radius: 0;
@@ -421,7 +421,7 @@
 					line-height: initial;
 					vertical-align: middle;
 				}
-				/deep/ .upload .upload-img {
+				::v-deep .upload .upload-img {
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 4px;
@@ -433,7 +433,7 @@
 					text-align: center;
 					height: 60px;
 				}
-				/deep/ .el-upload-list .el-upload-list__item {
+				::v-deep .el-upload-list .el-upload-list__item {
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 4px;
@@ -447,7 +447,7 @@
 					font-size: 14px;
 					line-height: 1.8;
 				}
-				/deep/ .el-upload .el-icon-plus {
+				::v-deep .el-upload .el-icon-plus {
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 4px;
@@ -459,11 +459,11 @@
 					text-align: center;
 					height: 60px;
 				}
-				/deep/ .el-upload__tip {
+				::v-deep .el-upload__tip {
 					color: #888;
 					font-size: 16px;
 				}
-				.el-textarea /deep/ .el-textarea__inner {
+				.el-textarea ::v-deep .el-textarea__inner {
 					border: 1px solid #ddd;
 					border-radius: 4px;
 					padding: 12px;
@@ -475,7 +475,7 @@
 					min-width: 48%;
 					height: auto;
 				}
-				.el-textarea /deep/ .el-textarea__inner[readonly="readonly"] {
+				.el-textarea ::v-deep .el-textarea__inner[readonly="readonly"] {
 					border: 0px solid #ddd;
 					cursor: not-allowed;
 					border-radius: 0px;
@@ -489,11 +489,11 @@
 					min-width: 50%;
 					height: auto;
 				}
-				/deep/ .el-input__inner::placeholder {
+				::v-deep .el-input__inner::placeholder {
 					color: inherit;
 					font-size: inherit;
 				}
-				/deep/ textarea::placeholder {
+				::v-deep textarea::placeholder {
 					color: inherit;
 					font-size: inherit;
 				}

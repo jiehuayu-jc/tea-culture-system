@@ -211,7 +211,7 @@
 								.el-input {
 										width: 100%;
 									}
-				.el-input /deep/ .el-input__inner {
+				.el-input ::v-deep .el-input__inner {
 										border: 1px solid #ccc;
 										border-radius: 4px;
 										padding: 0 10px;
