@@ -187,8 +187,8 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.news-preview-pv {
 				margin: 0px auto;
-				color: #333;
-				background: #f6f6f6;
+				color: #EDE6D6;
+				background: transparent;
 				display: flex;
 				max-width: var(--tea-content);
 				font-size: 16px;
@@ -216,8 +216,8 @@
 										border-radius: 4px;
 										padding: 0 10px;
 										margin: 0 10px 0 0;
-										color: #333;
-										background: #fff;
+										color: #EDE6D6;
+										background: transparent;
 										width: auto;
 										font-size: 16px;
 										line-height: 42px;
@@ -282,7 +282,7 @@
 		.list11 {
 						margin: 0px auto ;
 						overflow: hidden;
-						color: #888;
+						color: #93A396;
 						flex: 1;
 						width: calc(100% - 0px);
 						clear: both;
@@ -291,7 +291,7 @@
 						.list-item1 {
 								padding: 10px 10px 20px;
 								margin: 60px 0 0;
-								background: #fff;
+								background: transparent;
 								width: 100%;
 								min-height: 260px;
 								border-color: #2c2c2c;
@@ -321,7 +321,7 @@
 										.name {
 												border: 0px solid #eee;
 												padding: 10px 0;
-												color: #333;
+												color: #EDE6D6;
 												background: none;
 												font-weight: 600;
 												width: calc(100% - 0px);
@@ -343,7 +343,7 @@
 												padding: 0 10px 0 0;
 												margin: 5px 0 0;
 												overflow: hidden;
-												color: #666;
+												color: #93A396;
 												text-indent: 2em;
 												font-size: 15px;
 												line-height: 30px;
@@ -441,7 +441,7 @@
 														border: 1px solid #eee;
 														border-radius: 20px;
 														padding: 10px;
-														background: #fff;
+														background: transparent;
 														display: none;
 														width: 150px;
 														text-align: center;
@@ -458,7 +458,7 @@
 			.list-item1:hover {
 								cursor: pointer;
 								box-shadow: 1px 2px 9px #3E6B4F;
-								background: #fff;
+								background: transparent;
 								border-color: #3E6B4F;
 								.img {
 					img {
@@ -538,10 +538,10 @@
 						.more_btn {
 														background: #ffffff30;
 														.text {
-																color: #666;
+																color: #93A396;
 															}
 							.icon {
-																color: #666;
+																color: #93A396;
 															}
 						}
 					}
@@ -550,7 +550,7 @@
 			.list-item2 {
 								padding: 10px 10px 20px;
 								margin: 60px 0 0;
-								background: #fff;
+								background: transparent;
 								width: 100%;
 								min-height: 260px;
 								border-color: #2c2c2c;
@@ -583,7 +583,7 @@
 										.name {
 												border: 0px solid #eee;
 												padding: 10px 0;
-												color: #333;
+												color: #EDE6D6;
 												background: none;
 												font-weight: 600;
 												width: calc(100% - 0px);
@@ -605,7 +605,7 @@
 												padding: 0 10px 0 0;
 												margin: 5px 0 0;
 												overflow: hidden;
-												color: #666;
+												color: #93A396;
 												text-indent: 2em;
 												font-size: 15px;
 												line-height: 30px;
@@ -719,7 +719,7 @@
 			.list-item2:hover {
 								cursor: pointer;
 								box-shadow: 1px 2px 9px #3E6B4F;
-								background: #fff;
+								background: transparent;
 								border-color: #3E6B4F;
 								.img {
 					img {
@@ -799,10 +799,10 @@
 						.more_btn {
 														background: #ffffff30;
 														.text {
-																color: #666;
+																color: #93A396;
 															}
 							.icon {
-																color: #666;
+																color: #93A396;
 															}
 						}
 					}
@@ -830,7 +830,7 @@
 			.hot-list {
 								padding: 20px;
 								margin: 0;
-								background: #fff;
+								background: transparent;
 								display: flex;
 								width: 100%;
 								justify-content: space-between;
@@ -842,7 +842,7 @@
 										border-radius: 10px;
 										padding: 10px;
 										margin: 0 0 20px;
-										background: #fff;
+										background: transparent;
 										width: calc(100% - 0px);
 										height: auto;
 										img {
@@ -856,7 +856,7 @@
 					.hot-name {
 												padding: 0px 0px;
 												overflow: hidden;
-												color: #333;
+												color: #EDE6D6;
 												white-space: nowrap;
 												width: calc(100% - 150px);
 												font-size: 15px;
@@ -866,7 +866,7 @@
 											}
 					.hot-time {
 												padding: 0 0px;
-												color: #999;
+												color: #93A396;
 												display: inline-block;
 												width: calc(100% - 150px);
 												font-size: 14px;
@@ -878,7 +878,7 @@
 			}
 		}
 		.idea1 {
-						background: #f6f6f6;
+						background: transparent;
 						width: 101%;
 						height: 1px;
 						order: 10;

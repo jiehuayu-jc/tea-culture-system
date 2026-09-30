@@ -157,13 +157,13 @@
 		margin: 0 auto;
 	}
 	.el-table ::v-deep .el-table__header-wrapper thead {
-		color: #333;
+		color: #EDE6D6;
 		font-weight: 500;
 		width: 100%;
 	}
 	
 	.el-table ::v-deep .el-table__header-wrapper thead tr {
-		background: #fff;
+		background: transparent;
 	}
 	
 	.el-table ::v-deep .el-table__header-wrapper thead tr th {
@@ -195,13 +195,13 @@
 	}
 	
 	.el-table ::v-deep .el-table__body-wrapper tbody tr {
-		background: #fff;
+		background: transparent;
 	}
 	
 	.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 		padding: 12px 0;
-		color: #666;
-		background: #fff;
+		color: #93A396;
+		background: transparent;
 		border-color: #eee;
 		border-width: 0 1px 1px 0;
 		border-style: solid;
@@ -211,7 +211,7 @@
 	
 	.el-table ::v-deep .el-table__body-wrapper tbody tr:hover td {
 		padding: 12px 0;
-		color: #333;
+		color: #EDE6D6;
 		background: #D4AF3710;
 		border-color: #eee;
 		border-width: 0 1px 1px 0;
@@ -221,8 +221,8 @@
 	
 	.el-table ::v-deep .el-table__body-wrapper tbody tr td {
 		padding: 12px 0;
-		color: #666;
-		background: #fff;
+		color: #93A396;
+		background: transparent;
 		border-color: #eee;
 		border-width: 0 1px 1px 0;
 		border-style: solid;

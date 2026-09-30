@@ -258,12 +258,12 @@
 	}
 	
 	.breadcrumb-preview .el-breadcrumb .item1 ::v-deep .el-breadcrumb__inner a {
-		color: #000;
+		color: #EDE6D6;
 		display: inline-block;
 	}
 	
 	.breadcrumb-preview .el-breadcrumb .item2 ::v-deep .el-breadcrumb__inner a {
-		color: #000;
+		color: #EDE6D6;
 		display: inline-block;
 	}
 	
@@ -271,8 +271,8 @@
 		cursor: pointer;
 		border-radius: 4px;
 		margin: 0 10px 0 0;
-		color: #999;
-		background: #efefef;
+		color: #93A396;
+		background: transparent;
 		width: 72px;
 		font-size: 14px;
 		line-height: 36px;
@@ -283,7 +283,7 @@
 		cursor: pointer;
 		border-radius: 4px;
 		margin: 0 10px 0 0;
-		color: #999;
+		color: #93A396;
 		background: #000;
 		width: 72px;
 		font-size: 14px;
@@ -295,7 +295,7 @@
 		cursor: pointer;
 		border-radius: 4px;
 		margin: 0 10px 0 0;
-		color: #999;
+		color: #93A396;
 		background: #000;
 		width: 72px;
 		font-size: 14px;
@@ -307,8 +307,8 @@
 		cursor: pointer;
 		border-radius: 4px;
 		margin: 0 0 10px 0;
-		color: #999;
-		background: #efefef;
+		color: #93A396;
+		background: transparent;
 		width: 100%;
 		font-size: 14px;
 		line-height: 36px;
@@ -319,8 +319,8 @@
 		cursor: pointer;
 		border-radius: 4px;
 		margin: 0 0 10px 0;
-		color: #999;
-		background: #efefef;
+		color: #93A396;
+		background: transparent;
 		width: 100%;
 		font-size: 14px;
 		line-height: 36px;
@@ -331,8 +331,8 @@
 		cursor: pointer;
 		border-radius: 4px;
 		margin: 0 0 10px 0;
-		color: #999;
-		background: #efefef;
+		color: #93A396;
+		background: transparent;
 		width: 100%;
 		font-size: 14px;
 		line-height: 36px;
@@ -345,7 +345,7 @@
 		padding:  10px;
 		margin: 0 10px 0 0;
 		color: #0F2419;
-		background: #fff;
+		background: transparent;
 		display: flex;
 		width: auto;
 		align-items: center;
@@ -369,7 +369,7 @@
 		padding: 0 10px;
 		margin: 0;
 		outline: none;
-		color: #000;
+		color: #EDE6D6;
 		width: 200px;
 		font-size: 14px;
 		line-height: 42px;
@@ -385,7 +385,7 @@
 		padding: 0 30px;
 		margin: 0;
 		outline: none;
-		color: #333;
+		color: #EDE6D6;
 		width: 140px;
 		font-size: 14px;
 		line-height: 42px;
@@ -420,7 +420,7 @@
 	
 	#pagination.el-pagination ::v-deep .el-pagination__total {
 		margin: 0 10px 0 0;
-		color: #666;
+		color: #93A396;
 		font-weight: 400;
 		display: inline-block;
 		vertical-align: top;
@@ -500,7 +500,7 @@
 		cursor: pointer;
 		padding: 0 4px;
 		margin: 0 5px;
-		color: #000;
+		color: #EDE6D6;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;
@@ -634,8 +634,8 @@
 				border-radius: 4px;
 				padding: 0 5px;
 				margin: 0 10px 0 0;
-				color: #333;
-				background: #fff;
+				color: #EDE6D6;
+				background: transparent;
 				display: inline-block;
 				font-size: 14px;
 				line-height: 32px;

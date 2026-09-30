@@ -135,7 +135,7 @@
 				padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 				margin: 0 auto;
 				align-content: flex-start;
-				background: #f6f6f6;
+				background: none;
 				display: flex;
 				width: 100%;
 				font-size: 16px;
@@ -162,7 +162,7 @@
 		.list-form-pv {
 						padding: 40px 0 20px;
 						margin: 0 auto;
-						background: #fff;
+						background: rgba(21, 42, 32, .85);
 						display: flex;
 						max-width: var(--tea-content);
 						justify-content: center;
@@ -184,8 +184,8 @@
 										border-radius: 4px;
 										padding: 0 10px;
 										margin: 0;
-										color: #888;
-										background: #fff;
+										color: #93A396;
+										background: #152A20;
 										width: 280px;
 										font-size: 15px;
 										line-height: 42px;
@@ -276,7 +276,7 @@
 		.z-box {
 						padding: 20px 40px;
 						margin: 0 auto;
-						background: #fff;
+						background: rgba(21, 42, 32, .6);
 						display: flex;
 						width: 100%;
 						justify-content: space-between;
@@ -305,7 +305,7 @@
 									}
 				.item-title {
 										overflow: hidden;
-										color: #333;
+										color: #EDE6D6;
 										white-space: nowrap;
 										font-weight: 500;
 										width: calc(100% - 80px);
@@ -315,14 +315,14 @@
 									}
 				.item-user {
 										margin: 0 10px 0 0;
-										color: #888;
+										color: #93A396;
 										white-space: nowrap;
 										display: none;
 										font-size: 15px;
 										line-height: 40px;
 									}
 				.item-time {
-										color: #999;
+										color: #93A396;
 										top: 45px;
 										left: 80px;
 										font-size: 15px;
@@ -332,7 +332,7 @@
 			}
 			.section-content:hover {
 								.item-title {
-										color: #000;
+										color: #EDE6D6;
 									}
 				.item-user {
 									}

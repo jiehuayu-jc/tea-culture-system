@@ -296,8 +296,8 @@
 	.add-update-preview {
 		padding: 0 0 20px;
 		margin: 0px auto;
-		color: #666;
-		background: #fff;
+		color: #93A396;
+		background: transparent;
 		max-width: var(--tea-content);
 		font-size: 16px;
 		position: relative;
@@ -312,7 +312,7 @@
 				background: #D4AF3710;
 				::v-deep .el-form-item__label {
 					padding: 0 10px 0 0;
-					color: #666;
+					color: #93A396;
 					font-weight: 500;
 					width: 180px;
 					font-size: inherit;
@@ -440,8 +440,8 @@
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 0px;
-					color: #999;
-					background: #fff;
+					color: #93A396;
+					background: transparent;
 					width: 80px;
 					font-size: 26px;
 					line-height: 60px;
@@ -452,8 +452,8 @@
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 0px;
-					color: #999;
-					background: #fff;
+					color: #93A396;
+					background: transparent;
 					width: 80px;
 					font-size: 26px;
 					line-height: 60px;
@@ -466,8 +466,8 @@
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 0px;
-					color: #999;
-					background: #fff;
+					color: #93A396;
+					background: transparent;
 					width: 80px;
 					font-size: 26px;
 					line-height: 60px;
@@ -475,7 +475,7 @@
 					height: 60px;
 				}
 				::v-deep .el-upload__tip {
-					color: #888;
+					color: #93A396;
 					font-size: 16px;
 				}
 				.el-textarea ::v-deep .el-textarea__inner {
@@ -513,7 +513,7 @@
 					font-size: inherit;
 				}
 				.editor {
-					background-color: #fff;
+					background: transparent;
 					border-radius: 0;
 					padding: 0;
 					box-shadow: none;
@@ -536,7 +536,7 @@
 					border-radius: 0px;
 					padding: 0 20px;
 					margin: 0;
-					color: #333;
+					color: #EDE6D6;
 					background: #D4AF37;
 					display: inline-block;
 					width: auto;
@@ -552,7 +552,7 @@
 					cursor: pointer;
 					padding: 0 20px;
 					margin: 0;
-					color: #333;
+					color: #EDE6D6;
 					display: inline-block;
 					font-size: 14px;
 					line-height: 34px;
@@ -584,19 +584,19 @@
 					min-width: 110px;
 					height: 40px;
 					.icon {
-						color: #333;
+						color: #EDE6D6;
 					}
 					.text {
-						color: #333;
+						color: #EDE6D6;
 					}
 				}
 				.submitBtn:hover {
 					opacity: 0.8;
 					.icon {
-						color: #000;
+						color: #EDE6D6;
 					}
 					.text {
-						color: #000;
+						color: #EDE6D6;
 					}
 				}
 				.closeBtn {
@@ -608,16 +608,16 @@
 					font-size: 16px;
 					line-height: 40px;
 					border-radius: 2px;
-					background: #fff;
+					background: transparent;
 					width: auto;
 					text-align: center;
 					min-width: 110px;
 					height: 40px;
 					.icon {
-						color: #666;
+						color: #93A396;
 					}
 					.text {
-						color: #666;
+						color: #93A396;
 					}
 				}
 				.closeBtn:hover {

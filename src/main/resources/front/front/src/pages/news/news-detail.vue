@@ -287,8 +287,8 @@
 	.news-detail-box {
 				padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 				margin: 0px auto;
-				color: #333;
-				background: #f6f6f6;
+				color: #EDE6D6;
+				background: transparent;
 				width: 100%;
 				font-size: 15px;
 				position: relative;
@@ -307,7 +307,7 @@
 								height: auto;
 								div {
 										margin: 10px 0;
-										color: #333;
+										color: #EDE6D6;
 										background: none;
 										font-size: 24px;
 										line-height: 54px;
@@ -317,7 +317,7 @@
 			.news-detail {
 								border: 0px solid #E9D9B8;
 								padding: 0;
-								background: #fff;
+								background: transparent;
 								width: 100%;
 								position: relative;
 								.detail-title {
@@ -342,7 +342,7 @@
 										.time_item {
 												padding: 0;
 												margin: 0 20px 0 0;
-												color: #888;
+												color: #93A396;
 												order: 10;
 												.icon {
 														margin: 0 2px 0 0;
@@ -510,7 +510,7 @@
 				.content-detail {
 										padding: 20px;
 										margin: 10px 0 0;
-										color: #666;
+										color: #93A396;
 										text-indent: 2em;
 										width: 100%;
 										font-size: inherit;
@@ -523,7 +523,7 @@
 								padding: 10px 20px 20px;
 								flex-direction: row;
 								color: #fff;
-								background: #fff;
+								background: transparent;
 								display: flex;
 								width: 100%;
 								border-color: #E9D9B8;
@@ -600,7 +600,7 @@
 				.hot-list {
 										padding: 20px;
 										margin: 0;
-										background: #fff;
+										background: transparent;
 										display: flex;
 										width: 100%;
 										justify-content: space-between;
@@ -612,7 +612,7 @@
 												border-radius: 10px;
 												padding: 10px;
 												margin: 0 0 20px;
-												background: #fff;
+												background: transparent;
 												width: calc(100% - 0px);
 												height: auto;
 												img {
@@ -626,7 +626,7 @@
 						.hot-name {
 														padding: 0px 0px;
 														overflow: hidden;
-														color: #333;
+														color: #EDE6D6;
 														white-space: nowrap;
 														width: calc(100% - 150px);
 														font-size: 15px;
@@ -636,7 +636,7 @@
 													}
 						.hot-time {
 														padding: 0 0px;
-														color: #999;
+														color: #93A396;
 														display: inline-block;
 														width: calc(100% - 150px);
 														font-size: 14px;

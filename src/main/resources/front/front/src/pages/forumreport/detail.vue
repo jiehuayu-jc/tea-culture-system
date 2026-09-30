@@ -294,9 +294,9 @@
 	.detail-preview {
 		padding: 20px 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 0px auto;
-		color: #666;
+		color: #93A396;
 		align-content: flex-start;
-		background: #fff;
+		background: transparent;
 		display: flex;
 		width: 100%;
 		font-size: 16px;
@@ -322,7 +322,7 @@
 					border-radius: 0px;
 					padding: 10px 0px;
 					margin: 0 auto 3px;
-					background: #ffffff;
+					background: transparent;
 					display: flex;
 					border-color: #ddd;
 					border-width: 0 0 0px;
@@ -331,7 +331,7 @@
 					align-items: center;
 					border-style: dashed;
 					.detail-title {
-						color: #000;
+						color: #EDE6D6;
 						font-weight: 600;
 						font-size: 18px;
 					}
@@ -340,7 +340,7 @@
 					border-radius: 0px;
 					padding: 8px 0;
 					margin: 0 0 3px 0;
-					background: #fff;
+					background: transparent;
 					display: flex;
 					border-color: #ccc;
 					border-width: 0 0 1px;
@@ -348,7 +348,7 @@
 					border-style: solid;
 					.lable {
 						padding: 0 10px 0 0;
-						color: #333;
+						color: #EDE6D6;
 						white-space: nowrap;
 						font-weight: 500;
 						width: auto;
@@ -525,7 +525,7 @@
 			box-shadow: none;
 			padding: 0;
 			margin: 20px auto 40px;
-			background: #fff;
+			background: transparent;
 			flex: 1;
 			display: flex;
 			width: 100%;
@@ -550,7 +550,7 @@
 				border: 0;
 				padding: 0 20px;
 				margin: 0 2px;
-				color: #000;
+				color: #EDE6D6;
 				font-weight: 500;
 				display: block;
 				font-size: 16px;
@@ -593,13 +593,13 @@
 		}
 	}
 	.idea1 {
-		background: #fff;
+		background: transparent;
 		width: 100%;
 		height: 1px;
 		order: 4;
 	}
 	.idea2 {
-		background: #fff;
+		background: transparent;
 		width: 100%;
 		height: 1px;
 		order: 6;

@@ -411,7 +411,7 @@
 	
 	.add-update-preview .el-form-item ::v-deep .el-form-item__label {
 	  padding: 0 10px 0 0;
-	  color: #000;
+	  color: #EDE6D6;
 	  font-weight: 500;
 	  width: 80px;
 	  font-size: 14px;
@@ -429,7 +429,7 @@
 	  padding: 0 12px;
 	  box-shadow: none;
 	  outline: none;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 400px;
 	  font-size: 14px;
 	  height: 40px;
@@ -441,7 +441,7 @@
 	  padding: 0 12px;
 	  box-shadow: none;
 	  outline: none;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 400px;
 	  font-size: 14px;
 	  height: 40px;
@@ -459,7 +459,7 @@
 	  padding: 0 10px;
 	  box-shadow: none;
 	  outline: none;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 400px;
 	  font-size: 14px;
 	  height: 40px;
@@ -471,7 +471,7 @@
 	  padding: 0 10px 0 30px;
 	  box-shadow: none;
 	  outline: none;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 400px;
 	  font-size: 14px;
 	  height: 40px;
@@ -491,7 +491,7 @@
 	  border: 1px solid #E2E3E5;
 	  cursor: pointer;
 	  border-radius: 6px;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 200px;
 	  font-size: 32px;
 	  line-height: 60px;
@@ -503,7 +503,7 @@
 	  border: 1px solid #E2E3E5;
 	  cursor: pointer;
 	  border-radius: 6px;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 200px;
 	  font-size: 32px;
 	  line-height: 60px;
@@ -515,7 +515,7 @@
 	  border: 1px solid #E2E3E5;
 	  cursor: pointer;
 	  border-radius: 6px;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 200px;
 	  font-size: 32px;
 	  line-height: 60px;
@@ -529,7 +529,7 @@
 	  padding: 12px;
 	  box-shadow: none;
 	  outline: none;
-	  color: #000;
+	  color: #EDE6D6;
 	  width: 400px;
 	  font-size: 14px;
 	  height: 120px;

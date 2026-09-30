@@ -532,7 +532,7 @@ export default {
   
 		.coupon_left {
 			flex: 1;
-			color: #000;
+			color: #EDE6D6;
   
 			.name {
 				font-size: 22px;

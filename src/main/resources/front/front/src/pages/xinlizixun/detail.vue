@@ -504,7 +504,7 @@
 	.detail-preview {
 		padding: 20px 0;
 		margin: 0px auto;
-		color: #666;
+		color: #93A396;
 		display: flex;
 		max-width: var(--tea-content);
 		font-size: 16px;
@@ -528,14 +528,14 @@
 					border: 1px solid #ddd;
 					padding: 0 10px;
 					margin: 0 auto 3px;
-					background: #fff;
+					background: transparent;
 					display: flex;
 					border-color: #eee #D4AF37;
 					line-height: 40px;
 					justify-content: space-between;
 					align-items: center;
 					.detail-title {
-						color: #333;
+						color: #EDE6D6;
 						font-weight: 600;
 						font-size: 18px;
 					}
@@ -550,7 +550,7 @@
 					justify-content: spaceBetween;
 					.lable {
 						padding: 0 20px;
-						color: #333;
+						color: #EDE6D6;
 						white-space: nowrap;
 						font-weight: 500;
 						width: auto;
@@ -591,7 +591,7 @@
 					padding: 0 10px;
 					margin: 0 5px 0 0;
 					outline: none;
-					color: #000;
+					color: #EDE6D6;
 					background: rgba(64, 158, 255, .2);
 					width: auto;
 					font-size: inherit;
@@ -608,7 +608,7 @@
 					padding: 0 10px;
 					margin: 0 5px 0 0;
 					outline: none;
-					color: #000;
+					color: #EDE6D6;
 					background: rgba(255, 0, 0, .1);
 					width: auto;
 					font-size: inherit;
@@ -625,7 +625,7 @@
 					padding: 0 10px;
 					margin: 0 5px 0 0;
 					outline: none;
-					color: #000;
+					color: #EDE6D6;
 					background: rgba(70,252,245,.2);
 					width: auto;
 					font-size: inherit;
@@ -685,7 +685,7 @@
 				li {
 					padding: 0;
 					margin: 0 4px;
-					background: #fff;
+					background: transparent;
 					display: inline-block;
 					width: 12px;
 					opacity: 0.4;
@@ -695,7 +695,7 @@
 				li:hover {
 					padding: 0;
 					margin: 0 4px;
-					background: #fff;
+					background: transparent;
 					display: inline-block;
 					width: 24px;
 					opacity: 0.7;
@@ -704,7 +704,7 @@
 				li.is-active {
 					padding: 0;
 					margin: 0 4px;
-					background: #fff;
+					background: transparent;
 					display: inline-block;
 					width: 24px;
 					opacity: 1;
@@ -734,7 +734,7 @@
 				border: 0;
 				padding: 0 20px;
 				margin: 0 5px;
-				color: #333;
+				color: #EDE6D6;
 				background: transparent;
 				font-weight: 500;
 				display: inline-block;
@@ -748,16 +748,16 @@
 			::v-deep .el-tabs__header .el-tabs__item:hover {
 				border: 0;
 				border-radius: 20px 20px 0 0;
-				color: #333;
-				background: #fff;
+				color: #EDE6D6;
+				background: transparent;
 			}
 			
 			::v-deep .el-tabs__header .el-tabs__item.is-active {
 				border: 0;
 				border-radius: 20px 20px 0 0;
 				margin: 0 5px;
-				color: #333;
-				background: #fff;
+				color: #EDE6D6;
+				background: transparent;
 				font-size: inherit;
 			}
 			
@@ -770,7 +770,7 @@
 		box-shadow: 0 1px 6px rgba(0,0,0,.3);
 		z-index: 11;
 		bottom: 20%;
-		background: #fff;
+		background: transparent;
 		position: fixed;
 		right: 0;
 		.share:last-of-type{
@@ -785,7 +785,7 @@
 		height: 300px;
 		overflow-y: scroll;
 		border: 1px solid #eeeeee;
-		background: #fff;
+		background: transparent;
 	
 		.addtime {
 			width: 100%;

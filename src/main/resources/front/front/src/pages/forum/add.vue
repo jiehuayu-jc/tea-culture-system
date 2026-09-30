@@ -186,7 +186,7 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.add-update-preview .el-form-item ::v-deep .el-form-item__label {
 		padding: 0 10px 0 0;
-		color: #666;
+		color: #93A396;
 		font-weight: 500;
 		width: 180px;
 		font-size: inherit;
@@ -242,8 +242,8 @@
 		border: 1px solid #ddd;
 		cursor: pointer;
 		border-radius: 4px;
-		color: #999;
-		background: #fff;
+		color: #93A396;
+		background: transparent;
 		width: 80px;
 		font-size: 26px;
 		line-height: 60px;
@@ -255,8 +255,8 @@
 		border: 1px solid #ddd;
 		cursor: pointer;
 		border-radius: 4px;
-		color: #999;
-		background: #fff;
+		color: #93A396;
+		background: transparent;
 		width: 80px;
 		font-size: 26px;
 		line-height: 60px;
@@ -268,8 +268,8 @@
 		border: 1px solid #ddd;
 		cursor: pointer;
 		border-radius: 4px;
-		color: #999;
-		background: #fff;
+		color: #93A396;
+		background: transparent;
 		width: 80px;
 		font-size: 26px;
 		line-height: 60px;
@@ -277,7 +277,7 @@
 		height: 60px;
 	}
 	.add-update-preview ::v-deep .el-upload__tip {
-		color: #888;
+		color: #93A396;
 		font-size: 16px;
 	}
   

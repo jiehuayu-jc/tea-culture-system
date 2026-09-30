@@ -106,7 +106,7 @@
 		<el-dialog title="智能AI" :visible.sync="chatFormVisible" width="60%" :before-close="chatClose">
 			<div class="chat-content" id="chat-content">
 				<div v-bind:key="item.id" v-for="item in chatList">
-					<div v-if="item.addtime" style="width: 100%;text-align: center;font-size: 10px;color: #666;">{{timeFormat(item.addtime)}}</div>
+					<div v-if="item.addtime" style="width: 100%;text-align: center;font-size: 10px;color: #93A396;">{{timeFormat(item.addtime)}}</div>
 					<div v-if="item.ask" class="right-content">
 						<div style="display: flex;align-items: flex-start;">
 							<el-alert v-if="item.type==1" class="text-content" :title="item.ask" :closable="false"
@@ -157,7 +157,7 @@
 					</el-input>
 					<el-button type="primary" @click="addChat(null)">发送</el-button>
 					<div style="position: relative;" v-if="askType==2">
-						<span @click="showEmoji=!showEmoji" class="icon iconfont icon-gerenzhongxin-zhihui" style="font-size: 30px;color: #666;cursor: pointer;"></span>
+						<span @click="showEmoji=!showEmoji" class="icon iconfont icon-gerenzhongxin-zhihui" style="font-size: 30px;color: #93A396;cursor: pointer;"></span>
 						<picker
 							:include="['people', 'Smileys']"
 							:showSearch="false"
@@ -627,13 +627,13 @@ export default {
 		padding: 10px 0;
 		box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 		margin: 18px 0;
-		background: #fff;
+		background: transparent;
 		.shop-item {
 			border: 0;
 			padding: 0 8px;
 			margin: 0 0px;
 			color: inherit;
-			background: #fff;
+			background: transparent;
 			display: none;
 			width: auto;
 			font-size: inherit;
@@ -645,7 +645,7 @@ export default {
 			}
 		}
 		.shop-item:hover {
-			color: #333;
+			color: #EDE6D6;
 			background: #475a8330;
 		}
 		.service-item {
@@ -653,7 +653,7 @@ export default {
 			padding: 0 8px;
 			margin: 0 0px;
 			color: inherit;
-			background: #fff;
+			background: transparent;
 			width: auto;
 			font-size: inherit;
 			line-height: 32px;
@@ -664,7 +664,7 @@ export default {
 			}
 		}
 		.service-item:hover {
-			color: #333;
+			color: #EDE6D6;
 			background: #475a8330;
 		}
 		.user-item {
@@ -672,7 +672,7 @@ export default {
 			padding: 0 8px;
 			margin: 0 0px;
 			color: inherit;
-			background: #fff;
+			background: transparent;
 			width: auto;
 			font-size: inherit;
 			line-height: 32px;
@@ -683,7 +683,7 @@ export default {
 			}
 		}
 		.user-item:hover {
-			color: #333;
+			color: #EDE6D6;
 			background: #475a8330;
 		}
 		.register-item {
@@ -691,7 +691,7 @@ export default {
 			padding: 0 8px;
 			margin: 0 0px;
 			color: inherit;
-			background: #fff;
+			background: transparent;
 			width: auto;
 			font-size: inherit;
 			line-height: 32px;
@@ -702,7 +702,7 @@ export default {
 			}
 		}
 		.register-item:hover {
-			color: #333;
+			color: #EDE6D6;
 			background: #475a8330;
 		}
 	}
@@ -776,7 +776,7 @@ export default {
 						}
 						.icon {
 							margin: 0 0 0 5px;
-							color: #666;
+							color: #93A396;
 							font-size: 14px;
 						}
 						.login-item {
@@ -918,7 +918,7 @@ export default {
 							.child-item {
 								cursor: pointer;
 								padding: 0 20px;
-								color: #333;
+								color: #EDE6D6;
 								width: 100%;
 								font-size: 15px;
 								line-height: 40px;
@@ -1106,11 +1106,11 @@ export default {
 						height: 8px;
 					}
 					::v-deep span.swiper-pagination-bullet:hover {
-						background: #fff;
+						background: transparent;
 						opacity: 1;
 					}
 					::v-deep span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-						background: #fff;
+						background: transparent;
 						opacity: 1;
 					}
 				}
@@ -1168,7 +1168,7 @@ export default {
 		height: 600px;
 		overflow-y: scroll;
 		border: 1px solid #eeeeee;
-		background: #fff;
+		background: transparent;
 
 		.left-content {
 			float: left;
@@ -1198,7 +1198,7 @@ export default {
 		color: #ffffff;
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
-		background: #fff;
+		background: transparent;
 	}
 
 	/* ===== 夜茶·墨绿金顶栏（背景交给 .top-container 主规则：半透明 + sticky 毛玻璃） ===== */

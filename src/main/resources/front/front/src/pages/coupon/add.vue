@@ -304,8 +304,8 @@
 	.add-update-preview {
 		padding: 0 0 20px;
 		margin: 0px auto;
-		color: #666;
-		background: #f6f6f6;
+		color: #93A396;
+		background: transparent;
 		max-width: var(--tea-content);
 		font-size: 16px;
 		position: relative;
@@ -313,7 +313,7 @@
 			border: 0px solid #E9D9B8;
 			padding: 20px;
 			margin: 20px 0;
-			background: #fff;
+			background: transparent;
 			width: 100%;
 			position: relative;
 			.add-item.el-form-item {
@@ -326,7 +326,7 @@
 				border-style: solid;
 				::v-deep .el-form-item__label {
 					padding: 0 10px 0 0;
-					color: #666;
+					color: #93A396;
 					font-weight: 500;
 					width: 180px;
 					font-size: inherit;
@@ -454,8 +454,8 @@
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 4px;
-					color: #999;
-					background: #fff;
+					color: #93A396;
+					background: transparent;
 					width: 80px;
 					font-size: 26px;
 					line-height: 60px;
@@ -466,8 +466,8 @@
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 4px;
-					color: #999;
-					background: #fff;
+					color: #93A396;
+					background: transparent;
 					width: 80px;
 					font-size: 26px;
 					line-height: 60px;
@@ -480,8 +480,8 @@
 					border: 1px solid #ddd;
 					cursor: pointer;
 					border-radius: 4px;
-					color: #999;
-					background: #fff;
+					color: #93A396;
+					background: transparent;
 					width: 80px;
 					font-size: 26px;
 					line-height: 60px;
@@ -489,7 +489,7 @@
 					height: 60px;
 				}
 				::v-deep .el-upload__tip {
-					color: #888;
+					color: #93A396;
 					font-size: 16px;
 				}
 				.el-textarea ::v-deep .el-textarea__inner {
@@ -527,7 +527,7 @@
 					font-size: inherit;
 				}
 				.editor {
-					background-color: #fff;
+					background: transparent;
 					border-radius: 0;
 					padding: 0;
 					box-shadow: none;
@@ -565,7 +565,7 @@
 					cursor: pointer;
 					padding: 0 20px;
 					margin: 0;
-					color: #333;
+					color: #EDE6D6;
 					display: inline-block;
 					font-size: 14px;
 					line-height: 34px;

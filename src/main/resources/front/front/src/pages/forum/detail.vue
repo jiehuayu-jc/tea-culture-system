@@ -517,12 +517,12 @@
 						position: relative;
 						text-align: center;
 						div {
-								color: #333;
+								color: #EDE6D6;
 								font-size: 24px;
 							}
 		}
 		.forumdetail-swpier2 {
-			background: #fff;
+			background: transparent;
 			width: 100%;
 			height: auto;
 			.swiper21 {
@@ -646,17 +646,17 @@
 										padding: 0 10px;
 										.icon {
 												margin: 0 2px 0 0;
-												color: #999;
+												color: #93A396;
 												font-size: 16px;
 												line-height: 1.5;
 											}
 					.label {
-												color: #999;
+												color: #93A396;
 												font-size: 16px;
 												line-height: 1.5;
 											}
 					.text {
-												color: #999;
+												color: #93A396;
 												font-size: 16px;
 												line-height: 1.5;
 											}
@@ -665,17 +665,17 @@
 										padding: 0 10px;
 										.icon {
 												margin: 0 2px 0 0;
-												color: #999;
+												color: #93A396;
 												font-size: 16px;
 												line-height: 1.5;
 											}
 					.label {
-												color: #999;
+												color: #93A396;
 												font-size: 16px;
 												line-height: 1.5;
 											}
 					.text {
-												color: #999;
+												color: #93A396;
 												font-size: 16px;
 												line-height: 1.5;
 											}
@@ -696,12 +696,12 @@
 										align-items: center;
 										.icon {
 												margin: 0 5px 0 0;
-												color: #333;
+												color: #EDE6D6;
 												font-size: 16px;
 												line-height: 40px;
 											}
 					.text {
-												color: #333;
+												color: #EDE6D6;
 												font-size: 16px;
 												line-height: 40px;
 											}
@@ -720,12 +720,12 @@
 										align-items: center;
 										.icon {
 												margin: 0 2px 0 0;
-												color: #333;
+												color: #EDE6D6;
 												font-size: 14px;
 												line-height: 40px;
 											}
 					.text {
-												color: #333;
+												color: #EDE6D6;
 												font-size: 14px;
 												line-height: 40px;
 											}
@@ -773,7 +773,7 @@
 										align-items: center;
 										border-style: solid;
 										.comment-title {
-												color: #333;
+												color: #EDE6D6;
 												font-weight: 600;
 												font-size: 20px;
 											}
@@ -814,7 +814,7 @@
 												border-radius: 10px;
 												padding: 20px;
 												margin: 20px 0;
-												color: #666;
+												color: #93A396;
 												background: none;
 												width: 100%;
 												align-items: center;
@@ -834,7 +834,7 @@
 																height: 40px;
 															}
 							.name {
-																color: #333;
+																color: #EDE6D6;
 																font-size: 16px;
 															}
 						}
@@ -843,7 +843,7 @@
 														padding: 0px;
 														box-shadow: none;
 														margin: 10px 0px 0px;
-														color: #666;
+														color: #93A396;
 														background: none;
 														font-size: 16px;
 														line-height: 30px;
@@ -876,7 +876,7 @@
 																cursor: pointer;
 																padding: 0 20px;
 																margin: 0;
-																color: #333;
+																color: #EDE6D6;
 																font-size: 14px;
 																line-height: 32px;
 																border-radius: 0px;
@@ -893,8 +893,8 @@
 														.item {
 																padding: 0px;
 																margin: 20px 0 0 0;
-																color: #666;
-																background: #fff;
+																color: #93A396;
+																background: transparent;
 																width: 100%;
 																border-color: #eee;
 																border-width: 0px;
@@ -917,7 +917,7 @@
 																				height: 40px;
 																			}
 									.name {
-																				color: #666;
+																				color: #93A396;
 																				font-size: 16px;
 																			}
 								}
@@ -926,7 +926,7 @@
 																		padding: 8px;
 																		box-shadow: none;
 																		margin: 10px 0px 0px;
-																		color: #888;
+																		color: #93A396;
 																		background: none;
 																		font-size: 16px;
 																		line-height: 30px;
@@ -943,7 +943,7 @@
 																				cursor: pointer;
 																				padding: 0 20px;
 																				margin: 0 0px;
-																				color: #333;
+																				color: #EDE6D6;
 																				font-size: 14px;
 																				line-height: 32px;
 																				border-radius: 0px;
@@ -965,8 +965,8 @@
 				border: 1px solid #ccc;
 				border-radius: 4px;
 				box-shadow: 0 0 0px rgba(80, 80, 80, .2);
-				color: #333;
-				background: #fff;
+				color: #EDE6D6;
+				background: transparent;
 				width: 100%;
 				font-size: 14px;
 				min-height: 350px;

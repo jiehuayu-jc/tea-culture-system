@@ -136,7 +136,7 @@
 		border-radius: 0;
 		padding: 0px 20px;
 		margin: 0px auto;
-		background: #fff;
+		background: transparent;
 		width: 100%;
 		border-color: #b2b2b2;
 		border-width: 0 0 1px;
@@ -153,7 +153,7 @@
 	}
 	.breadcrumb-preview .el-breadcrumb .el-breadcrumb__separator {
 		margin: 0 30px;
-		color: #666;
+		color: #93A396;
 		font-weight: 500;
 		/* P1-6：显式指定字体栈，避免继承 TeaSerif 导致 '≡' 缺字形渲染成豆腐块 */
 		font-family: "SimSun", "STSong", "Songti SC", serif;
@@ -182,7 +182,7 @@
 		border-radius: 0px;
 		padding: 10px 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 0 auto;
-		background: #fff;
+		background: transparent;
 		display: flex;
 		width: 100%;
 		justify-content: flex-end;
@@ -222,7 +222,7 @@
 		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 20px auto;
 		overflow: hidden;
-		color: #333;
+		color: #EDE6D6;
 		white-space: nowrap;
 		font-weight: 500;
 		width: 100%;
@@ -233,7 +233,7 @@
 	}
 	#pagination.el-pagination .el-pagination__total {
 		margin: 0 10px 0 0;
-		color: #666;
+		color: #93A396;
 		font-weight: 400;
 		display: inline-block;
 		vertical-align: top;
@@ -247,7 +247,7 @@
 		border-radius: 2px;
 		padding: 0 10px;
 		margin: 0 5px;
-		color: #666;
+		color: #93A396;
 		background: #f4f4f5;
 		display: inline-block;
 		vertical-align: top;
@@ -262,7 +262,7 @@
 		border-radius: 2px;
 		padding: 0 10px;
 		margin: 0 5px;
-		color: #666;
+		color: #93A396;
 		background: #f4f4f5;
 		display: inline-block;
 		vertical-align: top;
@@ -313,7 +313,7 @@
 		cursor: pointer;
 		padding: 0 4px;
 		margin: 0 5px;
-		color: #666;
+		color: #93A396;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 16px;

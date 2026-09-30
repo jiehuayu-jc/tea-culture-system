@@ -303,8 +303,8 @@
 	.list-preview {
 		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 0px auto;
-		color: #333;
-		background: #f6f6f6;
+		color: #EDE6D6;
+		background: transparent;
 		display: flex;
 		width: 100%;
 		font-size: 16px;
@@ -335,7 +335,7 @@
 				}
 				.lable {
 					padding: 0 10px;
-					color: #333;
+					color: #EDE6D6;
 					white-space: nowrap;
 					display: inline-block;
 					width: auto;
@@ -349,7 +349,7 @@
 					border: 1px solid #ccc;
 					border-radius: 8px;
 					padding: 3px 3px;
-					background: #fff;
+					background: transparent;
 					width: auto;
 					justify-content: center;
 				}
@@ -358,7 +358,7 @@
 					border-radius: 4px;
 					padding: 0 10px;
 					margin: 0 5px 0 0;
-					color: #333;
+					color: #EDE6D6;
 					width: auto;
 					font-size: 16px;
 					line-height: 40px;
@@ -377,7 +377,7 @@
 					border-radius: 4px;
 					padding: 0 0px 0 30px;
 					margin: 0;
-					color: #333;
+					color: #EDE6D6;
 					width: auto;
 					font-size: 16px;
 					line-height: 40px;
@@ -439,7 +439,7 @@
 				height: auto;
 				.label {
 					padding: 0 5px;
-					color: #333;
+					color: #EDE6D6;
 					font-weight: 500;
 					display: inline-block;
 					font-size: inherit;
@@ -585,7 +585,7 @@
 				border-radius: 0 0 20px 20px;
 				padding: 20px;
 				margin: 0 auto;
-				background: #fff;
+				background: transparent;
 				display: flex;
 				width: calc(100% - 20px);
 				flex-wrap: wrap;
@@ -594,7 +594,7 @@
 					cursor: pointer;
 					padding: 10px;
 					margin: 0 10px 20px;
-					background: #f5f5f5;
+					background: transparent;
 					display: flex;
 					width: calc(50% - 20px);
 					position: relative;
@@ -618,7 +618,7 @@
 					.item-info {
 						padding: 10px;
 						overflow: hidden;
-						color: #666;
+						color: #93A396;
 						flex: 1;
 						/* P1-4：纵向 flex，把 查看详情 按钮自然推到底部，替代绝对定位 + left:296px */
 						display: flex;

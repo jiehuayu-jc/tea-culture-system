@@ -424,7 +424,7 @@ export default {
 				.list-item {
 					border-radius: 8px;
 					margin: 0 auto 20px;
-					background: #fff;
+					background: transparent;
 					width: 80%;
 					::v-deep.el-form-item__content {
 						padding: 0 0 0 120px;
@@ -433,7 +433,7 @@ export default {
 						.label {
 							padding: 0 5px 0 0;
 							z-index: 9;
-							color: #333;
+							color: #EDE6D6;
 							left: 0;
 							width: 120px;
 							font-size: 16px;
@@ -460,7 +460,7 @@ export default {
 							border: 0px solid #b0b0b0;
 							border-radius: 8px;
 							padding: 0 10px;
-							color: #666;
+							color: #93A396;
 							flex: 1;
 							width: calc(100% - 0px);
 							font-size: 15px;
@@ -471,7 +471,7 @@ export default {
 							border-radius: 8px;
 							padding: 0 10px;
 							outline: none;
-							color: #666;
+							color: #93A396;
 							width: calc(100% - 0px);
 							font-size: 15px;
 							height: 40px;
@@ -485,7 +485,7 @@ export default {
 							border: 0px solid #b0b0b0;
 							border-radius: 8px;
 							padding: 0 10px;
-							color: #666;
+							color: #93A396;
 							flex: 1;
 							width: calc(100% - 0px);
 							font-size: 15px;
@@ -505,7 +505,7 @@ export default {
 							border: 0px solid #b0b0b0;
 							border-radius: 8px;
 							padding: 0 10px;
-							color: #666;
+							color: #93A396;
 							width: 100%;
 							font-size: 15px;
 							height: 40px;
@@ -515,7 +515,7 @@ export default {
 							border-radius: 8px;
 							padding: 0 10px;
 							outline: none;
-							color: #666;
+							color: #93A396;
 							width: 100%;
 							font-size: 15px;
 							height: 40px;
@@ -528,7 +528,7 @@ export default {
 							border: 0px solid #b0b0b0;
 							border-radius: 8px;
 							padding: 0 10px 0 30px;
-							color: #666;
+							color: #93A396;
 							width: 100%;
 							font-size: 15px;
 							height: 40px;
@@ -538,7 +538,7 @@ export default {
 							border-radius: 8px;
 							padding: 0 10px 0 30px;
 							outline: none;
-							color: #666;
+							color: #93A396;
 							width: 100%;
 							font-size: 15px;
 							height: 40px;
@@ -558,7 +558,7 @@ export default {
 							border-radius: 0px;
 							margin: 5px 0 0;
 							color: #b0b0b0;
-							background: #fff;
+							background: transparent;
 							width: 80px;
 							font-size: 24px;
 							line-height: 50px;
@@ -571,7 +571,7 @@ export default {
 							border-radius: 0px;
 							margin: 5px 0 0;
 							color: #b0b0b0;
-							background: #fff;
+							background: transparent;
 							width: 80px;
 							font-size: 24px;
 							line-height: 50px;
@@ -586,7 +586,7 @@ export default {
 							border-radius: 0px;
 							margin: 5px 0 0;
 							color: #b0b0b0;
-							background: #fff;
+							background: transparent;
 							width: 80px;
 							font-size: 24px;
 							line-height: 50px;
@@ -603,7 +603,7 @@ export default {
 							padding: 0 10px;
 							margin: 0;
 							color: #606266;
-							background: #fff;
+							background: transparent;
 							flex: 1;
 							width: calc(100% - 0px);
 							font-size: 15px;
@@ -637,17 +637,17 @@ export default {
 						}
 						
 						.el-input__inner::placeholder {
-							color: #999;
+							color: #93A396;
 							font-size: 15px;
 						}
 						input::placeholder {
-							color: #999;
+							color: #93A396;
 							font-size: 15px;
 						}
 						.editor {
 							border-radius: 8px;
 							margin: 0 0 0 0px;
-							background: #fff;
+							background: transparent;
 							width: calc(100% - 0px);
 							height: auto;
 						}

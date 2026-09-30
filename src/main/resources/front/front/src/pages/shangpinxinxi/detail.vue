@@ -965,9 +965,9 @@
 	.detail-preview {
 		padding: 20px 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 0px auto;
-		color: #666;
+		color: #93A396;
 		align-content: flex-start;
-		background: #fff;
+		background: transparent;
 		display: flex;
 		width: 100%;
 		font-size: 16px;
@@ -993,7 +993,7 @@
 					border-radius: 0px;
 					padding: 10px 0px;
 					margin: 0 auto 3px;
-					background: #ffffff;
+					background: transparent;
 					display: flex;
 					border-color: #ddd;
 					border-width: 0 0 0px;
@@ -1002,7 +1002,7 @@
 					align-items: center;
 					border-style: dashed;
 					.detail-title {
-						color: #000;
+						color: #EDE6D6;
 						font-weight: 600;
 						font-size: 18px;
 					}
@@ -1013,11 +1013,11 @@
 						padding: 4px 10px;
 						background: none;
 						.icon {
-							color: #666;
+							color: #93A396;
 							font-size: inherit;
 						}
 						.text {
-							color: #666;
+							color: #93A396;
 							font-size: inherit;
 						}
 					}
@@ -1059,7 +1059,7 @@
 					border-radius: 0px;
 					padding: 10px 0px;
 					margin: 0 auto 3px;
-					background: #ffffff;
+					background: transparent;
 					display: flex;
 					border-color: #ddd;
 					border-width: 0 0 0px;
@@ -1068,7 +1068,7 @@
 					align-items: center;
 					border-style: dashed;
 					.coupon-kong {
-						color: #000;
+						color: #EDE6D6;
 						font-weight: 600;
 						font-size: 18px;
 					}
@@ -1094,7 +1094,7 @@
 					border-radius: 0px;
 					padding: 8px 0;
 					margin: 0 0 3px 0;
-					background: #fff;
+					background: transparent;
 					display: flex;
 					border-color: #ccc;
 					border-width: 0 0 1px;
@@ -1102,7 +1102,7 @@
 					border-style: solid;
 					.lable {
 						padding: 0 10px 0 0;
-						color: #333;
+						color: #EDE6D6;
 						white-space: nowrap;
 						font-weight: 500;
 						width: auto;
@@ -1163,7 +1163,7 @@
 						border-radius: 4px 0 0 4px;
 						top: 1px;
 						left: 1px;
-						background: #f5f5f5;
+						background: transparent;
 						width: 40px;
 						justify-content: center;
 						border-width: 0 1px 0 0;
@@ -1175,7 +1175,7 @@
 					}
 					
 					::v-deep .el-input-number__decrease i {
-						color: #666;
+						color: #93A396;
 						font-size: 14px;
 					}
 				
@@ -1187,7 +1187,7 @@
 						right: 1px;
 						border-radius: 0 4px 4px 0;
 						top: 1px;
-						background: #f5f5f5;
+						background: transparent;
 						width: 40px;
 						justify-content: center;
 						border-width: 0 0 0 1px;
@@ -1199,7 +1199,7 @@
 					}
 					
 					::v-deep .el-input-number__increase i {
-						color: #666;
+						color: #93A396;
 						font-size: 14px;
 					}
 					
@@ -1208,7 +1208,7 @@
 						border-radius: 4px;
 						padding: 0 40px;
 						outline: none;
-						color: #666;
+						color: #93A396;
 						background: #FFF;
 						display: inline-block;
 						width: 100%;
@@ -1391,7 +1391,7 @@
 			box-shadow: none;
 			padding: 0;
 			margin: 20px auto 40px;
-			background: #fff;
+			background: transparent;
 			flex: 1;
 			display: flex;
 			width: 100%;
@@ -1416,7 +1416,7 @@
 				border: 0;
 				padding: 0 20px;
 				margin: 0 2px;
-				color: #000;
+				color: #EDE6D6;
 				font-weight: 500;
 				display: block;
 				font-size: 16px;
@@ -1468,7 +1468,7 @@
 					height: auto;
 					::v-deep .el-form-item__label {
 						padding: 0 10px 0 0;
-						color: #666;
+						color: #93A396;
 						white-space: nowrap;
 						font-weight: 500;
 						width: auto;
@@ -1480,8 +1480,8 @@
 						border: 1px solid #ccc;
 						border-radius: 4px;
 						box-shadow: 0 0 0px rgba(80, 80, 80, .2);
-						color: #333;
-						background: #fff;
+						color: #EDE6D6;
+						background: transparent;
 						width: 100%;
 						font-size: 14px;
 						min-height: 350px;
@@ -1521,7 +1521,7 @@
 						border-radius: 0px;
 						padding: 0 20px 0 25px;
 						margin: 0 20px 0 0;
-						color: #333;
+						color: #EDE6D6;
 						background: #93A396;
 						width: auto;
 						font-size: 15px;
@@ -1554,16 +1554,16 @@
 					.istop {
 						box-shadow: 0 4px 8px rgba(0,0,0,.1);
 						top: 0;
-						background: #fff;
+						background: transparent;
 						position: absolute;
 						right: 10px;
 						.icon {
-							color: #000;
+							color: #EDE6D6;
 						}
 					}
 					.user {
 						padding: 5px;
-						background: #fff;
+						background: transparent;
 						display: flex;
 						width: 100%;
 						align-items: center;
@@ -1576,7 +1576,7 @@
 							height: 60px;
 						}
 						.name {
-							color: #333;
+							color: #EDE6D6;
 							font-weight: 600;
 							font-size: 16px;
 						}
@@ -1586,7 +1586,7 @@
 						padding: 8px;
 						margin: 10px 0px 0px;
 						word-wrap: break-word;
-						color: #888;
+						color: #93A396;
 						background: none;
 						font-size: 14px;
 						line-height: 1.5;
@@ -1694,7 +1694,7 @@
 								cursor: pointer;
 								padding: 0 20px;
 								margin: 0 10px;
-								color: #333;
+								color: #EDE6D6;
 								font-size: 14px;
 								line-height: 32px;
 								border-radius: 0px;
@@ -1737,7 +1737,7 @@
 		box-shadow: 0 1px 6px rgba(0,0,0,.3);
 		z-index: 11;
 		bottom: 20%;
-		background: #fff;
+		background: transparent;
 		position: fixed;
 		right: 0;
 		.share:last-of-type{
@@ -1771,7 +1771,7 @@
 	
 			.coupon_left {
 				flex: 1;
-				color: #000;
+				color: #EDE6D6;
 	
 				.name {
 					font-size: 22px;
@@ -1826,13 +1826,13 @@
 		}
 	}
 	.idea1 {
-		background: #fff;
+		background: transparent;
 		width: 100%;
 		height: 1px;
 		order: 4;
 	}
 	.idea2 {
-		background: #fff;
+		background: transparent;
 		width: 100%;
 		height: 1px;
 		order: 6;

@@ -871,8 +871,8 @@
 	.center-preview {
 		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
 		margin: 10px auto;
-		color: #666;
-		background: #f6f6f6;
+		color: #93A396;
+		background: transparent;
 		display: flex;
 		width: 100%;
 		font-size: 16px;
@@ -912,7 +912,7 @@
 			height: auto;
 			order: 2;
 			.center-info-title {
-				color: #333;
+				color: #EDE6D6;
 				display: none;
 				width: 100%;
 				font-size: 18px;
@@ -1113,7 +1113,7 @@
 			border: 0px solid #E9D9B8;
 			border-radius: 20px;
 			margin: 30px auto;
-			background: #fff;
+			background: transparent;
 			width: 100%;
 			order: 3;
 			::v-deep .el-tabs__header {
@@ -1147,12 +1147,12 @@
 			::v-deep .el-tabs__header .el-tabs__item:hover {
 				border: 0;
 				color: #3E6B4F;
-				background: #fff;
+				background: transparent;
 			}
 			::v-deep .el-tabs__header .el-tabs__item.is-active {
 				border: 0;
 				color: #3E6B4F;
-				background: #fff;
+				background: transparent;
 				font-size: inherit;
 				line-height: 60px;
 				float: left;
@@ -1210,7 +1210,7 @@
 					border-radius: 0px;
 					padding: 6px 0 0;
 					margin: 0 0 20px 0;
-					background: #fff;
+					background: transparent;
 					border-color: #475a8310;
 					border-width:  0 0 0px;
 					border-style: solid;
@@ -1314,8 +1314,8 @@
 						border: 1px solid #ddd;
 						cursor: pointer;
 						border-radius: 4px;
-						color: #999;
-						background: #fff;
+						color: #93A396;
+						background: transparent;
 						width: 80px;
 						font-size: 32px;
 						line-height: 80px;
@@ -1326,8 +1326,8 @@
 						border: 1px solid #ddd;
 						cursor: pointer;
 						border-radius: 4px;
-						color: #999;
-						background: #fff;
+						color: #93A396;
+						background: transparent;
 						width: 80px;
 						font-size: 32px;
 						line-height: 80px;
@@ -1340,8 +1340,8 @@
 						border: 1px solid #ddd;
 						cursor: pointer;
 						border-radius: 4px;
-						color: #999;
-						background: #fff;
+						color: #93A396;
+						background: transparent;
 						width: 80px;
 						font-size: 32px;
 						line-height: 80px;
@@ -1353,7 +1353,7 @@
 						font-size: 16px;
 					}
 					::v-deep .el-input__inner::placeholder {
-						color: #999;
+						color: #93A396;
 						font-size: inherit;
 					}
 					.balance-item {
@@ -1368,7 +1368,7 @@
 							padding: 0 12px;
 							box-shadow: none;
 							color: inherit;
-							background: #fff;
+							background: transparent;
 							display: inline-block;
 							width: auto;
 							font-size: 16px;
@@ -1387,18 +1387,18 @@
 							line-height: 40px;
 							height: 40px;
 							.icon {
-								color: #333;
+								color: #EDE6D6;
 							}
 							.text {
-								color: #333;
+								color: #EDE6D6;
 							}
 						}
 						.balanceBtn:hover {
 							.icon {
-								color: #000;
+								color: #EDE6D6;
 							}
 							.text {
-								color: #000;
+								color: #EDE6D6;
 							}
 						}
 					}
@@ -1491,7 +1491,7 @@
 			}
 			.coupon_left {
 				flex: 1;
-				color: #000;
+				color: #EDE6D6;
 				.name {
 					font-size: 22px;
 					line-height: 1.5;
@@ -1553,11 +1553,11 @@
 			border: 1px solid #bfbfbf;
 			padding: 20px;
 			margin: 0 10px 20px;
-			color: #333;
+			color: #EDE6D6;
 			display: flex;
 			flex-wrap: wrap;
 			border-radius: 20px;
-			background: #fff;
+			background: transparent;
 			width: calc(20% - 20px);
 			justify-content: space-between;
 			align-items: center;
@@ -1583,7 +1583,7 @@
 					align-items: center;
 					flex-wrap: wrap;
 					.chat-name {
-						color: #333;
+						color: #EDE6D6;
 						background: none;
 						font-weight: bold;
 						width: 100%;
@@ -1593,7 +1593,7 @@
 						text-align: center;
 					}
 					.chat-text {
-						color: #888;
+						color: #93A396;
 						flex: 1;
 						display: flex;
 						font-size: 12px;
@@ -1640,7 +1640,7 @@
 					border-radius: 4px;
 					padding: 0px 10px;
 					margin: 0px;
-					color: #333;
+					color: #EDE6D6;
 					background: #dedede;
 					text-decoration: none;
 					width: 80px;
@@ -1659,10 +1659,10 @@
 				}
 				.chat-info {
 					.chat-name {
-						color: #000;
+						color: #EDE6D6;
 					}
 					.chat-text {
-						color: #000;
+						color: #EDE6D6;
 					}
 				}
 			}
@@ -1676,7 +1676,7 @@
 		height: 300px;
 		overflow-y: scroll;
 		border: 1px solid #eeeeee;
-		background: #fff;
+		background: transparent;
 	
 		.addtime {
 			width: 100%;

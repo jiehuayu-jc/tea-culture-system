@@ -446,7 +446,7 @@
 	.attr .el-carousel ::v-deep .el-carousel__indicators li {
 		padding: 0;
 		margin: 0 4px;
-		background: #fff;
+		background: transparent;
 		display: inline-block;
 		width: 12px;
 		opacity: 0.4;
@@ -527,7 +527,7 @@
 		border-radius: 4px;
 		padding: 0 40px;
 		outline: none;
-		color: #000;
+		color: #EDE6D6;
 		background: #FFF;
 		display: inline-block;
 		width: 100%;
@@ -583,7 +583,7 @@
 	
 	.detail-preview .detail.el-tabs .add ::v-deep .el-form-item__label {
 		padding: 0 10px 0 0;
-		color: #666;
+		color: #93A396;
 		width: 80px;
 		font-size: 14px;
 		line-height: 40px;
@@ -600,23 +600,23 @@
 	}
 	
 	.breadcrumb-preview .el-breadcrumb .item1 ::v-deep .el-breadcrumb__inner a {
-		color: #000;
+		color: #EDE6D6;
 		display: inline-block;
 	}
 	
 	.breadcrumb-preview .el-breadcrumb .item2 ::v-deep .el-breadcrumb__inner a {
-		color: #000;
+		color: #EDE6D6;
 		display: inline-block;
 	}
 		
 	.breadcrumb-preview .el-breadcrumb .item3 ::v-deep .el-breadcrumb__inner a {
-		color: #000;
+		color: #EDE6D6;
 		display: inline-block;
 	}
 	
 	#pagination.el-pagination ::v-deep .el-pagination__total {
 		margin: 0 10px 0 0;
-		color: #666;
+		color: #93A396;
 		font-weight: 400;
 		display: inline-block;
 		vertical-align: top;
@@ -696,7 +696,7 @@
 		cursor: pointer;
 		padding: 0 4px;
 		margin: 0 5px;
-		color: #000;
+		color: #EDE6D6;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 13px;

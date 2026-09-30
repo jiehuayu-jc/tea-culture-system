@@ -249,7 +249,7 @@
 	.list-preview {
 		margin: 0px auto;
 		flex-direction: column;
-		color: #333;
+		color: #EDE6D6;
 		background: none;
 		display: flex;
 		max-width: var(--tea-content);
@@ -261,7 +261,7 @@
 		.category-3 {
 			padding: 0px;
 			margin: 20px auto;
-			background: #fff;
+			background: transparent;
 			display: flex;
 			width: 100%;
 			height: auto;
@@ -288,11 +288,11 @@
 				}
 			}
 			.item:hover {
-				color: #000;
+				color: #EDE6D6;
 				background: #D4AF37;
 			}
 			.item.active {
-				color: #000;
+				color: #EDE6D6;
 				background: #D4AF37;
 				font-size: 16px;
 			}
@@ -319,7 +319,7 @@
 				}
 				.lable {
 					padding: 0 10px;
-					color: #333;
+					color: #EDE6D6;
 					white-space: nowrap;
 					display: inline-block;
 					width: auto;
@@ -333,7 +333,7 @@
 					border: 1px solid #ccc;
 					border-radius: 8px;
 					padding: 3px 3px;
-					background: #fff;
+					background: #152A20;
 					width: auto;
 					justify-content: center;
 				}
@@ -342,7 +342,7 @@
 					border-radius: 4px;
 					padding: 0 10px;
 					margin: 0 5px 0 0;
-					color: #333;
+					color: #EDE6D6;
 					width: auto;
 					font-size: 16px;
 					line-height: 40px;
@@ -361,7 +361,7 @@
 					border-radius: 4px;
 					padding: 0 0px 0 30px;
 					margin: 0;
-					color: #333;
+					color: #EDE6D6;
 					width: auto;
 					font-size: 16px;
 					line-height: 40px;
@@ -374,7 +374,7 @@
 				border-radius: 4px;
 				padding: 0px 15px;
 				margin: 0 10px 0 10px;
-				color: #000;
+				color: #EDE6D6;
 				background: #D4AF3790;
 				width: auto;
 				font-size: inherit;
@@ -382,7 +382,7 @@
 				height: 40px;
 				i {
 					margin: 0 10px 0 0;
-					color: #000;
+					color: #EDE6D6;
 					font-size: inherit;
 				}
 			}
@@ -392,7 +392,7 @@
 				border-radius: 4px;
 				padding: 0px 15px;
 				margin: 0 10px 0 0;
-				color: #000;
+				color: #EDE6D6;
 				background: #D4AF3790;
 				width: auto;
 				font-size: inherit;
@@ -400,7 +400,7 @@
 				height: 40px;
 				i {
 					margin: 0 10px 0 0;
-					color: #000;
+					color: #EDE6D6;
 					font-size: inherit;
 				}
 			}
@@ -420,7 +420,7 @@
 				height: auto;
 				.label {
 					padding: 0 5px;
-					color: #333;
+					color: #EDE6D6;
 					font-weight: 500;
 					display: inline-block;
 					font-size: inherit;
@@ -442,12 +442,12 @@
 					}
 					.item:hover {
 						cursor: pointer;
-						color: #000;
+						color: #EDE6D6;
 						background: #D4AF37;
 					}
 					.item.active {
 						cursor: pointer;
-						color: #000;
+						color: #EDE6D6;
 						background: #D4AF37;
 						display: inline-block;
 					}
@@ -456,7 +456,7 @@
 		}
 		.list {
 			margin: 20px auto;
-			background: #fff;
+			background: transparent;
 			width: 100%;
 			font-size: 15px;
 			.index-pv1 .animation-box {
@@ -520,9 +520,9 @@
 							border: 0px solid #eee;
 							padding: 0;
 							overflow: hidden;
-							color: #333;
+							color: #EDE6D6;
 							white-space: nowrap;
-							background: #fff;
+							background: transparent;
 							font-weight: normal;
 							width: 100%;
 							font-size: 18px;
@@ -542,7 +542,7 @@
 						.centerInfo {
 							padding: 10px 0;
 							margin: 0px 0 0;
-							color: #999;
+							color: #93A396;
 							display: flex;
 							width: 100%;
 							font-size: 16px;
@@ -642,12 +642,12 @@
 									line-height: 1.5;
 								}
 								.label {
-									color: #999;
+									color: #93A396;
 									font-size: 16px;
 									line-height: 1.5;
 								}
 								.text {
-									color: #999;
+									color: #93A396;
 									font-size: 16px;
 									line-height: 1.5;
 								}
@@ -661,10 +661,10 @@
 								width: 150px;
 								text-align: center;
 								.text {
-									color: #666;
+									color: #93A396;
 								}
 								.icon {
-									color: #666;
+									color: #93A396;
 								}
 							}
 						}
@@ -681,7 +681,7 @@
 					.infoBox {
 						.name {
 							border: 0px solid #ffffff50;
-							color: #000;
+							color: #EDE6D6;
 							background: none;
 						}
 						.price {
@@ -692,68 +692,68 @@
 						.centerInfo {
 							.publisher_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.like_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.collect_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.view_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 						}
 						.bottomInfo {
 							.time_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.more_btn {
 								background: #ffffff30;
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 						}
@@ -792,9 +792,9 @@
 							border: 0px solid #eee;
 							padding: 0;
 							overflow: hidden;
-							color: #333;
+							color: #EDE6D6;
 							white-space: nowrap;
-							background: #fff;
+							background: transparent;
 							font-weight: normal;
 							width: 100%;
 							font-size: 18px;
@@ -814,7 +814,7 @@
 						.centerInfo {
 							padding: 10px 0;
 							margin: 0px 0 0;
-							color: #999;
+							color: #93A396;
 							display: flex;
 							width: 100%;
 							font-size: 16px;
@@ -908,7 +908,7 @@
 							flex-wrap: wrap;
 							.time_item {
 								padding: 0;
-								color: #999;
+								color: #93A396;
 								width: 100%;
 								font-size: 16px;
 								.icon {
@@ -958,7 +958,7 @@
 					.infoBox {
 						.name {
 							border: 0px solid #ffffff50;
-							color: #000;
+							color: #EDE6D6;
 							background: none;
 						}
 						.price {
@@ -969,68 +969,68 @@
 						.centerInfo {
 							.publisher_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.like_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.collect_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.view_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 						}
 						.bottomInfo {
 							.time_item {
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.label {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 							.more_btn {
 								background: #ffffff30;
 								.text {
-									color: #333;
+									color: #EDE6D6;
 								}
 								.icon {
-									color: #333;
+									color: #EDE6D6;
 								}
 							}
 						}
