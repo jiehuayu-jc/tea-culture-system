@@ -45,7 +45,7 @@
 			</el-form-item>
 			<el-form-item :style='{"padding":"6px 0 0","margin":"0 0 20px 0","borderColor":"#475a8310","borderRadius":"0px","background":"none","borderWidth":" 0 0 0px","borderStyle":"solid"}' label="内容" prop="content">
 				<editor
-					:style='{"minHeight":"350px","border":"1px solid #ccc","boxShadow":"0 0 0px rgba(80, 80, 80, .2)","color":"#333","borderRadius":"4px","background":"#fff","width":"100%","lineHeight":"32px","fontSize":"14px"}'
+					:style='{"minHeight":"350px","border":"1px solid rgba(212,175,55,.22)","boxShadow":"0 0 0px rgba(80, 80, 80, .2)","color":"#EDE6D6","borderRadius":"4px","background":"#152A20","width":"100%","lineHeight":"32px","fontSize":"14px"}'
 					v-model="form.content" 
 					class="editor" 
 					action="file/upload">

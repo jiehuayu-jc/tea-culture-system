@@ -24,12 +24,12 @@
 				
 				
 				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"none","justifyContent":"spaceBetween","display":"flex"}'>
-					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#9e9e9e","textAlign":"right"}'>发布时间</div>
-					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#3B2626","flex":"1"}'>{{detail.fabushijian}}</div>
+					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#93A396","textAlign":"right"}'>发布时间</div>
+					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#C9C4B4","flex":"1"}'>{{detail.fabushijian}}</div>
 				</div>
 				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"none","justifyContent":"spaceBetween","display":"flex"}'>
-					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#9e9e9e","textAlign":"right"}'>点击次数</div>
-					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#3B2626","flex":"1"}'>{{detail.clicknum}}</div>
+					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#93A396","textAlign":"right"}'>点击次数</div>
+					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#C9C4B4","flex":"1"}'>{{detail.clicknum}}</div>
 				</div>
 				<div class="btn" :style='{"padding":"10px 0","flexWrap":"wrap","display":"flex"}'>
 					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 auto 10px","outline":"none","color":"#fff","borderRadius":"10px","background":"#0F2419","width":"40%","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="btnAuth('jiaoxueshipin','修改')" @click="editClick">修改</el-button>
@@ -61,7 +61,7 @@
 				<el-form class="add comment" :style='{"boxShadow":"none","padding":"15px","margin":"0 0 20px"}' :model="form" :rules="rules" ref="form">
 					<el-form-item class="item" :style='{"width":"100%","display":"flex","height":"auto"}' label="评论" prop="content">
 						<editor
-						    :style='{"border":"1px solid #ddd","minHeight":"250px","boxShadow":"none","color":"#333","borderRadius":"4px","background":"#fff","width":"80%","lineHeight":"32px","fontSize":"14px"}'
+						    :style='{"border":"1px solid rgba(212,175,55,.22)","minHeight":"250px","boxShadow":"none","color":"#EDE6D6","borderRadius":"4px","background":"#152A20","width":"80%","lineHeight":"32px","fontSize":"14px"}'
 						    v-model="form.content" 
 						    class="editor" 
 						    action="file/upload">
@@ -79,16 +79,16 @@
 						<div class="user" :style='{"width":"100%","alignItems":"center","display":"flex","height":"auto"}'>
 							<el-image v-if="item.avatarurl" :style='{"width":"40px","margin":"0 10px 0 0","borderRadius":"100%","objectFit":"cover","height":"40px"}' :size="50" :src="baseUrl + item.avatarurl"></el-image>
 							<el-image v-if="!item.avatarurl" :style='{"width":"40px","margin":"0 10px 0 0","borderRadius":"100%","objectFit":"cover","height":"40px"}' :size="50" :src="require('@/assets/touxiang.png')"></el-image>
-							<div :style='{"color":"#333","fontSize":"16px"}' class="name">{{item.nickname}}</div>
+							<div :style='{"color":"#C9C4B4","fontSize":"16px"}' class="name">{{item.nickname}}</div>
 						</div>
-						<div :style='{"padding":"8px","boxShadow":"none","margin":"10px 0px 0px","color":"#333","borderRadius":"4px","background":"none","wordWrap":"break-word","lineHeight":"30px","fontSize":"14px"}' class="content-block-ask">
+						<div :style='{"padding":"8px","boxShadow":"none","margin":"10px 0px 0px","color":"#C9C4B4","borderRadius":"4px","background":"none","wordWrap":"break-word","lineHeight":"30px","fontSize":"14px"}' class="content-block-ask">
 							<div v-html="item.content"></div>
 							<div class="btn" :style='{"width":"100%","margin":"8px 0 0 0","alignItems":"center","justifyContent":"flex-end","display":"flex","height":"30px"}'>
 							  <!-- <el-button :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#3E6B4F","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>回复</el-button> -->
 							  <el-button v-if="showIndex==item.id&&userid==item.userid" @click="discussDel(item.id)" :style='{"border":"0","cursor":"pointer","padding":"0 20px","margin":"0 10px","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"30px","background":"#9E9E9E","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'>删除</el-button>
 							</div>
 						</div>
-						<div :style='{"padding":"8px","boxShadow":"none","margin":"10px 0px 0px","color":"#333","borderRadius":"4px","background":"none","wordWrap":"break-word","lineHeight":"30px","fontSize":"14px"}' class="content-block-reply" v-if="item.reply">
+						<div :style='{"padding":"8px","boxShadow":"none","margin":"10px 0px 0px","color":"#C9C4B4","borderRadius":"4px","background":"none","wordWrap":"break-word","lineHeight":"30px","fontSize":"14px"}' class="content-block-reply" v-if="item.reply">
 							回复：<span v-html="item.reply"></span>
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 				  :hide-on-single-page="false"
 				  :layout='["prev","pager","next"].join()'
 				  :total="total"
-				  :style='{"padding":"0","margin":"10px auto","whiteSpace":"nowrap","color":"#333","textAlign":"center","width":"1200px","fontWeight":"500"}'
+				  :style='{"padding":"0","margin":"10px auto","whiteSpace":"nowrap","color":"#C9C4B4","textAlign":"center","maxWidth":"1200px","width":"100%","fontWeight":"500"}'
 				  @current-change="curChange"
 				  @prev-click="prevClick"
 				  @next-click="nextClick"

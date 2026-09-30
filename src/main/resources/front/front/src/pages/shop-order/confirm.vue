@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#EDE6D6","background":"none","width":"1400px","fontSize":"16px","position":"relative"}'>
+	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#EDE6D6","background":"none","maxWidth":"1400px","width":"100%","fontSize":"16px","position":"relative"}'>
 		<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>确认{{totalPrice>0?'下单':'预订'}}</div>
 		<el-descriptions v-if="seat!=1" title="选择收货地址"></el-descriptions>
 		<el-table v-if="seat!=1"

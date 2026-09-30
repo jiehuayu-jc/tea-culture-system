@@ -27,7 +27,7 @@
     </el-form>
 	<div class="select2" :style='{"width":"83%","padding":"20px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","background":"rgba(21,42,32,.85)","height":"auto"}'>
 	  <div :style='{"width":"100%","padding":"0 0 0 20px","margin":"0 0 10px","position":"relative","background":"none","height":"auto"}' class="list" v-for="(item,index) in selectOptionsList" :key="item">
-	    <div :style='{"padding":"0 5px","color":"#9e9e9e","textAlign":"right","display":"inline-block","width":"auto","lineHeight":"32px","fontSize":"14px"}' class="label">{{item.name}}：</div>
+	    <div :style='{"padding":"0 5px","color":"#93A396","textAlign":"right","display":"inline-block","width":"auto","lineHeight":"32px","fontSize":"14px"}' class="label">{{item.name}}：</div>
 	    <div :style='{"width":"auto","display":"inline-block","height":"auto"}' class="item-body">
 	      <div class="item" @click="selectClick2(item,-1)" :class="item.check ==-1 ? 'active' : ''">全部</div>
 	      <div class="item" @click="selectClick2(item,index1)" :class="item.check == index1 ? 'active' : ''" v-for="item1,index1 in item.list" :key="item1">{{item1}}</div>
@@ -71,7 +71,7 @@
 	  :hide-on-single-page="false"
 	  :layout='["prev","pager","next"].join()'
 	  :total="total"
-	  :style='{"padding":"0","margin":"10px auto","whiteSpace":"nowrap","color":"#333","textAlign":"center","width":"1200px","fontWeight":"500"}'
+	  :style='{"padding":"0","margin":"10px auto","whiteSpace":"nowrap","color":"#C9C4B4","textAlign":"center","maxWidth":"1200px","width":"100%","fontWeight":"500"}'
 	  @current-change="curChange"
       @size-change="sizeChange"
 	  @prev-click="prevClick"

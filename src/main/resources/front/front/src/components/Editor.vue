@@ -227,4 +227,71 @@ export default {
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
   content: "等宽字体";
 }
+
+/* ===== 夜茶暗色主题：quill 编辑器深色化 ===== */
+.editor .ql-toolbar.ql-snow,
+.editor .ql-container.ql-snow {
+  border-color: rgba(212, 175, 55, .22);
+}
+.editor .ql-toolbar.ql-snow {
+  background: rgba(21, 42, 32, .85);
+}
+.editor .ql-container.ql-snow {
+  background: #152A20;
+}
+.editor .ql-editor {
+  color: #EDE6D6;
+}
+.editor .ql-editor.ql-blank::before {
+  color: rgba(147, 163, 150, .55);
+}
+.editor .ql-snow .ql-stroke {
+  stroke: #C9C4B4;
+}
+.editor .ql-snow .ql-fill,
+.editor .ql-snow .ql-stroke.ql-fill {
+  fill: #C9C4B4;
+}
+.editor .ql-snow .ql-picker {
+  color: #C9C4B4;
+}
+.editor .ql-snow .ql-picker-options {
+  background: #152A20;
+  border-color: rgba(212, 175, 55, .22);
+}
+.editor .ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  border-color: rgba(212, 175, 55, .3);
+}
+.editor .ql-snow .ql-tooltip {
+  background: #152A20;
+  color: #EDE6D6;
+  border-color: rgba(212, 175, 55, .22);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+}
+.editor .ql-snow .ql-tooltip input[type=text] {
+  background: #0c1b14;
+  color: #EDE6D6;
+  border: 1px solid rgba(212, 175, 55, .3);
+}
+.editor .ql-snow.ql-toolbar button:hover .ql-stroke,
+.editor .ql-snow .ql-picker-label:hover .ql-stroke,
+.editor .ql-snow .ql-picker-item:hover .ql-stroke {
+  stroke: #D4AF37;
+}
+.editor .ql-snow.ql-toolbar button:hover .ql-fill,
+.editor .ql-snow .ql-picker-label:hover .ql-fill {
+  fill: #D4AF37;
+}
+.editor .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.editor .ql-snow.ql-toolbar button.ql-active .ql-fill,
+.editor .ql-snow .ql-picker-label.ql-active .ql-stroke,
+.editor .ql-snow .ql-picker-label.ql-active .ql-fill {
+  stroke: #D4AF37;
+  fill: #D4AF37;
+}
+.editor .ql-snow .ql-picker-label:hover,
+.editor .ql-snow .ql-picker-item:hover,
+.editor .ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  color: #D4AF37;
+}
 </style>
