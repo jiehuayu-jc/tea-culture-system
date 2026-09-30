@@ -40,6 +40,9 @@ public class AiController {
     @Autowired
     private TeaRagService ragService;
 
+    @Autowired
+    private com.service.RagEvalService ragEvalService;
+
     /** 稠密向量通道（可选）：没有任何实现 Bean 时为 null，检索自动降级为单路 BM25 */
     @Autowired(required = false)
     private com.utils.EmbeddingProvider embeddingProvider;
@@ -201,6 +204,17 @@ public class AiController {
         } catch (Exception e) {
             return R.error(500, "AI 生成失败：" + e.getMessage());
         }
+    }
+
+    /** 管理端：RAG 检索效果评测（三种策略消融对比）。limit 可选，仅跑前 N 题便于快速验证 */
+    @RequestMapping("/admin/eval")
+    public R eval(HttpServletRequest request,
+                  @org.springframework.web.bind.annotation.RequestParam(value = "limit", defaultValue = "0") int limit,
+                  @org.springframework.web.bind.annotation.RequestParam(value = "topK", defaultValue = "3") int topK) {
+        if (!"管理员".equals(request.getSession().getAttribute("role"))) {
+            return R.error(403, "仅管理员可用");
+        }
+        return R.ok().put("data", ragEvalService.run(topK, limit));
     }
 
     private String extractJson(String s) {

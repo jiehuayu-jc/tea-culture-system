@@ -132,6 +132,16 @@ public class TeaRagService {
         return search(query, top, null);
     }
 
+    /** 评测用入口：单路 BM25 稀疏检索 */
+    public List<Map<String, Object>> searchSparseOnly(String query, int top) {
+        return bm25(query, top);
+    }
+
+    /** 评测用入口：稀疏 + 稠密双路召回（RRF 融合），不含大模型重排 */
+    public List<Map<String, Object>> searchHybridNoRerank(String query, int top) {
+        return recall(query, top);
+    }
+
     /**
      * 两阶段检索入口。
      *
