@@ -29,10 +29,10 @@ module.exports = {
     css: {
         loaderOptions: {
             scss: {
-                implementation: require('node-sass')
+                implementation: require('sass')
             },
             sass: {
-                implementation: require('node-sass')
+                implementation: require('sass')
             }
         }
     },

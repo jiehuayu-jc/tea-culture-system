@@ -266,17 +266,17 @@
 			line-height: 40px;
 			position: absolute;
 			height: auto;
-			/deep/ .el-radio__input .el-radio__inner {
+			::v-deep .el-radio__input .el-radio__inner {
 				background: rgba(53, 53, 53, 0);
 				display: none;
 				border-color: #666;
 			}
-			/deep/ .el-radio__input.is-checked .el-radio__inner {
+			::v-deep .el-radio__input.is-checked .el-radio__inner {
 				background: #3E6B4F;
 				display: none;
 				border-color: #3E6B4F;
 			}
-			/deep/ .el-radio__label {
+			::v-deep .el-radio__label {
 				border: 1px solid #D8D8D8;
 				padding: 0 20px;
 				color: #c8c8c8;
@@ -286,7 +286,7 @@
 				line-height: 40px;
 				height: 40px;
 			}
-			/deep/ .el-radio__input.is-checked+.el-radio__label {
+			::v-deep .el-radio__input.is-checked+.el-radio__label {
 				border: 1px solid #3E6B4F;
 				padding: 0 20px;
 				color: #3E6B4F;

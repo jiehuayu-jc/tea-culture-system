@@ -27,7 +27,7 @@
 			<!-- AI 写手 -->
 			<div class="card">
 				<div class="c-title">AI 写手</div>
-				<div class="c-sub">一键生成商品介绍 / 茶文化文章草稿（对应多模态内容生成）</div>
+				<div class="c-sub">一键生成商品介绍 / 茶文化文章草稿（文本生成）</div>
 				<div class="w-row">
 					<el-radio-group v-model="writerKind" size="small">
 						<el-radio-button label="tea">商品介绍</el-radio-button>
@@ -52,6 +52,76 @@
 			<el-button type="primary" plain :loading="kbLoading" @click="rebuild">重建知识库</el-button>
 			<span class="kb-tip" v-if="kbTip">{{ kbTip }}</span>
 		</div>
+
+		<!-- 可观测：检索架构与运行指标 -->
+		<div class="card">
+			<div class="c-title">AI 可观测</div>
+			<div class="c-sub">检索架构与运行指标实时快照（数据来自 /ai/status）</div>
+			<div class="obs-grid">
+				<div class="obs-item">
+					<div class="k">稀疏召回</div>
+					<div class="v">BM25</div>
+				</div>
+				<div class="obs-item">
+					<div class="k">稠密向量</div>
+					<div class="v" :class="retrieval.dense_enabled ? 'ok' : 'dim'">
+						{{ retrieval.dense_enabled ? '已启用' : '未配置' }}
+					</div>
+				</div>
+				<div class="obs-item wide">
+					<div class="k">召回方式</div>
+					<div class="v small">{{ retrieval.recall || '—' }}</div>
+				</div>
+				<div class="obs-item wide">
+					<div class="k">向量通道</div>
+					<div class="v small">{{ retrieval.provider || '—' }}</div>
+				</div>
+				<div class="obs-item">
+					<div class="k">重排</div>
+					<div class="v small">{{ retrieval.rerank === 'llm' ? '大模型语义重排' : '—' }}</div>
+				</div>
+				<div class="obs-item">
+					<div class="k">大模型调用</div>
+					<div class="v">{{ metrics.llm_calls || 0 }}</div>
+				</div>
+				<div class="obs-item">
+					<div class="k">总请求</div>
+					<div class="v">{{ metrics.total_requests || 0 }}</div>
+				</div>
+				<div class="obs-item">
+					<div class="k">限流命中</div>
+					<div class="v">{{ metrics.rate_limited || 0 }}</div>
+				</div>
+				<div class="obs-item wide">
+					<div class="k">配额（每分钟 / 每天）</div>
+					<div class="v small">{{ metrics.minute_limit || '—' }} / {{ metrics.day_limit || '—' }}</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- RAG 检索效果评测 -->
+		<div class="card">
+			<div class="c-title">RAG 检索效果评测</div>
+			<div class="c-sub">
+				内置 40 题茶文化评测集（问题已改写措辞，与知识库标题字面不重合），对同一组问题做三种检索策略的消融对比（对应赛项方向 2）
+			</div>
+			<div class="w-row">
+				<el-button type="primary" :loading="evalLoading" @click="runEval(0)">运行全量评测（40 题）</el-button>
+				<el-button plain :loading="evalQuickLoading" @click="runEval(8)">快速验证（前 8 题）</el-button>
+				<span class="kb-tip" v-if="evalTip">{{ evalTip }}</span>
+			</div>
+			<div class="eval-table" v-if="evalRows.length">
+				<div class="eval-row eval-head">
+					<span>检索策略</span><span>Recall@3</span><span>MRR</span><span>命中</span>
+				</div>
+				<div class="eval-row" v-for="(r, i) in evalRows" :key="i">
+					<span>{{ r.strategy }}</span>
+					<span class="num">{{ r.recall_at_k }}</span>
+					<span class="num">{{ r.mrr }}</span>
+					<span class="num">{{ r.hit }} / {{ r.total }}</span>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -75,6 +145,12 @@
 				writerLoading: false,
 				writerOut: '',
 				chart: null,
+				retrieval: {},
+				metrics: {},
+				evalRows: [],
+				evalLoading: false,
+				evalQuickLoading: false,
+				evalTip: '',
 			}
 		},
 		created() {
@@ -89,6 +165,8 @@
 					if (data.code === 0) {
 						this.llmOk = !!data.data.llm_configured;
 						this.kbCount = data.data.knowledge_count || 0;
+						this.retrieval = data.data.retrieval || {};
+						this.metrics = data.data.metrics || {};
 					}
 				});
 			},
@@ -158,6 +236,33 @@
 						this.$message.error(data.msg);
 					}
 				}).catch(() => { this.writerLoading = false; });
+			},
+			runEval(limit) {
+				const quick = limit > 0;
+				if (quick) { this.evalQuickLoading = true; } else { this.evalLoading = true; }
+				this.evalTip = quick
+					? '正在跑前 8 题（含大模型语义重排，约 20~40 秒）…'
+					: '正在跑 40 题全量评测（含重排调用，约 2~5 分钟）…';
+				this.$http({
+					url: '/ai/admin/eval',
+					method: 'get',
+					params: { limit: limit, topK: 3 }
+				}).then(({ data }) => {
+					this.evalQuickLoading = false;
+					this.evalLoading = false;
+					if (data.code === 0) {
+						this.evalRows = data.data.strategies || [];
+						this.evalTip = '评测完成，共 ' + data.data.case_count + ' 题（Top-' + data.data.top_k + '）';
+						this.loadStatus();
+					} else {
+						this.evalTip = '';
+						this.$message.error(data.msg);
+					}
+				}).catch(() => {
+					this.evalQuickLoading = false;
+					this.evalLoading = false;
+					this.evalTip = '';
+				});
 			}
 		}
 	}
@@ -240,9 +345,49 @@
 	.chart-box { width: 100%; height: 320px; }
 	.w-row { margin-bottom: 14px; }
 	.w-out { margin-top: 14px;
-		/deep/ textarea { color: #ede6d6; }
+		::v-deep textarea { color: #ede6d6; }
 	}
 	.kb { display: flex; align-items: center; gap: 18px; }
 	.kb .c-sub { margin-bottom: 0; margin-right: auto; }
 	.kb-tip { color: #7c9b84; font-size: 13px; }
+
+	.obs-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		gap: 12px;
+	}
+	.obs-item {
+		background: rgba(21, 42, 32, .6);
+		border: 1px solid rgba(212, 175, 55, .14);
+		border-radius: 6px;
+		padding: 12px 14px;
+		&.wide { grid-column: span 2; }
+		.k { color: #93a396; font-size: 12px; margin-bottom: 6px; }
+		.v {
+			color: #ede6d6;
+			font-family: 'TeaSerif', serif;
+			font-size: 20px;
+			letter-spacing: 1px;
+			&.small { font-size: 13px; font-family: inherit; letter-spacing: 0; }
+			&.ok { color: #7c9b84; }
+			&.dim { color: #93a396; }
+		}
+	}
+	.eval-table {
+		margin-top: 8px;
+		border: 1px solid rgba(212, 175, 55, .14);
+		border-radius: 6px;
+		overflow: hidden;
+	}
+	.eval-row {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr 1fr 1fr;
+		padding: 10px 14px;
+		font-size: 13px;
+		color: #c9c4b4;
+		border-bottom: 1px solid rgba(212, 175, 55, .08);
+		&:last-child { border-bottom: 0; }
+		&.eval-head { color: #93a396; font-size: 12px; background: rgba(212, 175, 55, .05); }
+		.num { font-family: 'TeaSerif', serif; color: #e6ce9a; letter-spacing: 1px; }
+	}
 </style>
