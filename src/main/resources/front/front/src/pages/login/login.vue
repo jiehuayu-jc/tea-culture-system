@@ -1,44 +1,49 @@
 <template>
-	<div>
-		<div class="login-container">
-			<el-form ref="loginForm" :model="loginForm" :rules="rules" class="login_form animate__animated animate__">
-				<div class="login_form2">
-					<div class="login-title">茶文化管理系统</div>
-					<div v-if="loginType==1" class="list-item" prop="username">
-						<input v-model="loginForm.username" placeholder="请输入完整账号，示例：用户账号1">
-					</div>
-					<div v-if="loginType==1" class="list-item" prop="password">
-						<div class="password-box">
-							<input v-model="loginForm.password" placeholder="请输入密码" :type="showPassword?'text':'password'">
-							<span class="icon iconfont" :class="showPassword?'icon-liulan13':'icon-liulan17'" @click="showPassword=!showPassword"></span>
-						</div>
-					</div>
-
-					<div class="list-item" v-if="roles.length>1">
-						<div class="list-type" prop="role">
-							<el-radio v-model="loginForm.tableName" :label="item.tableName" v-for="(item, index) in roles" :key="index" @change.native="getCurrentRow(item)">{{item.roleName}}</el-radio>
-						</div>
-					</div>
-
-			
-					<div class="list-btn">
-						<el-button class="login_btn" v-if="loginType==1" @click="submitForm('loginForm')">登录</el-button>
-
-						<div class="list-btn2">
-							<router-link class="register_btn" :to="{path: '/register', query: {role: item.tableName,pageFlag:'register'}}" v-if="item.hasFrontRegister=='是'" v-for="(item, index) in roles" :key="index">注册{{item.roleName.replace('注册','')}}</router-link>
-						</div>
-					</div>
-
-					<!-- 演示账号一键填充：避免手打时把「账号」误写成「账户」 -->
-					<div class="demo-fill" v-if="loginType==1">
-						<span class="demo-fill-label">演示账号一键填充</span>
-						<span class="demo-fill-btn" @click="fillDemo('用户账号1','123456')">用户</span>
-						<span class="demo-fill-btn" @click="fillDemo('商家账号1','123456')">茶商</span>
-						<span class="demo-fill-btn" @click="fillDemo('admin','admin')">管理员</span>
+	<div class="login-page">
+		<div class="lp-overlay"></div>
+		<div class="lp-left">
+			<div class="lp-seal">陆羽茶经</div>
+			<div class="lp-eyebrow">CHINESE TEA CULTURE</div>
+			<div class="lp-vertical">茶之为饮&nbsp;发乎神农</div>
+			<div class="lp-slogan">六大茶类 · 源头直采 · 以盏见心</div>
+		</div>
+		<div class="lp-form-zone">
+			<el-form ref="loginForm" :model="loginForm" :rules="rules" class="login_form animate__animated animate__fadeInUp">
+				<div class="lp-head">
+					<div class="lp-title">茶文化管理系统</div>
+					<div class="lp-sub">TEA CULTURE · 用户登录</div>
+					<div class="lp-line"></div>
+				</div>
+				<div class="lp-field">
+					<label>账&nbsp;号</label>
+					<input v-model="loginForm.username" placeholder="请输入账号" name="username" type="text">
+				</div>
+				<div class="lp-field">
+					<label>密&nbsp;码</label>
+					<div class="lp-password">
+						<input v-model="loginForm.password" placeholder="请输入密码" :type="showPassword?'text':'password'" name="password">
+						<span class="icon iconfont" :class="showPassword?'icon-liulan13':'icon-liulan17'" @click="showPassword=!showPassword"></span>
 					</div>
 				</div>
-				<div class="idea1"></div>
-				<div class="idea2"></div>
+
+				<div class="lp-field" v-if="roles.length>1">
+					<label>角&nbsp;色</label>
+					<div class="list-type" prop="role">
+						<el-radio v-model="loginForm.tableName" :label="item.tableName" v-for="(item, index) in roles" :key="index" @change.native="getCurrentRow(item)">{{item.roleName}}</el-radio>
+					</div>
+				</div>
+
+				<button class="lp-submit" v-if="loginType==1" @click.prevent="submitForm('loginForm')">登&nbsp;录</button>
+				<div class="lp-links" v-if="loginType==1">
+					<router-link class="lp-register" :to="{path: '/register', query: {role: item.tableName,pageFlag:'register'}}" v-if="item.hasFrontRegister=='是'" v-for="(item, index) in roles" :key="index">注册{{item.roleName.replace('注册','')}} →</router-link>
+				</div>
+
+				<div class="demo-fill" v-if="loginType==1">
+					<span class="demo-fill-label">演示账号一键填充</span>
+					<span class="demo-fill-btn" @click="fillDemo('用户账号1','123456')">用户</span>
+					<span class="demo-fill-btn" @click="fillDemo('商家账号1','123456')">茶商</span>
+					<span class="demo-fill-btn" @click="fillDemo('admin','admin')">管理员</span>
+				</div>
 			</el-form>
 		</div>
 	</div>
@@ -270,233 +275,181 @@ export default {
 }
 </script>
 
+
+
 <style rel="stylesheet/scss" lang="scss" scoped>
-	.login-container {
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-		background-position: center center;
-		background: url('~@/assets/img/login-bg.png');
-		display: flex;
-		width: 100%;
-		min-height: 100vh;
-		justify-content: center;
-		align-items: center;
+	/* ===== 夜茶·墨绿金 登录页（与首页同一套令牌与组件语言） ===== */
+	.login-page {
 		position: relative;
-		.login_form {
-			border: 0px solid #b0b0b0;
-			border-radius: 10px;
-			padding: 20px 0 0 0;
-			margin: 100px 38% 100px 0;
-			background: none;
-			width: 33vw;
-			.login_form2 {
-				width: 100%;
-				.login-title {
-					margin: 0 0 30px 0;
-					color: #fff;
-					font-weight: 600;
-					width: 90%;
-					font-size: 22px;
-					line-height: 44px;
-					text-align: center;
-				}
-				.list-item {
-					border: 0px solid #b0b0b0;
-					border-radius: 0px;
-					padding: 0;
-					margin: 0 auto 20px;
-					background: none;
-					display: flex;
-					width: 80%;
-					align-items: center;
-					input {
-						border: 0px solid #ebd8ba;
-						border-radius: 8px;
-						padding: 0 10px;
-						color: #666;
-						flex: 1;
-						width: calc(100% - 0px);
-						font-size: 15px;
-						height: 40px;
-					}
-					input:focus {
-						border: 0px solid #96a7c9;
-						border-radius: 8px;
-						padding: 0 10px;
-						outline: none;
-						color: #666;
-						flex: 1;
-						width: calc(100% - 0px);
-						font-size: 15px;
-						height: 40px;
-					}
-					.password-box {
-						flex: 1;
-						display: flex;
-						width: calc(100% - 0px);
-						position: relative;
-						align-items: center;
-						input {
-							border: 0px solid #ebd8ba;
-							border-radius: 8px;
-							padding: 0 10px;
-							color: #666;
-							width: 100%;
-							font-size: 14px;
-							height: 40px;
-						}
-						input:focus {
-							border: 0px solid #96a7c9;
-							border-radius: 8px;
-							padding: 0 10px;
-							color: #666;
-							width: 100%;
-							font-size: 14px;
-							height: 40px;
-						}
-						.iconfont {
-							cursor: pointer;
-							z-index: 1;
-							color: #000;
-							top: 0;
-							font-size: 16px;
-							line-height: 44px;
-							position: absolute;
-							right: 16px;
-						}
-					}
-					input::placeholder {
-						color: #666;
-						font-size: 15px;
-					}
-				}
-				.list-type {
-					border-radius: 8px;
-					padding: 0 10px;
-					margin: 0 0 0 0px;
-					background: #fff;
-					display: flex;
-					width: calc(100% - 0px);
-					line-height: 40px;
-					align-items: center;
-					height: 40px;
-					::v-deep .el-radio__input .el-radio__inner {
-						background: rgba(53, 53, 53, 0);
-						border-color: #666666;
-					}
-					::v-deep .el-radio__input.is-checked .el-radio__inner {
-						background: #3E6B4F;
-						border-color: #3E6B4F;
-					}
-					::v-deep .el-radio__label {
-						color: #666666;
-						font-size: 16px;
-					}
-					::v-deep .el-radio__input.is-checked+.el-radio__label {
-						color: #3E6B4F;
-						font-size: 16px;
-					}
-				}
-				.list-btn {
-					padding: 0;
-					margin: 0 auto 40px;
-					display: flex;
-					width: 80%;
-					flex-wrap: wrap;
-					.login_btn {
-						border: 0;
-						cursor: pointer;
-						border-radius: 8px;
-						padding: 0 30px;
-						margin: 0 0px;
-						color: #fff;
-						background: #3E6B4F;
-						letter-spacing: 4px;
-						width: 100%;
-						font-size: 20px;
-						height: 48px;
-					}
-					.login_btn:hover {
-					}
-					.list-btn2 {
-						margin: 10px auto;
-						display: block;
-						width: 100%;
-						flex-wrap: wrap;
-						order: -1;
-						.register_btn {
-							cursor: pointer;
-							padding: 5px;
-							margin: 0 0 10px 10px;
-							color: #fff;
-							background: none;
-							text-decoration: none;
-							font-size: 16px;
-							float: right;
-						}
-						.register_btn:hover {
-							opacity: 0.8;
-						}
-						.resetpwd_btn {
-							cursor: pointer;
-							padding: 5px;
-							margin: 0 0px 10px 0;
-							color: #fff;
-							background: none;
-							text-decoration: none;
-							font-size: 16px;
-							float: left;
-						}
-						.resetpwd_btn:hover {
-							opacity: 0.8;
-						}
-					}
-				}
-			}
-			.idea1 {
-				background: red;
-				display: none;
-				width: 100%;
-				height: 40px;
-			}
-			.idea2 {
-				background: blue;
-				display: none;
-				width: 100%;
-				height: 40px;
-			}
-		}
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		display: flex;
+		background: url('~@/assets/img/login-bg.png') center / cover no-repeat;
+		font-family: 'Noto Sans SC', sans-serif;
 	}
-	/* 演示账号一键填充 */
-	.demo-fill {
-		margin: 16px 0 0;
-		padding: 12px 16px;
-		border: 1px solid rgba(212, 175, 55, .22);
-		border-radius: 8px;
-		background: rgba(21, 42, 32, .55);
+	.lp-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(90deg, rgba(10, 22, 16, .88) 0%, rgba(10, 22, 16, .5) 46%, rgba(12, 27, 20, .88) 100%);
+	}
+	.lp-left {
+		position: relative;
+		z-index: 2;
+		flex: 1.1;
+		padding: 16vh 0 0 8vw;
+	}
+	.lp-seal {
+		display: inline-block;
+		background: #a63d2f;
+		color: #f6f3ec;
+		font-family: 'TeaSerif', 'STSong', serif;
+		font-size: 15px;
+		letter-spacing: 3px;
+		padding: 6px 10px;
+		border-radius: 6px;
+		margin-bottom: 26px;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
+	}
+	.lp-eyebrow {
+		color: #93a396;
+		font-size: 13px;
+		letter-spacing: 6px;
+		margin-bottom: 30px;
+	}
+	.lp-vertical {
+		position: absolute;
+		right: 10%;
+		top: 50%;
+		transform: translateY(-50%);
+		writing-mode: vertical-rl;
+		font-family: 'TeaSerif', 'STSong', serif;
+		color: #e6ce9a;
+		font-size: 20px;
+		letter-spacing: 10px;
+		opacity: .85;
+	}
+	.lp-slogan {
+		margin-top: 42px;
+		color: rgba(230, 206, 154, .82);
+		font-family: 'TeaSerif', 'STSong', serif;
+		font-size: 18px;
+		letter-spacing: 4px;
+	}
+	.lp-form-zone {
+		position: relative;
+		z-index: 2;
+		width: 500px;
+		flex-shrink: 0;
 		display: flex;
 		align-items: center;
-		flex-wrap: wrap;
-		gap: 8px;
+		justify-content: center;
+		background: rgba(12, 27, 20, .58);
+		border-left: 1px solid rgba(212, 175, 55, .25);
+		backdrop-filter: blur(10px);
 	}
-	.demo-fill-label {
-		color: #93A396;
-		font-size: 13px;
-		letter-spacing: .5px;
+	.login_form {
+		width: min(390px, 86%);
+		padding: 20px 0;
 	}
-	.demo-fill-btn {
-		padding: 4px 14px;
-		border: 1px solid rgba(212, 175, 55, .35);
+	.lp-head { margin-bottom: 38px; }
+	.lp-title {
+		font-family: 'TeaSerif', 'STSong', serif;
+		color: #e6ce9a;
+		font-size: 30px;
+		letter-spacing: 5px;
+		margin-bottom: 10px;
+	}
+	.lp-sub { color: #93a396; font-size: 11px; letter-spacing: 4px; margin-bottom: 18px; }
+	.lp-line { width: 52px; height: 2px; background: linear-gradient(90deg, #d4af37, rgba(212, 175, 55, .1)); }
+	.lp-field { margin-bottom: 24px; }
+	.lp-field label {
+		display: block;
+		color: #93a396;
+		font-size: 12px;
+		letter-spacing: 3px;
+		margin-bottom: 9px;
+	}
+	.lp-field input {
+		width: 100%;
+		height: 46px;
+		background: rgba(21, 42, 32, .7);
+		border: 1px solid rgba(212, 175, 55, .22);
 		border-radius: 4px;
-		color: #E6CE9A;
-		background: rgba(212, 175, 55, .08);
-		font-size: 13px;
-		cursor: pointer;
-		user-select: none;
-		transition: background .2s ease, color .2s ease;
+		color: #ede6d6;
+		padding: 0 14px;
+		font-size: 15px;
+		outline: none;
+		box-sizing: border-box;
+		transition: border-color .25s, box-shadow .25s;
 	}
-	.demo-fill-btn:hover {
-		color: #0c1b14;
-		background: #D4AF37;
+	.lp-field input::placeholder { color: rgba(147, 163, 150, .5); }
+	.lp-field input:focus {
+		border-color: #d4af37;
+		box-shadow: 0 0 0 3px rgba(212, 175, 55, .12);
+	}
+	.lp-password { position: relative; }
+	.lp-password .iconfont {
+		position: absolute;
+		right: 14px;
+		top: 50%;
+		transform: translateY(-50%);
+		color: #93a396;
+		cursor: pointer;
+	}
+	.list-type .el-radio { color: #c9c4b4; }
+	.list-type .el-radio__input.is-checked + .el-radio__label { color: #d4af37; }
+	.lp-submit {
+		width: 100%;
+		height: 48px;
+		margin-top: 6px;
+		border: 0;
+		border-radius: 4px;
+		background: linear-gradient(160deg, #e6ce9a, #d4af37);
+		color: #14251a;
+		font-family: 'TeaSerif', 'STSong', serif;
+		font-size: 18px;
+		font-weight: 600;
+		letter-spacing: 8px;
+		cursor: pointer;
+		box-shadow: 0 10px 26px rgba(212, 175, 55, .28);
+		transition: transform .25s ease, box-shadow .25s ease;
+	}
+	.lp-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(212, 175, 55, .42); }
+	.lp-links { margin-top: 20px; text-align: right; }
+	.lp-register {
+		color: #e6ce9a;
+		font-size: 13px;
+		text-decoration: none;
+		border-bottom: 1px dashed rgba(212, 175, 55, .4);
+		padding-bottom: 2px;
+		&:hover { color: #d4af37; }
+	}
+	.demo-fill {
+		margin-top: 26px;
+		padding-top: 16px;
+		border-top: 1px dashed rgba(212, 175, 55, .25);
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+	.demo-fill-label { color: #93a396; font-size: 12px; letter-spacing: 1px; }
+	.demo-fill-btn {
+		padding: 5px 14px;
+		border: 1px solid rgba(212, 175, 55, .45);
+		border-radius: 4px;
+		background: rgba(212, 175, 55, .06);
+		color: #E6CE9A;
+		font-size: 12px;
+		letter-spacing: 1px;
+		cursor: pointer;
+		transition: all .2s;
+		&:hover { color: #14251a; background: linear-gradient(160deg, #e6ce9a, #d4af37); border-color: #d4af37; }
+	}
+	@media (max-width: 900px) {
+		.lp-left { display: none; }
+		.lp-form-zone { width: 100%; }
 	}
 </style>
+
