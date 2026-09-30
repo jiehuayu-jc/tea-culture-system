@@ -23,28 +23,26 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		registry.addInterceptor(authorizationInterceptor)
 				.addPathPatterns("/**")
 				.excludePathPatterns("/static/**")
-				.excludePathPatterns(
+					.excludePathPatterns(
 							"/error",
 							"/**/error",
 							"/admin",
 							"/admin/",
 							"/admin/**",
 							"/yonghu/register",
-						"/yonghu/login",
-						"/yonghu/resetPass",
-						"/shangjia/register",
-						"/shangjia/login",
-						"/users/register",
-						"/users/login",
-						"/file/upload",
-						"/**/yonghu/register",
-						"/**/yonghu/login",
-						"/**/yonghu/resetPass",
-						"/**/shangjia/register",
-						"/**/shangjia/login",
-						"/**/users/register",
-						"/**/users/login",
-						"/**/file/upload");
+							"/yonghu/login",
+							"/shangjia/register",
+							"/shangjia/login",
+							"/users/register",
+							"/users/login",
+							"/file/upload",
+							"/**/yonghu/register",
+							"/**/yonghu/login",
+							"/**/shangjia/register",
+							"/**/shangjia/login",
+							"/**/users/register",
+							"/**/users/login",
+							"/**/file/upload");
 	}
 
 		@Override
