@@ -40,6 +40,10 @@ public class AiController {
     @Autowired
     private TeaRagService ragService;
 
+    /** 稠密向量通道（可选）：没有任何实现 Bean 时为 null，检索自动降级为单路 BM25 */
+    @Autowired(required = false)
+    private com.utils.EmbeddingProvider embeddingProvider;
+
     @Value("${ai.deepseek.api-key:}")
     private String apiKey;
 
@@ -100,6 +104,14 @@ public class AiController {
         r.put("llm_configured", apiKey != null && !apiKey.trim().isEmpty());
         r.put("model", model);
         r.put("knowledge_count", ragService.count());
+        // 检索通道状态：dense 为 true 表示「BM25 + 向量」双路 RRF 融合已生效
+        Map<String, Object> emb = new HashMap<>();
+        boolean denseOn = embeddingProvider != null && embeddingProvider.available();
+        emb.put("dense_enabled", denseOn);
+        emb.put("provider", embeddingProvider == null ? "none" : embeddingProvider.name());
+        emb.put("recall", denseOn ? "hybrid(bm25 + dense, RRF)" : "sparse(bm25)");
+        emb.put("rerank", "llm");
+        r.put("retrieval", emb);
         r.put("metrics", rateLimiter.snapshot());
         return R.ok().put("data", r);
     }

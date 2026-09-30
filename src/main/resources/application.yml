@@ -62,6 +62,13 @@ ai:
         api-key: "${DEEPSEEK_API_KEY:}"
         base-url: "https://api.deepseek.com"
         model: "deepseek-chat"
+    # 稠密向量通道（可选）。配置后 RAG 的召回层自动升级为「BM25 稀疏 + 向量稠密」
+    # 双路并做 RRF 融合；未配置或调用失败时静默降级为单路 BM25，链路不中断。
+    # Key 注入方式同 DeepSeek：环境变量 DASHSCOPE_API_KEY，或 config/application.yml
+    embedding:
+        api-key: "${DASHSCOPE_API_KEY:}"
+        base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        model: "text-embedding-v3"
     # 接口配额：per-IP 滑动窗口限流（命中返回 429，不计入大模型调用）
     rate-limit:
         minute: 10

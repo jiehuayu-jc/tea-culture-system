@@ -9,6 +9,13 @@
 ai:
     deepseek:
         api-key: "sk-在这里填入你的DeepSeek密钥"
+    # 可选：稠密向量通道。填好 Key 后 RAG 自动启用「BM25 + 向量」双路召回；
+    # 留空则自动降级为单路 BM25（功能不受影响，只是召回质量略低）。
+    # 获取 Key: https://bailian.console.aliyun.com/ （开通「通用文本向量 text-embedding-v3」）
+    # embedding:
+    #     api-key: "sk-在这里填入DashScope密钥"
+    #     base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    #     model: "text-embedding-v3"
     # 可选：接口配额（默认每分钟10次/每天200次，命中返回429）
     # rate-limit:
     #     minute: 10
