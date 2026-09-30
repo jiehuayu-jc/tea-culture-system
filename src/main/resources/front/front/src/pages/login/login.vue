@@ -28,6 +28,14 @@
 							<router-link class="register_btn" :to="{path: '/register', query: {role: item.tableName,pageFlag:'register'}}" v-if="item.hasFrontRegister=='是'" v-for="(item, index) in roles" :key="index">注册{{item.roleName.replace('注册','')}}</router-link>
 						</div>
 					</div>
+
+					<!-- 演示账号一键填充：避免手打时把「账号」误写成「账户」 -->
+					<div class="demo-fill" v-if="loginType==1">
+						<span class="demo-fill-label">演示账号一键填充</span>
+						<span class="demo-fill-btn" @click="fillDemo('用户账号1','123456')">用户</span>
+						<span class="demo-fill-btn" @click="fillDemo('商家账号1','123456')">茶商</span>
+						<span class="demo-fill-btn" @click="fillDemo('admin','admin')">管理员</span>
+					</div>
 				</div>
 				<div class="idea1"></div>
 				<div class="idea2"></div>
@@ -107,6 +115,11 @@ export default {
 	},
 	//方法集合
 	methods: {
+		/** 一键填充演示账号（仅填账号密码，角色选择不变） */
+		fillDemo(username, password) {
+			this.loginForm.username = username;
+			this.loginForm.password = password;
+		},
 		randomString() {
 			var len = 4;
 			var chars = [
@@ -260,7 +273,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.login-container {
 		background-repeat: no-repeat;
-		background-size: 100% 100% !important;
+		background-size: 100% 100%;
 		background-position: center center;
 		background: url('~@/assets/img/login-bg.png');
 		display: flex;
@@ -453,5 +466,37 @@ export default {
 				height: 40px;
 			}
 		}
+	}
+	/* 演示账号一键填充 */
+	.demo-fill {
+		margin: 16px 0 0;
+		padding: 12px 16px;
+		border: 1px solid rgba(212, 175, 55, .22);
+		border-radius: 8px;
+		background: rgba(21, 42, 32, .55);
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.demo-fill-label {
+		color: #93A396;
+		font-size: 13px;
+		letter-spacing: .5px;
+	}
+	.demo-fill-btn {
+		padding: 4px 14px;
+		border: 1px solid rgba(212, 175, 55, .35);
+		border-radius: 4px;
+		color: #E6CE9A;
+		background: rgba(212, 175, 55, .08);
+		font-size: 13px;
+		cursor: pointer;
+		user-select: none;
+		transition: background .2s ease, color .2s ease;
+	}
+	.demo-fill-btn:hover {
+		color: #0c1b14;
+		background: #D4AF37;
 	}
 </style>

@@ -2,7 +2,7 @@
 	<div>
 	<!--  -->
 		<div class="breadcrumb-preview">
-			<el-breadcrumb :separator="'≡'">
+			<el-breadcrumb :separator="'/'">
 				<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
 				<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index" :to="'/index/forumtype?centerType=' + (centerType?'1':'0')"><a>{{item.name}}</a></el-breadcrumb-item>
 				<el-breadcrumb-item class="item3"><a href="javascript:void(0);">详情</a></el-breadcrumb-item>
@@ -310,7 +310,7 @@
 				}
 				.item {
 					border-radius: 0px;
-					padding: 8px 0 !important;
+					padding: 8px 0;
 					margin: 0 0 3px 0;
 					background: #fff;
 					display: flex;

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="breadcrumb-preview">
-			<el-breadcrumb :separator="'≡'">
+			<el-breadcrumb :separator="'/'">
 				<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
 				<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index"><a>{{item.name}}</a></el-breadcrumb-item>
 			</el-breadcrumb>

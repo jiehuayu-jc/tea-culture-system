@@ -269,7 +269,7 @@
 					color: inherit;
 					width: 100%;
 					font-size: 16px;
-					min-width: inherit !important;
+					min-width: inherit;
 					height: 40px;
 				}
 				.el-select ::v-deep .is-disabled .el-input__inner {

@@ -181,7 +181,7 @@
 		margin-top: 30px;
 	}
 	.z-box {
-		width: 100% !important;
+		width: 100%;
 	}
   
 </style>

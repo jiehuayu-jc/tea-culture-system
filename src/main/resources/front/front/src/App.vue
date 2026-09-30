@@ -478,16 +478,6 @@
 	.el-pagination.is-background .el-pager li:not(.disabled).active {
 		background-color: var(--tea-green);
 	}
-	.el-loading-spinner .el-loading-text,
-	.el-loading-spinner .path {
-		color: var(--tea-green) !important;
-		stroke: var(--tea-green) !important;
-	}
-	.el-input__inner:focus,
-	.el-textarea__inner:focus {
-		border-color: var(--tea-green) !important;
-	}
-
 	/* 自托管思源宋体（Heavy）子集 woff2：夜茶主题大标题专用（P1-2：11.31MB -> 0.91MB） */
 	@font-face {
 		font-family: 'TeaSerif';
@@ -495,265 +485,243 @@
 		font-display: swap;
 	}
 
-	/* 组件级补色：下拉选中 / 轮播箭头 */
-	.el-select-dropdown__item.selected {
-		color: #3E6B4F !important;
-		font-weight: 600;
-	}
-	.swiper-button-next,
-	.swiper-button-prev {
-		color: #d4af37 !important;
-	}
-
-	/* 分类条/标签条文字对比度 */
-	.item-body .item {
-		color: #E6CE9A !important;
-	}
-	.item-body .item.active {
-		color: #F6F3EC !important;
-		background: #2E523C !important;
-	}
-
-	/* ===== 夜茶·墨绿金：内页全局换肤（压过模板内联样式） ===== */
-	.body-containers {
-		background: linear-gradient(180deg, #0e2318 0%, #0c1b14 26%, #0c1b14 100%) !important;
+	/* ===== 夜茶·墨绿金：内页全局换肤（P1-3 合并两层、去除非内联对抗的） =====
+	   特异性约定：结构规则统一加 .main-containers .body-containers 前缀压过页面 scoped；
+	   element 组件规则靠「main.js 中 element 先于 App.vue 注入」的加载顺序取胜。
+	   仅剩的 用于对抗模板生成的内联 style（外部样式表无法覆盖内联），
+	   清零前提是把模板内联样式抽离到组件样式——规模约 70 文件，单独立项执行。 */
+	.main-containers .body-containers {
+		background: linear-gradient(180deg, #0e2318 0%, #0c1b14 26%, #0c1b14 100%);
 		min-height: 100vh;
 	}
 
-	/* 面包屑条 */
-	.breadcrumb-preview {
-		background: transparent !important;
-		border-bottom: 1px solid rgba(212, 175, 55, .18) !important;
-		box-shadow: none !important;
+	/* 面包屑条（模板对该类有内联背景，保留） */
+	.main-containers .body-containers .breadcrumb-preview {
+		background: rgba(21, 42, 32, .55);
+		border: 1px solid rgba(212, 175, 55, .18);
+		border-radius: 8px;
+		box-shadow: none;
 	}
-	.breadcrumb-preview a,
-	.breadcrumb-preview .item1,
-	.breadcrumb-preview .item2 {
-		color: #E6CE9A !important;
+	.main-containers .body-containers .breadcrumb-preview .el-breadcrumb__inner,
+	.main-containers .body-containers .breadcrumb-preview .el-breadcrumb__inner a,
+	.main-containers .body-containers .breadcrumb-preview .el-breadcrumb__separator {
+		color: #E6CE9A;
 	}
-	.breadcrumb-preview .el-breadcrumb { line-height: 56px !important; }
 
-	/* 分类标签条 */
-	.item-body .item {
-		color: #E6CE9A !important;
-		background: rgba(21, 42, 32, .8) !important;
-		border: 1px solid rgba(212, 175, 55, .22) !important;
+	/* 分类标签条（模板按钮带内联色，保留） */
+	.main-containers .body-containers .item-body .item {
+		color: #E6CE9A;
+		background: rgba(21, 42, 32, .8);
+		border: 1px solid rgba(212, 175, 55, .22);
 		border-radius: 4px;
 	}
-	.item-body .item.active {
-		color: #F6F3EC !important;
-		background: #2E523C !important;
-		border-color: #D4AF37 !important;
+	.main-containers .body-containers .item-body .item.active {
+		color: #F6F3EC;
+		background: #2E523C;
+		border-color: #D4AF37;
 	}
 
-	/* 排序条 */
-	.sort_view {
-		background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) !important;
-		border-radius: 6px !important;
+	/* 排序条（模板原为 codegen 蓝图背景，改渐变后同位置覆盖，保留） */
+	.main-containers .body-containers .sort_view {
+		background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%);
+		border-radius: 6px;
 	}
-	.sort_view * {
-		color: #F6F3EC !important;
+	.main-containers .body-containers .sort_view * {
+		color: #F6F3EC;
 	}
 
-	/* 列表卡片 */
-	.list-preview {
-		background: transparent !important;
+	/* 列表卡片（模板卡片带内联浅底与黑字，保留 收口文字可读性） */
+	.main-containers .body-containers .list-preview {
+		background: transparent;
 	}
-	.list-preview .list-item,
-	.list-preview .list-item1,
-	.list-preview .list-item2 {
-		background: linear-gradient(175deg, #16291f, #122219) !important;
-		border: 1px solid rgba(212, 175, 55, .16) !important;
-		border-radius: 8px !important;
-		box-shadow: 0 4px 16px rgba(0, 0, 0, .25) !important;
-		/* 模板卡片内联的是 color:#000（白底黑字设计），深色主题下必须在此收口，
-		   否则卡内无类名的 span（发布时间/教师/收藏/点击）会继承黑色而不可读 */
-		color: #EDE6D6 !important;
-		transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease !important;
+	.main-containers .body-containers .list-preview .list-item,
+	.main-containers .body-containers .list-preview .list-item1,
+	.main-containers .body-containers .list-preview .list-item2 {
+		background: linear-gradient(175deg, #16291f, #122219);
+		border: 1px solid rgba(212, 175, 55, .16);
+		border-radius: 8px;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+		color: #EDE6D6;
+		transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 	}
-	.list-preview .list-item:hover,
-	.list-preview .list-item1:hover,
-	.list-preview .list-item2:hover {
-		transform: translateY(-6px) !important;
-		border-color: #D4AF37 !important;
-		box-shadow: 0 16px 36px rgba(0, 0, 0, .45) !important;
+	.main-containers .body-containers .list-preview .list-item:hover,
+	.main-containers .body-containers .list-preview .list-item1:hover,
+	.main-containers .body-containers .list-preview .list-item2:hover {
+		transform: translateY(-6px);
+		border-color: #D4AF37;
+		box-shadow: 0 16px 36px rgba(0, 0, 0, .45);
 	}
-	.list-preview .name,
-	.list-preview .title {
-		color: #EDE6D6 !important;
+	.main-containers .body-containers .list-preview .name,
+	.main-containers .body-containers .list-preview .title {
+		color: #EDE6D6;
 		font-family: 'TeaSerif', 'STSong', serif;
 		letter-spacing: 1px;
 	}
-	.list-preview .price {
-		color: #D4AF37 !important;
+	.main-containers .body-containers .list-preview .price {
+		color: #D4AF37;
 		font-family: 'TeaSerif', serif;
 	}
-	.list-preview .label,
-	.list-preview .text,
-	.list-preview .desc,
-	.list-preview .time_item,
-	.list-preview .publisher_item,
-	.list-preview .collect_item,
-	.list-preview .view_item,
-	.list-preview .like_item {
-		color: #93A396 !important;
+	.main-containers .body-containers .list-preview .label,
+	.main-containers .body-containers .list-preview .text,
+	.main-containers .body-containers .list-preview .desc,
+	.main-containers .body-containers .list-preview .time_item,
+	.main-containers .body-containers .list-preview .publisher_item,
+	.main-containers .body-containers .list-preview .collect_item,
+	.main-containers .body-containers .list-preview .view_item,
+	.main-containers .body-containers .list-preview .like_item {
+		color: #93A396;
 	}
 
-	/* 详情页 */
-	.detail-preview {
-		background: linear-gradient(175deg, #16291f, #10201900) !important;
-		background-color: #14271d !important;
-		border: 1px solid rgba(212, 175, 55, .16) !important;
-		border-radius: 10px !important;
+	/* 详情页 / 表单页 / 社区容器（模板白底内联，保留） */
+	.main-containers .body-containers .add-update-preview,
+	.main-containers .body-containers .detail-preview,
+	.main-containers .body-containers .forum-preview,
+	.main-containers .body-containers .center-preview,
+	.main-containers .body-containers .messages-preview,
+	.main-containers .body-containers .list-form-pv,
+	.main-containers .body-containers .select2 {
+		background: rgba(21, 42, 32, .85);
+		border: 1px solid rgba(212, 175, 55, .16);
+		border-radius: 10px;
+		box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
 	}
-	.detail-preview .item .lable,
-	.detail-preview .label {
-		color: #93A396 !important;
+	.main-containers .body-containers .detail-preview .item .lable,
+	.main-containers .body-containers .list-form-pv .lable,
+	.main-containers .body-containers .list-form-pv .label,
+	.main-containers .body-containers .select2 .label {
+		color: #93A396;
 	}
-	.detail-preview .item .text,
-	.detail-preview .name,
-	.detail-preview .text {
-		color: #EDE6D6 !important;
+	.main-containers .body-containers .detail-preview .item .text,
+	.main-containers .body-containers .detail-preview .name,
+	.main-containers .body-containers .detail-preview .text {
+		color: #EDE6D6;
 	}
-	.detail-preview .text.price,
-	.detail-preview .price {
-		color: #D4AF37 !important;
+	.main-containers .body-containers .detail-preview .text.price,
+	.main-containers .body-containers .detail-preview .price {
+		color: #D4AF37;
 		font-family: 'TeaSerif', serif;
 	}
-	.detail-preview .ql-editor,
-	.detail-preview .ql-snow {
-		color: #C9C4B4 !important;
+	.main-containers .body-containers .detail-preview .ql-editor,
+	.main-containers .body-containers .detail-preview .ql-snow {
+		color: #C9C4B4;
 	}
 
-	/* 表单页 */
-	.el-form-item__label {
-		color: #93A396 !important;
+	/* 讲座页卡片（容器非 .list-preview，且 .name 自带白底） */
+	.main-containers .body-containers .list-item1 .infoBox,
+	.main-containers .body-containers .list-item2 .infoBox,
+	.main-containers .body-containers .list-item1 .name,
+	.main-containers .body-containers .list-item2 .name,
+	.main-containers .body-containers .list-item1 .time_item,
+	.main-containers .body-containers .list-item2 .time_item,
+	.main-containers .body-containers .list-item1 .more_btn,
+	.main-containers .body-containers .list-item2 .more_btn {
+		color: #EDE6D6;
 	}
-	.el-input__inner,
-	.el-textarea__inner {
-		background-color: #152A20 !important;
-		border: 1px solid rgba(212, 175, 55, .25) !important;
-		color: #EDE6D6 !important;
+	.main-containers .body-containers .list-item1 .name,
+	.main-containers .body-containers .list-item2 .name {
+		background: transparent;
 	}
-	.el-input__inner::placeholder {
-		color: rgba(147, 163, 150, .55) !important;
-	}
-
-	/* 分页 */
-	#pagination.el-pagination .el-pager li,
-	#pagination.el-pagination button {
-		background: #152A20 !important;
-		color: #C9C4B4 !important;
-	}
-	#pagination.el-pagination .el-pager li.active {
-		color: #D4AF37 !important;
-		border-color: #D4AF37 !important;
+	.main-containers .body-containers .list-item1 .label,
+	.main-containers .body-containers .list-item2 .label {
+		color: #93A396;
 	}
 
-	/* 表格类列表页 */
-	.el-table {
-		background: transparent !important;
-		color: #C9C4B4 !important;
-	}
-	.el-table th,
-	.el-table tr,
-	.el-table td {
-		background-color: transparent !important;
-		color: #C9C4B4 !important;
-		border-bottom: 1px solid rgba(212, 175, 55, .14) !important;
-	}
-	.el-table th {
-		color: #E6CE9A !important;
-	}
-	.el-table--enable-row-hover .el-table__body tr:hover > td {
-		background-color: rgba(212, 175, 55, .07) !important;
-	}
-	.el-table::before,
-	.el-table::after {
-		background-color: rgba(212, 175, 55, .2) !important;
+	/* 模板内联的朱砂红按钮统一为主题绿（内联样式只能属性选择器对抗） */
+	.main-containers .body-containers [style*="#A63D2F"] {
+		background: #3E6B4F;
 	}
 
-	/* 选项卡 */
-	.el-tabs__item {
-		color: #93A396 !important;
+	/* ---- element 组件：无内联对抗，靠加载顺序 + 特异性，已去 ---- */
+	.main-containers .body-containers .el-button--primary {
+		background-color: var(--tea-green);
+		border-color: var(--tea-green);
 	}
-	.el-tabs__item.is-active {
-		color: #D4AF37 !important;
+	.main-containers .body-containers .el-button--primary:hover,
+	.main-containers .body-containers .el-button--primary:focus {
+		background-color: var(--tea-green-deep);
+		border-color: var(--tea-green-deep);
+	}
+	.main-containers .body-containers .el-button--text {
+		color: var(--tea-green);
+	}
+	.main-containers .body-containers .el-link.el-link--primary {
+		color: var(--tea-green);
+	}
+	.main-containers .body-containers .el-radio__input.is-checked .el-radio__inner,
+	.main-containers .body-containers .el-checkbox__input.is-checked .el-checkbox__inner {
+		border-color: var(--tea-green);
+		background: var(--tea-green);
+	}
+	.main-containers .body-containers .el-radio__input.is-checked + .el-radio__label,
+	.main-containers .body-containers .el-checkbox__input.is-checked + .el-checkbox__label {
+		color: var(--tea-green);
+	}
+	.main-containers .body-containers .el-pagination.is-background .el-pager li:not(.disabled).active {
+		background-color: var(--tea-green);
+	}
+	.main-containers .body-containers .el-loading-spinner .el-loading-text {
+		color: var(--tea-green);
+	}
+	.main-containers .body-containers .el-loading-spinner .path {
+		stroke: var(--tea-green);
+	}
+	.main-containers .body-containers .el-input__inner,
+	.main-containers .body-containers .el-textarea__inner {
+		background-color: #152A20;
+		border: 1px solid rgba(212, 175, 55, .25);
+		color: #EDE6D6;
+	}
+	.main-containers .body-containers .el-input__inner::placeholder {
+		color: rgba(147, 163, 150, .55);
+	}
+	.main-containers .body-containers .el-input__inner:focus,
+	.main-containers .body-containers .el-textarea__inner:focus {
+		border-color: var(--tea-green);
+	}
+	.main-containers .body-containers #pagination.el-pagination .el-pager li,
+	.main-containers .body-containers #pagination.el-pagination button {
+		background: #152A20;
+		color: #C9C4B4;
+	}
+	.main-containers .body-containers #pagination.el-pagination .el-pager li.active {
+		color: #D4AF37;
+		border-color: #D4AF37;
+	}
+	.main-containers .body-containers .el-table {
+		background: transparent;
+		color: #C9C4B4;
+	}
+	.main-containers .body-containers .el-table th,
+	.main-containers .body-containers .el-table tr,
+	.main-containers .body-containers .el-table td {
+		background-color: transparent;
+		color: #C9C4B4;
+		border-bottom: 1px solid rgba(212, 175, 55, .14);
+	}
+	.main-containers .body-containers .el-table th {
+		color: #E6CE9A;
+	}
+	.main-containers .body-containers .el-table--enable-row-hover .el-table__body tr:hover > td {
+		background-color: rgba(212, 175, 55, .07);
+	}
+	.main-containers .body-containers .el-tabs__item {
+		color: #93A396;
+	}
+	.main-containers .body-containers .el-tabs__item.is-active {
+		color: #D4AF37;
+	}
+	.main-containers .body-containers .el-radio__label,
+	.main-containers .body-containers .el-checkbox__label {
+		color: #C9C4B4;
+	}
+	.main-containers .body-containers .el-message {
+		background: #152A20;
+		border: 1px solid rgba(212, 175, 55, .3);
+		color: #EDE6D6;
+	}
+	.main-containers .body-containers .el-select-dropdown__item.selected {
+		color: var(--tea-green);
+		font-weight: 600;
 	}
 
-	/* 单选/复选文字 */
-	.el-radio__label,
-	.el-checkbox__label {
-		color: #C9C4B4 !important;
-	}
-
-	/* 消息弹窗 */
-	.el-message {
-		background: #152A20 !important;
-		border: 1px solid rgba(212, 175, 55, .3) !important;
-		color: #EDE6D6 !important;
-	}
-
-	/* ===== 深色主题校正层 =====
-	   模板生成的页面使用内联样式 + 浅底深字，主题改为「夜茶·墨绿金」后统一校正。
-	   此处必须用 !important：内联 style 优先级高于外部样式表，部分组件还带 scoped 属性。
-	   色板：底 #0c1b14 ／ 面板 rgba(21,42,32,·) ／ 主文字 #EDE6D6 ／ 次要 #93A396 ／ 金 #D4AF37 */
-	.breadcrumb-preview {
-		background: rgba(21, 42, 32, .55) !important;
-		border: 1px solid rgba(212, 175, 55, .18) !important;
-		border-radius: 8px !important;
-		box-shadow: none !important;
-	}
-	.breadcrumb-preview .el-breadcrumb__inner,
-	.breadcrumb-preview .el-breadcrumb__inner a,
-	.breadcrumb-preview .el-breadcrumb__inner a:hover,
-	.breadcrumb-preview .el-breadcrumb__separator {
-		color: #E6CE9A !important;
-	}
-
-	/* 搜索面板、筛选面板与表单/详情/社区容器：模板白底与浅灰底 → 深色面板 */
-	.add-update-preview,
-	.detail-preview,
-	.forum-preview,
-	.center-preview,
-	.messages-preview,
-	.list-form-pv,
-	.select2 {
-		background: rgba(21, 42, 32, .85) !important;
-		border: 1px solid rgba(212, 175, 55, .16) !important;
-		border-radius: 10px !important;
-		box-shadow: 0 6px 24px rgba(0, 0, 0, .35) !important;
-	}
-	.list-form-pv .lable,
-	.list-form-pv .label,
-	.select2 .label {
-		color: #93A396 !important;
-	}
-
-	/* 模板内联的朱砂红按钮统一为主题绿（内联样式只能用属性选择器覆盖） */
-	[style*="#A63D2F"] {
-		background: #3E6B4F !important;
-	}
-
-	/* 讲座页（xinlizixun / yuyuezixun）卡片：
-	   这两个布局类的容器不是 .list-preview，上面的规则匹配不到；
-	   且模板 .list-item2 的 .name 自带白底深字，深色主题下会显出一条突兀白带 */
-	.list-item1 .infoBox,
-	.list-item2 .infoBox,
-	.list-item1 .name,
-	.list-item2 .name,
-	.list-item1 .time_item,
-	.list-item2 .time_item,
-	.list-item1 .more_btn,
-	.list-item2 .more_btn {
-		color: #EDE6D6 !important;
-	}
-	.list-item1 .name,
-	.list-item2 .name {
-		background: transparent !important;
-	}
-	.list-item1 .label,
-	.list-item2 .label {
-		color: #93A396 !important;
-	}
 </style>

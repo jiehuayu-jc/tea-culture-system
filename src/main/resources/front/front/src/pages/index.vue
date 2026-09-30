@@ -482,11 +482,9 @@ export default {
 				if (res.data.code == 0) {
 					this.chatList = this.formatMessages(res.data.data.list);
 					let div = document.getElementsByClassName('chat-content')[0]
-					setTimeout(() => {
-						if (div){
-							div.scrollTop = div.scrollHeight
-						}
-					}, 0)
+					this.$nextTick(() => {
+						if (div) div.scrollTop = div.scrollHeight
+					})
 				}
 			});
 		},
@@ -563,12 +561,9 @@ export default {
 		getChathelper(ask) {
 			this.aiLoading = true
 			let div = document.getElementsByClassName('chat-content')[0]
-			console.log(div)
-			setTimeout(() => {
-				if (div){
-					div.scrollTop = div.scrollHeight
-				}
-			}, 100)
+			this.$nextTick(() => {
+				if (div) div.scrollTop = div.scrollHeight
+			})
 			this.$http.post('baidu/askai', {
 				ask: `${ask}`,
 			}).then(res => {
@@ -721,7 +716,7 @@ export default {
 		.body-containers {
 			padding: 0px 0 0;
 			margin: 0;
-			background: #f6f6f6;
+			background: linear-gradient(180deg, #0e2318 0%, #0c1b14 26%, #0c1b14 100%);
 			min-height: 100vh;
 			position: relative;
 			.top-container {
@@ -733,7 +728,8 @@ export default {
 				box-shadow: 0 0px 0px rgba(64, 158, 255, .3);
 				top: 0;
 				left: 0;
-				background: #fff;
+				/* P1-3：夜茶渐变直接落在组件自身样式（原 #fff 白底是白带根因） */
+				background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%);
 				width: 100%;
 				justify-content: flex-start;
 				align-items: center;
@@ -743,7 +739,7 @@ export default {
 					display: block;
 					span {
 						padding: 0;
-						color: #3E6B4F;
+						color: #e6ce9a;
 						font-weight: 600;
 						font-size: 20px;
 						line-height: 44px;
@@ -830,7 +826,7 @@ export default {
 				/* P1-1：菜单回归文档流，用内容令牌居中，去掉绝对定位 + calc 偏移 */
 				margin: 0 auto;
 				z-index: 1003;
-				background: none;
+				background: rgba(12, 27, 20, .55);
 				width: 100%;
 				max-width: var(--tea-content);
 				position: relative;
@@ -929,7 +925,7 @@ export default {
 								cursor: pointer;
 								padding: 0 20px;
 								color: #333;
-								width: 100% !important;
+								width: 100%;
 								font-size: 15px;
 								line-height: 40px;
 							}
@@ -1109,7 +1105,7 @@ export default {
 					::v-deep span.swiper-pagination-bullet {
 						border-radius: 100%;
 						margin: 0 4px;
-						background: #000;
+						background: #E6CE9A;
 						display: inline-block;
 						width: 8px;
 						opacity: .2;
@@ -1205,7 +1201,7 @@ export default {
 		-ms-flex-direction: column;
 		flex-direction: column;
 		height: 420px;
-		color: #ffffff !important;
+		color: #ffffff;
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
 		background: #fff;
@@ -1213,28 +1209,28 @@ export default {
 
 	/* ===== 夜茶·墨绿金顶栏（2026-09 二次整改） ===== */
 	.top-container {
-		background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%) !important;
-		color: #ede6d6 !important;
-		box-shadow: 0 2px 16px rgba(0, 0, 0, .4) !important;
-		padding-bottom: 0 !important;
+		background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%);
+		color: #ede6d6;
+		box-shadow: 0 2px 16px rgba(0, 0, 0, .4);
+		padding-bottom: 0;
 	}
 	.top-container .top_title span {
-		color: #e6ce9a !important;
+		color: #e6ce9a;
 		font-family: 'TeaSerif', 'STSong', 'SimSun', serif;
-		font-size: 22px !important;
+		font-size: 22px;
 		letter-spacing: 4px;
 	}
 	/* 菜单文字色已直接落在 .menu-* 本体上；原 `.top-container .menu-item …` 选择器层级写错（.menu-item 在 .menu-preview 内，非 .top-container 后代）而从未生效，已移除 */
 	.top-container .login-item {
-		color: #e6ce9a !important;
+		color: #e6ce9a;
 	}
 	.top-container .menu-item.menu-active .title .text {
-		color: #d4af37 !important;
+		color: #d4af37;
 	}
 	.top-container .menu-item.menu-active {
-		border-bottom: 2px solid #d4af37 !important;
+		border-bottom: 2px solid #d4af37;
 	}
-	.top-container .top_nickname2 { color: #ede6d6 !important; }
+	.top-container .top_nickname2 { color: #ede6d6; }
 	.top-container ::v-deep .el-dropdown-menu { background: #12241b; }
 
 	.ai-float {
@@ -1257,4 +1253,34 @@ export default {
 		transition: transform .25s ease;
 	}
 	.ai-float:hover { transform: translateY(-4px) scale(1.05); }
+
+	/* P1-1：窄屏头部堆叠 + 菜单横向滚动（模板原为固定 1200px 桌面布局） */
+	@media (max-width: 992px) {
+		.top-container {
+			flex-wrap: wrap;
+			height: auto;
+			padding-bottom: 0;
+		}
+		.top-container .top_title {
+			width: 100%;
+		}
+		.menu-preview {
+			width: 100%;
+			height: auto;
+			overflow-x: auto;
+		}
+		.menu-list {
+			flex-wrap: nowrap;
+			width: max-content;
+			min-width: 100%;
+		}
+		.menu-item .title,
+		.menu-home .title {
+			padding: 0 14px;
+		}
+		.menu-item .title .text,
+		.menu-home .title .text {
+			white-space: nowrap;
+		}
+	}
 </style>

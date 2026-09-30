@@ -26,3 +26,6 @@ static/upload/temp/
 
 # ZCode 工作区数据
 .zcode/
+
+# 构建工具（便携 Node 14，node-sass 绑定依赖）
+.tools/

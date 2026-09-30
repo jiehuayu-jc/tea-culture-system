@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="breadcrumb-preview">
-			<el-breadcrumb :separator="'≡'">
+			<el-breadcrumb :separator="'/'">
 				<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
 				<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index"><a>{{item.name}}</a></el-breadcrumb-item>
 			</el-breadcrumb>
@@ -603,9 +603,10 @@
 						border: 1px solid #2E523C;
 						padding: 10px;
 						overflow: hidden;
-						/* 图片区固定 290px，与下方 .item-info 的 290px 等高，保证卡片左右对齐 */
+						/* P1-4：宽度固定、高度随 flex 拉伸与文字列等高，不再用 290px 魔数 */
 						width: 290px;
-						height: 290px;
+						align-self: stretch;
+						box-sizing: border-box;
 						.image {
 							object-fit: cover;
 							display: block;
@@ -619,9 +620,10 @@
 						overflow: hidden;
 						color: #666;
 						flex: 1;
-						display: inline-block;
+						/* P1-4：纵向 flex，把 查看详情 按钮自然推到底部，替代绝对定位 + left:296px */
+						display: flex;
+						flex-direction: column;
 						font-size: 15px;
-						height: 290px;
 						.name {
 							padding: 0 10px;
 							overflow: hidden;
@@ -744,19 +746,16 @@
 							}
 						}
 						.more_btn {
-							margin: 20px 0 0;
+							margin: 14px 0 0 auto; /* P1-4：margin-top:auto 沉底，随内容自适应 */
 							z-index: 9;
 							color: #fff;
-							bottom: 10px;
 							display: block;
 							font-size: 15px;
 							line-height: 34px;
 							transition: all .4s ease;
 							border-radius: 0;
-							left: 296px; /* 图片区宽 290px + 间隙的像素偏移；改卡片结构时需同步调整 */
-							background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / 100% 100%;
+							background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%);
 							width: 150px;
-							position: absolute;
 							text-align: center;
 							height: 44px;
 						}

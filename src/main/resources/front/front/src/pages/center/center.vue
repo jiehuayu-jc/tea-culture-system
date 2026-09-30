@@ -1202,7 +1202,7 @@
 					}
 				}
 				.el-tabs__active-bar {
-					display: none !important;
+					display: none;
 				}
 			}
 			.center-preview-pv {

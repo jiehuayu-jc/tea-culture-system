@@ -375,7 +375,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.container {
 		background-repeat: no-repeat;
-		background-size: 100% 100% !important;
+		background-size: 100% 100%;
 		background-position: center center;
 		background: url(https://pic1.imgdb.cn/item/6787458cd0e0a243d4f46756.png);
 		display: flex;
@@ -438,7 +438,7 @@ export default {
 							width: 120px;
 							font-size: 16px;
 							line-height: 40px;
-							position: absolute !important;
+							position: absolute;
 							text-align: right;
 						}
 						
