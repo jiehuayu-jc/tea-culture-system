@@ -151,7 +151,7 @@ public class AiController {
         String title;
         switch (metric == null ? "" : metric) {
             case "sales_by_product":
-                rows = jdbcTemplate().queryForList("SELECT shangpinmingcheng AS k, SUM(buynumber) AS v FROM orders WHERE status IN ('已支付','已发货','已完成') GROUP BY shangpinmingcheng ORDER BY v DESC LIMIT ?", limit);
+                rows = jdbcTemplate().queryForList("SELECT goodname AS k, SUM(buynumber) AS v FROM orders WHERE status IN ('已支付','已发货','已完成') GROUP BY goodname ORDER BY v DESC LIMIT ?", limit);
                 title = "商品销量排行";
                 break;
             case "click_by_product":
