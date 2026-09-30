@@ -31,6 +31,10 @@ public class TeaAgentService {
     @Autowired
     private TeaRagService ragService;
 
+    /** 视觉模型客户端（可选）：未配置时多模态输入自动降级为纯文本 */
+    @Autowired(required = false)
+    private com.utils.QwenVlClient vlClient;
+
     @Value("${ai.deepseek.api-key:}")
     private String apiKey;
 
@@ -72,13 +76,40 @@ public class TeaAgentService {
         return t;
     }
 
-    /** SSE 主流程 */
+    /** SSE 主流程（兼容旧调用：无图片） */
     public void streamChat(String query, Long userId, SseEmitter emitter) {
+        streamChat(query, userId, emitter, null);
+    }
+
+    /**
+     * SSE 主流程。
+     *
+     * @param imageDataUrl 可选，形如 data:image/jpeg;base64,xxx 的图片 Data URL。
+     *                     非空时先做视觉识别，把描述作为上下文并入问题，使后续的
+     *                     RAG 检索与工具调用都能利用图片信息（多模态与 Agent 串联）
+     */
+    public void streamChat(String query, Long userId, SseEmitter emitter, String imageDataUrl) {
         DeepSeekClient client = new DeepSeekClient(baseUrl, apiKey, model);
         try {
+            // ---- 多模态输入：先识图 ----
+            String visionNote = null;
+            if (imageDataUrl != null && !imageDataUrl.trim().isEmpty()
+                    && vlClient != null && vlClient.isConfigured()) {
+                send(emitter, "vision_start", "正在识别图片");
+                String desc = vlClient.describe(imageDataUrl);
+                if (desc != null && !desc.isEmpty()) {
+                    visionNote = desc;
+                    send(emitter, "vision", desc);
+                }
+            }
+            String effectiveQuery = (visionNote == null)
+                    ? query
+                    : (query == null || query.trim().isEmpty() ? "请根据这张图片给出建议" : query)
+                            + "\n\n【用户上传图片的识别结果】" + visionNote;
+
             JSONArray messages = new JSONArray();
             messages.add(msg("system", SYSTEM_PROMPT));
-            messages.add(msg("user", query));
+            messages.add(msg("user", effectiveQuery));
 
             List<Map<String, Object>> sources = new ArrayList<>();
             List<Map<String, Object>> cards = new ArrayList<>();

@@ -71,7 +71,10 @@ public class AiController {
         }
         com.utils.AiMetrics.totalRequests.incrementAndGet();
         String query = body.getString("query");
-        if (query == null || query.trim().isEmpty()) {
+        String image = body.getString("image");
+        boolean hasImage = image != null && !image.trim().isEmpty();
+        // 纯文本模式下问题不能为空；带图片时允许只发图
+        if ((query == null || query.trim().isEmpty()) && !hasImage) {
             response.setStatus(400);
             response.setContentType("application/json; charset=utf-8");
             response.getWriter().print(JSON.toJSONString(R.error(400, "问题不能为空")));
@@ -86,7 +89,8 @@ public class AiController {
         Object uid = request.getSession().getAttribute("userId");
         Long userId = uid instanceof Long ? (Long) uid : uid instanceof Integer ? ((Integer) uid).longValue() : null;
         SseEmitter emitter = new SseEmitter(180000L);
-        agentService.streamChat(query, userId, emitter);
+        // 多模态：image 为可选的图片 Data URL，非空时先识图再走 Agent
+        agentService.streamChat(query, userId, emitter, image);
         return emitter;
     }
 

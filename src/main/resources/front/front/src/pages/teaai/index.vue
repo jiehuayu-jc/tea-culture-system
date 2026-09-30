@@ -91,9 +91,18 @@
 		</div>
 
 		<footer class="ai-input">
-			<input v-model="draft" :disabled="streaming" placeholder="例如：送长辈什么茶好？预算两百以内"
+			<div class="thumb" v-if="imageDataUrl">
+				<img :src="imageDataUrl" alt="预览" />
+				<span class="rm" @click="clearImage">×</span>
+			</div>
+			<label class="pic-btn" :class="{ disabled: streaming }" title="上传茶叶 / 茶具照片，AI 可识图作答">
+				<input type="file" accept="image/*" :disabled="streaming" @change="pickImage" />
+				<span>＋</span>
+			</label>
+			<input v-model="draft" :disabled="streaming"
+				:placeholder="imageDataUrl ? '可补充一句想问的（也可留空直接发送）' : '例如：送长辈什么茶好？预算两百以内，也可上传茶叶照片'"
 				@keydown.enter="send" />
-			<button :disabled="streaming || !draft.trim()" @click="send">发送</button>
+			<button :disabled="streaming || (!draft.trim() && !imageDataUrl)" @click="send">发送</button>
 		</footer>
 	</div>
 </template>
@@ -104,6 +113,7 @@
 			return {
 				baseUrl: '',
 				draft: '',
+				imageDataUrl: '',
 				needLogin: false,
 				typeTimer: null,
 				streaming: false,
@@ -177,12 +187,29 @@
 			esc(s) {
 				return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 			},
+			pickImage(e) {
+				const f = e.target.files && e.target.files[0];
+				e.target.value = '';
+				if (!f) return;
+				if (!/^image\//.test(f.type)) { if (this.$message) this.$message.error('请选择图片文件'); return; }
+				if (f.size > 4 * 1024 * 1024) { if (this.$message) this.$message.error('图片请控制在 4MB 以内'); return; }
+				const r = new FileReader();
+				r.onload = () => { this.imageDataUrl = r.result; };
+				r.readAsDataURL(f);
+			},
+			clearImage() {
+				this.imageDataUrl = '';
+			},
 			send() {
 				const q = this.draft.trim();
-				if (!q || this.streaming) return;
+				const img = this.imageDataUrl;
+				if ((!q && !img) || this.streaming) return;
 				this.draft = '';
+				this.imageDataUrl = '';
 				this.streaming = true;
-				this.messages.push({ role: 'user', text: this.esc(q) });
+				const userHtml = (img ? '<img class="u-img" src="' + img + '" alt="图片" />' : '')
+					+ (q ? this.esc(q) : '<span class="u-hint">（仅上传了图片）</span>');
+				this.messages.push({ role: 'user', text: userHtml });
 				const aiMsg = { role: 'ai', raw: '', shown: 0, text: '', steps: [], sources: [], cards: [], lectures: [], done: false };
 				this.messages.push(aiMsg);
 				this.scrollToBottom();
@@ -193,7 +220,7 @@
 						'Content-Type': 'application/json; charset=utf-8',
 						'Token': localStorage.getItem('frontToken') || ''
 					},
-					body: JSON.stringify({ query: q })
+					body: JSON.stringify(img ? { query: q, image: img } : { query: q })
 				}).then(resp => {
 					if (!resp.ok) {
 						// 429 限流 / 400 参数错误：响应体是 JSON 而非 SSE，读出 msg 展示到气泡
@@ -233,6 +260,10 @@
 				const t = payload.type, d = payload.data;
 				if (t === 'delta') {
 					m.text += this.esc(d).replace(/\n/g, '<br>');
+				} else if (t === 'vision_start') {
+					m.steps.push({ type: 'tool_call', name: '识图', args: '' });
+				} else if (t === 'vision') {
+					m.steps.push({ type: 'tool_result', summary: '图片识别：' + String(d) });
 				} else if (t === 'mode') {
 					m.steps.push({ type: 'tool_result', summary: '离线演示模式（未配置大模型网络）' });
 				} else if (t === 'tool_call') {
@@ -486,6 +517,57 @@
 
 	.typing { color: #93a396; font-size: 13px; letter-spacing: 2px; padding: 6px 0; }
 
+	.pic-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 6px;
+		border: 1px solid rgba(212, 175, 55, .25);
+		background: rgba(21, 42, 32, .8);
+		color: #e6ce9a;
+		font-size: 22px;
+		line-height: 1;
+		cursor: pointer;
+		flex-shrink: 0;
+		transition: border-color .2s, color .2s;
+		&:hover { border-color: #d4af37; color: #d4af37; }
+		&.disabled { opacity: .45; cursor: not-allowed; }
+		input { display: none; }
+	}
+	.thumb {
+		position: relative;
+		width: 52px;
+		height: 52px;
+		border-radius: 6px;
+		overflow: hidden;
+		border: 1px solid rgba(212, 175, 55, .3);
+		flex-shrink: 0;
+		img { width: 100%; height: 100%; object-fit: cover; display: block; }
+		.rm {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 16px;
+			height: 16px;
+			line-height: 14px;
+			text-align: center;
+			background: rgba(0, 0, 0, .6);
+			color: #ede6d6;
+			font-size: 12px;
+			cursor: pointer;
+		}
+	}
+	.u-img {
+		display: block;
+		max-width: 200px;
+		max-height: 200px;
+		border-radius: 6px;
+		margin-bottom: 8px;
+		border: 1px solid rgba(212, 175, 55, .18);
+	}
+	.u-hint { color: #93a396; font-size: 13px; }
 	.ai-input {
 		width: 94%;
 		max-width: var(--tea-content);
