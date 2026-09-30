@@ -28,7 +28,7 @@
 				</div>
 				<div class="hero-right">
 					<div class="moon-ring">
-						<img :src="baseUrl + 'upload/photo_1.jpg'" alt="茶" />
+						<img :src="baseUrl + 'upload/photo_2.jpg'" alt="茶" />
 					</div>
 					<div class="hero-vertical">茶之为饮&nbsp;发乎神农</div>
 				</div>
