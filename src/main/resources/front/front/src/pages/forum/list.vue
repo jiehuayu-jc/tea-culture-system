@@ -250,7 +250,7 @@
 						.item {
 								cursor: pointer;
 								border: 0px solid #475a8350;
-								padding: 0px 20px 20px;
+								padding: 0 20px;
 								margin: 0 20px 20px 0;
 								color: #fff;
 								display: flex;
