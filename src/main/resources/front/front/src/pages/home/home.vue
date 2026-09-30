@@ -28,7 +28,7 @@
 				</div>
 				<div class="hero-right">
 					<div class="moon-ring">
-						<img :src="baseUrl + 'upload/picture1.jpg'" alt="茶" />
+						<img :src="baseUrl + 'upload/photo_1.jpg'" alt="茶" />
 					</div>
 					<div class="hero-vertical">茶之为饮&nbsp;发乎神农</div>
 				</div>
@@ -411,7 +411,7 @@
 				object-fit: cover;
 				border-radius: 50%;
 				border: 1px solid rgba(230, 206, 154, .25);
-				filter: saturate(.9) brightness(.92);
+				filter: saturate(1.02) contrast(1.02);
 			}
 		}
 		.hero-vertical {
