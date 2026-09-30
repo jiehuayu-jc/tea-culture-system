@@ -87,28 +87,14 @@
 				</div>
 			</div>
 
-			<div class="banner-preview" v-if="carouselChange() && $route.path != '/index/home'">
-				<div class="swiper-container mySwiper3">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide" v-for="item in carouselList" :key="item.id">
-							<div class="swiper-item">
-								<el-image v-if="preHttp(item.value)" @click="carouselClick(item.url)" :src="item.value" fit="cover"></el-image>
-								<el-image v-else @click="carouselClick(item.url)" :src="baseUrl + item.value" fit="cover"></el-image>
-							</div>
-						</div>
-					</div>
-					<div class="banner-hidden">
-					</div>
-					<!-- Add Pagination -->
-					<div class="swiper-pagination"></div>
-					<!-- Add Arrows -->
-					<div class="swiper-button-next">
-						<span class="icon iconfont icon-jiantou18"></span>
-					</div>
-					<div class="swiper-button-prev">
-						<span class="icon iconfont icon-jiantou39"></span>
-					</div>
+<div class="page-hero" v-if="$route.path != '/index/home' && $route.path != '/index/teaai'">
+				<div class="ph-grain"></div>
+				<div class="ph-inner">
+					<div class="ph-eyebrow">CHINESE TEA CULTURE</div>
+					<div class="ph-title">{{ pageTitle }}</div>
+					<div class="ph-line"></div>
 				</div>
+				<div class="ph-vertical">茶之为饮&nbsp;发乎神农</div>
 			</div>
 			<router-view id="scrollView"></router-view>
 			
@@ -300,6 +286,14 @@ export default {
 		}
 	},
 	computed: {
+		pageTitle() {
+			const url = this.activeMenu;
+			if (url === '/index/home') return '一盏春色';
+			const hit = (this.menuList || []).find(m => m.url === url);
+			if (hit) return hit.name;
+			const map = { '/index/cart': '购物车', '/index/center': '个人中心' };
+			return map[url] || '茶事美学';
+		},
 		activeMenu() {
 			const route = this.$route
 			const {

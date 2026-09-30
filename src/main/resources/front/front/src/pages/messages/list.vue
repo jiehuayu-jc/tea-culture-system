@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#666","background":"#f6f6f6","width":"1400px","fontSize":"16px","position":"relative"}'>
+	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#EDE6D6","background":"none","width":"1400px","fontSize":"16px","position":"relative"}'>
 		<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>留言板</div>
 		<el-form :model="form" :rules="rules" ref="form" label-width="65px" label-position="left">
 			<el-form-item label="留言" prop="content">

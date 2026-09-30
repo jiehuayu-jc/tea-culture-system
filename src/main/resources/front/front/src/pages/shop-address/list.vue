@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#666","background":"#f6f6f6","width":"1400px","fontSize":"16px","position":"relative"}'>
+	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#EDE6D6","background":"none","width":"1400px","fontSize":"16px","position":"relative"}'>
 		<div class="back_box">
 			<el-button class="backBtn" size="mini" @click="backClick">
 				<span class="icon iconfont icon-jiantou33"></span>

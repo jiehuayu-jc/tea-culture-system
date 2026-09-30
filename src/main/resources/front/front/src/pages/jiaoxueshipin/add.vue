@@ -1,5 +1,5 @@
 <template>
-<div :style='{"width":"80%","padding":"20px","margin":"10px auto","position":"relative","background":"#fff"}'>
+<div :style='{"width":"80%","padding":"20px","margin":"10px auto","position":"relative","background":"rgba(21,42,32,.85)"}'>
     <el-form
 	  :style='{"width":"100%","position":"relative","flexWrap":"wrap","justifyContent":"space-between","display":"flex"}'
       class="add-update-preview"

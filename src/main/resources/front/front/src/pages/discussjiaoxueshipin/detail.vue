@@ -10,33 +10,33 @@
 	<div :style='{"padding":"20px 20px 20px 15%","margin":"10px auto 0","borderRadius":"27px","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%)","width":"80%","backgroundSize":"100% 100%","backgroundRepeat":"no-repeat"}'>
 		<el-button size="mini" @click="backClick">返回</el-button>
 	</div>
-	<div class="detail-preview" :style='{"padding":"30px 22px","margin":"10px auto","flexWrap":"wrap","background":"#fff","display":"flex","width":"60%","position":"relative"}'>
+	<div class="detail-preview" :style='{"padding":"30px 22px","margin":"10px auto","flexWrap":"wrap","background":"rgba(21,42,32,.85)","display":"flex","width":"60%","position":"relative"}'>
 		<div class="attr" :style='{"minHeight":"75px","padding":"0","background":"none","display":"flex","width":"55%","position":"relative","order":"2"}'>
 
-			<div class="info" :style='{"padding":"10px","margin":"0 0 0 0","background":"#fff","flex":"1"}'>
+			<div class="info" :style='{"padding":"10px","margin":"0 0 0 0","background":"none","flex":"1"}'>
 				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","alignItems":"center","background":"none","justifyContent":"space-between","display":"flex"}'>
-					<div :style='{"color":"#000","fontSize":"18px","fontWeight":"bold"}'>
+					<div :style='{"color":"#EDE6D6","fontSize":"18px","fontWeight":"bold"}'>
                     </div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"#fff","justifyContent":"spaceBetween","display":"flex"}'>
+				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"none","justifyContent":"spaceBetween","display":"flex"}'>
 					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#9e9e9e","textAlign":"right"}'>关联表id</div>
 					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#3B2626","flex":"1"}'>{{detail.refid}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"#fff","justifyContent":"spaceBetween","display":"flex"}'>
+				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"none","justifyContent":"spaceBetween","display":"flex"}'>
 					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#9e9e9e","textAlign":"right"}'>用户名</div>
 					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#3B2626","flex":"1"}'>{{detail.nickname}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"#fff","justifyContent":"spaceBetween","display":"flex"}'>
+				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"none","justifyContent":"spaceBetween","display":"flex"}'>
 					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#9e9e9e","textAlign":"right"}'>评论内容</div>
 					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#3B2626","flex":"1"}'>{{detail.content}}</div>
 				</div>
-				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"#fff","justifyContent":"spaceBetween","display":"flex"}'>
+				<div class="item" :style='{"padding":"10px","margin":"0 0 10px 0","background":"none","justifyContent":"spaceBetween","display":"flex"}'>
 					<div class="lable" :style='{"width":"102px","padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#9e9e9e","textAlign":"right"}'>回复内容</div>
 					<div  :style='{"padding":"0 10px","fontSize":"14px","lineHeight":"24px","color":"#3B2626","flex":"1"}'>{{detail.reply}}</div>
 				</div>
 				<div class="btn" :style='{"padding":"10px 0","flexWrap":"wrap","display":"flex"}'>
 					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 auto 10px","outline":"none","color":"#fff","borderRadius":"10px","background":"#0F2419","width":"40%","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="btnAuth('discussjiaoxueshipin','修改')" @click="editClick">修改</el-button>
-					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 auto 10px","outline":"none","color":"#000","borderRadius":"10px","background":"#FFC174","width":"40%","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="btnAuth('discussjiaoxueshipin','删除')" @click="delClick">删除</el-button>
+					<el-button :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 auto 10px","outline":"none","color":"#fff","borderRadius":"10px","background":"#A63D2F","width":"40%","lineHeight":"40px","fontSize":"14px","height":"40px"}' v-if="btnAuth('discussjiaoxueshipin','删除')" @click="delClick">删除</el-button>
 					<!-- hasChat $hasChat -->
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 		
 
 		
-		<el-tabs class="detail" :style='{"border":"0","width":"100%","boxShadow":"none","margin":"20px 0","background":"#F7F5F7","order":"4"}' v-model="activeName" type="border-card">
+		<el-tabs class="detail" :style='{"border":"0","width":"100%","boxShadow":"none","margin":"20px 0","background":"rgba(21,42,32,.6)","order":"4"}' v-model="activeName" type="border-card">
 									<el-tab-pane label="评论" name="second">
 				<el-form class="add comment" :style='{"boxShadow":"none","padding":"15px","margin":"0 0 20px"}' :model="form" :rules="rules" ref="form">
 					<el-form-item class="item" :style='{"width":"100%","display":"flex","height":"auto"}' label="评论" prop="content">
@@ -71,7 +71,7 @@
 				</el-form>
 				
 				<div v-if="infoList.length" :style='{"boxShadow":"none","padding":"0"}' class="comment">
-					<div :style='{"padding":"15px","margin":"0 0 20px","borderColor":"#999","alignItems":"center","borderWidth":"0","background":"#fff","width":"100%","borderStyle":"solid","height":"auto"}' v-for="item in infoList" :key="item.id" @mouseenter="discussEnter(item.id)"
+					<div :style='{"padding":"15px","margin":"0 0 20px","borderColor":"#999","alignItems":"center","borderWidth":"0","background":"rgba(21,42,32,.6)","width":"100%","borderStyle":"solid","height":"auto"}' v-for="item in infoList" :key="item.id" @mouseenter="discussEnter(item.id)"
 						@mouseleave="discussLeave">
 						<div class="user" :style='{"width":"100%","alignItems":"center","display":"flex","height":"auto"}'>
 							<el-image v-if="item.avatarurl" :style='{"width":"40px","margin":"0 10px 0 0","borderRadius":"100%","objectFit":"cover","height":"40px"}' :size="50" :src="baseUrl + item.avatarurl"></el-image>

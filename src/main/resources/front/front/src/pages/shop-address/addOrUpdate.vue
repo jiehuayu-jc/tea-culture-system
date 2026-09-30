@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#666","background":"#f6f6f6","width":"1400px","fontSize":"16px","position":"relative"}'>
+	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#EDE6D6","background":"none","width":"1400px","fontSize":"16px","position":"relative"}'>
 		<el-form class="add-update-preview" ref="form" :model="form" :rules="rules" label-width="180px">
 			<el-form-item :style='{"padding":"6px 0 0","margin":"0 0 20px 0","borderColor":"#475a8310","borderRadius":"0px","background":"none","borderWidth":" 0 0 0px","borderStyle":"solid"}' label="联系人" prop="name">
 				<el-input v-model="form.name" placeholder="联系人"></el-input>

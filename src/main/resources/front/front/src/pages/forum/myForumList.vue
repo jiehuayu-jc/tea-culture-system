@@ -1,5 +1,5 @@
 <template>
-	<div :style='{"alignContent":"flex-start","padding":"0","margin":"0 auto","maxWidth":"1400px","alignItems":"flex-start","flexWrap":"wrap","background":"#f6f6f6","display":"flex","width":"100%","fontSize":"16px","position":"relative"}'>
+	<div :style='{"alignContent":"flex-start","padding":"0","margin":"0 auto","maxWidth":"1400px","alignItems":"flex-start","flexWrap":"wrap","background":"none","display":"flex","width":"100%","fontSize":"16px","position":"relative"}'>
 		<div class="back_box">
 			<el-button class="backBtn" size="mini" @click="backClick">
 				<span class="icon iconfont icon-jiantou33"></span>

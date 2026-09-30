@@ -13,7 +13,7 @@
 		
 
 	
-    <el-form :inline="true" :model="formSearch" class="list-form-pv" :style='{"padding":"10px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","alignItems":"center","borderRadius":"30px","flexWrap":"wrap","background":"#fff","display":"flex","width":"83%","height":"auto"}'>
+    <el-form :inline="true" :model="formSearch" class="list-form-pv" :style='{"padding":"10px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","alignItems":"center","borderRadius":"30px","flexWrap":"wrap","background":"rgba(21,42,32,.85)","display":"flex","width":"83%","height":"auto"}'>
       <el-form-item :style='{"border":"1px solid #000","margin":"0","flex":"1","borderWidth":"0 0px 0 0"}'>
 	    <div class="lable" v-if="false" :style='{"width":"auto","padding":"0 10px","lineHeight":"42px","display":"inline-block"}'>用户名：</div>
         <el-input v-model="formSearch.nickname" placeholder="用户名" @keydown.enter.native="getList(1, curFenlei)" clearable></el-input>
@@ -25,7 +25,7 @@
 	  <el-button v-if=" true " :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"430px","background":"#3E6B4F","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="getList(1, curFenlei)"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-search"></i>查询</el-button>
 	  <el-button v-if="btnAuth('discussjiaoxueshipin','新增')" :style='{"cursor":"pointer","border":"0","padding":"0px 15px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"30px","background":"#0F2419","width":"100px","fontSize":"14px","lineHeight":"42px","height":"42px"}' type="primary" @click="add('/index/discussjiaoxueshipinAdd')"><i v-if="true" :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}' class="el-icon-circle-plus-outline"></i>添加</el-button>
     </el-form>
-	<div class="select2" :style='{"width":"83%","padding":"20px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","background":"#fff","height":"auto"}'>
+	<div class="select2" :style='{"width":"83%","padding":"20px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"10px auto","background":"rgba(21,42,32,.85)","height":"auto"}'>
 	  <div :style='{"width":"100%","padding":"0 0 0 20px","margin":"0 0 10px","position":"relative","background":"none","height":"auto"}' class="list" v-for="(item,index) in selectOptionsList" :key="item">
 	    <div :style='{"padding":"0 5px","color":"#9e9e9e","textAlign":"right","display":"inline-block","width":"auto","lineHeight":"32px","fontSize":"14px"}' class="label">{{item.name}}：</div>
 	    <div :style='{"width":"auto","display":"inline-block","height":"auto"}' class="item-body">
@@ -46,7 +46,7 @@
 		
 		<!-- 样式二 -->
 		<div class="list2 index-pv1" :style='{"padding":"0px","flexWrap":"wrap","background":"none","display":"flex","width":"100%","justifyContent":"space-between","height":"auto"}'>
-			<div :style='{"border":"2px solid #fff","padding":"20px","boxShadow":"0 4px 10px rgba(0,0,0,.3)","margin":"0 0 30px","alignItems":"center","color":"#000","background":"#fff","display":"flex","width":"49%","fontSize":"0","position":"relative","height":"auto"}' v-for="(item, index) in dataList" :key="index" @click.stop="toDetail(item)" class="list-item animation-box">
+			<div :style='{"border":"1px solid rgba(212,175,55,.16)","padding":"20px","boxShadow":"0 4px 16px rgba(0,0,0,.25)","margin":"0 0 30px","alignItems":"center","color":"#EDE6D6","background":"linear-gradient(175deg, #16291f, #122219)","display":"flex","width":"49%","fontSize":"0","position":"relative","height":"auto"}' v-for="(item, index) in dataList" :key="index" @click.stop="toDetail(item)" class="list-item animation-box">
 				<div class="item-info" :style='{"padding":"10px","overflow":"hidden","flexWrap":"wrap","flex":"1","display":"flex","height":"auto"}'>
 					<div v-if="item.price" :style='{"padding":"0 40px","margin":"20px 10px","color":"#fff","borderRadius":"5px","background":"#D4AF37","lineHeight":"46px","fontSize":"18px","order":"7"}' class="price"><span :style='{"fontSize":"12px"}'>￥</span>{{item.price}}</div>
 					<div :style='{"width":"100%","padding":"0 10px","order":"6"}'>
