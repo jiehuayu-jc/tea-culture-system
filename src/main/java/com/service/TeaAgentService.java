@@ -101,7 +101,7 @@ public class TeaAgentService {
                         try { args = JSON.parseObject(argsStr == null ? "{}" : argsStr); }
                         catch (Exception e) { args = new JSONObject(); }
                         send(emitter, "tool_call", name + " " + argsStr);
-                        JSONObject result = executeTool(name, args, userId, sources, cards);
+                        JSONObject result = executeTool(name, args, userId, sources, cards, client);
                         send(emitter, "tool_result", result.toJSONString());
                         // tool 消息必须是顶层带 tool_call_id 的对象，不能把整个对象塞进 content
                         JSONObject toolMsg = new JSONObject();
@@ -159,7 +159,8 @@ public class TeaAgentService {
 
     /** 工具执行器 */
     private JSONObject executeTool(String name, JSONObject args, Long userId,
-                                   List<Map<String, Object>> sources, List<Map<String, Object>> cards) {
+                                   List<Map<String, Object>> sources, List<Map<String, Object>> cards,
+                                   DeepSeekClient llm) {
         JSONObject out = new JSONObject();
         switch (name) {
             case "recommend_teas": {
@@ -196,7 +197,7 @@ public class TeaAgentService {
                 break;
             }
             case "search_knowledge": {
-                List<Map<String, Object>> hits = ragService.search(args.getString("query"), 3);
+                List<Map<String, Object>> hits = ragService.search(args.getString("query"), 3, llm);
                 out.put("hits", JSON.parseArray(JSON.toJSONString(hits)));
                 for (Map<String, Object> h : hits) {
                     Map<String, Object> s = new HashMap<>();
@@ -209,7 +210,7 @@ public class TeaAgentService {
             }
             case "get_brewing_guide": {
                 String tea = args.getString("tea_name") == null ? "" : args.getString("tea_name");
-                List<Map<String, Object>> hits = ragService.search(tea + " 冲泡 水温", 2);
+                List<Map<String, Object>> hits = ragService.search(tea + " 冲泡 水温", 2, llm);
                 if (!hits.isEmpty()) {
                     out.put("guide_source", hits.get(0).get("title"));
                     out.put("guide", hits.get(0).get("snippet"));
@@ -276,7 +277,7 @@ public class TeaAgentService {
         }
         if (query.contains("推荐") || query.contains("送") || query.contains("买")) {
             sb.append("\n按点击量为你挑选了站内人气茶品，见下方商品卡片，可直接加购：\n");
-            executeTool("recommend_teas", new JSONObject(), null, sources, cards);
+            executeTool("recommend_teas", new JSONObject(), null, sources, cards, null);
         }
         String text = sb.toString();
         // P0-4：一次性发送完整文本，不在 Web 线程里 sleep 伪造流式；打字机动画由前端渲染层完成
