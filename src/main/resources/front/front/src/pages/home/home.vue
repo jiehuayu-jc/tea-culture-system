@@ -17,6 +17,9 @@
 					<div class="hero-actions">
 						<button class="btn-gold" @click="goMenu('/index/shangpinxinxi')">进入好茶集市</button>
 						<button class="btn-ghost" @click="goMenu('/index/jiaoxueshipin')">品读茶文化</button>
+						<button class="btn-ai" @click="goMenu('/index/teaai')">
+							<span class="ai-dot"></span>问问茶道AI
+						</button>
 					</div>
 					<div class="hero-stats">
 						<div class="stat"><b>{{ countUp(products.count) }}</b><span>在售好茶</span></div>
@@ -349,8 +352,41 @@
 	}
 	.hero-actions {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 20px;
 		margin-bottom: 52px;
+	}
+	.btn-ai {
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 14px 40px;
+		font-size: 16px;
+		letter-spacing: 4px;
+		border-radius: 2px;
+		font-family: 'TeaSerif', 'STSong', serif;
+		color: #e6ce9a;
+		background: rgba(212, 175, 55, .08);
+		border: 1px solid rgba(212, 175, 55, .5);
+		transition: all .25s ease;
+		.ai-dot {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: #d4af37;
+			animation: aiPulse 2.4s ease-out infinite;
+		}
+		&:hover {
+			color: #f6f3ec;
+			border-color: #d4af37;
+			background: rgba(212, 175, 55, .16);
+		}
+	}
+	@keyframes aiPulse {
+		0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, .5); }
+		70% { box-shadow: 0 0 0 9px rgba(212, 175, 55, 0); }
+		100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
 	}
 	.btn-gold {
 		cursor: pointer;
