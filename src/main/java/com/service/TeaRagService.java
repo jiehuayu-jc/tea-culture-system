@@ -41,6 +41,13 @@ public class TeaRagService {
     @Autowired(required = false)
     private EmbeddingProvider embeddingProvider;
 
+    /**
+     * 文档向量缓存：key 为 ai_knowledge.id。
+     * 稠密检索若每次查询都现算全库向量，会拖慢每个请求；这里改为懒加载 + 启动预热。
+     * null 表示尚未构建；知识库重建时置空以失效。
+     */
+    private volatile Map<Long, float[]> docVecCache = null;
+
     // ==================== 知识入库 ====================
 
     /** 启动时知识库为空则自动建库，保证开箱可演示 */
@@ -54,15 +61,32 @@ public class TeaRagService {
             } else {
                 log.info("[茶道AI] 知识库已有 {} 条内容，跳过自动建库", count());
             }
+            warmupDenseCache();
         } catch (Exception e) {
             log.error("[茶道AI] 知识库初始化失败：ai_knowledge 表不存在或不可写。"
                     + "请先执行 db/springbootj8kskvkr.sql（文件末尾包含 ai_knowledge 建表语句）后重启服务。", e);
         }
     }
 
+    /** 后台预热稠密向量缓存：避免首次检索时才逐条编码导致卡顿 */
+    private void warmupDenseCache() {
+        if (embeddingProvider == null || !embeddingProvider.available()) return;
+        Thread t = new Thread(() -> {
+            try {
+                docVecCache = buildDocVectorCache();
+            } catch (Exception e) {
+                org.slf4j.LoggerFactory.getLogger(TeaRagService.class)
+                        .warn("[茶道AI] 稠密向量预热失败：{}", e.getMessage());
+            }
+        }, "tea-rag-embedding-warmup");
+        t.setDaemon(true);
+        t.start();
+    }
+
     /** 将站内内容重建进知识库 */
     public Map<String, Object> rebuild() {
         jdbcTemplate.update("DELETE FROM ai_knowledge");
+        docVecCache = null;   // 知识库内容已变，文档向量缓存失效
         int n = 0;
         // 茶文化（jiaoxueshipin）
         n += ingest("SELECT id, biaoti, jibenjieshao FROM jiaoxueshipin", "article", "biaoti", "jibenjieshao");
@@ -153,23 +177,55 @@ public class TeaRagService {
 
     /**
      * 稠密路召回：对全部知识片段做余弦相似度排序。
-     * 向量由 EmbeddingProvider 在查询时现算（知识库规模为站内内容量级，内存计算足够）。
+     * 文档向量走缓存（首次构建后复用），避免每次查询都调用 embedding 接口。
      */
     private List<Map<String, Object>> denseRecall(float[] qv, int n) {
+        Map<Long, float[]> cache = docVecCache;
+        if (cache == null) {
+            cache = buildDocVectorCache();
+            docVecCache = cache;
+        }
+        if (cache.isEmpty()) return new ArrayList<>();
+
         List<Map<String, Object>> docs = jdbcTemplate.queryForList(
                 "SELECT id, source_type, source_id, title, content FROM ai_knowledge");
         List<Map<String, Object>> scored = new ArrayList<>();
         for (Map<String, Object> doc : docs) {
-            String text = doc.get("title") + " " + doc.get("content");
-            float[] dv = embeddingProvider.embed(text);
+            Object idObj = doc.get("id");
+            if (idObj == null) continue;
+            float[] dv = cache.get(Long.valueOf(String.valueOf(idObj)));
             if (dv == null) continue;
             double sim = cosine(qv, dv);
             if (sim <= 0) continue;
-            Map<String, Object> hit = toHit(doc, sim);
-            scored.add(hit);
+            scored.add(toHit(doc, sim));
         }
         scored.sort((a, b) -> Double.compare((Double) b.get("score"), (Double) a.get("score")));
         return scored.subList(0, Math.min(n, scored.size()));
+    }
+
+    /** 构建文档向量缓存：一次性把全部知识片段编码入库 */
+    private Map<Long, float[]> buildDocVectorCache() {
+        Map<Long, float[]> cache = new HashMap<>();
+        if (embeddingProvider == null || !embeddingProvider.available()) return cache;
+        List<Map<String, Object>> docs = jdbcTemplate.queryForList(
+                "SELECT id, title, content FROM ai_knowledge");
+        long t0 = System.currentTimeMillis();
+        int failed = 0;
+        for (Map<String, Object> doc : docs) {
+            Object idObj = doc.get("id");
+            if (idObj == null) continue;
+            float[] v = embeddingProvider.embed(doc.get("title") + " " + doc.get("content"));
+            if (v == null) {
+                failed++;
+                if (!embeddingProvider.available()) break;   // 熔断触发，放弃本轮
+                continue;
+            }
+            cache.put(Long.valueOf(String.valueOf(idObj)), v);
+        }
+        org.slf4j.LoggerFactory.getLogger(TeaRagService.class).info(
+                "[茶道AI] 稠密向量缓存构建完成：成功 {} 条，失败 {} 条，耗时 {} ms",
+                cache.size(), failed, System.currentTimeMillis() - t0);
+        return cache;
     }
 
     /** 倒数排名融合：score(d) = Σ 1/(RRF_K + rank_i(d)) */
