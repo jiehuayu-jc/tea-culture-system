@@ -729,11 +729,11 @@ export default {
 				top: 0;
 				left: 0;
 				/* P1-3：夜茶渐变直接落在组件自身样式（原 #fff 白底是白带根因） */
-				background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%);
+				background: linear-gradient(180deg, rgba(15, 36, 25, .92) 0%, rgba(12, 27, 20, .88) 100%);
 				width: 100%;
 				justify-content: flex-start;
 				align-items: center;
-				position: inherit;
+				position: sticky;
 				height: 140px;
 				.top_title {
 					display: block;
@@ -1207,9 +1207,8 @@ export default {
 		background: #fff;
 	}
 
-	/* ===== 夜茶·墨绿金顶栏（2026-09 二次整改） ===== */
+	/* ===== 夜茶·墨绿金顶栏（背景交给 .top-container 主规则：半透明 + sticky 毛玻璃） ===== */
 	.top-container {
-		background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%);
 		color: #ede6d6;
 		box-shadow: 0 2px 16px rgba(0, 0, 0, .4);
 		padding-bottom: 0;

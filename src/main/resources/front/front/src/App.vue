@@ -159,16 +159,24 @@
 		font-family: "SimSun", "STSong", "Songti SC", serif;
 	}
 	.breadcrumb-preview .el-breadcrumb .item1 .el-breadcrumb__inner a {
-		color: #000;
+		color: #93A396;
 		display: inline-block;
+		font-size: 14px;
+		letter-spacing: 2px;
 	}
 	.breadcrumb-preview .el-breadcrumb .item2 .el-breadcrumb__inner a {
-		color: #333;
+		color: #E6CE9A;
 		display: inline-block;
+		font-family: 'TeaSerif', 'STSong', 'SimSun', serif;
+		font-size: 30px;
+		letter-spacing: 5px;
 	}
 	.breadcrumb-preview .el-breadcrumb .item3 .el-breadcrumb__inner a {
-		color: #3E6B4F;
+		color: #E6CE9A;
 		display: inline-block;
+		font-family: 'TeaSerif', 'STSong', 'SimSun', serif;
+		font-size: 30px;
+		letter-spacing: 5px;
 	}
 	.back_box {
 		border-radius: 0px;
