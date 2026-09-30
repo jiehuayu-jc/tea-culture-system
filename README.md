@@ -6,8 +6,9 @@
 
 | 层 | 技术 |
 |---|---|
-| 后端 | Spring Boot 2.2.2 · MyBatis-Plus 2.3 · MySQL · WebSocket · 百度千帆 AI |
-| 管理端前端 | Vue 2.7 + ElementUI（`src/main/resources/admin/admin`，开发端口 8081） |
+| 后端 | Spring Boot 2.2.2 · MyBatis-Plus 2.3 · MySQL · WebSocket |
+| AI 服务 | DeepSeek（OpenAI 兼容协议，自研轻量客户端：多轮对话 / Function Calling / SSE 流式）· DashScope text-embedding-v3 稠密向量 · BM25+RRF 混合检索 · LLM 语义重排 |
+| 管理端 | 手写静态页（`src/main/resources/admin-ui`），构建时随 classpath 自动服务，无需 Node 工具链；旧 Vue 版（`src/main/resources/admin/admin`）已弃用，仅留档 |
 | 客户端前端 | Vue 2.6 + ElementUI（`src/main/resources/front/front`，开发端口 8082） |
 | 认证 | Token 存库 + 拦截器校验；密码 BCrypt（兼容历史 MD5，登录时自动升级） |
 
@@ -16,8 +17,11 @@
 1. **数据库**（三选一）：
    - 本机 MySQL：执行 `db/init-database.bat`（重置并导入 `db/springbootj8kskvkr.sql`，root 密码默认 123456）
    - Docker：项目根目录 `docker compose up -d`（首次启动自动导入 SQL）
-2. **后端**：双击 `run.bat`（或 IDE 直接运行 `com.SpringBootTestSchemaApplication`），端口 8080，context-path `/springbootj8kskvkr`
-3. **前端**（开发模式）：`src/main/resources/admin/admin` 下先 `1-install.bat` 再 `2-run.bat`；客户端在 `src/main/resources/front/front` 下执行 `run.bat`
+2. **后端**：双击 `run.bat`（或 IDE 直接运行 `com.TeaCultureApplication`），端口 8080，context-path `/springbootj8kskvkr`
+3. **访问入口**（后端启动即可用，前端无需构建）：
+   - 前台：`http://localhost:8080/springbootj8kskvkr/front/index.html`
+   - 管理端：`http://localhost:8080/springbootj8kskvkr/admin/index.html`（静态页经 classpath 自动映射，源码在 `src/main/resources/admin-ui`，无手工拷贝步骤）
+4. **前端开发模式**（仅改前台源码时需要）：`src/main/resources/front/front` 下执行 `run.bat`，devServer 8082 已代理 `/springbootj8kskvkr` 到 8080
 
 ## 演示账号
 
@@ -32,6 +36,24 @@
 > 登录接口 `/<角色>/login` 接收 **form 参数**（`username` / `password`），不接受 JSON body —— 用 JSON 调用只会返回"账号或密码不能为空"。
 
 > 老库中历史密码为 MD5 时依然可登录，登录成功后自动升级为 BCrypt 存储。
+
+## 界面截图
+
+![管理控制台](docs/screenshots/admin-console.png)
+
+![数据管理](docs/screenshots/admin-list.png)
+
+![前台首页](docs/screenshots/front-home.png)
+
+（更多见 `docs/screenshots/`）
+
+## 备赛材料（docs/）
+
+| 文件 | 用途 |
+|---|---|
+| `docs/demo-video-script.md` | 演示视频分镜脚本与录制清单（5-8 分钟） |
+| `docs/tech-doc-template.md` | 技术文档章节模板与页数预算（PDF ≤30 页） |
+| `docs/innovation-points.md` | 创新点清单：卖点、演示画面、评委 Q&A |
 
 ## 模块对照表
 
@@ -66,7 +88,7 @@
 
 - 管理员"忘记密码"（`users/resetPass`）为匿名接口，可被调用将任意管理员密码重置为 123456，正式部署前应加验证机制
 - 支付为模拟流程，无真实支付网关
-- AI 问答依赖百度千帆 API Key（`BaiduUtil`），未配置时该功能不可用
+- AI 问答依赖 DeepSeek API Key（环境变量 `DEEPSEEK_API_KEY`），未配置时自动进入离线演示模式（BM25 检索 + 本地推荐），对话链路不中断
 
 ## 传智杯「AI Web 应用」赛项能力对照
 
@@ -75,7 +97,9 @@
 | 评审能力 | 对应功能 | 代码位置 |
 |---|---|---|
 | AI 技术集成（大模型 API） | DeepSeek（OpenAI 兼容协议）自研轻量客户端：多轮对话 / Function Calling / SSE 流式 | `com/utils/DeepSeekClient.java` |
-| RAG 领域知识问答（方向 2） | 站内茶文化/资讯/商品/讲座自动建库（40 条）；两阶段检索：BM25 稀疏召回 → 大模型语义重排（排序并剔除不相关）；回答附引用来源可跳原文。另预留稠密向量通道，配置 Embedding 凭据后自动升级为「BM25 + 向量」双路 RRF 融合 | `com/service/TeaRagService.java`、`com/utils/EmbeddingProvider.java`、`ai_knowledge` 表 |
+| RAG 领域知识问答（方向 2） | 站内茶文化/资讯/商品/讲座自动建库（40 条）；两级检索：BM25 稀疏召回 + DashScope 稠密向量经 RRF 融合，再由大模型语义重排（排序并剔除不相关）；回答附引用来源可跳原文。当前生效架构可用 `/ai/status` 自检 | `com/service/TeaRagService.java`、`com/utils/EmbeddingProvider.java`、`ai_knowledge` 表 |
+| AI 多模态识茶 | 商品图片上传后进入理解通道，与文本同处一条 Agent 决策链路（不只是看图说话） | `pages/teaai`、`AiController` |
+| 检索质量评测 | 40 题茶文化评测集，三种检索策略（纯 BM25 / 混合 / 混合+重排）一键消融对比，输出 Recall@3 与 MRR | `AiController#eval`、管理台「RAG 评测」 |
 | AI Agent（方向 1） | ReAct 工具调用循环（最多 4 轮）：推荐商品/检索知识/泡茶指南/查订单/推荐讲座；模型自主规划调用次数并改写检索词；前端时间线可视化「思考→调用→结果」 | `com/service/TeaAgentService.java`、前端 `pages/teaai` |
 | AI 数据分析与可视化（方向 8） | 管理端自然语言查数据：意图解析 → 统计 SQL → ECharts 图表；解析失败有关键词兜底 | `AiController#nlq`、管理端「茶道AI控制台」 |
 | AI 文本内容生成 | 管理端 AI 写手：商品介绍 / 茶文化文章草稿一键生成（文本生成，非多模态） | `AiController#writer` |

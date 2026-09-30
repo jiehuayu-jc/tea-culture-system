@@ -29,3 +29,8 @@ static/upload/temp/
 
 # 构建工具（便携 Node 14，node-sass 绑定依赖）
 .tools/
+
+# 本机运行产物与临时文件
+db/backup/login.json
+backend-startup.log
+backend-startup.err.log
