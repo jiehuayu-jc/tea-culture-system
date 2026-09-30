@@ -103,12 +103,37 @@ public class BaiduUtil {
         return null;
     }
 
-    //设置APPID/AK/SK
-    public static final String APP_ID = "49214550";
-    public static final String API_KEY = "***REMOVED***";
-    public static final String SECRET_KEY = "***REMOVED***";
-    public static final String ACCESS_KEY = "***REMOVED***";
-    public static final String ACCESS_SECRET_KEY = "***REMOVED***";
+    // ===== 百度 AI 开放平台凭据 =====
+    // 源码中不保存任何密钥。启动时由 BaiduCredentialBinder 从外部配置注入：
+    //   环境变量 BAIDU_APP_ID / BAIDU_API_KEY / BAIDU_SECRET_KEY
+    //            QIANFAN_ACCESS_KEY / QIANFAN_SECRET_KEY
+    //   或 config/application.yml 中的 baidu.* / qianfan.* 配置项
+    // 未配置时相关能力不可用（调用会失败），但服务仍可正常启动。
+    public static String APP_ID = "";
+    public static String API_KEY = "";
+    public static String SECRET_KEY = "";
+    public static String ACCESS_KEY = "";
+    public static String ACCESS_SECRET_KEY = "";
+
+    /** 由 BaiduCredentialBinder 在容器启动后调用，注入外部凭据 */
+    public static void initCredentials(String appId, String apiKey, String secretKey,
+                                       String accessKey, String accessSecretKey) {
+        APP_ID = nz(appId);
+        API_KEY = nz(apiKey);
+        SECRET_KEY = nz(secretKey);
+        ACCESS_KEY = nz(accessKey);
+        ACCESS_SECRET_KEY = nz(accessSecretKey);
+    }
+
+    /** 凭据是否已配置，供状态自检与日志使用 */
+    public static boolean credentialsConfigured() {
+        return !APP_ID.isEmpty() && !API_KEY.isEmpty() && !SECRET_KEY.isEmpty();
+    }
+
+    private static String nz(String s) {
+        return s == null ? "" : s.trim();
+    }
+
     private static AipOcr ocrClient = null;
 
     /**

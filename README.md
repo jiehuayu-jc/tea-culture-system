@@ -75,10 +75,12 @@
 | 评审能力 | 对应功能 | 代码位置 |
 |---|---|---|
 | AI 技术集成（大模型 API） | DeepSeek（OpenAI 兼容协议）自研轻量客户端：多轮对话 / Function Calling / SSE 流式 | `com/utils/DeepSeekClient.java` |
-| RAG 领域知识问答 | 站内茶文化文章/资讯/商品/讲座自动建库，BM25 检索增强生成，回答附引用来源并可跳原文 | `com/service/TeaRagService.java`、`ai_knowledge` 表 |
-| AI Agent（方向 1） | ReAct 工具调用循环（最多 4 轮）：推荐商品/检索知识/泡茶指南/查订单/推荐讲座；前端时间线可视化"思考→调用→结果" | `com/service/TeaAgentService.java`、前端 `pages/teaai` |
-| AI 数据分析与可视化（方向 8） | 管理端自然语言查数据：意图解析 → 统计 SQL → ECharts 图表 | `AiController#nlq`、管理端"茶道AI控制台" |
-| 多模态内容生成 | 管理端 AI 写手：商品介绍/茶文化文章草稿一键生成 | `AiController#writer` |
+| RAG 领域知识问答（方向 2） | 站内茶文化/资讯/商品/讲座自动建库（40 条）；两阶段检索：BM25 稀疏召回 → 大模型语义重排（排序并剔除不相关）；回答附引用来源可跳原文。另预留稠密向量通道，配置 Embedding 凭据后自动升级为「BM25 + 向量」双路 RRF 融合 | `com/service/TeaRagService.java`、`com/utils/EmbeddingProvider.java`、`ai_knowledge` 表 |
+| AI Agent（方向 1） | ReAct 工具调用循环（最多 4 轮）：推荐商品/检索知识/泡茶指南/查订单/推荐讲座；模型自主规划调用次数并改写检索词；前端时间线可视化「思考→调用→结果」 | `com/service/TeaAgentService.java`、前端 `pages/teaai` |
+| AI 数据分析与可视化（方向 8） | 管理端自然语言查数据：意图解析 → 统计 SQL → ECharts 图表；解析失败有关键词兜底 | `AiController#nlq`、管理端「茶道AI控制台」 |
+| AI 文本内容生成 | 管理端 AI 写手：商品介绍 / 茶文化文章草稿一键生成（文本生成，非多模态） | `AiController#writer` |
 | 用户体验设计 | 流式打字机、Agent 时间线、引用溯源卡、商品卡直连加购（业务闭环）、离线演示降级 | 前端 `pages/teaai/index.vue` |
+
+检索架构自检：`GET /ai/status` 返回 `retrieval` 字段，`recall` 显示当前是 `sparse(bm25)` 还是 `hybrid(bm25 + dense, RRF)`，`rerank` 固定为 `llm`。
 
 启动要求：通过环境变量 `DEEPSEEK_API_KEY` 注入 DeepSeek API Key，或复制 `config/application.yml.example` 为 `config/application.yml` 并填入 Key（该目录已被 .gitignore 排除，密钥不入库）；未配置时系统自动进入"离线演示模式"（BM25 检索 + 本地推荐），功能链路不中断。

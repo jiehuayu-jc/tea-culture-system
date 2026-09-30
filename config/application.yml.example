@@ -20,3 +20,15 @@ ai:
     # rate-limit:
     #     minute: 10
     #     day: 200
+
+# 可选：百度 AI 开放平台 / 千帆凭据。
+# 仅 OCR、图像识别、语音合成、千帆对话等辅助能力需要，不填不影响茶道AI 主链路
+# （主链路走 DeepSeek + BM25/重排，不依赖该凭据）。
+# 安全提示：这些值不要写进源码，也不要提交到版本库。
+# baidu:
+#     app-id: "你的 APP_ID"
+#     api-key: "你的 API_KEY"
+#     secret-key: "你的 SECRET_KEY"
+# qianfan:
+#     access-key: "你的 ACCESS_KEY"
+#     secret-key: "你的 ACCESS_SECRET_KEY"

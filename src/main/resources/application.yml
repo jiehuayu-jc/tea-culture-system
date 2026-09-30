@@ -73,3 +73,15 @@ ai:
     rate-limit:
         minute: 10
         day: 200
+
+# 百度 AI 开放平台 / 千帆凭据（可选）。
+# 源码中不硬编码任何密钥；未配置时 OCR / 图像识别 / 语音 / 千帆对话等能力不可用，
+# 但不影响主流程（茶道AI 走 DeepSeek + BM25，不依赖该凭据）。
+# 注入方式：环境变量，或写入 config/application.yml（已被 .gitignore 排除，不入库）
+baidu:
+    app-id: "${BAIDU_APP_ID:}"
+    api-key: "${BAIDU_API_KEY:}"
+    secret-key: "${BAIDU_SECRET_KEY:}"
+qianfan:
+    access-key: "${QIANFAN_ACCESS_KEY:}"
+    secret-key: "${QIANFAN_SECRET_KEY:}"
