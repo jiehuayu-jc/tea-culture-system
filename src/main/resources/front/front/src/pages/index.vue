@@ -32,7 +32,7 @@
 						</el-dropdown-item>
 						<el-dropdown-item class="service-item" :command="'service'">
 							<span class="icon iconfont icon-touxiang04"></span>
-							智能AI
+							茶道AI
 						</el-dropdown-item>
 						<el-dropdown-item v-if="notAdmin" class="user-item" :command="'user'">
 							<span class="icon iconfont icon-geren11"></span>
@@ -607,7 +607,8 @@ export default {
 				this.goMenu('/index/cart')
 			}
 			else if (name == 'service') {
-				this.goChat()
+				// 统一入口：旧的「智能AI」弹窗实现已废弃，改跳茶道AI 页面
+				this.goMenu('/index/teaai')
 			}
 			else if (name == 'user'){
 				this.goMenu('/index/center')

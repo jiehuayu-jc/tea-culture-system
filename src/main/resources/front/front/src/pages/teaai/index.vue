@@ -19,12 +19,16 @@
 					<div class="side-title">怎么问我</div>
 					<div class="chip" v-for="(q, i) in samples" :key="i" @click="ask(q)">{{ q }}</div>
 				</div>
-				<div class="side-block" v-if="knowledgeCount > 0">
-					<div class="side-title">知识库</div>
-					<div class="kb-line">已收录 <b>{{ knowledgeCount }}</b> 条站内茶识</div>
-					<div class="kb-line" :class="llmOk ? 'on' : 'off'">{{ llmOk ? '大模型在线' : '离线演示模式' }}</div>
+				<div class="side-foot">
+					<div class="kb-meta" v-if="knowledgeCount > 0">
+						茶识 {{ knowledgeCount }} 卷
+						<span class="sep">·</span>
+						<span class="st" :class="llmOk ? 'on' : 'off'">
+							<span class="dot"></span>{{ llmOk ? '智识在线' : '离线茶识' }}
+						</span>
+					</div>
+					AI 生成内容仅供参考<br />茶事有据 · 以盏见心
 				</div>
-				<div class="side-foot">AI 生成内容仅供参考<br />茶事有据 · 以盏见心</div>
 			</aside>
 
 			<main class="ai-main" ref="chatBox">
@@ -352,9 +356,27 @@
 		transition: all .2s;
 		&:hover { color: #d4af37; border-color: #d4af37; }
 	}
-	.kb-line { color: #93a396; font-size: 12px; margin-bottom: 6px; b { color: #e6ce9a; } }
-	.kb-line.on b { color: #7c9b84; }
 	.side-foot { margin-top: auto; color: rgba(147, 163, 150, .5); font-size: 11px; line-height: 1.9; }
+	.kb-meta {
+		color: rgba(147, 163, 150, .55);
+		font-size: 11px;
+		letter-spacing: 1px;
+		margin-bottom: 10px;
+		.sep { margin: 0 4px; opacity: .6; }
+		.st {
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
+			&.on { color: rgba(124, 155, 132, .9); }
+			&.off { color: rgba(147, 163, 150, .6); }
+			.dot {
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				background: currentColor;
+			}
+		}
+	}
 
 	.ai-main {
 		flex: 1;
