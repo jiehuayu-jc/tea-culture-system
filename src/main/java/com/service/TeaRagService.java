@@ -96,9 +96,41 @@ public class TeaRagService {
         n += ingest("SELECT id, shangpinmingcheng, shangpinjieshao FROM shangpinxinxi", "tea", "shangpinmingcheng", "shangpinjieshao");
         // 线上讲座（xinlizixun）
         n += ingest("SELECT id, zixunmingcheng, zixunxiangqing FROM xinlizixun", "lecture", "zixunmingcheng", "zixunxiangqing");
+        // 静态领域语料（classpath:ai/knowledge-seed.md）：六大茶类、名茶、冲泡、茶史、
+        // 茶器、储存、饮忌、茶俗、品鉴、选购、术语、山场等成体系条目，与站内内容互补
+        n += ingestSeedResource();
         Map<String, Object> r = new HashMap<>();
         r.put("knowledge_count", n);
         return r;
+    }
+
+    /**
+     * 解析 classpath:ai/knowledge-seed.md 入库（source_type=seed）。
+     * 文件格式：以 "## 标题" 起始的块，块内其余行为正文；便于评审与增量维护。
+     * 种子文件缺失或损坏时不阻断建库（返回 0），站内内容通道照常工作。
+     */
+    private int ingestSeedResource() {
+        try (java.io.InputStream in = getClass().getClassLoader().getResourceAsStream("ai/knowledge-seed.md")) {
+            if (in == null) return 0;
+            String text = org.springframework.util.StreamUtils.copyToString(in, java.nio.charset.StandardCharsets.UTF_8);
+            int n = 0, id = 0;
+            for (String block : text.split("\n## ")) {
+                block = block.trim();
+                if (block.isEmpty()) continue;
+                int nl = block.indexOf('\n');
+                String title = (nl < 0 ? block : block.substring(0, nl)).replaceFirst("^#+\\s*", "").trim();
+                String content = (nl < 0 ? "" : block.substring(nl + 1)).trim();
+                if (title.isEmpty() || content.isEmpty()) continue;
+                jdbcTemplate.update("INSERT INTO ai_knowledge (source_type, source_id, title, content) VALUES (?,?,?,?)",
+                        "seed", ++id, title, content.length() > 4000 ? content.substring(0, 4000) : content);
+                n++;
+            }
+            return n;
+        } catch (Exception e) {
+            org.slf4j.LoggerFactory.getLogger(TeaRagService.class)
+                    .warn("[茶道AI] 静态语料加载失败（不影响站内内容建库）：{}", e.getMessage());
+            return 0;
+        }
     }
 
     private int ingest(String query, String type, String titleCol, String contentCol) {
