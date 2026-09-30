@@ -8,14 +8,14 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 @MapperScan(basePackages = {"com.dao"})
-public class SpringbootSchemaApplication extends SpringBootServletInitializer{
+public class TeaCultureApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootSchemaApplication.class, args);
+		SpringApplication.run(TeaCultureApplication.class, args);
 	}
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder applicationBuilder) {
-        return applicationBuilder.sources(SpringbootSchemaApplication.class);
+        return applicationBuilder.sources(TeaCultureApplication.class);
     }
 }
