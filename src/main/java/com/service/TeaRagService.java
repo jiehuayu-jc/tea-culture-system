@@ -106,7 +106,8 @@ public class TeaRagService {
 
     /**
      * 解析 classpath:ai/knowledge-seed.md 入库（source_type=seed）。
-     * 文件格式：以 "## 标题" 起始的块，块内其余行为正文；便于评审与增量维护。
+     * 文件格式：以 "## 标题" 起始的条目块，块内其余行为正文，首个 "## " 之前的
+     * 文件头说明自动忽略；便于评审与增量维护。
      * 种子文件缺失或损坏时不阻断建库（返回 0），站内内容通道照常工作。
      */
     private int ingestSeedResource() {
@@ -114,15 +115,26 @@ public class TeaRagService {
             if (in == null) return 0;
             String text = org.springframework.util.StreamUtils.copyToString(in, java.nio.charset.StandardCharsets.UTF_8);
             int n = 0, id = 0;
-            for (String block : text.split("\n## ")) {
-                block = block.trim();
-                if (block.isEmpty()) continue;
-                int nl = block.indexOf('\n');
-                String title = (nl < 0 ? block : block.substring(0, nl)).replaceFirst("^#+\\s*", "").trim();
-                String content = (nl < 0 ? "" : block.substring(nl + 1)).trim();
-                if (title.isEmpty() || content.isEmpty()) continue;
+            String title = null;
+            StringBuilder content = new StringBuilder();
+            for (String line : text.split("\n")) {
+                if (line.startsWith("## ")) {
+                    if (title != null && content.toString().trim().length() > 0) {
+                        String body = content.toString().trim();
+                        jdbcTemplate.update("INSERT INTO ai_knowledge (source_type, source_id, title, content) VALUES (?,?,?,?)",
+                                "seed", ++id, title, body.length() > 4000 ? body.substring(0, 4000) : body);
+                        n++;
+                    }
+                    title = line.substring(3).trim();
+                    content = new StringBuilder();
+                } else if (title != null) {
+                    content.append(line).append('\n');
+                }
+            }
+            if (title != null && content.toString().trim().length() > 0) {
+                String body = content.toString().trim();
                 jdbcTemplate.update("INSERT INTO ai_knowledge (source_type, source_id, title, content) VALUES (?,?,?,?)",
-                        "seed", ++id, title, content.length() > 4000 ? content.substring(0, 4000) : content);
+                        "seed", ++id, title, body.length() > 4000 ? body.substring(0, 4000) : body);
                 n++;
             }
             return n;
