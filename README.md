@@ -97,9 +97,9 @@
 | 评审能力 | 对应功能 | 代码位置 |
 |---|---|---|
 | AI 技术集成（大模型 API） | DeepSeek（OpenAI 兼容协议）自研轻量客户端：多轮对话 / Function Calling / SSE 流式 | `com/utils/DeepSeekClient.java` |
-| RAG 领域知识问答（方向 2） | 站内茶文化/资讯/商品/讲座自动建库（40 条）；两级检索：BM25 稀疏召回 + DashScope 稠密向量经 RRF 融合，再由大模型语义重排（排序并剔除不相关）；回答附引用来源可跳原文。当前生效架构可用 `/ai/status` 自检 | `com/service/TeaRagService.java`、`com/utils/EmbeddingProvider.java`、`ai_knowledge` 表 |
+| RAG 领域知识问答（方向 2） | 站内茶文化/资讯/商品/讲座自动建库 + 领域种子库（200 条）；两级检索：BM25 稀疏召回 + DashScope 稠密向量经 RRF 融合，再由大模型语义重排（排序并剔除不相关）；回答附引用来源可跳原文。当前生效架构可用 `/ai/status` 自检 | `com/service/TeaRagService.java`、`com/utils/EmbeddingProvider.java`、`ai_knowledge` 表 |
 | AI 多模态识茶 | 商品图片上传后进入理解通道，与文本同处一条 Agent 决策链路（不只是看图说话） | `pages/teaai`、`AiController` |
-| 检索质量评测 | 40 题茶文化评测集，三种检索策略（纯 BM25 / 混合 / 混合+重排）一键消融对比，输出 Recall@3 与 MRR | `AiController#eval`、管理台「RAG 评测」 |
+| 检索质量评测 | 70 题评测集（领域种子库 + 站内内容），三种检索策略（纯 BM25 / 混合 / 混合+重排）一键消融对比，输出 Recall@3 与 MRR | `AiController#eval`、管理台「RAG 评测」 |
 | AI Agent（方向 1） | ReAct 工具调用循环（最多 4 轮）：推荐商品/检索知识/泡茶指南/查订单/推荐讲座；模型自主规划调用次数并改写检索词；前端时间线可视化「思考→调用→结果」 | `com/service/TeaAgentService.java`、前端 `pages/teaai` |
 | AI 数据分析与可视化（方向 8） | 管理端自然语言查数据：意图解析 → 统计 SQL → ECharts 图表；解析失败有关键词兜底 | `AiController#nlq`、管理端「茶道AI控制台」 |
 | AI 文本内容生成 | 管理端 AI 写手：商品介绍 / 茶文化文章草稿一键生成（文本生成，非多模态） | `AiController#writer` |

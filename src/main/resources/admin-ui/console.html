@@ -387,9 +387,9 @@ body{
 
     <!-- RAG 评测 -->
     <section class="page" id="page-eval">
-      <div class="sect-sub">内置 40 题茶文化评测集，对比三种检索策略的召回效果</div>
+      <div class="sect-sub">内置 70 题评测集（覆盖 200 条知识库），对比三种检索策略的召回效果</div>
       <div class="bar">
-        <button class="btn" id="evalFull">运行全量评测（40 题）</button>
+        <button class="btn" id="evalFull">运行全量评测（70 题）</button>
         <button class="btn ghost" id="evalQuick">快速验证（前 8 题）</button>
         <span class="tip" id="evalTip"></span>
       </div>
@@ -489,7 +489,7 @@ body{
     var tip=$('evalTip');
     btn.disabled=true;
     tip.className='tip';
-    tip.textContent=limit>0?'正在跑前 8 题（含语义重排，约 20~40 秒）…':'正在跑 40 题全量（含重排调用，约 2~5 分钟）…';
+    tip.textContent=limit>0?'正在跑前 8 题（含语义重排，约 20~40 秒）…':'正在跑 70 题全量（含重排调用，约 5~10 分钟）…';
     fetch(API+'/ai/admin/eval?limit='+limit+'&topK=3',{headers:{'Token':token}})
     .then(function(r){return r.json();}).then(function(res){
       btn.disabled=false;
