@@ -6,7 +6,12 @@ function resolve(dir) {
 }
 function publicPath(){
     if (process.env.NODE_ENV == 'production') {
-        return "././";
+        // 部署在 Spring Boot 的 /springbootj8kskvkr/admin/ 路径下，必须用绝对路径。
+        // 原值为 "././"（相对路径）：生产构建会同时生成 rel="preload" 与
+        // rel="stylesheet" 两条链接且都带 ./ 前缀，preload 缺失 crossorigin 时会
+        // 污染缓存条目，导致浏览器跳过样式表加载 —— 表现为 HTML/JS 正常但页面
+        // 完全无样式。
+        return "/springbootj8kskvkr/admin/";
     } else {
         return "/";
     }
