@@ -87,15 +87,6 @@
 				</div>
 			</div>
 
-<div class="page-hero" v-if="$route.path != '/index/home' && $route.path != '/index/teaai'">
-				<div class="ph-grain"></div>
-				<div class="ph-inner">
-					<div class="ph-eyebrow">CHINESE TEA CULTURE</div>
-					<div class="ph-title">{{ pageTitle }}</div>
-					<div class="ph-line"></div>
-				</div>
-				<div class="ph-vertical">茶之为饮&nbsp;发乎神农</div>
-			</div>
 			<router-view id="scrollView"></router-view>
 			
 			<div class="bottom-preview">
@@ -309,22 +300,29 @@ export default {
 	},
 	watch: {
 		$route(newValue) {
-			let that = this
-			let url = window.location.href
-			let arr = url.split('#')
 			for (let x in this.menuList) {
 				if (newValue.path == this.menuList[x].url) {
 					this.activeIndex = x
 				}
 			}
 			this.Token = localStorage.getItem('frontToken')
-			if(arr[1]!='/index/home'){
-				var element = document.getElementById('scrollView');
-				var distance = element.offsetTop;
-				window.scrollTo( 0, distance )
-			}else{
-				window.scrollTo( 0, 0 )
-			}
+			// 切页后滚动到内容区顶部（导航栏下方）。两个时序陷阱：
+			// 1) 路由组件异步挂载，单次读取 offsetTop 可能读到 0；
+			// 2) hash 路由改变 location.hash 时，浏览器原生锚点行为找不到对应
+			//    id 元素会把页面滚回顶部，且发生在 Vue 渲染之后，会覆盖先前的跳转。
+			// 因此在约 0.8s 窗口内持续重申落点；仅当被拽回顶部时干预，不影响用户手动滚动。
+			this.$nextTick(() => {
+				let tries = 0
+				const timer = setInterval(() => {
+					tries++
+					const element = document.getElementById('scrollView')
+					const distance = element ? element.offsetTop : 0
+					if (distance > 0 && window.scrollY < 50) {
+						window.scrollTo(0, distance)
+					}
+					if (tries > 8) clearInterval(timer)
+				}, 100)
+			})
 		},
 		headportrait(){
 			this.$forceUpdate()
