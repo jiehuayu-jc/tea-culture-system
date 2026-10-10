@@ -1,53 +1,69 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-echo æ­£åœ¨å¯åŠ¨Spring Bootåº”ç”¨...
+chcp 936 >nul
+title ²èÎÄ»¯¹ÜÀíÏµÍ³ - ºó¶ËÆô¶¯
+echo.
+echo ============================================
+echo   ÕıÔÚÆô¶¯ Spring Boot Ó¦ÓÃ£¨²èÎÄ»¯¹ÜÀíÏµÍ³£©
+echo ============================================
+echo.
 
-REM ä¿®å¤å¸¸è§é—®é¢˜ï¼šJAVA_HOME æŒ‡å‘æ— æ•ˆç›®å½•ä¼šå¯¼è‡´ mvnw ç›´æ¥é€€å‡º
+REM ===== 1. ½âÎö JAVA_HOME£º±¾ÏîÄ¿»ùÓÚ JDK 8 ¿ª·¢£¬ÓÅÏÈÊ¹ÓÃ JDK 8 =====
+set "JAVA_HOME_RESOLVED="
+
+REM 1a. ÏÖÓĞ JAVA_HOME ÒÑÖ¸ÏòÓĞĞ§µÄ JDK 8£¨Ä¿Â¼Ãûº¬ 1.8 / jdk8£©
 if not "%JAVA_HOME%"=="" (
-    if exist "%JAVA_HOME%\bin\java.exe" goto java_ok
-)
-
-REM ä¼˜å…ˆä» java.home æ¨å¯¼ JAVA_HOMEï¼ˆä»…å¯¹å½“å‰çª—å£ç”Ÿæ•ˆï¼‰
-for /f "tokens=1,2,3* delims= " %%A in ('java -XshowSettings:properties -version 2^>^&1') do (
-    if "%%A"=="java.home" if "%%B"=="=" (
-        set "JAVA_HOME=%%C %%D"
+    if exist "%JAVA_HOME%\bin\java.exe" (
+        echo %JAVA_HOME% | findstr /i "1.8 jdk8" >nul && set "JAVA_HOME_RESOLVED=%JAVA_HOME%"
     )
 )
 
-:java_ok
-REM æ£€æŸ¥æ˜¯å¦å®‰è£…äº†Java
-java -version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo é”™è¯¯: æœªæ‰¾åˆ°Javaï¼Œè¯·å…ˆå®‰è£…Java 8æˆ–æ›´é«˜ç‰ˆæœ¬
+REM 1b. Ì½²â³£¼û JDK 8 °²×°Â·¾¶
+if not defined JAVA_HOME_RESOLVED (
+    for /d %%D in ("C:\Program Files\Java\jdk1.8*","C:\Program Files\Java\jdk8*","C:\Program Files (x86)\Java\jdk1.8*","C:\Program Files\Eclipse Adoptium\jdk-8*") do (
+        if exist "%%D\bin\java.exe" if not defined JAVA_HOME_RESOLVED set "JAVA_HOME_RESOLVED=%%D"
+    )
+)
+
+REM 1c. ¶µµ×£º´Ó PATH µÄ java ÍÆµ¼£¨ÈôÎª JDK 9+£¬ÀÏÏîÄ¿¿ÉÄÜÆô¶¯Ê§°Ü£¬¼ûÏÂ·½ÌáÊ¾£©
+if not defined JAVA_HOME_RESOLVED (
+    for /f "tokens=1* delims==" %%A in ('java -XshowSettings:properties -version 2^>^&1 ^| findstr /i /c:"java.home"') do set "JH_RAW=%%B"
+    for /f "tokens=* delims= " %%Z in ("!JH_RAW!") do set "JAVA_HOME_RESOLVED=%%Z"
+)
+
+if not defined JAVA_HOME_RESOLVED (
+    echo [´íÎó] Î´ÕÒµ½ÈÎºÎ Java »·¾³£¬ÇëÏÈ°²×° JDK 8¡£
     pause
     exit /b 1
 )
 
-echo Javaç‰ˆæœ¬æ£€æŸ¥é€šè¿‡
-echo JAVA_HOME=!JAVA_HOME!
+set "JAVA_HOME=%JAVA_HOME_RESOLVED%"
+echo JAVA_HOME=%JAVA_HOME%
+echo %JAVA_HOME% | findstr /i "1.8 jdk8" >nul || echo [ÌáÊ¾] ¼ì²âµ½µÄ Java ²»ÊÇ JDK 8£¬±¾ÏîÄ¿»ùÓÚ JDK 8 ¿ª·¢£¬ÈôÆô¶¯Ê§°ÜÇë°²×° JDK 8¡£
+"%JAVA_HOME%\bin\java.exe" -version 2>&1 | findstr /i "version"
+echo.
 
-REM å°è¯•ä½¿ç”¨Maven Wrapperè¿è¡Œï¼ˆå¦‚æœå­˜åœ¨ï¼‰
+REM ===== 2. Ê¹ÓÃ Maven Wrapper Æô¶¯ =====
 if exist mvnw.cmd (
-    echo ä½¿ç”¨Maven Wrapperè¿è¡Œ...
+    echo Ê¹ÓÃ Maven Wrapper Æô¶¯ÖĞ£¬Ê×´ÎÔËĞĞĞèÏÂÔØÒÀÀµ£¬ÇëÄÍĞÄµÈ´ı...
     call mvnw.cmd spring-boot:run
     goto end
 )
 
-REM å°è¯•ç›´æ¥ä½¿ç”¨Mavenè¿è¡Œ
+REM ===== 3. ¶µµ×£ºÏµÍ³°²×°µÄ Maven =====
 mvn -version >nul 2>&1
 if %errorlevel% equ 0 (
-    echo ä½¿ç”¨Mavenè¿è¡Œ...
+    echo Ê¹ÓÃÏµÍ³ Maven Æô¶¯...
     mvn spring-boot:run
     goto end
 )
 
-echo é”™è¯¯: æœªæ‰¾åˆ°Mavenï¼Œè¯·å…ˆå®‰è£…Mavenæˆ–ä½¿ç”¨IDEè¿è¡Œé¡¹ç›®
+echo [´íÎó] Î´ÕÒµ½ Maven Wrapper ÓëÏµÍ³ Maven¡£
 echo.
-echo å»ºè®®çš„è§£å†³æ–¹æ¡ˆ:
-echo 1. å®‰è£…Maven: https://maven.apache.org/download.cgi
-echo 2. ä½¿ç”¨IntelliJ IDEAæˆ–Eclipseå¯¼å…¥é¡¹ç›®å¹¶è¿è¡Œ
-echo 3. ä½¿ç”¨Dockerè¿è¡Œé¡¹ç›®
-
+echo ½¨ÒéµÄ½â¾ö·½°¸:
+echo 1. ÔÚÏîÄ¿¸ùÄ¿Â¼Ö´ĞĞ run.bat£¨ÄÚÖÃ Maven Wrapper£¬ÎŞĞè°²×° Maven£©
+echo 2. Ê¹ÓÃ IntelliJ IDEA µ¼ÈëÏîÄ¿ºóÔËĞĞ com.TeaCultureApplication
+echo 3. Ê¹ÓÃ Docker: docker compose up -d
 pause
 
 :end

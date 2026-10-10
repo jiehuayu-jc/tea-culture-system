@@ -38,7 +38,7 @@ public class QwenVlClient {
     @Value("${ai.vision.base-url:${ai.embedding.base-url:https://dashscope.aliyuncs.com/compatible-mode/v1}}")
     private String baseUrl;
 
-    @Value("${ai.vision.model:qwen-vl-plus}")
+    @Value("${ai.vision.model:qwen3-vl-plus}")
     private String model;
 
     @Value("${ai.vision.prompt:你是茶领域视觉专家。请用简体中文简要描述这张图片：若为茶叶，判断可能的茶类、外形与品质特征；若为茶具，说明器型与材质；若为茶席或场景，概述画面。控制在120字内，直接输出描述，不要客套话。}")
@@ -53,29 +53,61 @@ public class QwenVlClient {
     }
 
     /**
-     * 识别图片并返回文字描述。
+     * 识别单张图片并返回文字描述（原有图片上传入口）。
      *
      * @param imageDataUrl 形如 {@code data:image/jpeg;base64,xxxx} 的 Data URL
      * @return 描述文本；未配置或调用失败返回 null（调用方需降级处理）
      */
     public String describe(String imageDataUrl) {
-        if (!isConfigured() || imageDataUrl == null || imageDataUrl.trim().isEmpty()) return null;
-        HttpURLConnection conn = null;
+        return describeFrames(java.util.Collections.singletonList(imageDataUrl), null);
+    }
+
+    /**
+     * 视频抽帧理解：多帧 + 可选用户问题 → 综合描述。
+     *
+     * <p>前端对上传视频按时间轴均匀抽帧（默认 5 帧以内）后传 Data URL 数组，
+     * 视觉模型把多帧视为同一事件的连续画面作综合判断（如茶艺手法、冲泡过程），
+     * 描述文本随后并入 Agent 对话上下文，走与图片相同的决策链路。
+     *
+     * @param frameDataUrls 视频帧 Data URL 列表（1~6 帧）
+     * @param question      用户想问的问题，可为 null（仅描述）
+     * @return 描述文本；未配置或调用失败返回 null
+     */
+    public String describeFrames(java.util.List<String> frameDataUrls, String question) {
+        if (!isConfigured() || frameDataUrls == null || frameDataUrls.isEmpty()) return null;
         try {
+            String q = (question == null || question.trim().isEmpty())
+                    ? "" : "用户想了解的问题：" + question.trim() + "。";
+            String p = "你是茶领域视觉专家。以下是用户上传视频按时间顺序抽取的连续帧"
+                    + "（同一画面的不同时刻）。请综合判断视频内容：若为泡茶/茶艺演示，"
+                    + "说明流程步骤与手法要点；若展示茶叶/茶具，判断茶类、器型与品质特征。"
+                    + q + "用简体中文输出180字内的连贯描述，直接输出内容，不要客套话。";
+
             JSONObject txtPart = new JSONObject();
             txtPart.put("type", "text");
-            txtPart.put("text", prompt);
-
-            JSONObject imageUrl = new JSONObject();
-            imageUrl.put("url", imageDataUrl);
-            JSONObject imgPart = new JSONObject();
-            imgPart.put("type", "image_url");
-            imgPart.put("image_url", imageUrl);
-
+            txtPart.put("text", p);
             JSONArray content = new JSONArray();
             content.add(txtPart);
-            content.add(imgPart);
+            int n = Math.min(frameDataUrls.size(), 6);
+            for (int i = 0; i < n; i++) {
+                JSONObject imageUrl = new JSONObject();
+                imageUrl.put("url", frameDataUrls.get(i));
+                JSONObject imgPart = new JSONObject();
+                imgPart.put("type", "image_url");
+                imgPart.put("image_url", imageUrl);
+                content.add(imgPart);
+            }
+            return postVision(content);
+        } catch (Exception e) {
+            log.warn("[茶道AI] 视频帧理解异常：{}", e.getMessage());
+            return null;
+        }
+    }
 
+    /** 多模态 chat/completions 单轮调用：content 由调用方组装（文本 + N 张图） */
+    private String postVision(JSONArray content) throws Exception {
+        HttpURLConnection conn = null;
+        try {
             JSONObject msg = new JSONObject();
             msg.put("role", "user");
             msg.put("content", content);
@@ -91,7 +123,7 @@ public class QwenVlClient {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(5000);
-            conn.setReadTimeout(30000);
+            conn.setReadTimeout(60000);
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             conn.setRequestProperty("Authorization", "Bearer " + apiKey);
@@ -125,7 +157,7 @@ public class QwenVlClient {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
-            while ((line = br.readLine()) != null) sb.append(line);
+            while ((line = br.readLine()) != null) sb.append(line).append('\n');
         }
         return sb.toString();
     }

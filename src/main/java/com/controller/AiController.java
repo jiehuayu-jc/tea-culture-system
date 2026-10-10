@@ -47,6 +47,14 @@ public class AiController {
     @Autowired(required = false)
     private com.utils.EmbeddingProvider embeddingProvider;
 
+    /** 语音通道（可选）：未配置密钥时语音接口返回提示，不影响文本主流程 */
+    @Autowired
+    private com.utils.SpeechClient speechClient;
+
+    /** 视觉通道（可选）：图片 / 视频帧理解，未配置时返回提示 */
+    @Autowired
+    private com.utils.QwenVlClient vlClient;
+
     @Value("${ai.deepseek.api-key:}")
     private String apiKey;
 
@@ -94,8 +102,113 @@ public class AiController {
         return emitter;
     }
 
-    /** 知识库重建（仅管理员） */
-    @RequestMapping("/knowledge/rebuild")
+    /**
+     * 语音提问 → 文字（ASR）。前端录音 WAV Data URL 进来，识别文本返回后
+     * 由前端填入输入框走原有 /chat/stream 链路——语音只是新的输入模态，智能内核复用。
+     */
+    @RequestMapping("/speech/transcribe")
+    public R transcribe(@RequestBody JSONObject body, HttpServletRequest request,
+                        HttpServletResponse response) throws java.io.IOException {
+        String ip = request.getRemoteAddr();
+        if (!rateLimiter.tryAcquire(ip)) {
+            com.utils.AiMetrics.rateLimited.incrementAndGet();
+            return limited(response);
+        }
+        com.utils.AiMetrics.totalRequests.incrementAndGet();
+        if (!speechClient.isConfigured()) {
+            return R.error(500, "语音服务未配置（需百炼 API Key）：可在输入框直接文字提问");
+        }
+        String audio = body.getString("audio");
+        if (audio == null || audio.trim().isEmpty()) {
+            return R.error(400, "缺少录音数据");
+        }
+        if (audio.length() > 3_500_000) { // 约 20 秒 16kHz WAV 的 base64 上限
+            return R.error(400, "录音过长，请控制在 20 秒以内");
+        }
+        String text = speechClient.transcribe(audio);
+        if (text == null || text.trim().isEmpty()) {
+            return R.error(500, "没听清，请靠近麦克风重试");
+        }
+        return R.ok().put("data", text);
+    }
+
+    /** 回答朗读（TTS）：文本进 → WAV 音频出，前端 <audio> 直接播放 */
+    @RequestMapping("/speech/tts")
+    public void tts(@RequestBody JSONObject body, HttpServletRequest request,
+                    HttpServletResponse response) throws java.io.IOException {
+        String ip = request.getRemoteAddr();
+        if (!rateLimiter.tryAcquire(ip)) {
+            com.utils.AiMetrics.rateLimited.incrementAndGet();
+            limited(response);
+            return;
+        }
+        com.utils.AiMetrics.totalRequests.incrementAndGet();
+        String text = body.getString("text");
+        if (text == null || text.trim().isEmpty()) {
+            response.setStatus(400);
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().print(JSON.toJSONString(R.error(400, "缺少朗读文本")));
+            return;
+        }
+        byte[] wav = speechClient.synthesize(text);
+        if (wav == null) {
+            response.setStatus(503);
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().print(JSON.toJSONString(R.error(503, "语音合成暂不可用")));
+            return;
+        }
+        response.setContentType("audio/wav");
+        response.setContentLength(wav.length);
+        response.setHeader("Cache-Control", "no-store");
+        response.getOutputStream().write(wav);
+    }
+
+    /**
+     * 视频抽帧理解：前端均匀抽帧（≤6 帧 JPEG Data URL）+ 问题 → 视觉模型综合描述。
+     * 描述文本由前端并入 /chat/stream 的提问上下文，Agent 链路保持不变。
+     */
+    @RequestMapping("/vision/video")
+    public R videoAsk(@RequestBody JSONObject body, HttpServletRequest request,
+                      HttpServletResponse response) throws java.io.IOException {
+        String ip = request.getRemoteAddr();
+        if (!rateLimiter.tryAcquire(ip)) {
+            com.utils.AiMetrics.rateLimited.incrementAndGet();
+            return limited(response);
+        }
+        com.utils.AiMetrics.totalRequests.incrementAndGet();
+        if (!vlClient.isConfigured()) {
+            return R.error(500, "视觉服务未配置（需百炼 API Key）");
+        }
+        JSONArray frames = body.getJSONArray("frames");
+        if (frames == null || frames.isEmpty()) {
+            return R.error(400, "缺少视频帧数据");
+        }
+        if (frames.size() > 6) {
+            return R.error(400, "视频帧数量超限（≤6）");
+        }
+        for (int i = 0; i < frames.size(); i++) {
+            Object f = frames.get(i);
+            if (!(f instanceof String) || ((String) f).length() > 1_500_000) {
+                return R.error(400, "视频帧数据异常或过大，请压缩后重试");
+            }
+        }
+        String desc = vlClient.describeFrames(frames.toJavaList(String.class), body.getString("question"));
+        if (desc == null || desc.trim().isEmpty()) {
+            return R.error(500, "视频识别失败，请换一段视频或改用图片提问");
+        }
+        return R.ok().put("data", desc);
+    }
+
+    /** 限流命中的统一 JSON 响应 */
+    private R limited(HttpServletResponse response) throws java.io.IOException {
+        response.setStatus(429);
+        response.setContentType("application/json; charset=utf-8");
+        response.getWriter().print(JSON.toJSONString(
+                R.error(429, "请求过于频繁，请稍后再试（每分钟10次/每天200次）")));
+        return null;
+    }
+
+    /** 知识库重建（仅管理员） */    @RequestMapping("/knowledge/rebuild")
     public R rebuild(HttpServletRequest request) {
         if (!"管理员".equals(request.getSession().getAttribute("role"))) {
             return R.error(403, "仅管理员可重建知识库");
@@ -120,6 +233,9 @@ public class AiController {
         emb.put("rerank", "llm");
         r.put("retrieval", emb);
         r.put("metrics", rateLimiter.snapshot());
+        // 多模态通道状态：语音（ASR/TTS）与视觉共用百炼 Key，未配置时前端隐藏对应按钮
+        r.put("speech_configured", speechClient.isConfigured());
+        r.put("vision_configured", vlClient.isConfigured());
         return R.ok().put("data", r);
     }
 

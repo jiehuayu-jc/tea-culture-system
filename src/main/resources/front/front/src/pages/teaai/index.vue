@@ -95,14 +95,30 @@
 				<img :src="imageDataUrl" alt="预览" />
 				<span class="rm" @click="clearImage">×</span>
 			</div>
+			<div class="thumb" v-if="videoPreview">
+				<img :src="videoPreview" alt="视频帧" />
+				<span class="rm" @click="clearVideo">×</span>
+			</div>
 			<label class="pic-btn" :class="{ disabled: streaming }" title="上传茶叶 / 茶具照片，AI 可识图作答">
 				<input type="file" accept="image/*" :disabled="streaming" @change="pickImage" />
 				<span>＋</span>
 			</label>
-			<input v-model="draft" :disabled="streaming"
-				:placeholder="imageDataUrl ? '可补充一句想问的（也可留空直接发送）' : '例如：送长辈什么茶好？预算两百以内，也可上传茶叶照片'"
-				@keydown.enter="send" />
-			<button :disabled="streaming || (!draft.trim() && !imageDataUrl)" @click="send">发送</button>
+			<label class="pic-btn" v-if="visionOk" :class="{ disabled: streaming || processing }" title="上传茶艺 / 泡茶视频，AI 抽帧看懂后作答">
+				<input type="file" accept="video/*" :disabled="streaming || processing" @change="pickVideo" />
+				<span>影</span>
+			</label>
+			<button type="button" class="pic-btn mic-btn" v-if="speechOk"
+				:class="{ rec: recording, disabled: streaming || processing }"
+				:title="recording ? '点击结束录音（最长20秒）' : '点击开始语音提问'"
+				:disabled="streaming || processing" @click="toggleRecord">
+				<span>{{ recording ? recordSec + '″' : '语' }}</span>
+			</button>
+			<input v-model="draft" :disabled="streaming || processing" :placeholder="inputPlaceholder" @keydown.enter="send" />
+			<button type="button" class="pic-btn tts-btn" v-if="speechOk" :class="{ on: voiceOn }"
+				:title="voiceOn ? '回答自动朗读：开（点击关闭）' : '回答自动朗读：关（点击开启）'" @click="toggleVoice">
+				<span>音</span>
+			</button>
+			<button :disabled="streaming || processing || (!draft.trim() && !imageDataUrl && !videoFrames.length)" @click="send">发送</button>
 		</footer>
 	</div>
 </template>
@@ -114,6 +130,17 @@
 				baseUrl: '',
 				draft: '',
 				imageDataUrl: '',
+				videoFrames: [],
+				videoPreview: '',
+				recording: false,
+				recordSec: 0,
+				recState: null,
+				recTimer: null,
+				processing: false,
+				voiceOn: false,
+				audioEl: null,
+				speechOk: false,
+				visionOk: false,
 				needLogin: false,
 				typeTimer: null,
 				streaming: false,
@@ -142,6 +169,8 @@
 		},
 		beforeDestroy() {
 			clearInterval(this.typeTimer);
+			clearInterval(this.recTimer);
+			if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
 		},
 		methods: {
 			goMenu(url) {
@@ -152,6 +181,8 @@
 					if (res.data.code == 0) {
 						this.knowledgeCount = res.data.data.knowledge_count || 0;
 						this.llmOk = !!res.data.data.llm_configured;
+						this.speechOk = !!res.data.data.speech_configured;
+						this.visionOk = !!res.data.data.vision_configured;
 					}
 				});
 			},
@@ -200,19 +231,200 @@
 			clearImage() {
 				this.imageDataUrl = '';
 			},
+			inputPlaceholder() {
+				if (this.processing) return '正在处理中…';
+				if (this.imageDataUrl) return '可补充一句想问的（也可留空直接发送）';
+				if (this.videoFrames.length) return '想问这段视频的什么？发送后 AI 会抽帧看懂再作答';
+				if (this.recording) return '正在录音，点击「语」结束…';
+				return '例如：送长辈什么茶好？也可上传照片、视频或语音提问';
+			},
+			// ---------- 语音提问（录音 → ASR → 文本回填输入框） ----------
+			toggleRecord() {
+				if (this.recording) { this.stopRecord(); return; }
+				const nav = navigator.mediaDevices;
+				if (!nav || !nav.getUserMedia) { alert('当前浏览器不支持录音'); return; }
+				nav.getUserMedia({ audio: true }).then(stream => {
+					const AC = window.AudioContext || window.webkitAudioContext;
+					let ctx;
+					try { ctx = new AC({ sampleRate: 16000 }); } catch (e) { ctx = new AC(); }
+					const src = ctx.createMediaStreamSource(stream);
+					const proc = ctx.createScriptProcessor(4096, 1, 1);
+					const chunks = [];
+					proc.onaudioprocess = ev => { chunks.push(new Float32Array(ev.inputBuffer.getChannelData(0))); };
+					src.connect(proc);
+					proc.connect(ctx.destination);
+					this.recState = { stream: stream, ctx: ctx, src: src, proc: proc, chunks: chunks, sampleRate: ctx.sampleRate };
+					this.recording = true;
+					this.recordSec = 0;
+					this.recTimer = setInterval(() => {
+						this.recordSec++;
+						if (this.recordSec >= 20) this.stopRecord();
+					}, 1000);
+				}).catch(() => { alert('无法访问麦克风，请检查浏览器权限'); });
+			},
+			stopRecord() {
+				clearInterval(this.recTimer);
+				const st = this.recState;
+				this.recording = false;
+				this.recState = null;
+				if (!st) return;
+				try {
+					st.proc.disconnect(); st.src.disconnect();
+					st.stream.getTracks().forEach(t => t.stop());
+					st.ctx.close();
+				} catch (e) { }
+				let len = 0;
+				st.chunks.forEach(c => { len += c.length; });
+				if (len < st.sampleRate / 2) { alert('录音太短，请按住说完一句话再松开'); return; }
+				const merged = new Float32Array(len);
+				let off = 0;
+				st.chunks.forEach(c => { merged.set(c, off); off += c.length; });
+				const wav = this.encodeWav(merged, st.sampleRate);
+				let bin = '';
+				const bytes = new Uint8Array(wav);
+				for (let i = 0; i < bytes.length; i += 0x8000) {
+					bin += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(i + 0x8000, bytes.length)));
+				}
+				this.transcribe('data:audio/wav;base64,' + btoa(bin));
+			},
+			// Float32 采样 → 16bit PCM WAV（带 44 字节 RIFF 头）
+			encodeWav(f32, rate) {
+				const buf = new ArrayBuffer(44 + f32.length * 2);
+				const v = new DataView(buf);
+				const ws = (off, s) => { for (let i = 0; i < s.length; i++) v.setUint8(off + i, s.charCodeAt(i)); };
+				ws(0, 'RIFF'); v.setUint32(4, 36 + f32.length * 2, true); ws(8, 'WAVE');
+				ws(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+				v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+				ws(36, 'data'); v.setUint32(40, f32.length * 2, true);
+				let o = 44;
+				for (let i = 0; i < f32.length; i++, o += 2) {
+					const s = Math.max(-1, Math.min(1, f32[i]));
+					v.setInt16(o, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+				}
+				return buf;
+			},
+			transcribe(dataUrl) {
+				this.processing = true;
+				this.$http.post('ai/speech/transcribe', { audio: dataUrl }).then(res => {
+					this.processing = false;
+					if (res.data.code == 0 && res.data.data) {
+						this.draft = res.data.data;
+						if (this.$message) this.$message.success('已识别，确认内容后点击发送');
+					} else if (this.$message) {
+						this.$message.error(res.data.msg || '语音识别失败');
+					} else {
+						alert(res.data.msg || '语音识别失败');
+					}
+				}).catch(() => { this.processing = false; });
+			},
+			// ---------- 回答朗读（TTS → <audio> 播放） ----------
+			toggleVoice() {
+				this.voiceOn = !this.voiceOn;
+				if (!this.voiceOn && this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
+			},
+			speak(text) {
+				if (!this.voiceOn || !text) return;
+				if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
+				this.$http.post('ai/speech/tts', { text: text }, { responseType: 'blob' }).then(res => {
+					if (this.voiceOn && res.data && res.data.size > 1000) {
+						this.audioEl = new Audio(URL.createObjectURL(res.data));
+						this.audioEl.play().catch(() => { });
+					}
+				}).catch(() => { });
+			},
+			// ---------- 视频抽帧（浏览器抽 5 帧 JPEG，后端 qwen-vl 理解） ----------
+			pickVideo(e) {
+				const f = e.target.files && e.target.files[0];
+				e.target.value = '';
+				if (!f) return;
+				if (!/^video\//.test(f.type)) { if (this.$message) this.$message.error('请选择视频文件'); return; }
+				if (f.size > 80 * 1024 * 1024) { if (this.$message) this.$message.error('视频请控制在 80MB 以内'); return; }
+				const url = URL.createObjectURL(f);
+				const v = document.createElement('video');
+				v.preload = 'auto';
+				v.muted = true;
+				v.src = url;
+				const self = this;
+				v.addEventListener('loadedmetadata', () => {
+					let dur = v.duration;
+					if (!isFinite(dur) || dur <= 0) dur = 6;
+					const N = 5;
+					const canvas = document.createElement('canvas');
+					const frames = [];
+					let idx = 0;
+					const grab = () => {
+						if (idx >= N) {
+							URL.revokeObjectURL(url);
+							if (frames.length) { self.videoFrames = frames; self.videoPreview = frames[0]; }
+							return;
+						}
+						v.currentTime = Math.min(dur * (0.12 + 0.72 * idx / (N - 1)), Math.max(0, dur - 0.1));
+						v.addEventListener('seeked', function h() {
+							v.removeEventListener('seeked', h);
+							try {
+								const w = 512;
+								canvas.width = w;
+								canvas.height = Math.round((v.videoHeight || 288) * (w / (v.videoWidth || w))) || 288;
+								canvas.getContext('2d').drawImage(v, 0, 0, canvas.width, canvas.height);
+								frames.push(canvas.toDataURL('image/jpeg', 0.72));
+							} catch (err) { }
+							idx++;
+							grab();
+						});
+					};
+					grab();
+				});
+			},
+			clearVideo() {
+				this.videoFrames = [];
+				this.videoPreview = '';
+			},
 			send() {
 				const q = this.draft.trim();
 				const img = this.imageDataUrl;
-				if ((!q && !img) || this.streaming) return;
+				const frames = this.videoFrames;
+				if ((!q && !img && !frames.length) || this.streaming || this.processing) return;
+				// 视频提问：先抽帧识别拿到描述，再把描述并入提问上下文走 Agent 链路
+				if (frames.length) {
+					this.processing = true;
+					this.$http.post('ai/vision/video', { frames: frames, question: q }).then(res => {
+						this.processing = false;
+						if (res.data.code == 0 && res.data.data) {
+							this.dispatch(q, img, frames, res.data.data);
+						} else {
+							this.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] ' + this.esc(res.data.msg || '视频识别失败') + '</span>' });
+							this.scrollToBottom();
+						}
+					}).catch(() => { this.processing = false; });
+					return;
+				}
+				this.dispatch(q, img, [], null);
+			},
+			// 组装用户气泡并发起 Agent 流式对话（视频描述作为额外上下文注入）
+			dispatch(q, img, frames, videoNote) {
 				this.draft = '';
 				this.imageDataUrl = '';
+				this.videoFrames = [];
+				this.videoPreview = '';
 				this.streaming = true;
-				const userHtml = (img ? '<img class="u-img" src="' + img + '" alt="图片" />' : '')
-					+ (q ? this.esc(q) : '<span class="u-hint">（仅上传了图片）</span>');
+				let userHtml = '';
+				if (frames.length) {
+					userHtml += '<div class="v-strip">';
+					frames.forEach(f => { userHtml += '<img src="' + f + '" alt="帧" />'; });
+					userHtml += '</div><span class="u-hint">（上传了视频，已抽帧识别）</span>';
+				}
+				if (img) userHtml += '<img class="u-img" src="' + img + '" alt="图片" />';
+				if (videoNote) userHtml += '<div class="u-vnote">' + this.esc(videoNote) + '</div>';
+				userHtml += (q ? this.esc(q) : (img ? '<span class="u-hint">（仅上传了图片）</span>' : '<span class="u-hint">（仅上传了视频）</span>'));
 				this.messages.push({ role: 'user', text: userHtml });
 				const aiMsg = { role: 'ai', raw: '', shown: 0, text: '', steps: [], sources: [], cards: [], lectures: [], done: false };
 				this.messages.push(aiMsg);
 				this.scrollToBottom();
+
+				// 视频识别结果并入提问：与后端识图注入同构，Agent / RAG 链路不变
+				let query = q;
+				if (videoNote) query = (q ? q + '\n' : '') + '【用户上传了一段视频，视觉识别结果】' + videoNote;
+				if (img && !q) query = '请看这张图片';
 
 				fetch('/springbootj8kskvkr/ai/chat/stream', {
 					method: 'POST',
@@ -220,7 +432,7 @@
 						'Content-Type': 'application/json; charset=utf-8',
 						'Token': localStorage.getItem('frontToken') || ''
 					},
-					body: JSON.stringify(img ? { query: q, image: img } : { query: q })
+					body: JSON.stringify(img ? { query: query, image: img } : { query: query })
 				}).then(resp => {
 					if (!resp.ok) {
 						// 429 限流 / 400 参数错误：响应体是 JSON 而非 SSE，读出 msg 展示到气泡
@@ -293,8 +505,10 @@
 				} else if (t === 'error') {
 					m.raw += '\n[系统] ' + d;
 				} else if (t === 'done') {
-					m.done = true;
-				}
+						m.done = true;
+						// 回答完成：若开启朗读，合成整段回答的语音
+						if (this.voiceOn && m.raw) this.speak(m.raw);
+					}
 			},
 			// 打字机渲染：每 16ms 从 raw 推进若干字符到 text，纯前端动画，不占后端线程
 			flushTyping() {
@@ -527,14 +741,50 @@
 		border: 1px solid rgba(212, 175, 55, .25);
 		background: rgba(21, 42, 32, .8);
 		color: #e6ce9a;
-		font-size: 22px;
+		font-size: 20px;
 		line-height: 1;
 		cursor: pointer;
 		flex-shrink: 0;
 		transition: border-color .2s, color .2s;
+		font-family: 'TeaSerif', serif;
 		&:hover { border-color: #d4af37; color: #d4af37; }
 		&.disabled { opacity: .45; cursor: not-allowed; }
 		input { display: none; }
+	}
+	.mic-btn.rec {
+		color: #e05c4a;
+		border-color: #e05c4a;
+		animation: rec-pulse 1.2s ease-in-out infinite;
+	}
+	@keyframes rec-pulse {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(224, 92, 74, .35); }
+		50% { box-shadow: 0 0 0 6px rgba(224, 92, 74, 0); }
+	}
+	.tts-btn.on {
+		color: #d4af37;
+		border-color: #d4af37;
+		background: rgba(212, 175, 55, .12);
+	}
+	.v-strip {
+		display: flex;
+		gap: 4px;
+		margin-bottom: 8px;
+		img {
+			width: 86px;
+			height: 54px;
+			object-fit: cover;
+			border-radius: 4px;
+			border: 1px solid rgba(212, 175, 55, .18);
+		}
+	}
+	.u-vnote {
+		font-size: 12px;
+		color: #93a396;
+		background: rgba(21, 42, 32, .55);
+		border-left: 2px solid #d4af37;
+		padding: 6px 8px;
+		margin-bottom: 6px;
+		border-radius: 0 4px 4px 0;
 	}
 	.thumb {
 		position: relative;

@@ -7,7 +7,7 @@
 | 层 | 技术 |
 |---|---|
 | 后端 | Spring Boot 2.2.2 · MyBatis-Plus 2.3 · MySQL · WebSocket |
-| AI 服务 | DeepSeek（OpenAI 兼容协议，自研轻量客户端：多轮对话 / Function Calling / SSE 流式）· DashScope text-embedding-v3 稠密向量 · BM25+RRF 混合检索 · LLM 语义重排 |
+| AI 服务 | DeepSeek（OpenAI 兼容协议，自研轻量客户端：多轮对话 / Function Calling / SSE 流式）· DashScope 百炼（text-embedding-v3 稠密向量 · qwen-vl 视觉 · qwen3-asr 语音识别 · qwen3-omni 语音合成）· BM25+RRF 混合检索 · LLM 语义重排 |
 | 管理端 | 手写静态页（`src/main/resources/admin-ui`），构建时随 classpath 自动服务，无需 Node 工具链；旧 Vue 版（`src/main/resources/admin/admin`）已弃用，仅留档 |
 | 客户端前端 | Vue 2.6 + ElementUI（`src/main/resources/front/front`，开发端口 8082） |
 | 认证 | Token 存库 + 拦截器校验；密码 BCrypt（兼容历史 MD5，登录时自动升级） |
@@ -98,7 +98,7 @@
 |---|---|---|
 | AI 技术集成（大模型 API） | DeepSeek（OpenAI 兼容协议）自研轻量客户端：多轮对话 / Function Calling / SSE 流式 | `com/utils/DeepSeekClient.java` |
 | RAG 领域知识问答（方向 2） | 站内茶文化/资讯/商品/讲座自动建库 + 领域种子库（200 条）；两级检索：BM25 稀疏召回 + DashScope 稠密向量经 RRF 融合，再由大模型语义重排（排序并剔除不相关）；回答附引用来源可跳原文。当前生效架构可用 `/ai/status` 自检 | `com/service/TeaRagService.java`、`com/utils/EmbeddingProvider.java`、`ai_knowledge` 表 |
-| AI 多模态识茶 | 商品图片上传后进入理解通道，与文本同处一条 Agent 决策链路（不只是看图说话） | `pages/teaai`、`AiController` |
+| AI 多模态（图像/语音/视频） | 图像识茶 + 语音提问（qwen3-asr-flash 录音转写）+ 回答朗读（qwen3-omni-flash 流式合成）+ 视频抽帧理解（浏览器抽 5 帧 → qwen-vl 多帧综合判断）；全部并入同一条 Agent 决策链路，未配置 Key 时按钮自动隐藏、链路不中断 | `pages/teaai`、`AiController`、`SpeechClient`、`QwenVlClient` |
 | 检索质量评测 | 70 题评测集（领域种子库 + 站内内容），三种检索策略（纯 BM25 / 混合 / 混合+重排）一键消融对比，输出 Recall@3 与 MRR | `AiController#eval`、管理台「RAG 评测」 |
 | AI Agent（方向 1） | ReAct 工具调用循环（最多 4 轮）：推荐商品/检索知识/泡茶指南/查订单/推荐讲座；模型自主规划调用次数并改写检索词；前端时间线可视化「思考→调用→结果」 | `com/service/TeaAgentService.java`、前端 `pages/teaai` |
 | AI 数据分析与可视化（方向 8） | 管理端自然语言查数据：意图解析 → 统计 SQL → ECharts 图表；解析失败有关键词兜底 | `AiController#nlq`、管理端「茶道AI控制台」 |
@@ -108,3 +108,14 @@
 检索架构自检：`GET /ai/status` 返回 `retrieval` 字段，`recall` 显示当前是 `sparse(bm25)` 还是 `hybrid(bm25 + dense, RRF)`，`rerank` 固定为 `llm`。
 
 启动要求：通过环境变量 `DEEPSEEK_API_KEY` 注入 DeepSeek API Key，或复制 `config/application.yml.example` 为 `config/application.yml` 并填入 Key（该目录已被 .gitignore 排除，密钥不入库）；未配置时系统自动进入"离线演示模式"（BM25 检索 + 本地推荐），功能链路不中断。
+
+## 团队信息
+
+| 项目 | 内容 |
+|---|---|
+| 参赛队伍 | 【队伍名】（第九届传智杯 · AI WEB网页开发挑战赛） |
+| 学校 | 【学校名称】 |
+| 成员与分工 | 【姓名1】：AI 服务层（RAG 检索引擎 / ReAct Agent / 检索评测）；【姓名2】：前后端业务（商城/订单/管理端重构/安全整改）；【姓名3】：文档与测试（技术文档 / 评测执行 / 演示视频 / 部署运维） |
+| 指导教师 | 【教师姓名】 |
+
+> 成员与 Git 提交作者一一对应，提交历史即开发过程记录。
