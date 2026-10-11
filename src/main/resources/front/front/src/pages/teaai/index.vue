@@ -172,6 +172,12 @@
 				this.needLogin = true;
 				return;
 			}
+			// 欢迎语：刷新后点「音」也有内容可朗读，页面不留空白
+			this.messages.push({
+				role: 'ai', done: true,
+				raw: '你好！我是茶道AI，你的智能茶顾问。可以问我茶叶知识、帮我荐茶、查订单；也支持上传照片、视频提问。',
+				text: '你好！我是茶道AI，你的智能茶顾问。可以问我茶叶知识、帮我荐茶、查订单；也支持上传照片、视频提问。'
+			});
 			this.loadStatus();
 		},
 		mounted() {
@@ -339,11 +345,13 @@
 					return;
 				}
 				// 开启即朗读最后一条 AI 回答，立刻可验证
+				let spoken = false;
 				for (let i = this.messages.length - 1; i >= 0; i--) {
 					const m = this.messages[i];
 					const plain = this.plainText(m);
-					if (m.role === 'ai' && plain) { this.speak(plain); break; }
+					if (m.role === 'ai' && plain) { this.speak(plain); spoken = true; break; }
 				}
+				if (!spoken && this.$message) this.$message.info('朗读已开启：AI 的下一条回答将自动读出');
 			},
 			speak(text) {
 				if (!this.voiceOn || !text) return;
@@ -505,7 +513,14 @@
 						});
 					};
 					return pump();
-				}).catch(() => { this.streaming = false; });
+				}).catch(() => {
+					this.streaming = false;
+					const m = this.messages[this.messages.length - 1];
+					if (m && m.role === 'ai' && !m.done) {
+						m.text += '<br><span class="u-hint">[系统] 回答中断（网络或服务波动），请重新发送</span>';
+						this.scrollToBottom();
+					}
+				});
 			},
 			handleEvent(m, payload) {
 				const t = payload.type, d = payload.data;
