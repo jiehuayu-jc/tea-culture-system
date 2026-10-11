@@ -50,6 +50,7 @@
 							</div>
 						</template>
 						<div class="text" v-html="m.text"></div>
+						<div class="speaking-badge" v-if="m.speaking"><span class="sp-dot"></span>正在朗读…</div>
 						<!-- 引用来源 -->
 						<div class="sources" v-if="m.sources && m.sources.length">
 							<div class="src-title">引用来源</div>
@@ -139,6 +140,7 @@
 				processing: false,
 				voiceOn: false,
 				audioEl: null,
+				speakingMsg: null,
 				speechOk: false,
 				micOk: false,
 				visionOk: false,
@@ -337,6 +339,10 @@
 					.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
 					.trim();
 			},
+			clearSpeaking() {
+				if (this.speakingMsg) this.$set(this.speakingMsg, 'speaking', false);
+				this.speakingMsg = null;
+			},
 			// ---------- 回答朗读（TTS → <audio> 播放） ----------
 			toggleVoice() {
 				this.voiceOn = !this.voiceOn;
@@ -349,13 +355,16 @@
 				for (let i = this.messages.length - 1; i >= 0; i--) {
 					const m = this.messages[i];
 					const plain = this.plainText(m);
-					if (m.role === 'ai' && plain) { this.speak(plain); spoken = true; break; }
+					if (m.role === 'ai' && plain) { this.speak(plain, m); spoken = true; break; }
 				}
 				if (!spoken && this.$message) this.$message.info('朗读已开启：AI 的下一条回答将自动读出');
 			},
-			speak(text) {
+			speak(text, msg) {
 				if (!this.voiceOn || !text) return;
 				if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
+				this.clearSpeaking();
+				this.speakingMsg = msg || null;
+				if (msg) this.$set(msg, 'speaking', true);
 				fetch('/springbootj8kskvkr/ai/speech/tts', {
 					method: 'POST',
 					headers: {
@@ -370,11 +379,15 @@
 					if (!this.voiceOn) return;
 					if (!b || b.size < 1000) throw new Error('音频为空');
 					this.audioEl = new Audio(URL.createObjectURL(b));
+					this.audioEl.onended = this.clearSpeaking;
+					this.audioEl.onerror = this.clearSpeaking;
 					this.audioEl.play().catch(() => {
+						this.clearSpeaking();
 						this.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] 浏览器拦截了自动播放，请点击页面任意处后重试</span>' });
 						this.scrollToBottom();
 					});
 				}).catch(e => {
+					this.clearSpeaking();
 					this.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] 朗读失败：' + this.esc(String(e.message || e)) + '</span>' });
 					this.scrollToBottom();
 				});
@@ -562,7 +575,7 @@
 						m.done = true;
 						// 回答完成：若开启朗读，合成整段回答的语音（流式文本在 m.text，需剥出纯文本）
 						const plain = this.plainText(m);
-						if (this.voiceOn && plain) this.speak(plain);
+						if (this.voiceOn && plain) this.speak(plain, m);
 					}
 			},
 			// 打字机渲染：每 16ms 从 raw 推进若干字符到 text，纯前端动画，不占后端线程
@@ -831,6 +844,29 @@
 			border-radius: 4px;
 			border: 1px solid rgba(212, 175, 55, .18);
 		}
+	}
+	.speaking-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		margin-top: 8px;
+		font-size: 12px;
+		color: #d4af37;
+		background: rgba(212, 175, 55, .1);
+		border: 1px solid rgba(212, 175, 55, .35);
+		border-radius: 999px;
+		padding: 3px 10px;
+		animation: sp-pulse 1.2s ease-in-out infinite;
+		.sp-dot {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: #d4af37;
+		}
+	}
+	@keyframes sp-pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: .45; }
 	}
 	.u-vnote {
 		font-size: 12px;
