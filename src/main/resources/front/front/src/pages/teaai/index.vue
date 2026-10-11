@@ -325,17 +325,41 @@
 			// ---------- 回答朗读（TTS → <audio> 播放） ----------
 			toggleVoice() {
 				this.voiceOn = !this.voiceOn;
-				if (!this.voiceOn && this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
+				if (!this.voiceOn) {
+					if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
+					return;
+				}
+				// 开启即朗读最后一条 AI 回答，立刻可验证
+				for (let i = this.messages.length - 1; i >= 0; i--) {
+					const m = this.messages[i];
+					if (m.role === 'ai' && m.raw) { this.speak(m.raw); break; }
+				}
 			},
 			speak(text) {
 				if (!this.voiceOn || !text) return;
 				if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
-				this.$http.post('ai/speech/tts', { text: text }, { responseType: 'blob' }).then(res => {
-					if (this.voiceOn && res.data && res.data.size > 1000) {
-						this.audioEl = new Audio(URL.createObjectURL(res.data));
-						this.audioEl.play().catch(() => { });
-					}
-				}).catch(() => { });
+				fetch('/springbootj8kskvkr/ai/speech/tts', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json; charset=utf-8',
+						'Token': localStorage.getItem('frontToken') || ''
+					},
+					body: JSON.stringify({ text: text })
+				}).then(r => {
+					if (!r.ok) throw new Error('HTTP ' + r.status);
+					return r.blob();
+				}).then(b => {
+					if (!this.voiceOn) return;
+					if (!b || b.size < 1000) throw new Error('音频为空');
+					this.audioEl = new Audio(URL.createObjectURL(b));
+					this.audioEl.play().catch(() => {
+						this.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] 浏览器拦截了自动播放，请点击页面任意处后重试</span>' });
+						this.scrollToBottom();
+					});
+				}).catch(e => {
+					this.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] 朗读失败：' + this.esc(String(e.message || e)) + '</span>' });
+					this.scrollToBottom();
+				});
 			},
 			// ---------- 视频抽帧（浏览器抽 5 帧 JPEG，后端 qwen-vl 理解） ----------
 			pickVideo(e) {
