@@ -322,6 +322,15 @@
 					}
 				}).catch(() => { this.processing = false; });
 			},
+			// 流式回答存的是 HTML（esc + <br>），朗读前剥出纯文本
+			plainText(m) {
+				if (!m) return '';
+				return String(m.text || m.raw || '')
+					.replace(/<br\s*\/?>/gi, '\n')
+					.replace(/<[^>]*>/g, '')
+					.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+					.trim();
+			},
 			// ---------- 回答朗读（TTS → <audio> 播放） ----------
 			toggleVoice() {
 				this.voiceOn = !this.voiceOn;
@@ -332,7 +341,8 @@
 				// 开启即朗读最后一条 AI 回答，立刻可验证
 				for (let i = this.messages.length - 1; i >= 0; i--) {
 					const m = this.messages[i];
-					if (m.role === 'ai' && m.raw) { this.speak(m.raw); break; }
+					const plain = this.plainText(m);
+					if (m.role === 'ai' && plain) { this.speak(plain); break; }
 				}
 			},
 			speak(text) {
@@ -535,8 +545,9 @@
 					m.raw += '\n[系统] ' + d;
 				} else if (t === 'done') {
 						m.done = true;
-						// 回答完成：若开启朗读，合成整段回答的语音
-						if (this.voiceOn && m.raw) this.speak(m.raw);
+						// 回答完成：若开启朗读，合成整段回答的语音（流式文本在 m.text，需剥出纯文本）
+						const plain = this.plainText(m);
+						if (this.voiceOn && plain) this.speak(plain);
 					}
 			},
 			// 打字机渲染：每 16ms 从 raw 推进若干字符到 text，纯前端动画，不占后端线程

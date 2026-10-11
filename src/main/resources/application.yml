@@ -25,6 +25,10 @@ spring:
         max-request-size: 300MB
     resources:
       static-locations: classpath:static/,file:static/
+      # index.html 必须每次 revalidate，否则发版后浏览器拿旧页面引用已删的 hash 资源而白屏
+      cache:
+        cachecontrol:
+          no-cache: true
 
 #mybatis
 mybatis-plus:
