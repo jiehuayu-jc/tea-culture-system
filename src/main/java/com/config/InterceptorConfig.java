@@ -57,7 +57,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
 				.addResourceLocations("classpath:/admin/")
 				.addResourceLocations("classpath:/front/")
 				.addResourceLocations("classpath:/front-pc/")
-				.addResourceLocations("classpath:/public/");
+				.addResourceLocations("classpath:/public/")
+				// 兜底：工作目录 static/（服务器上 /home/ubuntu/tea/static），
+				// 运行期补充的图片等静态文件放这里即可生效，无需重新打包
+				.addResourceLocations("file:static/");
 	}
 
 	@Override
