@@ -5,6 +5,11 @@ server:
     port: 8080
     servlet:
         context-path: /springbootj8kskvkr
+    # 响应 gzip 压缩：前端 bundle 2.7MB -> 约 670KB，公网首屏加载显著提速
+    compression:
+        enabled: true
+        mime-types: application/json,application/javascript,text/css,text/html,text/plain
+        min-response-size: 1024
 
 
 spring:

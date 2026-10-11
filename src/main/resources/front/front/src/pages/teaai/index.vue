@@ -27,7 +27,7 @@
 							<span class="dot"></span>{{ llmOk ? '智识在线' : '离线茶识' }}
 						</span>
 					</div>
-					AI 生成内容仅供参考<br />茶事有据 · 以盏见心
+					支持照片 · 语音 · 视频提问<br />AI 生成内容仅供参考 · 茶事有据 · 以盏见心
 				</div>
 			</aside>
 
@@ -174,8 +174,13 @@
 				this.needLogin = true;
 				return;
 			}
+			// 恢复上一会话的对话（刷新不丢，演示容错）
+			try {
+				var hist = JSON.parse(localStorage.getItem('teaai_history') || '[]');
+				if (hist && hist.length) this.messages = hist.slice(-30);
+			} catch (e) { }
 			// 欢迎语：刷新后点「音」也有内容可朗读，页面不留空白
-			this.messages.push({
+			if (!this.messages.length) this.messages.push({
 				role: 'ai', done: true,
 				raw: '你好！我是茶道AI，你的智能茶顾问。可以问我茶叶知识、帮我荐茶、查订单；也支持上传照片、视频提问。',
 				text: '你好！我是茶道AI，你的智能茶顾问。可以问我茶叶知识、帮我荐茶、查订单；也支持上传照片、视频提问。'
@@ -231,8 +236,13 @@
 					buynumber: 1,
 					price: c.price
 				}).then(res => {
-					if (res.data.code == 0) alert('已加入购物车');
-					else alert(res.data.msg || '加购失败');
+					if (res.data.code == 0) {
+						if (this.$message) this.$message.success('已加入购物车');
+						else alert('已加入购物车');
+					} else {
+						if (this.$message) this.$message.error(res.data.msg || '加购失败');
+						else alert(res.data.msg || '加购失败');
+					}
 				});
 			},
 			esc(s) {
@@ -329,6 +339,13 @@
 						alert(res.data.msg || '语音识别失败');
 					}
 				}).catch(() => { this.processing = false; });
+			},
+			// 对话历史持久化（只存完整轮次，上限 30 条）
+			saveHistory() {
+				try {
+					const done = this.messages.filter(function (m) { return m.role === 'user' || m.done || (m.text && m.text.indexOf('[系统]') >= 0); });
+					localStorage.setItem('teaai_history', JSON.stringify(done.slice(-30)));
+				} catch (e) { }
 			},
 			// 流式回答存的是 HTML（esc + <br>），朗读前剥出纯文本
 			plainText(m) {
@@ -477,6 +494,7 @@
 				if (videoNote) userHtml += '<div class="u-vnote">' + this.esc(videoNote) + '</div>';
 				userHtml += (q ? this.esc(q) : (img ? '<span class="u-hint">（仅上传了图片）</span>' : '<span class="u-hint">（仅上传了视频）</span>'));
 				this.messages.push({ role: 'user', text: userHtml });
+				this.saveHistory();
 				const aiMsg = { role: 'ai', raw: '', shown: 0, text: '', steps: [], sources: [], cards: [], lectures: [], done: false };
 				this.messages.push(aiMsg);
 				this.scrollToBottom();
@@ -533,6 +551,7 @@
 						m.text += '<br><span class="u-hint">[系统] 回答中断（网络或服务波动），请重新发送</span>';
 						this.scrollToBottom();
 					}
+					this.saveHistory();
 				});
 			},
 			handleEvent(m, payload) {
@@ -576,6 +595,7 @@
 						// 回答完成：若开启朗读，合成整段回答的语音（流式文本在 m.text，需剥出纯文本）
 						const plain = this.plainText(m);
 						if (this.voiceOn && plain) this.speak(plain, m);
+						this.saveHistory();
 					}
 			},
 			// 打字机渲染：每 16ms 从 raw 推进若干字符到 text，纯前端动画，不占后端线程
@@ -601,7 +621,28 @@
 	}
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+	<style>
+		/* 夜茶主题滚动条：默认白色滚动条破坏墨绿金视觉 */
+		.teaai-page ::-webkit-scrollbar,
+		body::-webkit-scrollbar {
+			width: 8px;
+			height: 8px;
+		}
+		.teaai-page ::-webkit-scrollbar-thumb,
+		body::-webkit-scrollbar-thumb {
+			background: rgba(212, 175, 55, .28);
+			border-radius: 4px;
+		}
+		.teaai-page ::-webkit-scrollbar-thumb:hover,
+		body::-webkit-scrollbar-thumb:hover {
+			background: rgba(212, 175, 55, .45);
+		}
+		.teaai-page ::-webkit-scrollbar-track,
+		body::-webkit-scrollbar-track {
+			background: transparent;
+		}
+	</style>
+	<style rel="stylesheet/scss" lang="scss" scoped>
 	.teaai-page {
 		min-height: calc(100vh - 120px);
 		background: linear-gradient(180deg, #0e2318 0%, #0c1b14 100%);
