@@ -162,8 +162,13 @@ public class TeaAgentService {
 
             // ---- 最终回答：SSE 流式 ----
             final List<Map<String, Object>> fSources = sources, fCards = cards;
+            // 模型偶发把工具调用协议标记（DSML）当正文吐出：跨 delta 维护缓冲，泄漏段整体吞掉不外发
+            final StringBuilder dsmlBuf = new StringBuilder();
             client.chatStream(messages, (delta, finish, tc) -> {
-                if (delta != null) send(emitter, "delta", delta);
+                if (delta != null) {
+                String clean = stripProtocolLeak(delta, dsmlBuf);
+                if (!clean.isEmpty()) send(emitter, "delta", clean);
+            }
                 if ("stop".equals(finish)) {
                     send(emitter, "sources", JSON.toJSONString(fSources));
                     send(emitter, "cards", JSON.toJSONString(fCards));
@@ -316,6 +321,65 @@ public class TeaAgentService {
         send(emitter, "sources", JSON.toJSONString(sources));
         send(emitter, "cards", JSON.toJSONString(cards));
         send(emitter, "done", "ok");
+    }
+
+    /** 开启标记（模型偶发把 <|DSML|...> 协议文本写进 content） */
+    private static final String DSML_OPEN = "<|DSML|";
+
+    /**
+     * 防御性清洗：剥离正文里泄漏的工具调用协议标记。
+     * 标记可能跨 delta 分片：pending 同时承担「尾部半标记」与「未闭合泄漏段」两种
+     * 待定状态 —— 每个 delta 先与 pending 拼接再扫描，能判定输出的立即输出，
+     * 判定不了的（半标记/未闭合段）留在 pending 等下一个分片。
+     */
+    static String stripProtocolLeak(String delta, StringBuilder pending) {
+        StringBuilder out = new StringBuilder();
+        String s = pending.length() > 0 ? pending.toString() + delta : delta;
+        pending.setLength(0);
+        int i = 0;
+        while (i < s.length()) {
+            int open = s.indexOf(DSML_OPEN, i);
+            if (open < 0) {
+                String tail = "";
+                int maxTail = Math.min(DSML_OPEN.length() - 1, s.length() - i);
+                for (int l = maxTail; l >= 1; l--) {
+                    String cand = s.substring(s.length() - l);
+                    if (DSML_OPEN.startsWith(cand)) { tail = cand; break; }
+                }
+                if (!tail.isEmpty()) {
+                    out.append(s, i, s.length() - tail.length());
+                    pending.append(tail);
+                } else {
+                    out.append(s, i, s.length());
+                }
+                return out.toString();
+            }
+            out.append(s, i, open);
+            // 泄漏段是嵌套结构（calls 套 invoke 套 parameter）：深度归零才算吞完
+            int depth = 1;
+            int j = open + DSML_OPEN.length();
+            boolean closed = false;
+            while (j < s.length()) {
+                int nextOpen = s.indexOf(DSML_OPEN, j);
+                int nextClose = s.indexOf("</|DSML|", j);
+                if (nextClose < 0 || (nextOpen >= 0 && nextOpen < nextClose)) {
+                    if (nextOpen < 0) break;
+                    depth++;
+                    j = nextOpen + DSML_OPEN.length();
+                } else {
+                    depth--;
+                    int gt = s.indexOf('>', nextClose);
+                    if (gt < 0) break;
+                    j = gt + 1;
+                    if (depth == 0) { closed = true; i = j; break; }
+                }
+            }
+            if (!closed) {
+                pending.append(s, open, s.length());
+                return out.toString();
+            }
+        }
+        return out.toString();
     }
 
     private void send(SseEmitter emitter, String type, Object data) {
