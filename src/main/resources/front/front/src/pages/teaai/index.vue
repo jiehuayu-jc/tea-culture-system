@@ -107,7 +107,7 @@
 				<input type="file" accept="video/*" :disabled="streaming || processing" @change="pickVideo" />
 				<span>影</span>
 			</label>
-			<button type="button" class="pic-btn mic-btn" v-if="speechOk"
+			<button type="button" class="pic-btn mic-btn" v-if="speechOk && micOk"
 				:class="{ rec: recording, disabled: streaming || processing }"
 				:title="recording ? '点击结束录音（最长20秒）' : '点击开始语音提问'"
 				:disabled="streaming || processing" @click="toggleRecord">
@@ -140,6 +140,7 @@
 				voiceOn: false,
 				audioEl: null,
 				speechOk: false,
+				micOk: false,
 				visionOk: false,
 				needLogin: false,
 				typeTimer: null,
@@ -154,6 +155,15 @@
 					'最近有什么茶艺讲座？'
 				],
 				messages: [],
+			}
+		},
+		computed: {
+			inputPlaceholder() {
+				if (this.processing) return '正在处理中…';
+				if (this.imageDataUrl) return '可补充一句想问的（也可留空直接发送）';
+				if (this.videoFrames.length) return '想问这段视频的什么？发送后 AI 会抽帧看懂再作答';
+				if (this.recording) return '正在录音，点击「语」结束…';
+				return '例如：送长辈什么茶好？也可上传照片、视频或语音提问';
 			}
 		},
 		created() {
@@ -182,6 +192,8 @@
 						this.knowledgeCount = res.data.data.knowledge_count || 0;
 						this.llmOk = !!res.data.data.llm_configured;
 						this.speechOk = !!res.data.data.speech_configured;
+						// 浏览器安全策略：麦克风仅 HTTPS / localhost 可用，非安全上下文隐藏「语」
+						this.micOk = !!(window.isSecureContext || location.hostname === 'localhost' || location.hostname === '127.0.0.1');
 						this.visionOk = !!res.data.data.vision_configured;
 					}
 				});
@@ -230,13 +242,6 @@
 			},
 			clearImage() {
 				this.imageDataUrl = '';
-			},
-			inputPlaceholder() {
-				if (this.processing) return '正在处理中…';
-				if (this.imageDataUrl) return '可补充一句想问的（也可留空直接发送）';
-				if (this.videoFrames.length) return '想问这段视频的什么？发送后 AI 会抽帧看懂再作答';
-				if (this.recording) return '正在录音，点击「语」结束…';
-				return '例如：送长辈什么茶好？也可上传照片、视频或语音提问';
 			},
 			// ---------- 语音提问（录音 → ASR → 文本回填输入框） ----------
 			toggleRecord() {
