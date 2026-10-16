@@ -269,7 +269,7 @@ public class TeaAgentService {
             case "recommend_lectures": {
                 String topic = args.getString("topic");
                 List<Map<String, Object>> rows = topic == null || topic.isEmpty()
-                        ? jdbcTemplate.queryForList("SELECT id, zixunmingcheng, zixunfeiyong, kaifangshijian FROM xinlizixun ORDER BY clicknum DESC LIMIT 4")
+                        ? jdbcTemplate.queryForList("SELECT id, zixunmingcheng, zixunfeiyong, kaifangshijian FROM xinlizixun ORDER BY id DESC LIMIT 4")
                         : jdbcTemplate.queryForList("SELECT id, zixunmingcheng, zixunfeiyong, kaifangshijian FROM xinlizixun WHERE zixunmingcheng LIKE ? OR zixunfenlei LIKE ? LIMIT 4",
                                 "%" + topic + "%", "%" + topic + "%");
                 JSONArray arr = new JSONArray();
