@@ -376,6 +376,27 @@
 				}
 				if (!spoken && this.$message) this.$message.info('朗读已开启：AI 的下一条回答将自动读出');
 			},
+			// 后端拦截器对未登录/过期 token 返回 HTTP 200 + JSON(code 401)，裸 fetch 不会走 !ok 分支。
+			// 统一识别：JSON 响应 → 解析 msg；401 → 清 token 并跳登录页（与全局 $http 拦截器行为对齐）
+			softAuthFail(msg) {
+				localStorage.removeItem('frontToken');
+				localStorage.removeItem('UserTableName');
+				localStorage.removeItem('frontSessionTable');
+				if (this.$message) this.$message.error(msg || '登录已过期，请重新登录');
+				setTimeout(() => {
+					try { this.$router.replace('/login'); } catch (e) { window.location.hash = '#/login'; }
+				}, 900);
+			},
+			readJsonError(resp) {
+				const self = this;
+				return resp.text().then(function (t) {
+					let msg = '服务返回异常';
+					try { const j = JSON.parse(t); if (j && j.msg) msg = j.msg; } catch (e) { }
+					if (j_ok(t) && /请先登录|登录/.test(msg)) self.softAuthFail(msg);
+					return msg;
+				});
+				function j_ok(t) { try { return JSON.parse(t).code == 401; } catch (e) { return false; } }
+			},
 			speak(text, msg) {
 				if (!this.voiceOn || !text) return;
 				if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
@@ -388,8 +409,12 @@
 						'Content-Type': 'application/json; charset=utf-8',
 						'Token': localStorage.getItem('frontToken') || ''
 					},
-					body: JSON.stringify({ text: text })
-				}).then(r => {
+				body: JSON.stringify({ text: text })
+			}).then(r => {
+					const ct = r.headers.get('content-type') || '';
+					if (ct.indexOf('json') >= 0) {
+						return this.readJsonError(r).then(function (msg) { throw new Error(msg); });
+					}
 					if (!r.ok) throw new Error('HTTP ' + r.status);
 					return r.blob();
 				}).then(b => {
@@ -512,6 +537,17 @@
 					},
 					body: JSON.stringify(img ? { query: query, image: img } : { query: query })
 				}).then(resp => {
+					const ct = resp.headers.get('content-type') || '';
+					if (ct.indexOf('json') >= 0) {
+						// HTTP 200 但 body 是 JSON（如 401 请先登录）：SSE 解析不出任何事件，气泡会一直空白
+						const self = this;
+						return this.readJsonError(resp).then(function (msg) {
+							aiMsg.text += '<br><span class="u-hint">[系统] ' + self.esc(msg) + (msg.indexOf('登录') >= 0 ? '，正在跳转登录…' : '') + '</span>';
+							self.streaming = false;
+							self.scrollToBottom();
+							self.saveHistory();
+						});
+					}
 					if (!resp.ok) {
 						// 429 限流 / 400 参数错误：响应体是 JSON 而非 SSE，读出 msg 展示到气泡
 						return resp.text().then(t => {
