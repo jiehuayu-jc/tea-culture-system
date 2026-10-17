@@ -1,5 +1,5 @@
 <template>
-	<div class="teaai-page">
+	<div class="teaai-page" @click="flushPendingSpeak">
 		<div class="login-guide" v-if="needLogin">
 			<div class="lg-card">
 				<div class="lg-seal">茶</div>
@@ -138,9 +138,11 @@
 				recState: null,
 				recTimer: null,
 				processing: false,
-				voiceOn: false,
+				voiceOn: localStorage.getItem('teaai_voice') === '1',
 				audioEl: null,
 				speakingMsg: null,
+				// 自动播放策略拦截时的挂起朗读：任意点击页面后补播（浏览器要求用户手势）
+				pendingSpeak: null,
 				speechOk: false,
 				micOk: false,
 				visionOk: false,
@@ -356,6 +358,13 @@
 					.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
 					.trim();
 			},
+			// 自动播放被拦后的补播入口（根节点 click 调用，天然带用户手势）
+			flushPendingSpeak() {
+				if (!this.pendingSpeak) return;
+				const p = this.pendingSpeak;
+				this.pendingSpeak = null;
+				this.speak(p.text, p.msg);
+			},
 			clearSpeaking() {
 				if (this.speakingMsg) this.$set(this.speakingMsg, 'speaking', false);
 				this.speakingMsg = null;
@@ -363,6 +372,7 @@
 			// ---------- 回答朗读（TTS → <audio> 播放） ----------
 			toggleVoice() {
 				this.voiceOn = !this.voiceOn;
+				try { localStorage.setItem('teaai_voice', this.voiceOn ? '1' : '0'); } catch (e) { }
 				if (!this.voiceOn) {
 					if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
 					return;
@@ -421,12 +431,21 @@
 					if (!this.voiceOn) return;
 					if (!b || b.size < 1000) throw new Error('音频为空');
 					this.audioEl = new Audio(URL.createObjectURL(b));
+					this.audioEl.volume = 1;
+					this.audioEl.muted = false;
 					this.audioEl.onended = this.clearSpeaking;
 					this.audioEl.onerror = this.clearSpeaking;
-					this.audioEl.play().catch(() => {
-						this.clearSpeaking();
-						this.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] 浏览器拦截了自动播放，请点击页面任意处后重试</span>' });
-						this.scrollToBottom();
+					const self = this;
+					this.audioEl.play().catch(function (err) {
+						self.clearSpeaking();
+						if (err && err.name === 'NotAllowedError') {
+							// 自动播放策略：需一次用户手势。挂起待补播，页面任意点击即响
+							self.pendingSpeak = { text: text, msg: msg };
+							self.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] 浏览器要求点击页面后才允许出声——点击页面任意位置即可播放朗读</span>' });
+						} else {
+							self.messages.push({ role: 'ai', text: '<span class="u-hint">[系统] 播放失败：' + self.esc(String(err && err.message || err)) + '</span>' });
+						}
+						self.scrollToBottom();
 					});
 				}).catch(e => {
 					this.clearSpeaking();
