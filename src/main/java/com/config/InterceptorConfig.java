@@ -52,15 +52,15 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/admin/**")
 				.addResourceLocations("classpath:/admin-ui/");
 		registry.addResourceHandler("/**")
+				// 外置 static/ 优先：前端发版只覆盖工作目录 static/（服务器 /home/ubuntu/tea/static/front），
+				// 不再被 jar 内 classpath 旧副本压住（index.html 引用新 hash 时尤其致命）
+				.addResourceLocations("file:static/")
 				.addResourceLocations("classpath:/resources/")
 				.addResourceLocations("classpath:/static/")
 				.addResourceLocations("classpath:/admin/")
 				.addResourceLocations("classpath:/front/")
 				.addResourceLocations("classpath:/front-pc/")
 				.addResourceLocations("classpath:/public/")
-				// 兜底：工作目录 static/（服务器上 /home/ubuntu/tea/static），
-				// 运行期补充的图片等静态文件放这里即可生效，无需重新打包
-				.addResourceLocations("file:static/")
 				// no-cache = 可缓存但每次必须 revalidate：index.html 发版后立即生效，
 				// 带 hash 的 js/css 内容不变时返回 304，代价极小
 				.setCacheControl(org.springframework.http.CacheControl.noCache());

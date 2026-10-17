@@ -621,17 +621,19 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.top-el-dropdown-menu {
-		border: 1px solid #EBEEF5;
+		/* 夜茶主题：菜单底色必须实色，transparent 会露出深色页面，配深灰文字不可读 */
+		border: 1px solid rgba(237, 230, 214, .18);
 		border-radius: 4px;
 		padding: 10px 0;
-		box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+		box-shadow: 0 2px 12px 0 rgba(0,0,0,.35);
 		margin: 18px 0;
-		background: transparent;
+		background: #12291c;
+		color: #EDE6D6;
 		.shop-item {
 			border: 0;
 			padding: 0 8px;
 			margin: 0 0px;
-			color: inherit;
+			color: #EDE6D6;
 			background: transparent;
 			display: none;
 			width: auto;
@@ -651,7 +653,7 @@ export default {
 			border: 0;
 			padding: 0 8px;
 			margin: 0 0px;
-			color: inherit;
+			color: #EDE6D6;
 			background: transparent;
 			width: auto;
 			font-size: inherit;
@@ -670,7 +672,7 @@ export default {
 			border: 0;
 			padding: 0 8px;
 			margin: 0 0px;
-			color: inherit;
+			color: #EDE6D6;
 			background: transparent;
 			width: auto;
 			font-size: inherit;
@@ -689,7 +691,7 @@ export default {
 			border: 0;
 			padding: 0 8px;
 			margin: 0 0px;
-			color: inherit;
+			color: #EDE6D6;
 			background: transparent;
 			width: auto;
 			font-size: inherit;
