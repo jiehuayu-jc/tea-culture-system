@@ -287,13 +287,14 @@
 					font-size: inherit;
 				}
 			}
+			/* 「全部」及分类高亮与返回按钮同款（#3E6B4F 深绿底 + 白字） */
 			.item:hover {
-				color: #EDE6D6;
-				background: #D4AF37;
+				color: #fff;
+				background: #3E6B4F;
 			}
 			.item.active {
-				color: #EDE6D6;
-				background: #D4AF37;
+				color: #fff;
+				background: #3E6B4F;
 				font-size: 16px;
 			}
 		}

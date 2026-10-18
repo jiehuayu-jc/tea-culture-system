@@ -185,7 +185,8 @@
 		background: transparent;
 		display: flex;
 		width: 100%;
-		justify-content: flex-end;
+		/* 返回按钮统一样式在左（与面包屑左缘对齐） */
+		justify-content: flex-start;
 	}
 	.back_box .backBtn {
 		border: 0;

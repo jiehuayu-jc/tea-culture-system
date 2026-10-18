@@ -1,7 +1,7 @@
 <template>
 	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#EDE6D6","background":"none","maxWidth":"1400px","width":"100%","fontSize":"16px","position":"relative"}'>
 		<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>购物车</div>
-		<el-button size="small" type="danger" @click="delAllClick" :disabled="selRows.length?false:true">删除</el-button>
+		<el-button class="del-all-btn" size="small" @click="delAllClick" :disabled="selRows.length?false:true">删除</el-button>
 		<el-table @selection-change="handleSelectionChange" :data="tableData" style="width: 100%">
 			<el-table-column type="selection" width="50" align="center" />
 			<el-table-column label="商品名称">
@@ -186,5 +186,21 @@
 	.buy {
 		text-align: right;
 		padding-right: 82px;
+	}
+
+	/* 删除按钮与全站返回按钮同款（深绿底白字） */
+	.del-all-btn {
+		border: 0;
+		border-radius: 4px;
+		padding: 0 20px;
+		margin: 10px 0;
+		color: #fff !important;
+		background: #3E6B4F !important;
+		font-size: 14px;
+		line-height: 36px;
+		height: 36px;
+	}
+	.del-all-btn.is-disabled {
+		opacity: .45;
 	}
 </style>
