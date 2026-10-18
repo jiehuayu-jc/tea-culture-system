@@ -820,17 +820,20 @@
 						width: 350px;
 						height: auto;
 						order: 7;
-						.hot-title {
-								padding: 0;
+						/* 与全站栏头同款：金色竖线 + 左对齐标题 */
+			.hot-title {
+								padding: 6px 0 12px 14px;
 								margin: 0;
-								color: #fff;
-								background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center top / 100% 100%;
+								color: #EDE6D6;
+								background: transparent;
+								border-left: 4px solid #D4AF37;
 								font-weight: 600;
 								width: 100%;
-								font-size: 26px;
-								line-height: 100px;
+								font-size: 20px;
+								letter-spacing: 4px;
+								line-height: 1.3;
 								position: relative;
-								text-align: center;
+								text-align: left;
 							}
 			.hot-list {
 								padding: 20px;
@@ -843,7 +846,7 @@
 								height: auto;
 								.hot-item {
 										cursor: pointer;
-										border: 2px solid #e2e1e1;
+										border: 1px solid rgba(237, 230, 214, .18);
 										border-radius: 10px;
 										padding: 10px;
 										margin: 0 0 20px;

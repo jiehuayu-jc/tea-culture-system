@@ -574,12 +574,12 @@
 		min-height: 100vh;
 	}
 
-	/* 面包屑条（模板对该类有内联背景，保留） */
+	/* 面包屑条：透明化，与栏头/搜索行连成一体（不再做独立面板） */
 	.main-containers .body-containers .breadcrumb-preview {
-		background: rgba(21, 42, 32, .55);
-		border: 1px solid rgba(212, 175, 55, .18);
-		border-radius: 8px;
-		box-shadow: none;
+		background: transparent !important;
+		border: none !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
 	}
 	.main-containers .body-containers .breadcrumb-preview .el-breadcrumb__inner,
 	.main-containers .body-containers .breadcrumb-preview .el-breadcrumb__inner a,
