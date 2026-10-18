@@ -253,31 +253,35 @@
 						flex-wrap: wrap;
 						height: auto;
 						order: 1;
-						.item {
-								cursor: pointer;
-								border: 0px solid #475a8350;
-								padding: 0 20px;
-								margin: 0 20px 20px 0;
-								color: #fff;
-								display: flex;
-								font-size: 16px;
-								flex-wrap: wrap;
-								background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
-								justify-content: center;
-								align-items: center;
-								min-width: 120px;
-								height: 94px;
-							}
-			
-			.item:hover {
-								color: #fff;
-								background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
-							}
-			
-			.item.active {
-								color: #fff;
-								background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat left center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat right center / auto 100%,linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
-							}
+						/* 分类胶囊：与全站返回/标签按钮统一 */
+				.item {
+					cursor: pointer;
+					border: 1px solid rgba(237, 230, 214, .18);
+					padding: 0 22px;
+					margin: 0 12px 12px 0;
+					color: #EDE6D6;
+					display: inline-flex;
+					font-size: 15px;
+					letter-spacing: 1px;
+					background: rgba(237, 230, 214, .05);
+					justify-content: center;
+					align-items: center;
+					min-width: 0;
+					height: 38px;
+					border-radius: 19px;
+					transition: background .18s ease, color .18s ease, border-color .18s ease;
+				}
+				.item:hover {
+					color: #fff;
+					border-color: transparent;
+					background: #3E6B4F;
+				}
+				.item.active {
+					color: #fff;
+					border-color: transparent;
+					background: #3E6B4F;
+					font-weight: 600;
+				}
 		}
 		.list11 {
 						margin: 0px auto ;

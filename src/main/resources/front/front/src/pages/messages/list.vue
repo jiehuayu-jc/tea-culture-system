@@ -4,7 +4,7 @@
 		<el-form :model="form" :rules="rules" ref="form" label-width="65px" label-position="left">
 			<el-form-item label="留言" prop="content">
 				<editor
-					:style='{"minHeight":"350px","padding":"0","boxShadow":"none","margin":"0","borderColor":"#ccc","backgroundColor":"#fff","borderRadius":"0","borderWidth":"1px","width":"100%","borderStyle":"solid","height":"auto"}'
+					:style='{"minHeight":"350px","padding":"0","boxShadow":"none","margin":"0","borderColor":"rgba(237,230,214,.18)","backgroundColor":"transparent","borderRadius":"0","borderWidth":"1px","width":"100%","borderStyle":"solid","height":"auto"}'
 					v-model="form.content" 
 					class="editor" 
 					action="file/upload">

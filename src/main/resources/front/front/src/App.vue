@@ -218,6 +218,47 @@
 	.back_box .backBtn:hover .text {
 		color: #fff;
 	}
+
+	/* ---------- 页面横幅（购物车/茶友圈/留言板等）：收紧高度、增强字级、修正 101% 溢出 ---------- */
+	.section-title {
+		height: 72px !important;
+		line-height: 72px !important;
+		font-size: 22px !important;
+		letter-spacing: 8px !important;
+		font-weight: 600 !important;
+		text-indent: 8px; /* 抵消 letter-spacing 造成的居中偏移 */
+		width: 100% !important;
+		border-radius: 12px !important;
+		background: linear-gradient(90deg, #10281e 0%, #1d4a37 55%, #10281e 100%) !important;
+		box-shadow: inset 0 -2px 0 0 rgba(212, 175, 55, .45);
+		margin-bottom: 16px !important;
+	}
+
+	/* ---------- Quill 富文本编辑器暗色化（留言板/发帖） ---------- */
+	.ql-toolbar.ql-snow {
+		background: #142a20;
+		border: 1px solid rgba(237, 230, 214, .18) !important;
+		border-bottom: none !important;
+		border-radius: 8px 8px 0 0;
+	}
+	.ql-toolbar.ql-snow .ql-stroke { stroke: #cfc8b4; }
+	.ql-toolbar.ql-snow .ql-fill { fill: #cfc8b4; }
+	.ql-toolbar.ql-snow .ql-picker-label { color: #cfc8b4; }
+	.ql-toolbar.ql-snow .ql-picker-options { background: #142a20; border-color: rgba(237,230,214,.18) !important; }
+	.ql-toolbar.ql-snow .ql-picker-item { color: #EDE6D6; }
+	.ql-container.ql-snow {
+		background: #142a20;
+		border: 1px solid rgba(237, 230, 214, .18) !important;
+		border-radius: 0 0 8px 8px;
+	}
+	.ql-container.ql-snow .ql-editor {
+		color: #EDE6D6;
+		min-height: 180px;
+	}
+	.ql-container.ql-snow .ql-editor.ql-blank::before {
+		color: rgba(237, 230, 214, .38);
+		font-style: normal;
+	}
 	/* 分页样式 */
 	#pagination {
 		padding: 0 0; /* P1-1 内容令牌收敛 */ max-width: var(--tea-content); margin-left: auto; margin-right: auto;
