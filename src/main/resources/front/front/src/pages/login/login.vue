@@ -40,9 +40,9 @@
 
 				<div class="demo-fill" v-if="loginType==1">
 					<span class="demo-fill-label">演示账号一键填充</span>
-					<span class="demo-fill-btn" @click="fillDemo('用户账号1','123456')">用户</span>
-					<span class="demo-fill-btn" @click="fillDemo('商家账号1','123456')">茶商</span>
-					<span class="demo-fill-btn" @click="fillDemo('admin','admin')">管理员</span>
+					<span class="demo-fill-btn" @click="fillDemo('用户账号1','123456','yonghu')">用户</span>
+					<span class="demo-fill-btn" @click="fillDemo('商家账号1','123456','shangjia')">茶商</span>
+					<span class="demo-fill-btn" @click="fillDemo('admin','admin','users')">管理员</span>
 				</div>
 			</el-form>
 		</div>
@@ -120,10 +120,16 @@ export default {
 	},
 	//方法集合
 	methods: {
-		/** 一键填充演示账号（仅填账号密码，角色选择不变） */
-		fillDemo(username, password) {
+		/** 一键填充演示账号：账号密码 + 联动角色单选（否则账号会被送到错误角色的登录接口，必报"账号或密码不正确"） */
+		fillDemo(username, password, tableName) {
 			this.loginForm.username = username;
 			this.loginForm.password = password;
+			const hit = (this.roles || []).find(function (r) { return r.tableName === tableName && r.hasFrontLogin === '是'; });
+			if (hit) {
+				this.loginForm.tableName = hit.tableName;
+				this.role = hit.roleName;
+				if (this.getCurrentRow) this.getCurrentRow(hit);
+			}
 		},
 		randomString() {
 			var len = 4;
