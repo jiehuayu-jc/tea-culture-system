@@ -219,19 +219,23 @@
 		color: #fff;
 	}
 
-	/* ---------- 页面横幅（购物车/茶友圈/留言板等）：收紧高度、增强字级、修正 101% 溢出 ---------- */
+	/* ---------- 页面栏头（购物车/茶友圈/留言板等）：极简风——金色竖线 + 标题，不用大色块 ---------- */
 	.section-title {
-		height: 72px !important;
-		line-height: 72px !important;
+		height: auto !important;
+		line-height: 1.3 !important;
+		padding: 6px 0 14px 14px !important;
+		margin: 4px auto 6px !important;
 		font-size: 22px !important;
-		letter-spacing: 8px !important;
+		letter-spacing: 6px !important;
 		font-weight: 600 !important;
-		text-indent: 8px; /* 抵消 letter-spacing 造成的居中偏移 */
+		color: #EDE6D6 !important;
+		text-align: left !important;
+		text-indent: 0 !important;
 		width: 100% !important;
-		border-radius: 12px !important;
-		background: linear-gradient(90deg, #10281e 0%, #1d4a37 55%, #10281e 100%) !important;
-		box-shadow: inset 0 -2px 0 0 rgba(212, 175, 55, .45);
-		margin-bottom: 16px !important;
+		border-radius: 0 !important;
+		background: transparent !important;
+		box-shadow: none !important;
+		border-left: 4px solid #D4AF37 !important;
 	}
 
 	/* ---------- Quill 富文本编辑器暗色化（留言板/发帖） ---------- */

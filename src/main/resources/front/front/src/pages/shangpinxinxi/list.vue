@@ -433,17 +433,21 @@
 			.select2-list {
 				padding: 0 20px;
 				margin: 0 0 10px;
-				background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) repeat-x center center / auto 100%;
+				background: rgba(21, 42, 32, .55);
+				border: 1px solid rgba(237, 230, 214, .12);
+				border-radius: 10px;
 				width: 100%;
-				min-height: 80px;
+				min-height: 0;
+				padding-top: 12px;
+				padding-bottom: 12px;
 				height: auto;
 				.label {
-					padding: 0 5px;
+					padding: 0 10px 0 4px;
 					color: #EDE6D6;
-					font-weight: 500;
+					font-weight: 600;
 					display: inline-block;
-					font-size: inherit;
-					line-height: 80px;
+					font-size: 15px;
+					line-height: 34px;
 				}
 				.item-body {
 					display: inline-block;
@@ -451,37 +455,41 @@
 					flex-wrap: wrap;
 					height: auto;
 					.item {
-						border-radius: 4px;
-						padding: 0 5px;
-						color: inherit;
-						background: none;
+						cursor: pointer;
+						border: 1px solid rgba(237, 230, 214, .18);
+						border-radius: 17px;
+						padding: 0 16px;
+						margin: 4px 8px 4px 0;
+						color: #EDE6D6;
+						background: rgba(237, 230, 214, .05);
 						display: inline-block;
-						font-size: inherit;
-						line-height: 80px;
+						font-size: 14px;
+						line-height: 32px;
 						text-align: center;
-						min-width: 80px;
+						min-width: 0;
+						transition: background .18s ease, color .18s ease, border-color .18s ease;
 					}
 					.item:hover {
-						cursor: pointer;
 						color: #fff;
-						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center center / 100% 100%;
+						border-color: transparent;
+						background: #3E6B4F;
 					}
 					.item.active {
-						cursor: pointer;
 						color: #fff;
-						background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center center / 100% 100%;
-						display: inline-block;
-						min-width: 80px;
-						text-align: center;
+						border-color: transparent;
+						background: #3E6B4F;
+						font-weight: 600;
 					}
 				}
 			}
 		}
 		.sort_view {
-			padding: 10px 20px 30px;
-			margin: 20px auto 0;
-			color: #fff;
-			background: linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center top / 100% 100%;
+			padding: 12px 20px;
+			margin: 14px auto 0;
+			color: #EDE6D6;
+			background: rgba(21, 42, 32, .55);
+			border: 1px solid rgba(237, 230, 214, .12);
+			border-radius: 10px;
 			width: 100%;
 			font-size: inherit;
 			border-color: #eee;
