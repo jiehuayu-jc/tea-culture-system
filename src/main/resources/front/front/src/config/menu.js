@@ -203,7 +203,7 @@ const menu = {
             }],
             "hasBackLogin": "是",
             "hasBackRegister": "否",
-            "hasFrontLogin": "否",
+            "hasFrontLogin": "是",
             "hasFrontRegister": "否",
             "roleName": "管理员",
             "tableName": "users"
@@ -396,7 +396,7 @@ const menu = {
             }],
             "hasBackLogin": "是",
             "hasBackRegister": "是",
-            "hasFrontLogin": "否",
+            "hasFrontLogin": "是",
             "hasFrontRegister": "否",
             "roleName": "茶商",
             "tableName": "shangjia"
