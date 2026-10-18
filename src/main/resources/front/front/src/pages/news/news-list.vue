@@ -197,11 +197,11 @@
 				position: relative;
 				flex-wrap: wrap;
 				.list-form-pv {
-						padding: 10px;
+						padding: 6px 0;
 						margin: 0;
 						background: none;
 						display: flex;
-						width: 101%;
+						width: 100%;
 						align-items: center;
 						flex-wrap: wrap;
 						height: auto;
@@ -212,8 +212,9 @@
 										width: 100%;
 									}
 				.el-input ::v-deep .el-input__inner {
-										border: 1px solid #ccc;
-										border-radius: 4px;
+										border: 1px solid rgba(237, 230, 214, .18);
+										background: rgba(237, 230, 214, .05);
+										border-radius: 19px;
 										padding: 0 10px;
 										margin: 0 10px 0 0;
 										color: #EDE6D6;

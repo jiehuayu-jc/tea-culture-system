@@ -219,6 +219,31 @@
 		color: #fff;
 	}
 
+	/* ---------- 茶友圈栏头（forum-title）与 section-title 同款极简风 ---------- */
+	.forum-title {
+		height: auto !important;
+		line-height: 1.3 !important;
+		padding: 6px 0 14px 14px !important;
+		margin: 4px auto 6px !important;
+		font-size: 22px !important;
+		letter-spacing: 6px !important;
+		font-weight: 600 !important;
+		color: #EDE6D6 !important;
+		text-align: left !important;
+		width: 100% !important;
+		border-radius: 0 !important;
+		background: transparent !important;
+		position: static !important;
+		border-left: 4px solid #D4AF37 !important;
+	}
+
+	/* ---------- 面包屑栏：去边线、与内容同宽对齐 ---------- */
+	.breadcrumb-preview {
+		padding: 4px 0 6px !important;
+		border-bottom: none !important;
+		max-width: var(--tea-content) !important;
+	}
+
 	/* ---------- 页面栏头（购物车/茶友圈/留言板等）：极简风——金色竖线 + 标题，不用大色块 ---------- */
 	.section-title {
 		height: auto !important;

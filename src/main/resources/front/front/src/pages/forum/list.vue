@@ -160,12 +160,12 @@
 							}
 		}
 		.list-form-pv {
-						padding: 40px 0 20px;
+						padding: 4px 0 10px;
 						margin: 0 auto;
-						background: rgba(21, 42, 32, .85);
+						background: transparent;
 						display: flex;
 						max-width: var(--tea-content);
-						justify-content: center;
+						justify-content: flex-start;
 						align-items: center;
 						flex-wrap: wrap;
 						height: auto;
