@@ -171,6 +171,10 @@ export default {
 			this.loginForm.tableName = row.tableName;
 		},
 		submitForm(formName) {
+			// 未选角色时默认用户角色，不再阻断（角色兜底链会自动纠正）
+			if (!this.role && this.roles.length) {
+				this.getCurrentRow(this.roles[0]);
+			}
 			if (this.roles.length!=1) {
 				if (!this.role) {
 					this.$message.error("请选择登录用户类型");
@@ -200,78 +204,96 @@ export default {
 						this.$message.error('缺少登录类型，请刷新页面重试');
 						return;
 					}
-					this.$http.post(
-						`${this.loginForm.tableName}/login`,
-						{ username, password, captcha: this.loginForm.code || '' },
-						{ emulateJSON: true }
-					).then(res => {
-						const data = res.body != null ? res.body : res.data;
-						if (!data) {
-							this.$message.error('服务器无有效返回，请确认后端已在 IDEA 中启动（端口 8080）');
-							return;
-						}
-						if (data.code === 0 || data.code === '0') {
-							localStorage.setItem('frontToken', data.token);
-							localStorage.setItem('UserTableName', this.loginForm.tableName);
-							localStorage.setItem('username', username);
-							localStorage.setItem('frontSessionTable', this.loginForm.tableName);
-							localStorage.setItem('frontRole', this.role);
-							localStorage.setItem('keyPath', 0);
-							this.$router.push('/');
-							this.$message({
-								message: '登录成功',
-								type: 'success',
-								duration: 1500,
-							});
-						} else {
-							let msg =
-								data.msg ||
-								data.message ||
-								(typeof data.error === 'string' ? data.error : null) ||
-								(data.status ? '服务异常 HTTP ' + data.status + '，请查看 IDEA 控制台与 MySQL 是否已导入 db脚本' : null) ||
-								'登录失败';
-							if (data.code === 401 || msg === '请先登录') {
-								msg = '登录接口未放行或请求未到达后端，请确认 Spring Boot 已启动，且前台代理指向 http://127.0.0.1:8080';
+					// 角色兜底链：账号可能属于任意角色（演示账号三角色唯一）。
+					// 先按当前选中的角色登录；若返回"账号或密码不正确"，自动换其余角色端点重试——
+					// 彻底消除"账号被送到错误角色接口"这一失败模式（旧缓存/漏选角色均覆盖）
+					const tables = [this.loginForm.tableName]
+						.concat((this.roles || []).map(function (r) { return r.tableName; }))
+						.filter(function (t, i, arr) { return t && arr.indexOf(t) === i; });
+					const roleOf = (t) => {
+						const hit = (this.roles || []).find(function (r) { return r.tableName === t; });
+						return hit ? hit.roleName : t;
+					};
+					let ti = 0;
+					const attempt = () => {
+						const table = tables[ti];
+						this.$http.post(
+							`${table}/login`,
+							{ username, password, captcha: this.loginForm.code || '' },
+							{ emulateJSON: true }
+						).then(res => {
+							const data = res.body != null ? res.body : res.data;
+							if (!data) {
+								this.$message.error('服务器无有效返回，请确认后端已启动（端口 8080）');
+								return;
 							}
-							this.$message.error(msg);
-						}
-					}).catch((err) => {
-						let data = err && (err.body != null ? err.body : err.data);
-						if (typeof data === 'string') {
-							try {
-								data = JSON.parse(data);
-							} catch (e) {
-								data = null;
+							if (data.code === 0 || data.code === '0') {
+								localStorage.setItem('frontToken', data.token);
+								localStorage.setItem('UserTableName', table);
+								localStorage.setItem('username', username);
+								localStorage.setItem('frontSessionTable', table);
+								localStorage.setItem('frontRole', roleOf(table));
+								localStorage.setItem('keyPath', 0);
+								this.$router.push('/');
+								this.$message({
+									message: '登录成功（' + roleOf(table) + '）',
+									type: 'success',
+									duration: 1500,
+								});
+							} else {
+								let msg =
+									data.msg ||
+									data.message ||
+									(typeof data.error === 'string' ? data.error : null) ||
+									(data.status ? '服务异常 HTTP ' + data.status : null) ||
+									'登录失败';
+								if (data.code === 401 || msg === '请先登录') {
+									msg = '登录接口未放行或请求未到达后端，请确认 Spring Boot 已启动';
+								}
+								// 密码不对 = 该角色下无此账号或凭证不匹配 → 换下一个角色端点重试
+								if (/账号或密码不正确/.test(msg) && ++ti < tables.length) { attempt(); return; }
+								this.$message.error(msg);
 							}
-						}
-						if (data && typeof data === 'object') {
-							let msg =
-								data.msg ||
-								data.message ||
-								(typeof data.error === 'string' ? data.error : null) ||
-								(data.status ? '服务异常 HTTP ' + data.status : null) ||
-								'登录失败';
-							if (data.code === 401 || msg === '请先登录') {
-								msg = '登录接口未放行或请求未到达后端，请确认 Spring Boot 已启动，且前台代理指向 http://127.0.0.1:8080';
+						}).catch((err) => {
+							let data = err && (err.body != null ? err.body : err.data);
+							if (typeof data === 'string') {
+								try {
+									data = JSON.parse(data);
+								} catch (e) {
+									data = null;
+								}
 							}
-							this.$message.error(msg);
-							return;
-						}
-						const st = err && err.status;
-						if (st === 502 || st === 503) {
-							this.$message.error('连不上后端（HTTP ' + st + '）：请先启动 Spring Boot（端口 8080），用户端请用 npm run serve。');
-							return;
-						}
-						if (st === 404) {
-							this.$message.error('接口 404：请确认前缀 /springbootj8kskvkr，并用 npm run serve 打开用户端。');
-							return;
-						}
-						if (st) {
-							this.$message.error('请求失败 HTTP ' + st + '，请确认后端在 8080 运行。');
-							return;
-						}
-						this.$message.error('无法连接后端：请确认 Spring Boot 已运行（8080）且用户端为 npm run serve。');
-					});
+							if (data && typeof data === 'object') {
+								let msg =
+									data.msg ||
+									data.message ||
+									(typeof data.error === 'string' ? data.error : null) ||
+									(data.status ? '服务异常 HTTP ' + data.status : null) ||
+									'登录失败';
+								if (data.code === 401 || msg === '请先登录') {
+									msg = '登录接口未放行或请求未到达后端，请确认 Spring Boot 已启动';
+								}
+								if (/账号或密码不正确/.test(msg) && ++ti < tables.length) { attempt(); return; }
+								this.$message.error(msg);
+								return;
+							}
+							const st = err && err.status;
+							if (st === 502 || st === 503) {
+								this.$message.error('连不上后端（HTTP ' + st + '）：请确认服务已启动。');
+								return;
+							}
+							if (st === 404) {
+								this.$message.error('接口 404：请确认访问地址前缀 /springbootj8kskvkr。');
+								return;
+							}
+							if (st) {
+								this.$message.error('请求失败 HTTP ' + st + '。');
+								return;
+							}
+							this.$message.error('无法连接服务器，请稍后重试。');
+						});
+					};
+					attempt();
 				} else {
 					return false;
 				}
