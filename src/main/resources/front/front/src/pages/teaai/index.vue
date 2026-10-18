@@ -614,14 +614,13 @@
 				if (t === 'delta') {
 					m.text += this.esc(d).replace(/\n/g, '<br>');
 				} else if (t === 'vision_start') {
-					m.steps.push({ type: 'tool_call', name: '识图', args: '' });
+					// 工具调用静默：过程不入界面，只呈现最终回答
 				} else if (t === 'vision') {
-					m.steps.push({ type: 'tool_result', summary: '图片识别：' + String(d) });
+					// 静默
 				} else if (t === 'mode') {
-					m.steps.push({ type: 'tool_result', summary: '离线演示模式（未配置大模型网络）' });
+					// 静默
 				} else if (t === 'tool_call') {
-					const sp = String(d).split(' ');
-					m.steps.push({ type: 'tool_call', name: sp[0], args: sp.slice(1).join(' ') });
+					// 静默
 				} else if (t === 'tool_result') {
 					let summary = '';
 					try {
@@ -635,7 +634,7 @@
 						if (j.recommendations) m.cards = j.recommendations;
 						if (j.lectures) m.lectures = j.lectures;
 					} catch (e) { summary = String(d).slice(0, 60); }
-					m.steps.push({ type: 'tool_result', summary });
+					// 工具调用静默：数据照常入卡片/讲座，步骤不展示
 				} else if (t === 'sources') {
 					try { m.sources = JSON.parse(d) || []; } catch (e) { }
 				} else if (t === 'cards') {
