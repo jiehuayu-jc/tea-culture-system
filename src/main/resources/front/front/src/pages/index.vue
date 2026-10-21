@@ -7,7 +7,7 @@
 			<div class="top-container">
 				<!-- info -->
 				<div class="top_title">
-					<span class="brand-serif" @click="goMenu('/index/home')">茶文化管理系统</span>
+					<span class="brand-serif" @click="brandClick">茶文化管理系统</span>
 				</div>
 				<div class="top_tel"></div>
 			
@@ -311,6 +311,13 @@ export default {
 			// 2) hash 路由改变 location.hash 时，浏览器原生锚点行为找不到对应
 			//    id 元素会把页面滚回顶部，且发生在 Vue 渲染之后，会覆盖先前的跳转。
 			// 因此在约 0.8s 窗口内持续重申落点；仅当被拽回顶部时干预，不影响用户手动滚动。
+			// 站名点击回顶：本次导航强制落点为页面绝对顶部（跳过 scrollView 偏移逻辑）
+			if (this._forceScrollTop) {
+				this._forceScrollTop = false
+				window.scrollTo(0, 0)
+				setTimeout(() => window.scrollTo(0, 0), 400)
+				return
+			}
 			this.$nextTick(() => {
 				let tries = 0
 				const timer = setInterval(() => {
@@ -595,7 +602,16 @@ export default {
 			this.showType4 = index
 		},
 		goMenu(path) {
-			this.$router.push(path);
+			this.$router.push(path).catch(() => {});
+		},
+		// 点击站名：回到首页并定位到页面绝对顶部（而非 scrollView 偏移位）
+		brandClick() {
+			if (this.$route.path === '/index/home') {
+				window.scrollTo({ top: 0, behavior: 'smooth' })
+			} else {
+				this._forceScrollTop = true
+				this.$router.push('/index/home').catch(() => {})
+			}
 		},
 		handleCommand(name){
 			if(name == 'register') {

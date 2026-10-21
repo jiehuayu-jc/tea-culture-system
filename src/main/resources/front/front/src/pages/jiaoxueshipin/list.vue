@@ -398,10 +398,11 @@
 	}
 	
 	.list .index-pv1 .animation-box:hover {
-		border: 2px solid #0F2419 !important;
+		/* 悬停仅提亮描边+微放大；原 #0F2419 深绿字配深绿卡片底=文字隐形 */
+		border: 1px solid rgba(212, 175, 55, .45) !important;
 		transform: rotate(0deg) scale(1.02) skew(0deg, 0deg) translate3d(0px, 0px, 0px);
 		-webkit-perspective: 1000px;
-		color: #0F2419 !important;
+		color: #EDE6D6 !important;
 		perspective: 1000px;
 		transition: 0.3s;
 		z-index: 1;
