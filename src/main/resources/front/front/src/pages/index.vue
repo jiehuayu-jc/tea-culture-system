@@ -315,18 +315,12 @@ export default {
 			if (this._forceScrollTop) {
 				this._forceScrollTop = false
 				window.scrollTo(0, 0)
-				setTimeout(() => window.scrollTo(0, 0), 400)
 				return
 			}
-			// 切页一律回到页面绝对顶部：顶部区域（导航+栏头）整体可见。
-			// 旧逻辑滚到 scrollView.offsetTop（≈240px）会让栏头正好藏进 sticky 导航后面
+			// 切页一次性回到页面绝对顶部。注意：不能像旧逻辑那样用定时器反复重申——
+			// 那会在切页后 0.8s 内持续把用户的滚动拽回顶部，体感就是"卡顿划不动"
 			this.$nextTick(() => {
-				let tries = 0
-				const timer = setInterval(() => {
-					tries++
-					if (window.scrollY !== 0) window.scrollTo(0, 0)
-					if (tries > 8) clearInterval(timer)
-				}, 100)
+				window.scrollTo(0, 0)
 			})
 		},
 		headportrait(){
@@ -737,8 +731,9 @@ export default {
 				box-shadow: 0 0px 0px rgba(64, 158, 255, .3);
 				top: 0;
 				left: 0;
-				/* P1-3：夜茶渐变直接落在组件自身样式（原 #fff 白底是白带根因） */
-				background: linear-gradient(180deg, rgba(15, 36, 25, .92) 0%, rgba(12, 27, 20, .88) 100%);
+				/* P1-3：夜茶渐变直接落在组件自身样式（原 #fff 白底是白带根因）
+			   实色化：半透明底会让滚动内容透印出来，看着像色块挡字 */
+				background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%);
 				width: 100%;
 				justify-content: flex-start;
 				align-items: center;
