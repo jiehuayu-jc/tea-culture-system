@@ -724,7 +724,7 @@ export default {
 			position: relative;
 			.top-container {
 				padding: 0 20px 44px;
-				z-index: 1002;
+				z-index: 5000;
 				color: #ede6d6;
 				display: flex;
 				font-size: 16px;
