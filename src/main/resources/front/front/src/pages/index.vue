@@ -731,9 +731,9 @@ export default {
 				box-shadow: 0 0px 0px rgba(64, 158, 255, .3);
 				top: 0;
 				left: 0;
-				/* P1-3：夜茶渐变直接落在组件自身样式（原 #fff 白底是白带根因）
-			   实色化：半透明底会让滚动内容透印出来，看着像色块挡字 */
-				background: linear-gradient(180deg, #0f2419 0%, #0c1b14 100%);
+				/* P1-3：恢复夜茶半透明渐变（用户偏好原观感）。
+			   此前的"色块挡字"真凶是层叠反常（内容叠印在导航上），已由 z-index:5000 修复 */
+				background: linear-gradient(180deg, rgba(15, 36, 25, .92) 0%, rgba(12, 27, 20, .88) 100%);
 				width: 100%;
 				justify-content: flex-start;
 				align-items: center;
