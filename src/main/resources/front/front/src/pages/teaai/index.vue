@@ -162,6 +162,10 @@
 			}
 		},
 		computed: {
+			// 聊天历史按登录账号分桶（username 由登录页写入 localStorage）
+			histKey() {
+				return 'teaai_history_' + (localStorage.getItem('username') || 'guest');
+			},
 			inputPlaceholder() {
 				if (this.processing) return '正在处理中…';
 				if (this.imageDataUrl) return '可补充一句想问的（也可留空直接发送）';
@@ -178,7 +182,7 @@
 			}
 			// 恢复上一会话的对话（刷新不丢，演示容错）
 			try {
-				var hist = JSON.parse(localStorage.getItem('teaai_history') || '[]');
+				var hist = JSON.parse(localStorage.getItem(this.histKey) || '[]');
 				if (hist && hist.length) {
 					// 工具调用已静默化：历史会话里遗留的 steps 一并清除，只保留文本/卡片
 					this.messages = hist.slice(-30).map(function (m) {
@@ -351,7 +355,7 @@
 			saveHistory() {
 				try {
 					const done = this.messages.filter(function (m) { return m.role === 'user' || m.done || (m.text && m.text.indexOf('[系统]') >= 0); });
-					localStorage.setItem('teaai_history', JSON.stringify(done.slice(-30)));
+					localStorage.setItem(this.histKey, JSON.stringify(done.slice(-30)));
 				} catch (e) { }
 			},
 			// 流式回答存的是 HTML（esc + <br>），朗读前剥出纯文本
