@@ -213,7 +213,7 @@ public class TeaAgentService {
                     where.append(" AND price <= ? "); params.add(args.getDouble("budget_max"));
                 }
                 List<Map<String, Object>> rows = jdbcTemplate.queryForList(
-                        "SELECT id, shangpinmingcheng, shangpinfenlei, guige, price, clicknum FROM shangpinxinxi "
+                        "SELECT id, shangpinmingcheng, shangpinfenlei, guige, price, clicknum, shangpintupian FROM shangpinxinxi "
                                 + where + " ORDER BY clicknum DESC LIMIT 4", params.toArray());
                 JSONArray arr = new JSONArray();
                 for (Map<String, Object> r : rows) {
@@ -223,6 +223,7 @@ public class TeaAgentService {
                     card.put("category", r.get("shangpinfenlei"));
                     card.put("price", r.get("price"));
                     card.put("guige", r.get("guige"));
+                    card.put("pic", r.get("shangpintupian"));
                     arr.add(card);
                     JSONObject cardCopy = new JSONObject();
                     cardCopy.putAll(card); // 独立副本，避免 fastjson 循环引用 $ref

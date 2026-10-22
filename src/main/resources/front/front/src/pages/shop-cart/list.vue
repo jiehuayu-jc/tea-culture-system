@@ -2,7 +2,7 @@
 	<div :style='{"padding":"0 0 20px","margin":"0px auto","color":"#EDE6D6","background":"none","maxWidth":"1400px","width":"100%","fontSize":"16px","position":"relative"}'>
 		<div class="section-title" :style='{"padding":"0","margin":"0 auto","color":"#fff","textAlign":"center","background":"linear-gradient(90deg, #12362A 0%, #3E6B4F 100%) no-repeat center 12px","width":"101%","fontSize":"26px","lineHeight":"110px","fontWeight":"500","height":"100px"}'>购物车</div>
 		<el-button class="del-all-btn" size="small" @click="delAllClick" :disabled="selRows.length?false:true">删除</el-button>
-		<el-table @selection-change="handleSelectionChange" :data="tableData" style="width: 100%">
+		<el-table ref="multipleTable" @selection-change="handleSelectionChange" :data="tableData" style="width: 100%">
 			<el-table-column type="selection" width="50" align="center" />
 			<el-table-column label="商品名称">
 				<template slot-scope="scope">
@@ -63,6 +63,7 @@
 				this.$http.get('cart/list', {params: {page: 1, limit: 1000, userid: localStorage.getItem('frontUserid')}}).then(res => {
 					if (res.data.code == 0) {
 						this.tableData = res.data.data.list;
+					this.$nextTick(() => { this.tableData.forEach(r => this.$refs.multipleTable && this.$refs.multipleTable.toggleRowSelection(r, true)); });
 					}
 				});
 			},

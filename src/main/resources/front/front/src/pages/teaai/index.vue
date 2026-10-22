@@ -239,7 +239,7 @@
 					tablename: 'shangpinxinxi',
 					goodid: c.id,
 					goodname: c.name,
-					picture: 'upload/art_p' + (((c.id - 1) % 8) + 1) + '.jpg',
+					picture: c.pic || (c.picture || ''),
 					buynumber: 1,
 					price: c.price
 				}).then(res => {
