@@ -318,15 +318,13 @@ export default {
 				setTimeout(() => window.scrollTo(0, 0), 400)
 				return
 			}
+			// 切页一律回到页面绝对顶部：顶部区域（导航+栏头）整体可见。
+			// 旧逻辑滚到 scrollView.offsetTop（≈240px）会让栏头正好藏进 sticky 导航后面
 			this.$nextTick(() => {
 				let tries = 0
 				const timer = setInterval(() => {
 					tries++
-					const element = document.getElementById('scrollView')
-					const distance = element ? element.offsetTop : 0
-					if (distance > 0 && window.scrollY < 50) {
-						window.scrollTo(0, distance)
-					}
+					if (window.scrollY !== 0) window.scrollTo(0, 0)
 					if (tries > 8) clearInterval(timer)
 				}, 100)
 			})

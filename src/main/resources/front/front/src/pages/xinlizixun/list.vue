@@ -673,7 +673,8 @@
 				}
 				.list-item1:hover {
 					cursor: pointer;
-					background: #D4AF37;
+					color: #fff;
+					background: #3E6B4F;
 					.imgbox {
 						.image {
 							transform: scale(1.05);
@@ -950,7 +951,8 @@
 				}
 				.list-item2:hover {
 					cursor: pointer;
-					background: #D4AF37;
+					color: #fff;
+					background: #3E6B4F;
 					.imgbox {
 						.image {
 							transform: scale(1.05);

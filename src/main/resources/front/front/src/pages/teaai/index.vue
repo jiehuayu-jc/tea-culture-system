@@ -179,7 +179,12 @@
 			// 恢复上一会话的对话（刷新不丢，演示容错）
 			try {
 				var hist = JSON.parse(localStorage.getItem('teaai_history') || '[]');
-				if (hist && hist.length) this.messages = hist.slice(-30);
+				if (hist && hist.length) {
+					// 工具调用已静默化：历史会话里遗留的 steps 一并清除，只保留文本/卡片
+					this.messages = hist.slice(-30).map(function (m) {
+						return Object.assign({}, m, { steps: [] });
+					});
+				}
 			} catch (e) { }
 			// 欢迎语：刷新后点「音」也有内容可朗读，页面不留空白
 			if (!this.messages.length) this.messages.push({
