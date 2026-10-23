@@ -5,7 +5,7 @@
 			<el-form class='rgs-form animate__animated animate__' v-if="pageFlag=='register'" ref="registerForm" :model="registerForm" :rules="rules">
 				<div class="rgs-form2">
 					<div class="title">茶文化管理系统</div>
-					<p v-if="pageFlag=='register'" class="rgs-tip">请填写真实格式的手机号、身份证号和邮箱，否则无法通过校验。若注册失败，请查看页面提示或确认后端与数据库已就绪。</p>
+					<p v-if="pageFlag=='register'" class="rgs-tip">茶友注册：填写账号密码与基本资料即可；茶商入驻：需填写商家信息并上传营业执照，审核通过后可上架商品。</p>
 					<el-form-item class="list-item" v-if="tableName=='yonghu'" prop="yonghuzhanghao">
 						<div class="label" :class="changeRules('yonghuzhanghao')?'required':''">用户账号：</div>
 						<el-input v-model="registerForm.yonghuzhanghao"  placeholder="请输入用户账号" />
@@ -51,14 +51,6 @@
 							:fileUrls="registerForm.touxiang?registerForm.touxiang:''"
 							@change="yonghutouxiangUploadChange"
 						></file-upload>
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'" prop="shenfenzhenghao">
-						<div class="label" :class="changeRules('shenfenzhenghao')?'required':''">身份证号：</div>
-						<el-input v-model="registerForm.shenfenzhenghao"  placeholder="请输入身份证号" />
-					</el-form-item>
-					<el-form-item class="list-item" v-if="tableName=='yonghu'" prop="youxiang">
-						<div class="label" :class="changeRules('youxiang')?'required':''">邮箱：</div>
-						<el-input v-model="registerForm.youxiang"  placeholder="请输入邮箱" />
 					</el-form-item>
 					<el-form-item class="list-item" v-if="tableName=='shangjia'" prop="shangjiazhanghao">
 						<div class="label" :class="changeRules('shangjiazhanghao')?'required':''">茶商账号：</div>
@@ -374,10 +366,8 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 	.container {
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-		background-position: center center;
-		background: url(https://pic1.imgdb.cn/item/6787458cd0e0a243d4f46756.png);
+		/* 注意顺序：background 简写必须在前，否则会重置 size/repeat 造成图片平铺 */
+		background: url(https://pic1.imgdb.cn/item/6787458cd0e0a243d4f46756.png) no-repeat center center / cover;
 		display: flex;
 		width: 100%;
 		min-height: 100vh;

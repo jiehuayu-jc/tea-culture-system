@@ -219,6 +219,11 @@
 		color: #fff;
 	}
 
+	/* 下拉菜单必须压过 sticky 导航（z:5000），否则透过半透明导航显示成灰影 */
+	.el-dropdown-menu.el-popper {
+		z-index: 6000 !important;
+	}
+
 	/* ---------- 茶友圈栏头（forum-title）与 section-title 同款极简风 ---------- */
 	.forum-title {
 		height: auto !important;

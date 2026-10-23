@@ -655,7 +655,7 @@ export default {
 		}
 		.shop-item:hover {
 			color: #EDE6D6;
-			background: #475a8330;
+			background: #3E6B4F;
 		}
 		.service-item {
 			border: 0;
@@ -674,7 +674,7 @@ export default {
 		}
 		.service-item:hover {
 			color: #EDE6D6;
-			background: #475a8330;
+			background: #3E6B4F;
 		}
 		.user-item {
 			border: 0;
@@ -693,7 +693,7 @@ export default {
 		}
 		.user-item:hover {
 			color: #EDE6D6;
-			background: #475a8330;
+			background: #3E6B4F;
 		}
 		.register-item {
 			border: 0;
@@ -712,7 +712,7 @@ export default {
 		}
 		.register-item:hover {
 			color: #EDE6D6;
-			background: #475a8330;
+			background: #3E6B4F;
 		}
 	}
 	.main-containers {
