@@ -6,11 +6,11 @@
 				<h1 class="reg-name">茶文化管理系统</h1>
 				<p class="reg-slogan">一盏清茗酬知音</p>
 				<div class="reg-roles">
-					<div class="role-card" :class="{ on: tableName=='yonghu' }">
+					<div class="role-card clickable" :class="{ on: tableName=='yonghu' }" @click="switchRole('yonghu')">
 						<div class="rc-t">茶友注册</div>
 						<div class="rc-d">填写账号密码与基本资料，即刻加入茶友圈</div>
 					</div>
-					<div class="role-card" :class="{ on: tableName=='shangjia' }">
+					<div class="role-card clickable" :class="{ on: tableName=='shangjia' }" @click="switchRole('shangjia')">
 						<div class="rc-t">茶商入驻</div>
 						<div class="rc-d">完善商家信息并上传营业执照，审核通过后可上架商品</div>
 					</div>
@@ -144,7 +144,25 @@ export default {
 			});
 			return;
 		}
-		if(this.$route.query.pageFlag=='register'){
+		this.initRegister(this.$route.query.role);
+	},
+	watch: {
+		// 点击左侧角色卡切换注册角色：路由 query 变化后重建表单与校验规则
+		'$route.query.role'(role) {
+			if (this.$route.query.pageFlag === 'register' && role && role !== this.tableName) {
+				this.initRegister(role);
+			}
+		}
+	},
+    created() {
+		this.pageFlag = this.$route.query.pageFlag;
+    },
+    //方法集合
+    methods: {
+		// 按角色初始化注册表单与校验规则
+		initRegister(role) {
+			this.tableName = role;
+
 			this.tableName = this.$route.query.role;
 			if(this.tableName=='yonghu'){
 				this.registerForm = {
@@ -236,13 +254,13 @@ export default {
 				this.rules.fuzeren = [{ required: false }];
 				this.rules.yingyezhizhao = [{ required: false }];
 			}
-		}
-	},
-    created() {
-		this.pageFlag = this.$route.query.pageFlag;
-    },
-    //方法集合
-    methods: {
+
+		},
+		// 角色卡点击切换
+		switchRole(role) {
+			if (this.tableName === role) return;
+			this.$router.replace({ path: '/register', query: { role: role, pageFlag: 'register' } });
+		},
 		changeRules(name){
 			if(this.requiredRules[name]){
 				return true
@@ -452,6 +470,8 @@ export default {
 				line-height: 18px;
 				color: rgba(237, 230, 214, .6);
 			}
+			&.clickable { cursor: pointer; }
+			&.clickable:hover { border-color: rgba(212, 175, 55, .45); background: rgba(212, 175, 55, .07); }
 			&.on {
 				border-color: rgba(212, 175, 55, .65);
 				background: rgba(212, 175, 55, .12);
