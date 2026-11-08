@@ -373,9 +373,9 @@ table(doc, ["现象", "原因", "处理"], [
 
 h2(doc, "9.4 评审专用体验账号")
 table(doc, ["角色", "地址", "账号", "密码"], [
-    ["管理员", "…/admin/index.html", "【占位：评审账号】", "【占位】"],
-    ["前台用户", "…/front/index.html", "【占位：评审账号】", "【占位】"],
-    ["茶商", "…/front/index.html", "【占位：评审账号】", "【占位】"],
+    ["管理员", "…/admin/index.html", "admin", "admin"],
+    ["前台用户（茶友）", "…/front/index.html", "yonghu_review", "RXsYqEd6vY7Z2f"],
+    ["茶商", "…/front/index.html", "shangjia_review", "tdI7h9kzvGf9xy"],
 ], widths=[2.6, 6.6, 4.2, 3.4])
 para(doc, "在线演示地址：http://124.220.4.136:8090/springbootj8kskvkr/front/index.html。评审期间（至评审意见发布）保证服务持续可用；上述专用账号仅授予评审所需的最小权限，用后可停用。", size=9.5, color=GRAY)
 

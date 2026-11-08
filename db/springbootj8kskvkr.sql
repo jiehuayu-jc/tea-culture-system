@@ -555,6 +555,7 @@ CREATE TABLE `shangjia`  (
 
 -- ----------------------------
 -- Records of shangjia
+INSERT INTO `shangjia` VALUES (901, '2026-10-22 00:00:00', 'shangjia_review', '$2a$10$dMvGRldyZp9AZOn828mMf.wgosSsU25K29gosrcqETGJj1TAiYPNW', '评审专用茶行', NULL, 'Review Judge', '13800000001', NULL, '是', NULL, 0);
 INSERT INTO `shangjia` VALUES (21, '2026-08-15 09:00:00', '商�账�1', 'e10adc3949ba59abbe56e057f20f883e', '云雾茶庄', 'upload/shangjia_touxiang1.jpg', '陈云�', '13823888861', '', '�', '', 200);
 INSERT INTO `shangjia` VALUES (22, '2026-08-15 09:00:00', '商�账�2', 'e10adc3949ba59abbe56e057f20f883e', '清心茶舍', 'upload/shangjia_touxiang2.jpg', '林清�', '13823888862', '', '�', '', 200);
 INSERT INTO `shangjia` VALUES (23, '2026-08-15 09:00:00', '商�账�3', 'e10adc3949ba59abbe56e057f20f883e', '武夷星茶�', 'upload/shangjia_touxiang3.jpg', '王�夷', '13823888863', '', '�', '', 200);
@@ -724,7 +725,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'admin', 'admin', 'upload/image1.jpg', '管理�', '2025-01-14 09:08:13');
+INSERT INTO `users` VALUES (1, 'admin', '$2a$10$UcwmrXJd7Lgn9NsqvRLxBubt5buntP.EkqjX72MWs5rTDwIBPBGie', 'upload/image1.jpg', '管理�', '2025-01-14 09:08:13');
 
 -- ----------------------------
 -- Table structure for xinlizixun
@@ -781,6 +782,8 @@ CREATE TABLE `yonghu`  (
 
 -- ----------------------------
 -- Records of yonghu
+-- 评审专用体验账号（BCrypt 存储；重置库后仍可登录）
+INSERT INTO `yonghu` VALUES (901, '2026-10-22 00:00:00', 'yonghu_review', '$2a$10$HGFU8IjwxshlosNV8YLPduz5D9pQlHAtqmQwePyJs89aB4ZFjzqbW', 'Review Judge', '男', 30, '13800000000', NULL, NULL, NULL, 0, 0);
 INSERT INTO `yonghu` VALUES (11, '2026-08-15 09:00:00', '用户账号1', 'e10adc3949ba59abbe56e057f20f883e', '林清�', '�', 20, '13823888881', 'upload/yonghu_touxiang1.jpg', '440300199101010001', '773890001@qq.com', 200, 0);
 INSERT INTO `yonghu` VALUES (12, '2026-08-15 09:00:00', '用户账号2', 'e10adc3949ba59abbe56e057f20f883e', '苏小�', '�', 23, '13823888882', 'upload/yonghu_touxiang2.jpg', '440300199102010002', '773890002@qq.com', 200, 0);
 INSERT INTO `yonghu` VALUES (13, '2026-08-15 09:00:00', '用户账号3', 'e10adc3949ba59abbe56e057f20f883e', '陆知�', '�', 26, '13823888883', 'upload/yonghu_touxiang3.jpg', '440300199103010003', '773890003@qq.com', 200, 0);
